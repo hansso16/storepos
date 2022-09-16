@@ -730,6 +730,7 @@
             this.cartGridView.Size = new System.Drawing.Size(784, 445);
             this.cartGridView.TabIndex = 26;
             this.cartGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cartGridView_CellContentClick);
+            this.cartGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.cartGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -791,7 +792,6 @@
             this.price.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.price.HeaderText = "PRICE";
             this.price.Name = "price";
-            this.price.ReadOnly = true;
             this.price.Width = 64;
             // 
             // total
@@ -799,7 +799,6 @@
             this.total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.total.HeaderText = "TOTAL";
             this.total.Name = "total";
-            this.total.ReadOnly = true;
             this.total.Width = 66;
             // 
             // location
@@ -904,6 +903,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn CODE;
+        public System.Windows.Forms.Label hlblInvoiceId;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn pcode;
@@ -916,6 +916,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn location;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
-        public System.Windows.Forms.Label hlblInvoiceId;
     }
 }

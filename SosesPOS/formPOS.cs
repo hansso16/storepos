@@ -454,12 +454,13 @@ namespace SosesPOS
                     {
                         //MessageBox.Show(row.Cells["total"].Value.ToString());
                         totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
-                        com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, TotalItemPrice, Location) " +
-                            "VALUES (@invoiceid, @pcode, @uom, @qty, @totalitemprice, @location)", con, transaction);
+                        com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location) " +
+                            "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location)", con, transaction);
                         com.Parameters.AddWithValue("@invoiceid", invoiceId);
                         com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                         com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
                         com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
+                        com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
                         com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
                         com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
                         com.ExecuteNonQuery();
@@ -527,13 +528,14 @@ namespace SosesPOS
 
                         //MessageBox.Show(row.Cells["total"].Value.ToString());
                         totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
-                        com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, TotalItemPrice, Location) " +
-                            "VALUES (@invoiceid, @pcode, @uom, @qty, @totalitemprice, @location)", con, transaction);
+                        com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location) " +
+                            "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location)", con, transaction);
                         com.Parameters.AddWithValue("@invoiceid", invoiceId);
                         com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                         com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
                         com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
                         com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
+                        com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
                         com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
                         com.ExecuteNonQuery();
                     }
@@ -710,10 +712,10 @@ namespace SosesPOS
             {
                 con.Open();
 
-                com = new SqlCommand("UPDATE tblCustomerCollection SET TotalBalance += @totalbalance " +
+                com = new SqlCommand("UPDATE tblCustomerCollection SET OpenBalance += @openbalance " +
                     "WHERE CustomerId = @customerid", con);
                 com.Parameters.AddWithValue("@customerid", customerId);
-                com.Parameters.AddWithValue("@totalbalance", total);
+                com.Parameters.AddWithValue("@openbalance", total);
                 com.ExecuteNonQuery();
 
                 con.Close();
@@ -853,6 +855,68 @@ namespace SosesPOS
                 txtQty.Focus();
                 txtQty.SelectAll();
             }
+        }
+
+        private void cartGridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void cartGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //decimal price = decimal.Parse(row.Cells[3].Value.ToString());
+            //int qty = Int32.Parse(txtQty.Text);
+            //decimal total = price * qty;
+            //String.Format("{0:n}", price), String.Format("{0:n}", total)
+            decimal price = 0, total = 0, subtotal = 0;
+            int qty = 0;
+
+            try
+            {
+                if (cartGridView.Columns[e.ColumnIndex].Name == "qty")
+                {
+                    using (DataGridViewRow row = cartGridView.Rows[e.RowIndex])
+                    {
+                        qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        price = Convert.ToDecimal(row.Cells["price"].Value);
+                        total = qty * price;
+                        row.Cells["total"].Value = String.Format("{0:n}", total);
+                    }
+                }
+                else if (cartGridView.Columns[e.ColumnIndex].Name == "price")
+                {
+                    using (DataGridViewRow row = cartGridView.Rows[e.RowIndex])
+                    {
+                        qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        price = Convert.ToDecimal(row.Cells["price"].Value);
+                        total = price * qty;
+                        row.Cells["price"].Value = String.Format("{0:n}", price);
+                        row.Cells["total"].Value = String.Format("{0:n}", total);
+                    }
+                }
+                else if (cartGridView.Columns[e.ColumnIndex].Name == "total")
+                {
+                    using (DataGridViewRow row = cartGridView.Rows[e.RowIndex])
+                    {
+                        total = Convert.ToDecimal(row.Cells["total"].Value);
+                        qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        price = total / qty;
+                        row.Cells["price"].Value = String.Format("{0:n}", price);
+                        row.Cells["total"].Value = String.Format("{0:n}", total);
+                    }
+                }
+
+                foreach (DataGridViewRow row in cartGridView.Rows)
+                {
+                    subtotal += Convert.ToDecimal(row.Cells["total"].Value);
+                }
+                lblSubTotal.Text = String.Format("{0:n}", subtotal);
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

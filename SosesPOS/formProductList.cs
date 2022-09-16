@@ -29,7 +29,7 @@ namespace SosesPOS
             int i = 0;
             productListView.Rows.Clear();
             con.Open();
-            com = new SqlCommand("select p.pcode, p.barcode, p.pdesc, c.category, p.price, p.qty from tblProduct p " +
+            com = new SqlCommand("select p.pcode, p.barcode, p.pdesc, c.category from tblProduct p " +
                 "left join tblCategory c on c.id = p.cid " +
                 "where p.pdesc like '%'+@search+'%' or p.pcode like '%'+@search+'%'", con);
             com.Parameters.AddWithValue("@search", txtSearch.Text);
