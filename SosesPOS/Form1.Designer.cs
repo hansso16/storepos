@@ -78,7 +78,6 @@
             // btnAR
             // 
             this.btnAR.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAR.Enabled = false;
             this.btnAR.FlatAppearance.BorderSize = 0;
             this.btnAR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAR.ForeColor = System.Drawing.SystemColors.Control;
@@ -88,10 +87,10 @@
             this.btnAR.Name = "btnAR";
             this.btnAR.Size = new System.Drawing.Size(301, 37);
             this.btnAR.TabIndex = 12;
-            this.btnAR.Text = "Accounts Receivable";
+            this.btnAR.Text = "Receive Payments";
             this.btnAR.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAR.UseVisualStyleBackColor = true;
-            this.btnAR.Visible = false;
+            this.btnAR.Click += new System.EventHandler(this.btnAR_Click);
             // 
             // button8
             // 

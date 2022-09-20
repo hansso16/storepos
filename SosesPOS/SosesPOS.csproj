@@ -187,6 +187,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="formCustomerPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCustomerPayment.Designer.cs">
+      <DependentUpon>formCustomerPayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="formInvoiceReceipt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,6 +304,9 @@
     <Compile Include="util\OrderStatusEnum.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCustomerPayment.resx">
+      <DependentUpon>formCustomerPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formInvoiceReceipt.resx">
       <DependentUpon>formInvoiceReceipt.cs</DependentUpon>

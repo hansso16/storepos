@@ -114,5 +114,16 @@ namespace SosesPOS
             //form.LoadReport("2208161021");
             //form.ShowDialog();
         }
+
+        private void btnAR_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formCustomerPayment form = new formCustomerPayment();
+            form.LoadCustomerList();
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
     }
 }

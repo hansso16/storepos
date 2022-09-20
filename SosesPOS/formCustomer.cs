@@ -61,11 +61,21 @@ namespace SosesPOS
                     dr.Close();
 
 
-                    com = new SqlCommand("INSERT INTO tblCustomer (CustomerCode, CustomerName, CustomerAddress) VALUES (@ccode, @cname, @caddress)", con);
+                    com = new SqlCommand("INSERT INTO tblCustomer (CustomerCode, CustomerName, CustomerAddress) " +
+                        "OUTPUT inserted.CustomerId " +
+                        "VALUES (@ccode, @cname, @caddress)", con);
                     com.Parameters.AddWithValue("@ccode", txtCCode.Text);
                     com.Parameters.AddWithValue("@cname", txtName.Text);
                     com.Parameters.AddWithValue("@caddress", txtAddress.Text);
+                    int cid = Convert.ToInt32(com.ExecuteScalar());
+
+                    com = new SqlCommand("INSERT INTO tblCustomerCollection(CustomerId, CustomerCode, OpenBalance " +
+                        "VALUES (@cid, @ccode, @balance", con);
+                    com.Parameters.AddWithValue("@ccode", txtCCode.Text);
+                    com.Parameters.AddWithValue("@cid", cid);
+                    com.Parameters.AddWithValue("@balance", "0");
                     com.ExecuteNonQuery();
+
                     con.Close();
                     MessageBox.Show("Customer record has been successfully saved");
                     Clear();

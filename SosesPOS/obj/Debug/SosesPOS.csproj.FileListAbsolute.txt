@@ -104,3 +104,4 @@ D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SosesPOS.exe.manifest
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SosesPOS.application
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.exe.manifest
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.application
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCustomerPayment.resources
