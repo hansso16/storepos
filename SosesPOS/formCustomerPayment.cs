@@ -71,12 +71,16 @@ namespace SosesPOS
                 this.lblCheckDate.Visible = true;
                 this.txtCheckNo.Visible = true;
                 this.dtpCheckDate.Visible = true;
+                this.lblCheckBank.Visible = true;
+                this.txtCheckBank.Visible = true;
             } else if ("Cash".Equals(cboPaymentMethod.Text))
             {
                 this.lblCheckNo.Visible = false;
                 this.lblCheckDate.Visible = false;
                 this.txtCheckNo.Visible = false;
                 this.dtpCheckDate.Visible = false;
+                this.lblCheckBank.Visible = false;
+                this.txtCheckBank.Visible = false;
             }
         }
 
@@ -184,7 +188,7 @@ namespace SosesPOS
 
                     com = new SqlCommand("UPDATE tblCustomerCollection SET OpenBalance -= @openbalance WHERE CustomerId = @customerid", con, transaction);
                     com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
-                    com.Parameters.AddWithValue("@openbalance", txtAmount.Text);
+                    com.Parameters.AddWithValue("@openbalance", amount);
                     com.ExecuteNonQuery();
 
 
@@ -216,7 +220,10 @@ namespace SosesPOS
 
         private void txtCheckNo_KeyDown(object sender, KeyEventArgs e)
         {
-            dtpCheckDate.Focus();
+            if (e.KeyCode == Keys.Enter)
+            {
+                dtpCheckDate.Focus();
+            }
         }
 
         private void SelectCustomer()

@@ -734,7 +734,7 @@ namespace SosesPOS
             int orderId = 0;
             decimal openBalance = Convert.ToDecimal(txtOpenBalance.Text);
             decimal totalPrice = Convert.ToDecimal(lblSubTotal.Text);
-            decimal runningBalance = openBalance + totalPrice;
+            decimal endingBalance = openBalance + totalPrice;
             try
             {
                 con.Open();
@@ -762,7 +762,7 @@ namespace SosesPOS
                         "WHERE ReferenceNo = @refno", con);
                     com.Parameters.AddWithValue("@refno", refno);
                     com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
-                    com.Parameters.AddWithValue("@runningbalance", runningBalance);
+                    com.Parameters.AddWithValue("@runningbalance", endingBalance);
                     com.ExecuteNonQuery();
                 }
                 con.Close();

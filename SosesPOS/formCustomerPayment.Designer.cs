@@ -51,7 +51,7 @@
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.txtCheckBank = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblCheckBank = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -231,7 +231,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.txtCheckBank);
-            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.lblCheckBank);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.lblCustomerId);
             this.panel2.Controls.Add(this.btnSubmit);
@@ -293,18 +293,18 @@
             this.txtCheckBank.Location = new System.Drawing.Point(134, 152);
             this.txtCheckBank.Name = "txtCheckBank";
             this.txtCheckBank.Size = new System.Drawing.Size(233, 25);
-            this.txtCheckBank.TabIndex = 40;
+            this.txtCheckBank.TabIndex = 34;
             this.txtCheckBank.Visible = false;
             // 
-            // label4
+            // lblCheckBank
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(53, 155);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 17);
-            this.label4.TabIndex = 41;
-            this.label4.Text = "Check Bank";
-            this.label4.Visible = false;
+            this.lblCheckBank.AutoSize = true;
+            this.lblCheckBank.Location = new System.Drawing.Point(53, 155);
+            this.lblCheckBank.Name = "lblCheckBank";
+            this.lblCheckBank.Size = new System.Drawing.Size(73, 17);
+            this.lblCheckBank.TabIndex = 41;
+            this.lblCheckBank.Text = "Check Bank";
+            this.lblCheckBank.Visible = false;
             // 
             // formCustomerPayment
             // 
@@ -353,6 +353,6 @@
         private System.Windows.Forms.Label lblCustomerId;
         public System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox txtCheckBank;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblCheckBank;
     }
 }
