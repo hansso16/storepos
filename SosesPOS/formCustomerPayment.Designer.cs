@@ -47,9 +47,11 @@
             this.txtCheckNo = new System.Windows.Forms.TextBox();
             this.lblCheckNo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnSubmit = new System.Windows.Forms.Button();
-            this.lblCustomerId = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.lblCustomerId = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.txtCheckBank = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -190,7 +192,7 @@
             // 
             this.dtpCheckDate.CustomFormat = "MM/dd/yyyy";
             this.dtpCheckDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckDate.Location = new System.Drawing.Point(726, 107);
+            this.dtpCheckDate.Location = new System.Drawing.Point(480, 152);
             this.dtpCheckDate.Name = "dtpCheckDate";
             this.dtpCheckDate.Size = new System.Drawing.Size(132, 25);
             this.dtpCheckDate.TabIndex = 35;
@@ -199,7 +201,7 @@
             // lblCheckDate
             // 
             this.lblCheckDate.AutoSize = true;
-            this.lblCheckDate.Location = new System.Drawing.Point(636, 110);
+            this.lblCheckDate.Location = new System.Drawing.Point(390, 155);
             this.lblCheckDate.Name = "lblCheckDate";
             this.lblCheckDate.Size = new System.Drawing.Size(73, 17);
             this.lblCheckDate.TabIndex = 32;
@@ -228,6 +230,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtCheckBank);
+            this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.lblCustomerId);
             this.panel2.Controls.Add(this.btnSubmit);
@@ -251,17 +255,17 @@
             this.panel2.Size = new System.Drawing.Size(947, 207);
             this.panel2.TabIndex = 36;
             // 
-            // btnSubmit
+            // button1
             // 
-            this.btnSubmit.BackColor = System.Drawing.Color.Black;
-            this.btnSubmit.ForeColor = System.Drawing.Color.White;
-            this.btnSubmit.Location = new System.Drawing.Point(645, 152);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(75, 32);
-            this.btnSubmit.TabIndex = 37;
-            this.btnSubmit.Text = "Submit";
-            this.btnSubmit.UseVisualStyleBackColor = false;
-            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            this.button1.BackColor = System.Drawing.Color.Black;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(796, 152);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 32);
+            this.button1.TabIndex = 39;
+            this.button1.Text = "Clear";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblCustomerId
             // 
@@ -272,17 +276,35 @@
             this.lblCustomerId.TabIndex = 38;
             this.lblCustomerId.Visible = false;
             // 
-            // button1
+            // btnSubmit
             // 
-            this.button1.BackColor = System.Drawing.Color.Black;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(726, 152);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 32);
-            this.button1.TabIndex = 39;
-            this.button1.Text = "Clear";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSubmit.BackColor = System.Drawing.Color.Black;
+            this.btnSubmit.ForeColor = System.Drawing.Color.White;
+            this.btnSubmit.Location = new System.Drawing.Point(715, 152);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(75, 32);
+            this.btnSubmit.TabIndex = 37;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.UseVisualStyleBackColor = false;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // txtCheckBank
+            // 
+            this.txtCheckBank.Location = new System.Drawing.Point(134, 152);
+            this.txtCheckBank.Name = "txtCheckBank";
+            this.txtCheckBank.Size = new System.Drawing.Size(233, 25);
+            this.txtCheckBank.TabIndex = 40;
+            this.txtCheckBank.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(53, 155);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(73, 17);
+            this.label4.TabIndex = 41;
+            this.label4.Text = "Check Bank";
+            this.label4.Visible = false;
             // 
             // formCustomerPayment
             // 
@@ -330,5 +352,7 @@
         public System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label lblCustomerId;
         public System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtCheckBank;
+        private System.Windows.Forms.Label label4;
     }
 }

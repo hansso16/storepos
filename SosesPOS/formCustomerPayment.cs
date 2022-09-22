@@ -138,19 +138,9 @@ namespace SosesPOS
             string checkno = txtCheckNo.Text;
             string checkDate = dtpCheckDate.Value.ToString("yyyy-MM-dd");
             string checkStatus = "0";
-            if ("Check".Equals(cboPaymentMethod.SelectedText))
-            {
-                if (String.IsNullOrEmpty(txtCheckNo.Text) || String.IsNullOrEmpty(dtpCheckDate.Text))
-                {
-                    MessageBox.Show("Invalid form details. Please check and try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            } else
-            {
-                checkno = "";
-                checkDate = "";
-                checkStatus = "";
-            }
+            decimal openbalance = Convert.ToDecimal(lblOpenBalance.Text);
+            decimal amount = Convert.ToDecimal(txtAmount.Text);
+            decimal runningbalance = openbalance - amount;
 
             if (MessageBox.Show("Are you sure you want to save?", "Customer Payment", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
@@ -160,17 +150,36 @@ namespace SosesPOS
                     SqlTransaction transaction = con.BeginTransaction();
                     com.Transaction = transaction;
 
-                    com = new SqlCommand("INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessDate, Amount, PaymentDate, Type, CheckNo, CheckDate, CheckStatus) " +
-                        "VALUES (@customerid, @customercode, @processdate, @amount, @paymentdate, @type, @checkno, @checkdate, @checkstatus)", con, transaction);
+                    com = new SqlCommand("INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessTimestamp, Amount, PaymentDate, Type, CheckNo, CheckDate, CheckStatus, CheckBank, RunningBalance) " +
+                        "VALUES (@customerid, @customercode, @processtimestamp, @amount, @paymentdate, @type, @checkno, @checkdate, @checkstatus, @checkbank, @runningbalance)", con, transaction);
                     com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
                     com.Parameters.AddWithValue("@customercode", cboCustomer.SelectedValue);
-                    com.Parameters.AddWithValue("@processdate", DateTime.Today);
-                    com.Parameters.AddWithValue("@amount", txtAmount.Text);
+                    com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
+                    com.Parameters.AddWithValue("@amount", amount);
                     com.Parameters.AddWithValue("@paymentdate", dtpPaymentDate.Value.ToString("yyyy-MM-dd"));
-                    com.Parameters.AddWithValue("@type", cboPaymentMethod.SelectedText.ToUpper());
-                    com.Parameters.AddWithValue("@checkno", DBNull.Value);
-                    com.Parameters.AddWithValue("@checkdate", checkDate);
-                    com.Parameters.AddWithValue("@checkstatus", checkStatus);
+                    com.Parameters.AddWithValue("@type", cboPaymentMethod.Text.ToUpper());
+                    com.Parameters.AddWithValue("@runningbalance", runningbalance);
+                    if ("Check".Equals(cboPaymentMethod.Text))
+                    {
+                        if (String.IsNullOrEmpty(checkno) || String.IsNullOrEmpty(dtpCheckDate.Text) || String.IsNullOrEmpty(txtCheckBank.Text))
+                        {
+                            MessageBox.Show("Invalid check details. Please check and try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            con.Close();
+                            return;
+                        } else
+                        {
+                            com.Parameters.AddWithValue("@checkno", checkno);
+                            com.Parameters.AddWithValue("@checkdate", checkDate);
+                            com.Parameters.AddWithValue("@checkstatus", checkStatus);
+                            com.Parameters.AddWithValue("@checkbank", txtCheckBank.Text);
+                        }
+                    } else
+                    {
+                        com.Parameters.AddWithValue("@checkno", DBNull.Value);
+                        com.Parameters.AddWithValue("@checkdate", DBNull.Value);
+                        com.Parameters.AddWithValue("@checkstatus", DBNull.Value);
+                        com.Parameters.AddWithValue("@checkbank", DBNull.Value);
+                    }
                     com.ExecuteNonQuery();
 
                     com = new SqlCommand("UPDATE tblCustomerCollection SET OpenBalance -= @openbalance WHERE CustomerId = @customerid", con, transaction);

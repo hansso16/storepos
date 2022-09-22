@@ -320,7 +320,9 @@ namespace SosesPOS
             if (e.KeyCode == Keys.Enter)
             {
                 con.Open();
-                com = new SqlCommand("SELECT CustomerId, CustomerName, CustomerAddress from tblCustomer where CustomerCode = @customercode", con);
+                com = new SqlCommand("SELECT c.CustomerId, c.CustomerName, c.CustomerAddress, cc.OpenBalance from tblCustomer c " +
+                    "INNER JOIN tblCustomerCollection cc ON cc.CustomerId = c.CustomerId " +
+                    "where c.CustomerCode = @customercode", con);
                 com.Parameters.AddWithValue("@customercode", txtCCode.Text.Trim());
                 dr = com.ExecuteReader();
                 if (dr.Read())
@@ -328,8 +330,10 @@ namespace SosesPOS
                     hlblCustomerId.Text = dr["CustomerId"].ToString();
                     txtCName.Text = dr["CustomerName"].ToString();
                     txtCAddress.Text = dr["CustomerAddress"].ToString();
+                    txtOpenBalance.Text = String.Format("{0:n}", dr["OpenBalance"]);
                     //txtCCode.ReadOnly = true;
                 }
+                dr.Close();
                 con.Close();
 
                 if (txtCCode.Text.Equals("0"))
@@ -431,7 +435,7 @@ namespace SosesPOS
                         "OUTPUT inserted.OrderId " +
                         "WHERE ReferenceNo = @refno", con, transaction);
                     com.Parameters.AddWithValue("@refno", txtTransNo.Text);
-                    com.Parameters.AddWithValue("@totalprice", Convert.ToDecimal(lblSubTotal.Text)); // TODO: 
+                    com.Parameters.AddWithValue("@totalprice", Convert.ToDecimal(lblSubTotal.Text)); 
                     orderId = Convert.ToInt32(com.ExecuteScalar().ToString());
                     //invoiceId = Int32.Parse(com.ExecuteScalar().ToString());
                     
@@ -728,6 +732,9 @@ namespace SosesPOS
         private void setOrderStatusPrinted(string refno)
         {
             int orderId = 0;
+            decimal openBalance = Convert.ToDecimal(txtOpenBalance.Text);
+            decimal totalPrice = Convert.ToDecimal(lblSubTotal.Text);
+            decimal runningBalance = openBalance + totalPrice;
             try
             {
                 con.Open();
@@ -744,9 +751,18 @@ namespace SosesPOS
 
                 if (orderId > 0)
                 {
-                    com = new SqlCommand("UPDATE tblOrder SET OrderStatus = @orderstatus WHERE OrderId = @orderid", con);
+                    com = new SqlCommand("UPDATE tblOrder SET OrderStatus = @orderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
+                        "WHERE OrderId = @orderid", con);
                     com.Parameters.AddWithValue("@orderid", orderId);
                     com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED);
+                    com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
+                    com.ExecuteNonQuery();
+
+                    com = new SqlCommand("Update tblInvoice SET ProcessTimestamp = @processtimestamp, RunningBalance = @runningbalance " +
+                        "WHERE ReferenceNo = @refno", con);
+                    com.Parameters.AddWithValue("@refno", refno);
+                    com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
+                    com.Parameters.AddWithValue("@runningbalance", runningBalance);
                     com.ExecuteNonQuery();
                 }
                 con.Close();

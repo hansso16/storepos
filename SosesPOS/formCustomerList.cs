@@ -66,7 +66,14 @@ namespace SosesPOS
         private void customerListView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             String colName = customerListView.Columns[e.ColumnIndex].Name;
-            if (colName == "Edit")
+            if (colName == "View")
+            {
+                formCustomerModule form = new formCustomerModule(customerListView[1, e.RowIndex].Value.ToString());
+                form.hlblCustomerId.Text = customerListView[1, e.RowIndex].Value.ToString();
+                form.LoadCustomerProfile();
+                form.ShowDialog();
+            }
+            else if (colName == "Edit")
             {
                 formCustomer form = new formCustomer(this);
                 form.lblCustomerId.Text = customerListView[1, e.RowIndex].Value.ToString();
