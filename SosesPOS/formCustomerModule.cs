@@ -61,7 +61,7 @@ namespace SosesPOS
                     "FROM tblOrder o INNER JOIN tblInvoice i ON o.OrderId = i.OrderId " +
                     "WHERE o.CustomerId = @customerid AND o.OrderStatus = '15' " +
                     "UNION ALL " +
-                    "SELECT 'PAYMENT' as TYPE, '' RefNo, cp.ProcessTimestamp, 0 as DEBIT, cp.Amount as CREDIT, cp.RunningBalance " +
+                    "SELECT 'PAYMENT' as TYPE, CONCAT(CONCAT(cp.CheckBank, ' '), cp.CheckNo) RefNo, cp.ProcessTimestamp, 0 as DEBIT, cp.Amount as CREDIT, cp.RunningBalance " +
                     "FROM tblCustomerPayment cp WHERE cp.CustomerId = @customerid) as t where t.ProcessTimestamp is not null " +
                     "ORDER BY t.ProcessTimestamp", con);
                 com.Parameters.AddWithValue("@customerid", customerId);
@@ -74,9 +74,10 @@ namespace SosesPOS
                         string debit = dr["DEBIT"].ToString();
                         string credit = dr["CREDIT"].ToString();
                         dgvTransactions.Rows.Add(dr["TYPE"].ToString()
-                            , dr["RefNo"].ToString(), Convert.ToDateTime(dr["ProcessTimestamp"]).ToString("MM/dd/yyyy")
-                            , "0.00".Equals(debit)? "" : String.Format("{0:n}", Convert.ToDecimal(dr["DEBIT"]))
-                            , "0.00".Equals(credit)? "" : String.Format("{0:n}", Convert.ToDecimal(dr["CREDIT"]))
+                            , String.IsNullOrWhiteSpace(dr["RefNo"].ToString()) ? "CASH": dr["RefNo"].ToString()
+                            , Convert.ToDateTime(dr["ProcessTimestamp"]).ToString("MM/dd/yyyy")
+                            , "0.00".Equals(debit) ? "" : String.Format("{0:n}", Convert.ToDecimal(dr["DEBIT"]))
+                            , "0.00".Equals(credit) ? "" : String.Format("{0:n}", Convert.ToDecimal(dr["CREDIT"]))
                             , String.Format("{0:n}", Convert.ToDecimal(dr["RunningBalance"])));
                     }
                 }
