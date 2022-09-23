@@ -832,7 +832,7 @@ namespace SosesPOS
                     {
                         string uom = dr["type"].ToString().ToUpper(); //+ " - " + dr["description"].ToString();
                         priceListView.Rows.Add(++i, dr["id"].ToString(), uom
-                            , dr["price"].ToString(), dr["qty"].ToString(), dr["code"].ToString());
+                            , String.Format("{0:n}", Convert.ToDecimal(dr["price"])), dr["qty"].ToString(), dr["code"].ToString());
                         dataSource.Add(new ComboBoxDTO() { Name = uom, Value = dr["id"].ToString() });
                     }
                     this.cboUOM.DataSource = dataSource;

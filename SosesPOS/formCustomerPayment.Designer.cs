@@ -65,14 +65,14 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(947, 40);
+            this.panel1.Size = new System.Drawing.Size(901, 40);
             this.panel1.TabIndex = 4;
             // 
             // pictureBox1
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(915, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(869, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 40);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -150,12 +150,12 @@
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(390, 70);
+            this.label6.Location = new System.Drawing.Point(386, 71);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 17);
             this.label6.TabIndex = 28;
             this.label6.Text = "Payment Date";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dtpPaymentDate
             // 
@@ -201,7 +201,7 @@
             // lblCheckDate
             // 
             this.lblCheckDate.AutoSize = true;
-            this.lblCheckDate.Location = new System.Drawing.Point(390, 155);
+            this.lblCheckDate.Location = new System.Drawing.Point(401, 155);
             this.lblCheckDate.Name = "lblCheckDate";
             this.lblCheckDate.Size = new System.Drawing.Size(73, 17);
             this.lblCheckDate.TabIndex = 32;
@@ -252,14 +252,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 40);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(947, 207);
+            this.panel2.Size = new System.Drawing.Size(901, 255);
             this.panel2.TabIndex = 36;
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Black;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(796, 152);
+            this.button1.Location = new System.Drawing.Point(215, 205);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 32);
             this.button1.TabIndex = 39;
@@ -280,7 +280,7 @@
             // 
             this.btnSubmit.BackColor = System.Drawing.Color.Black;
             this.btnSubmit.ForeColor = System.Drawing.Color.White;
-            this.btnSubmit.Location = new System.Drawing.Point(715, 152);
+            this.btnSubmit.Location = new System.Drawing.Point(134, 205);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 32);
             this.btnSubmit.TabIndex = 37;
@@ -310,7 +310,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 514);
+            this.ClientSize = new System.Drawing.Size(901, 514);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

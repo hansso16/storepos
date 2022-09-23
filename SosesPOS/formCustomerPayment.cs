@@ -238,6 +238,8 @@ namespace SosesPOS
             else
             {
                 ccode = cboCustomer.SelectedValue.ToString();
+                ComboBoxDTO cbo = (ComboBoxDTO) cboCustomer.SelectedItem;
+                cboCustomer.Text = cbo.Name;
             }
             con.Open();
             com = new SqlCommand("select CustomerId, OpenBalance from tblCustomerCollection " +
