@@ -115,11 +115,22 @@ namespace SosesPOS
             //form.ShowDialog();
         }
 
-        private void btnAR_Click(object sender, EventArgs e)
+        private void btnReceivePayments_Click(object sender, EventArgs e)
         {
             panel3.Controls.Clear();
             formCustomerPayment form = new formCustomerPayment();
             form.LoadCustomerList();
+            form.LoadBankList();
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
+
+        private void btnBank_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formBankList form = new formBankList();
             form.TopLevel = false;
             panel3.Controls.Add(form);
             form.BringToFront();

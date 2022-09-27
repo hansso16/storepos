@@ -63,6 +63,30 @@ namespace SosesPOS
             con.Close();
         }
 
+        public void LoadBankList()
+        {
+            try
+            {
+                con.Open();
+                com = new SqlCommand("SELECT BankId, BankName FROM tblBank ORDER BY BankName", con);
+                dr = com.ExecuteReader();
+                List<ComboBoxDTO> ds = new List<ComboBoxDTO>();
+                while (dr.Read())
+                {
+                    ds.Add(new ComboBoxDTO() { Name = dr["BankName"].ToString(), Value = dr["BankId"].ToString() });
+                }
+                cboBank.DataSource = ds;
+                cboBank.DisplayMember = "Name";
+                cboBank.ValueMember = "Value";
+                dr.Close();
+                con.Close();
+            } catch (Exception ex)
+            {
+                con.Close();
+                MessageBox.Show(ex.Message, "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void cboPaymentMethod_SelectedValueChanged(object sender, EventArgs e)
         {
             if ("Check".Equals(cboPaymentMethod.Text))
@@ -72,7 +96,12 @@ namespace SosesPOS
                 this.txtCheckNo.Visible = true;
                 this.dtpCheckDate.Visible = true;
                 this.lblCheckBank.Visible = true;
-                this.txtCheckBank.Visible = true;
+                //this.txtCheckBank.Visible = true;
+                this.cboBank.Visible = true;
+                this.lblBankBranch.Visible = true;
+                this.txtBankBranch.Visible = true;
+
+                this.txtCheckNo.Focus();
             } else if ("Cash".Equals(cboPaymentMethod.Text))
             {
                 this.lblCheckNo.Visible = false;
@@ -80,7 +109,10 @@ namespace SosesPOS
                 this.txtCheckNo.Visible = false;
                 this.dtpCheckDate.Visible = false;
                 this.lblCheckBank.Visible = false;
-                this.txtCheckBank.Visible = false;
+                //this.txtCheckBank.Visible = false;
+                this.cboBank.Visible = false;
+                this.lblBankBranch.Visible = false;
+                this.txtBankBranch.Visible = false;
             }
         }
 
@@ -154,8 +186,8 @@ namespace SosesPOS
                     SqlTransaction transaction = con.BeginTransaction();
                     com.Transaction = transaction;
 
-                    com = new SqlCommand("INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessTimestamp, Amount, PaymentDate, Type, CheckNo, CheckDate, CheckStatus, CheckBank, RunningBalance) " +
-                        "VALUES (@customerid, @customercode, @processtimestamp, @amount, @paymentdate, @type, @checkno, @checkdate, @checkstatus, @checkbank, @runningbalance)", con, transaction);
+                    com = new SqlCommand("INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessTimestamp, Amount, PaymentDate, Type, CheckNo, CheckDate, CheckStatus, CheckBank, BankBranch, RunningBalance) " +
+                        "VALUES (@customerid, @customercode, @processtimestamp, @amount, @paymentdate, @type, @checkno, @checkdate, @checkstatus, @checkbank, @bankbranch, @runningbalance)", con, transaction);
                     com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
                     com.Parameters.AddWithValue("@customercode", cboCustomer.SelectedValue);
                     com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
@@ -165,7 +197,7 @@ namespace SosesPOS
                     com.Parameters.AddWithValue("@runningbalance", runningbalance);
                     if ("Check".Equals(cboPaymentMethod.Text))
                     {
-                        if (String.IsNullOrEmpty(checkno) || String.IsNullOrEmpty(dtpCheckDate.Text) || String.IsNullOrEmpty(txtCheckBank.Text))
+                        if (String.IsNullOrEmpty(checkno) || String.IsNullOrEmpty(dtpCheckDate.Text) || String.IsNullOrEmpty(cboBank.Text))
                         {
                             MessageBox.Show("Invalid check details. Please check and try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             con.Close();
@@ -175,7 +207,8 @@ namespace SosesPOS
                             com.Parameters.AddWithValue("@checkno", checkno);
                             com.Parameters.AddWithValue("@checkdate", checkDate);
                             com.Parameters.AddWithValue("@checkstatus", checkStatus);
-                            com.Parameters.AddWithValue("@checkbank", txtCheckBank.Text);
+                            com.Parameters.AddWithValue("@checkbank", cboBank.SelectedValue.ToString());
+                            com.Parameters.AddWithValue("@bankbranch", txtBankBranch.Text);
                         }
                     } else
                     {
@@ -183,6 +216,7 @@ namespace SosesPOS
                         com.Parameters.AddWithValue("@checkdate", DBNull.Value);
                         com.Parameters.AddWithValue("@checkstatus", DBNull.Value);
                         com.Parameters.AddWithValue("@checkbank", DBNull.Value);
+                        com.Parameters.AddWithValue("@bankbranch", DBNull.Value);
                     }
                     com.ExecuteNonQuery();
 
@@ -222,7 +256,7 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                dtpCheckDate.Focus();
+                cboBank.Focus();
             }
         }
 
@@ -277,6 +311,27 @@ namespace SosesPOS
         private void button1_Click(object sender, EventArgs e)
         {
             ClearForm();
+        }
+
+        private void cboBank_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtBankBranch.Focus();
+            }
+        }
+
+        private void txtBankBranch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                dtpCheckDate.Focus();
+            }
+        }
+
+        private void cboBank_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            txtBankBranch.Focus();
         }
     }
 }

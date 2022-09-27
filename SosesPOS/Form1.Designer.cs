@@ -31,18 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnAR = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
+            this.btnStockIn = new System.Windows.Forms.Button();
+            this.btnReceivePayments = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
             this.btnBrand = new System.Windows.Forms.Button();
-            this.btnStockIn = new System.Windows.Forms.Button();
             this.btnCustomer = new System.Windows.Forms.Button();
             this.btnProduct = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.lblRole = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnBank = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,12 +59,13 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.panel2.Controls.Add(this.btnAR);
             this.panel2.Controls.Add(this.button8);
             this.panel2.Controls.Add(this.button7);
-            this.panel2.Controls.Add(this.btnCategory);
-            this.panel2.Controls.Add(this.btnBrand);
             this.panel2.Controls.Add(this.btnStockIn);
+            this.panel2.Controls.Add(this.btnReceivePayments);
+            this.panel2.Controls.Add(this.btnCategory);
+            this.panel2.Controls.Add(this.btnBank);
+            this.panel2.Controls.Add(this.btnBrand);
             this.panel2.Controls.Add(this.btnCustomer);
             this.panel2.Controls.Add(this.btnProduct);
             this.panel2.Controls.Add(this.button5);
@@ -75,58 +77,76 @@
             this.panel2.Size = new System.Drawing.Size(301, 521);
             this.panel2.TabIndex = 1;
             // 
-            // btnAR
-            // 
-            this.btnAR.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAR.FlatAppearance.BorderSize = 0;
-            this.btnAR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAR.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnAR.Image = ((System.Drawing.Image)(resources.GetObject("btnAR.Image")));
-            this.btnAR.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAR.Location = new System.Drawing.Point(0, 364);
-            this.btnAR.Name = "btnAR";
-            this.btnAR.Size = new System.Drawing.Size(301, 37);
-            this.btnAR.TabIndex = 12;
-            this.btnAR.Text = "Receive Payments";
-            this.btnAR.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAR.UseVisualStyleBackColor = true;
-            this.btnAR.Click += new System.EventHandler(this.btnAR_Click);
-            // 
             // button8
             // 
             this.button8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button8.Enabled = false;
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.SystemColors.Control;
             this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 327);
+            this.button8.Location = new System.Drawing.Point(0, 401);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(301, 37);
             this.button8.TabIndex = 11;
             this.button8.Text = "Logout";
             this.button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Visible = false;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
             this.button7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button7.Enabled = false;
             this.button7.FlatAppearance.BorderSize = 0;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.ForeColor = System.Drawing.SystemColors.Control;
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
             this.button7.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button7.Location = new System.Drawing.Point(0, 290);
+            this.button7.Location = new System.Drawing.Point(0, 364);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(301, 37);
             this.button7.TabIndex = 10;
             this.button7.Text = "User Settings";
             this.button7.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // btnStockIn
+            // 
+            this.btnStockIn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockIn.FlatAppearance.BorderSize = 0;
+            this.btnStockIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockIn.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStockIn.Image = ((System.Drawing.Image)(resources.GetObject("btnStockIn.Image")));
+            this.btnStockIn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStockIn.Location = new System.Drawing.Point(0, 327);
+            this.btnStockIn.Name = "btnStockIn";
+            this.btnStockIn.Size = new System.Drawing.Size(301, 37);
+            this.btnStockIn.TabIndex = 6;
+            this.btnStockIn.Text = "Stock In";
+            this.btnStockIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnStockIn.UseVisualStyleBackColor = true;
+            this.btnStockIn.Visible = false;
+            this.btnStockIn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnReceivePayments
+            // 
+            this.btnReceivePayments.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReceivePayments.FlatAppearance.BorderSize = 0;
+            this.btnReceivePayments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReceivePayments.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnReceivePayments.Image = ((System.Drawing.Image)(resources.GetObject("btnReceivePayments.Image")));
+            this.btnReceivePayments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReceivePayments.Location = new System.Drawing.Point(0, 290);
+            this.btnReceivePayments.Name = "btnReceivePayments";
+            this.btnReceivePayments.Size = new System.Drawing.Size(301, 37);
+            this.btnReceivePayments.TabIndex = 9;
+            this.btnReceivePayments.Text = "Receive Payments";
+            this.btnReceivePayments.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnReceivePayments.UseVisualStyleBackColor = true;
+            this.btnReceivePayments.Click += new System.EventHandler(this.btnReceivePayments_Click);
             // 
             // btnCategory
             // 
@@ -153,7 +173,7 @@
             this.btnBrand.ForeColor = System.Drawing.SystemColors.Control;
             this.btnBrand.Image = ((System.Drawing.Image)(resources.GetObject("btnBrand.Image")));
             this.btnBrand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBrand.Location = new System.Drawing.Point(0, 216);
+            this.btnBrand.Location = new System.Drawing.Point(0, 179);
             this.btnBrand.Name = "btnBrand";
             this.btnBrand.Size = new System.Drawing.Size(301, 37);
             this.btnBrand.TabIndex = 7;
@@ -161,24 +181,6 @@
             this.btnBrand.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBrand.UseVisualStyleBackColor = true;
             this.btnBrand.Click += new System.EventHandler(this.btnBrand_Click);
-            // 
-            // btnStockIn
-            // 
-            this.btnStockIn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStockIn.Enabled = false;
-            this.btnStockIn.FlatAppearance.BorderSize = 0;
-            this.btnStockIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockIn.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStockIn.Image = ((System.Drawing.Image)(resources.GetObject("btnStockIn.Image")));
-            this.btnStockIn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockIn.Location = new System.Drawing.Point(0, 179);
-            this.btnStockIn.Name = "btnStockIn";
-            this.btnStockIn.Size = new System.Drawing.Size(301, 37);
-            this.btnStockIn.TabIndex = 6;
-            this.btnStockIn.Text = "Stock In";
-            this.btnStockIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnStockIn.UseVisualStyleBackColor = true;
-            this.btnStockIn.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnCustomer
             // 
@@ -265,6 +267,23 @@
             this.panel3.TabIndex = 2;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
+            // btnBank
+            // 
+            this.btnBank.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBank.FlatAppearance.BorderSize = 0;
+            this.btnBank.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBank.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnBank.Image = ((System.Drawing.Image)(resources.GetObject("btnBank.Image")));
+            this.btnBank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBank.Location = new System.Drawing.Point(0, 216);
+            this.btnBank.Name = "btnBank";
+            this.btnBank.Size = new System.Drawing.Size(301, 37);
+            this.btnBank.TabIndex = 12;
+            this.btnBank.Text = "Bank";
+            this.btnBank.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBank.UseVisualStyleBackColor = true;
+            this.btnBank.Click += new System.EventHandler(this.btnBank_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -299,7 +318,8 @@
         private System.Windows.Forms.Label lblRole;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button btnAR;
+        private System.Windows.Forms.Button btnReceivePayments;
+        private System.Windows.Forms.Button btnBank;
     }
 }
 

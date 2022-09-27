@@ -47,11 +47,13 @@
             this.txtCheckNo = new System.Windows.Forms.TextBox();
             this.lblCheckNo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cboBank = new System.Windows.Forms.ComboBox();
+            this.txtBankBranch = new System.Windows.Forms.TextBox();
+            this.lblBankBranch = new System.Windows.Forms.Label();
+            this.lblCheckBank = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.txtCheckBank = new System.Windows.Forms.TextBox();
-            this.lblCheckBank = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -106,7 +108,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 23);
+            this.label2.Location = new System.Drawing.Point(34, 23);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 17);
             this.label2.TabIndex = 22;
@@ -133,7 +135,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(73, 68);
+            this.label5.Location = new System.Drawing.Point(75, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 17);
             this.label5.TabIndex = 26;
@@ -192,16 +194,16 @@
             // 
             this.dtpCheckDate.CustomFormat = "MM/dd/yyyy";
             this.dtpCheckDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckDate.Location = new System.Drawing.Point(480, 152);
+            this.dtpCheckDate.Location = new System.Drawing.Point(714, 152);
             this.dtpCheckDate.Name = "dtpCheckDate";
             this.dtpCheckDate.Size = new System.Drawing.Size(132, 25);
-            this.dtpCheckDate.TabIndex = 35;
+            this.dtpCheckDate.TabIndex = 39;
             this.dtpCheckDate.Visible = false;
             // 
             // lblCheckDate
             // 
             this.lblCheckDate.AutoSize = true;
-            this.lblCheckDate.Location = new System.Drawing.Point(401, 155);
+            this.lblCheckDate.Location = new System.Drawing.Point(635, 155);
             this.lblCheckDate.Name = "lblCheckDate";
             this.lblCheckDate.Size = new System.Drawing.Size(73, 17);
             this.lblCheckDate.TabIndex = 32;
@@ -230,7 +232,9 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.txtCheckBank);
+            this.panel2.Controls.Add(this.cboBank);
+            this.panel2.Controls.Add(this.txtBankBranch);
+            this.panel2.Controls.Add(this.lblBankBranch);
             this.panel2.Controls.Add(this.lblCheckBank);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.lblCustomerId);
@@ -252,17 +256,60 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 40);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(901, 255);
+            this.panel2.Size = new System.Drawing.Size(901, 239);
             this.panel2.TabIndex = 36;
+            // 
+            // cboBank
+            // 
+            this.cboBank.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboBank.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboBank.FormattingEnabled = true;
+            this.cboBank.ItemHeight = 17;
+            this.cboBank.Location = new System.Drawing.Point(134, 152);
+            this.cboBank.Name = "cboBank";
+            this.cboBank.Size = new System.Drawing.Size(233, 25);
+            this.cboBank.TabIndex = 35;
+            this.cboBank.Visible = false;
+            this.cboBank.SelectionChangeCommitted += new System.EventHandler(this.cboBank_SelectionChangeCommitted);
+            this.cboBank.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBank_KeyDown);
+            // 
+            // txtBankBranch
+            // 
+            this.txtBankBranch.Location = new System.Drawing.Point(480, 152);
+            this.txtBankBranch.Name = "txtBankBranch";
+            this.txtBankBranch.Size = new System.Drawing.Size(132, 25);
+            this.txtBankBranch.TabIndex = 37;
+            this.txtBankBranch.Visible = false;
+            this.txtBankBranch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBankBranch_KeyDown);
+            // 
+            // lblBankBranch
+            // 
+            this.lblBankBranch.AutoSize = true;
+            this.lblBankBranch.Location = new System.Drawing.Point(396, 155);
+            this.lblBankBranch.Name = "lblBankBranch";
+            this.lblBankBranch.Size = new System.Drawing.Size(78, 17);
+            this.lblBankBranch.TabIndex = 43;
+            this.lblBankBranch.Text = "Bank Branch";
+            this.lblBankBranch.Visible = false;
+            // 
+            // lblCheckBank
+            // 
+            this.lblCheckBank.AutoSize = true;
+            this.lblCheckBank.Location = new System.Drawing.Point(55, 155);
+            this.lblCheckBank.Name = "lblCheckBank";
+            this.lblCheckBank.Size = new System.Drawing.Size(73, 17);
+            this.lblCheckBank.TabIndex = 41;
+            this.lblCheckBank.Text = "Check Bank";
+            this.lblCheckBank.Visible = false;
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Black;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(215, 205);
+            this.button1.Location = new System.Drawing.Point(215, 193);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 32);
-            this.button1.TabIndex = 39;
+            this.button1.TabIndex = 43;
             this.button1.Text = "Clear";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -280,31 +327,13 @@
             // 
             this.btnSubmit.BackColor = System.Drawing.Color.Black;
             this.btnSubmit.ForeColor = System.Drawing.Color.White;
-            this.btnSubmit.Location = new System.Drawing.Point(134, 205);
+            this.btnSubmit.Location = new System.Drawing.Point(134, 193);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(75, 32);
-            this.btnSubmit.TabIndex = 37;
+            this.btnSubmit.TabIndex = 41;
             this.btnSubmit.Text = "Submit";
             this.btnSubmit.UseVisualStyleBackColor = false;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
-            // txtCheckBank
-            // 
-            this.txtCheckBank.Location = new System.Drawing.Point(134, 152);
-            this.txtCheckBank.Name = "txtCheckBank";
-            this.txtCheckBank.Size = new System.Drawing.Size(233, 25);
-            this.txtCheckBank.TabIndex = 34;
-            this.txtCheckBank.Visible = false;
-            // 
-            // lblCheckBank
-            // 
-            this.lblCheckBank.AutoSize = true;
-            this.lblCheckBank.Location = new System.Drawing.Point(53, 155);
-            this.lblCheckBank.Name = "lblCheckBank";
-            this.lblCheckBank.Size = new System.Drawing.Size(73, 17);
-            this.lblCheckBank.TabIndex = 41;
-            this.lblCheckBank.Text = "Check Bank";
-            this.lblCheckBank.Visible = false;
             // 
             // formCustomerPayment
             // 
@@ -352,7 +381,9 @@
         public System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label lblCustomerId;
         public System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtCheckBank;
         private System.Windows.Forms.Label lblCheckBank;
+        public System.Windows.Forms.ComboBox cboBank;
+        private System.Windows.Forms.TextBox txtBankBranch;
+        private System.Windows.Forms.Label lblBankBranch;
     }
 }

@@ -57,12 +57,17 @@ namespace SosesPOS
                 dr.Close();
 
                 com = new SqlCommand("SELECT * " +
-                    "FROM (SELECT 'INVOICE' as TYPE, i.ReferenceNo RefNo, i.ProcessTimestamp, i.TotalPrice as DEBIT, 0 as CREDIT, i.RunningBalance " +
-                    "FROM tblOrder o INNER JOIN tblInvoice i ON o.OrderId = i.OrderId " +
-                    "WHERE o.CustomerId = @customerid AND o.OrderStatus = '15' " +
-                    "UNION ALL " +
-                    "SELECT 'PAYMENT' as TYPE, CONCAT(CONCAT(cp.CheckBank, ' '), cp.CheckNo) RefNo, cp.ProcessTimestamp, 0 as DEBIT, cp.Amount as CREDIT, cp.RunningBalance " +
-                    "FROM tblCustomerPayment cp WHERE cp.CustomerId = @customerid) as t where t.ProcessTimestamp is not null " +
+                    "FROM (" +
+                        "SELECT 'INVOICE' as TYPE, i.ReferenceNo RefNo, i.ProcessTimestamp, i.TotalPrice as DEBIT, 0 as CREDIT, i.RunningBalance " +
+                        "FROM tblOrder o INNER JOIN tblInvoice i ON o.OrderId = i.OrderId " +
+                        "WHERE o.CustomerId = @customerid AND o.OrderStatus = '15' " +
+                        "UNION ALL " +
+                        "SELECT 'PAYMENT' as TYPE, CASE WHEN 'CHECK' = cp.Type THEN CONCAT(b.BankName, ' ', cp.BankBranch, ' - ', cp.CheckNo) ELSE 'CASH' END as RefNo" +
+                            ", cp.ProcessTimestamp, 0 as DEBIT, cp.Amount as CREDIT, cp.RunningBalance " +
+                        "FROM tblCustomerPayment cp " +
+                        "LEFT JOIN tblBank b ON b.BankId = cp.CheckBank " +
+                        "WHERE cp.CustomerId = @customerid) as t " +
+                    "WHERE t.ProcessTimestamp is not null " +
                     "ORDER BY t.ProcessTimestamp", con);
                 com.Parameters.AddWithValue("@customerid", customerId);
                 dr = com.ExecuteReader();
