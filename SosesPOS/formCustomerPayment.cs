@@ -39,7 +39,9 @@ namespace SosesPOS
             this.dtpPaymentDate.Value = DateTime.Today;
             this.txtCheckNo.Text = "";
             this.dtpCheckDate.Value = DateTime.Today;
-            this.cboPaymentMethod.SelectedText = "";
+            this.cboPaymentMethod.Text = "";
+            this.cboBank.Text = "";
+            this.txtBankBranch.Text = "";
         }
 
         public void LoadCustomerList()
@@ -327,11 +329,6 @@ namespace SosesPOS
             {
                 dtpCheckDate.Focus();
             }
-        }
-
-        private void cboBank_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            txtBankBranch.Focus();
         }
     }
 }

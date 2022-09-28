@@ -270,7 +270,6 @@
             this.cboBank.Size = new System.Drawing.Size(233, 25);
             this.cboBank.TabIndex = 35;
             this.cboBank.Visible = false;
-            this.cboBank.SelectionChangeCommitted += new System.EventHandler(this.cboBank_SelectionChangeCommitted);
             this.cboBank.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboBank_KeyDown);
             // 
             // txtBankBranch
