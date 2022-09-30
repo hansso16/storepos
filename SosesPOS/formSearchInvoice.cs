@@ -122,7 +122,8 @@ namespace SosesPOS
                         formPOS.cboSearch.Enabled = false;
                         formPOS.cboUOM.Enabled = false;
                         formPOS.cartGridView.Enabled = false;
-                        formPOS.txtCName.ReadOnly = false;
+                        formPOS.txtCName.ReadOnly = true;
+                        formPOS.cboLocation.Enabled = false;
 
                         //btns
                         formPOS.btnSaveAndPrint.Enabled = false;

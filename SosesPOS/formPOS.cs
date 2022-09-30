@@ -247,6 +247,7 @@ namespace SosesPOS
             this.txtCCode.ReadOnly = false;
             this.txtCName.ReadOnly = true;
             this.txtCAddress.ReadOnly = true;
+            this.txtOpenBalance.Clear();
         }
 
         private void ClearPriceListView()
