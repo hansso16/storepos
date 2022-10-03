@@ -93,11 +93,12 @@ namespace SosesPOS
             form.Show();
         }
 
-        private void button7_Click(object sender, EventArgs e)
+        private void btnVendor_Click(object sender, EventArgs e)
         {
             panel3.Controls.Clear();
-            formTest form = new formTest();
+            formVendorList form = new formVendorList();
             form.TopLevel = false;
+            form.LoadVendorList();
             panel3.Controls.Add(form);
             form.BringToFront();
             form.Show();
@@ -131,6 +132,16 @@ namespace SosesPOS
         {
             panel3.Controls.Clear();
             formBankList form = new formBankList();
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
+
+        private void btnStockLocation_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formStockLocationList form = new formStockLocationList();
             form.TopLevel = false;
             panel3.Controls.Add(form);
             form.BringToFront();

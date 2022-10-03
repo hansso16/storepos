@@ -25,7 +25,6 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCustomer.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUOM.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUOMList.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formProductDetails.resources
-D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formTest.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formQty.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formSearchCustomer.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formSearchInvoice.resources
@@ -108,3 +107,7 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCustomerPayment.resourc
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCustomerModule.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formBankList.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formBank.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formVendorList.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formVendor.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockLocation.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockLocationList.resources
