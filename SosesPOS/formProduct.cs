@@ -73,7 +73,7 @@ namespace SosesPOS
             productDetailsView.Rows.Clear();
             productDetailsView.Refresh();
             con.Open();
-            com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price, pd.qty FROM tblProductDetails pd " +
+            com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price FROM tblProductDetails pd " +
                 "INNER JOIN tblUOM u ON u.id = pd.uom " +
                 "WHERE pd.pcode = @pcode", con);
             com.Parameters.AddWithValue("@pcode", pcode);
@@ -83,7 +83,7 @@ namespace SosesPOS
             {
                 productDetailsView.Rows.Add(++productDetailsCounter, dr["id"].ToString()
                     , dr["type"].ToString(), dr["description"].ToString()
-                    , dr["price"].ToString(), dr["qty"].ToString());
+                    , dr["price"].ToString(), "");
             }
             dr.Close();
             con.Close();
@@ -126,11 +126,12 @@ namespace SosesPOS
                     }
                     dr.Close();
 
-                    com = new SqlCommand("INSERT INTO tblProduct (pcode, barcode, pdesc, cid) VALUES (@pcode, @barcode, @pdesc, @cid)", con);
+                    com = new SqlCommand("INSERT INTO tblProduct (pcode, barcode, pdesc, cid, count) VALUES (@pcode, @barcode, @pdesc, @cid, @count)", con);
                     com.Parameters.AddWithValue("@pcode", txtPCode.Text);
                     com.Parameters.AddWithValue("@barcode", txtBarcode.Text);
                     com.Parameters.AddWithValue("@pdesc", txtDesc.Text);
                     com.Parameters.AddWithValue("@cid", cboCategory.SelectedValue.ToString());
+                    com.Parameters.AddWithValue("@count", txtCount.Text);
                     com.ExecuteNonQuery();
 
                     con.Close();
@@ -153,11 +154,12 @@ namespace SosesPOS
                 if (MessageBox.Show("Are you sure you want to update this product?", "Register Category", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     con.Open();
-                    com = new SqlCommand("UPDATE tblProduct SET barcode = @barcode, pdesc = @pdesc, cid = @cid where pcode = @pcode", con);
+                    com = new SqlCommand("UPDATE tblProduct SET barcode = @barcode, pdesc = @pdesc, cid = @cid, count = @count where pcode = @pcode", con);
                     com.Parameters.AddWithValue("@pcode", txtPCode.Text);
                     com.Parameters.AddWithValue("@barcode", txtBarcode.Text);
                     com.Parameters.AddWithValue("@pdesc", txtDesc.Text);
                     com.Parameters.AddWithValue("@cid", cboCategory.SelectedValue.ToString());
+                    com.Parameters.AddWithValue("@count", txtCount.Text);
                     com.ExecuteNonQuery();
                     con.Close();
                     MessageBox.Show("Product record has been successfully updated");
@@ -319,6 +321,18 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show(ex.Message, "Product Module", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void txtCount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8)
+            {
+                // accept backspace
+            }
+            else if (e.KeyChar < 48 || e.KeyChar > 57)
+            {
+                e.Handled = true;
             }
         }
     }

@@ -105,6 +105,7 @@
             this.txtQty.Name = "txtQty";
             this.txtQty.Size = new System.Drawing.Size(237, 25);
             this.txtQty.TabIndex = 28;
+            this.txtQty.Visible = false;
             this.txtQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQty_KeyPress);
             // 
             // lblQty
@@ -117,6 +118,7 @@
             this.lblQty.Size = new System.Drawing.Size(62, 17);
             this.lblQty.TabIndex = 24;
             this.lblQty.Text = "Initial Qty";
+            this.lblQty.Visible = false;
             // 
             // lblBrand
             // 
@@ -198,7 +200,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "formProductDetails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.panel1.ResumeLayout(false);

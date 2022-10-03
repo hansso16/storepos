@@ -75,9 +75,9 @@ namespace SosesPOS
                 if (MessageBox.Show("Are you sure you want to update this price?", "Update Price", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     con.Open();
-                    com = new SqlCommand("update tblProductDetails SET price = @price, qty = @qty WHERE pcode = @pcode and uom = @uom", con);
+                    com = new SqlCommand("update tblProductDetails SET price = @price WHERE pcode = @pcode and uom = @uom", con);
                     com.Parameters.AddWithValue("@price", txtPrice.Text);
-                    com.Parameters.AddWithValue("@qty", txtQty.Text);
+                    //com.Parameters.AddWithValue("@qty", txtQty.Text);
                     com.Parameters.AddWithValue("@pcode", lblPCode.Text);
                     com.Parameters.AddWithValue("@uom", lblUOMID.Text);
                     com.ExecuteNonQuery();

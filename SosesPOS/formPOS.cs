@@ -97,7 +97,7 @@ namespace SosesPOS
                 }
                 dr.Close();
 
-                com = new SqlCommand("SELECT u.id, u.type, u.description, u.code, pd.price, pd.qty FROM tblProductDetails pd " +
+                com = new SqlCommand("SELECT u.id, u.type, u.description, u.code, pd.price FROM tblProductDetails pd " +
                     "INNER JOIN tblUOM u ON pd.UOM = u.ID " +
                     "WHERE pd.pcode = @pcode ", con);
                 com.Parameters.AddWithValue("@pcode", txtPCode.Text);
@@ -111,7 +111,7 @@ namespace SosesPOS
                         MessageBox.Show(dr["code"].ToString());
                         string uom = dr["type"].ToString().ToUpper(); //+ " - " + dr["description"].ToString();
                         priceListView.Rows.Add(++i, dr["id"].ToString(), uom
-                            , dr["price"].ToString(), dr["qty"].ToString(), "1234");
+                            , dr["price"].ToString(), "", "1234");
                         dataSource.Add(new ComboBoxDTO() { Name = uom, Value = dr["id"].ToString() });
                     }
                     this.cboUOM.DataSource = dataSource;
@@ -820,7 +820,7 @@ namespace SosesPOS
                 }
                 dr.Close();
 
-                com = new SqlCommand("SELECT u.id, u.type, u.description, u.code, pd.price, pd.qty FROM tblProductDetails pd " +
+                com = new SqlCommand("SELECT u.id, u.type, u.description, u.code, pd.price FROM tblProductDetails pd " +
                     "INNER JOIN tblUOM u ON pd.UOM = u.ID " +
                     "WHERE pd.pcode = @pcode ", con);
                 com.Parameters.AddWithValue("@pcode", pcode);
@@ -833,7 +833,7 @@ namespace SosesPOS
                     {
                         string uom = dr["type"].ToString().ToUpper(); //+ " - " + dr["description"].ToString();
                         priceListView.Rows.Add(++i, dr["id"].ToString(), uom
-                            , String.Format("{0:n}", Convert.ToDecimal(dr["price"])), dr["qty"].ToString(), dr["code"].ToString());
+                            , String.Format("{0:n}", Convert.ToDecimal(dr["price"])), "", dr["code"].ToString());
                         dataSource.Add(new ComboBoxDTO() { Name = uom, Value = dr["id"].ToString() });
                     }
                     this.cboUOM.DataSource = dataSource;
