@@ -94,6 +94,7 @@ namespace SosesPOS
             btnSave.Enabled = true;
             btnUpdate.Enabled = false;
             //txtPCode.ReadOnly = true;
+            txtCount.Clear();
             txtPCode.Clear();
             txtDesc.Clear();
             txtBarcode.Clear();

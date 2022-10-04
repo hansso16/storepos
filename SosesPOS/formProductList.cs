@@ -29,7 +29,7 @@ namespace SosesPOS
             int i = 0;
             productListView.Rows.Clear();
             con.Open();
-            com = new SqlCommand("select p.pcode, p.barcode, p.pdesc, c.category from tblProduct p " +
+            com = new SqlCommand("select p.pcode, p.barcode, p.pdesc, p.count, c.category from tblProduct p " +
                 "left join tblCategory c on c.id = p.cid " +
                 "where p.pdesc like '%'+@search+'%' or p.pcode like '%'+@search+'%'", con);
             com.Parameters.AddWithValue("@search", txtSearch.Text);
@@ -38,7 +38,7 @@ namespace SosesPOS
             {
                 productListView.Rows.Add(++i, dr["pcode"].ToString()
                     , dr["barcode"].ToString(), dr["pdesc"].ToString()
-                    , dr["category"].ToString());
+                    , dr["count"].ToString(), dr["category"].ToString());
             }
             dr.Close();
             con.Close();
@@ -72,9 +72,9 @@ namespace SosesPOS
                 form.txtPCode.Text = pcode;
                 form.txtBarcode.Text = productListView[2, e.RowIndex].Value.ToString();
                 form.txtDesc.Text = productListView[3, e.RowIndex].Value.ToString();
-                
+                form.txtCount.Text = productListView[4, e.RowIndex].Value.ToString();
                 form.LoadCategory();
-                form.cboCategory.SelectedIndex = form.cboCategory.FindStringExact(productListView[4, e.RowIndex].Value.ToString());
+                form.cboCategory.SelectedIndex = form.cboCategory.FindStringExact(productListView[5, e.RowIndex].Value.ToString());
 
                 form.btnSave.Enabled = false;
                 form.btnUpdate.Enabled = true;

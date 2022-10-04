@@ -64,15 +64,15 @@ namespace SosesPOS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtPrice.Text) || String.IsNullOrEmpty(txtQty.Text))
+            if (String.IsNullOrEmpty(txtPrice.Text))
             {
-                MessageBox.Show("Please input PRICE and QTY", "Update Price", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please input PRICE", "Update Price", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             try
             {
-                if (MessageBox.Show("Are you sure you want to update this price?", "Update Price", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("Are you sure you want to update the price?", "Update Price", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     con.Open();
                     com = new SqlCommand("update tblProductDetails SET price = @price WHERE pcode = @pcode and uom = @uom", con);
