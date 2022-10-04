@@ -421,6 +421,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc" />
     <None Include="dataset\dsInvoiceReceipt.xsc">
@@ -451,6 +452,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Resources\stock_replenishment.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\payment.png" />
+    <None Include="Resources\stock.png" />
+    <None Include="Resources\folder1.png" />
+    <None Include="Resources\uom.png" />
+    <None Include="Resources\vendor.png" />
+    <None Include="Resources\customer.png" />
+    <None Include="Resources\product.png" />
+    <None Include="Resources\invoice.png" />
+    <None Include="Resources\pencil.png" />
+    <None Include="Resources\trash.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\cross.png" />
+    <None Include="Resources\cross %281%29.png" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\plus_white.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\load.png" />
+    <None Include="Resources\print.png" />
+    <None Include="Resources\search_white.png" />
+    <None Include="Resources\apps_white.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -480,5 +503,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
