@@ -70,8 +70,9 @@ namespace SosesPOS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panel3.Controls.Clear();
-            formStockIn form = new formStockIn();
+            //panel3.Controls.Clear();
+            //formStockIn form = new formStockIn();
+            formPurchase form = new formPurchase();
             form.ShowDialog();
         }
 
