@@ -285,7 +285,6 @@
             this.cboSearch.Size = new System.Drawing.Size(325, 25);
             this.cboSearch.TabIndex = 21;
             this.cboSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSearch_KeyDown);
-            this.cboSearch.Leave += new System.EventHandler(this.cboSearch_Leave);
             // 
             // hlblVendorID
             // 
@@ -733,6 +732,7 @@
             this.cartGridView.Size = new System.Drawing.Size(784, 408);
             this.cartGridView.TabIndex = 29;
             this.cartGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cartGridView_CellContentClick);
+            this.cartGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.cartGridView_CellEndEdit);
             // 
             // dataGridViewTextBoxColumn1
             // 

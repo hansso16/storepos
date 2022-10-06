@@ -129,7 +129,7 @@ namespace SosesPOS
             this.txtQty.Clear();
             this.cboUOM.Text = "";
             this.txtCost.Clear();
-            this.cboSite.Text = "";
+            //this.cboSite.Text = "";
         }
 
         private void ClearProductDetails()
@@ -209,65 +209,65 @@ namespace SosesPOS
             }
         }
 
-        private void cboSearch_Leave(object sender, EventArgs e)
-        {
-            try
-            {
-                ClearProductDetails();
-                string pcode = null;
-                if (cboSearch.SelectedValue == null)
-                {
-                    pcode = cboSearch.Text;
-                }
-                else
-                {
-                    pcode = cboSearch.SelectedValue.ToString();
-                }
-                con.Open();
-                com = new SqlCommand("SELECT pcode, pdesc, count " +
-                    "FROM tblProduct " +
-                    "WHERE pcode = @pcode", con);
-                com.Parameters.AddWithValue("@pcode", pcode);
-                dr = com.ExecuteReader();
-                if (dr.HasRows)
-                {
-                    if (dr.Read())
-                    {
-                        this.txtPCode.Text = dr["pcode"].ToString();
-                        this.txtPDesc.Text = dr["pdesc"].ToString();
-                        this.txtCount.Text = dr["count"].ToString();
-                        
-                        cboUOM.Items.Add("BROKEN");
-                        if (!String.IsNullOrEmpty(dr["count"].ToString()))
-                        {
-                            cboUOM.Items.Add("WHOLE");
-                        } else
-                        {
-                            cboUOM.SelectedItem = "BROKEN";
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Invalid Product Code. Please try again.", "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    cboSearch.Focus();
-                    cboSearch.SelectAll();
-                }
-                dr.Close();
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private void cboSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txtQty.Focus();
-                txtQty.SelectAll();
+                try
+                {
+                    ClearProductDetails();
+                    string pcode = null;
+                    if (cboSearch.SelectedValue == null)
+                    {
+                        pcode = cboSearch.Text;
+                    }
+                    else
+                    {
+                        pcode = cboSearch.SelectedValue.ToString();
+                    }
+                    con.Open();
+                    com = new SqlCommand("SELECT pcode, pdesc, count " +
+                        "FROM tblProduct " +
+                        "WHERE pcode = @pcode", con);
+                    com.Parameters.AddWithValue("@pcode", pcode);
+                    dr = com.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        if (dr.Read())
+                        {
+                            this.txtPCode.Text = dr["pcode"].ToString();
+                            this.txtPDesc.Text = dr["pdesc"].ToString();
+                            this.txtCount.Text = dr["count"].ToString();
+
+                            cboUOM.Items.Clear();
+                            if (!String.IsNullOrEmpty(dr["count"].ToString()))
+                            {
+                                cboUOM.Items.Add("WHOLE");
+                                cboUOM.Items.Add("BROKEN");
+                                cboUOM.SelectedItem = "WHOLE";
+                            }
+                            else
+                            {
+                                cboUOM.Items.Add("BROKEN");
+                                cboUOM.SelectedItem = "BROKEN";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Product Code. Please try again.", "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cboSearch.Focus();
+                        cboSearch.SelectAll();
+                    }
+                    dr.Close();
+                    con.Close();
+                    txtQty.Focus();
+                    txtQty.SelectAll();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -383,6 +383,58 @@ namespace SosesPOS
                     lblSubTotal.Text = String.Format("{0:n}", subtotal);
                     cartGridView.Rows.RemoveAt(e.RowIndex);
                 }
+            }
+        }
+
+        private void cartGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            decimal price = 0, total = 0, subtotal = 0;
+            int qty = 0;
+
+            try
+            {
+                if (cartGridView.Columns[e.ColumnIndex].Name == "qty")
+                {
+                    using (DataGridViewRow row = cartGridView.Rows[e.RowIndex])
+                    {
+                        qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        price = Convert.ToDecimal(row.Cells["cost"].Value);
+                        total = qty * price;
+                        row.Cells["total"].Value = String.Format("{0:n}", total);
+                    }
+                }
+                else if (cartGridView.Columns[e.ColumnIndex].Name == "cost")
+                {
+                    using (DataGridViewRow row = cartGridView.Rows[e.RowIndex])
+                    {
+                        qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        price = Convert.ToDecimal(row.Cells["cost"].Value);
+                        total = price * qty;
+                        row.Cells["cost"].Value = String.Format("{0:n}", price);
+                        row.Cells["total"].Value = String.Format("{0:n}", total);
+                    }
+                }
+                else if (cartGridView.Columns[e.ColumnIndex].Name == "total")
+                {
+                    using (DataGridViewRow row = cartGridView.Rows[e.RowIndex])
+                    {
+                        total = Convert.ToDecimal(row.Cells["total"].Value);
+                        qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        price = total / qty;
+                        row.Cells["cost"].Value = String.Format("{0:n}", price);
+                        row.Cells["total"].Value = String.Format("{0:n}", total);
+                    }
+                }
+
+                foreach (DataGridViewRow row in cartGridView.Rows)
+                {
+                    subtotal += Convert.ToDecimal(row.Cells["total"].Value);
+                }
+                lblSubTotal.Text = String.Format("{0:n}", subtotal);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
