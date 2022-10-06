@@ -437,5 +437,181 @@ namespace SosesPOS
                 MessageBox.Show(ex.Message, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void formPurchase_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1) // New Transaction
+            {
+                if (this.btnNewTrans.Enabled)
+                {
+                    btnNewTrans_Click(sender, e);
+                }
+
+            }
+            else if (e.KeyCode == Keys.F2) // Save & Print
+            {
+                if (this.btnSaveAndPrint.Enabled)
+                {
+                    //btnSaveAndPrint_Click(sender, e);
+                }
+            }
+            else if (e.KeyCode == Keys.F3) // Save
+            {
+                if (this.btnSave.Enabled)
+                {
+                    btnSave_Click(sender, e);
+                }
+            }
+            else if (e.KeyCode == Keys.F4) // Load
+            {
+                if (this.btnLoad.Enabled)
+                {
+                    //btnLoad_Click(sender, e);
+                }
+            }
+            else if (e.KeyCode == Keys.F5) // Print 
+            {
+                if (this.btnPrint.Enabled)
+                {
+                    //btnPrint_Click(sender, e);
+                }
+            }
+            else if (e.KeyCode == Keys.F6) // Search Product
+            {
+                btnSearchVendor_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F7) // Search Customer
+            {
+                //btnSearchCustomer_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F10) // Close
+            {
+                this.Dispose();
+            }
+        }
+
+        private void btnSearchVendor_Click(object sender, EventArgs e)
+        {
+            formSearchVendor form = new formSearchVendor();
+            form.ShowDialog();
+        }
+
+        private void btnNewTrans_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Generate New Transaction?", "Purchasing", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ClearVendorDetails();
+                ClearProductForm();
+                ClearProductDetails();
+                ClearCostHistory();
+                ClearCart();
+                this.txtVCode.Focus();
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            con.Open();
+            SqlTransaction transaction = con.BeginTransaction();
+            com.Transaction = transaction;
+            try
+            {
+
+                foreach (DataGridViewRow row in cartGridView.Rows)
+                {
+                    //totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
+
+                    decimal cost = Convert.ToDecimal(row.Cells["cost"].Value);
+
+                    using (SqlConnection drCon = new SqlConnection(dbcon.MyConnection()))
+                    {
+                        drCon.Open();
+                        using (SqlCommand tmpCom = new SqlCommand("SELECT PCode, VendorID, Cost, StartDate, EndDate " +
+                            "FROM tblProductCost " +
+                            "WHERE PCode = @pcode AND VendorID = @vendorid AND EndDate = '9999-12-31'", drCon))
+                        {
+                            tmpCom.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                            tmpCom.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
+                            using (SqlDataReader reader = tmpCom.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    if (reader.Read())
+                                    {
+                                        // If there is a change in cost - update and insert
+                                        if (cost != Convert.ToDecimal(reader["Cost"].ToString()))
+                                        {
+                                            // Update EndDate to Today
+                                            UpdateExistingProductCost(transaction, row, reader);
+
+                                            // Insert New Cost with Active EndDate
+                                            InsertNewProductCost(transaction, row, cost);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    InsertNewProductCost(transaction, row, cost);
+                                }
+                            }
+
+
+
+
+                        }
+                    }
+                }
+
+                transaction.Commit();
+            } catch (Exception ex)
+            {
+                transaction.Rollback();
+                MessageBox.Show(ex.Message, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } finally
+            {
+                con.Close();
+            }
+        }
+
+        private void UpdateExistingProductCost(SqlTransaction transaction, DataGridViewRow row, SqlDataReader reader)
+        {
+            try
+            {
+                using (SqlCommand tmpCommand = new SqlCommand("UPDATE tblProductCost SET EndDate = @newenddate " +
+                    "WHERE PCode = @pcode AND VendorID = @vendorid AND EndDate = @oldenddate", con, transaction))
+                {
+                    tmpCommand.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                    tmpCommand.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
+                    tmpCommand.Parameters.AddWithValue("@newenddate", DateTime.Today);
+                    tmpCommand.Parameters.AddWithValue("@oldenddate", Convert.ToDateTime(reader["EndDate"]));
+                    tmpCommand.ExecuteNonQuery();
+                }
+
+            } catch (Exception ex)
+            {
+                throw new Exception("Fail to update existing tblProductCost: " + ex.Message);
+            }
+        }
+
+        private void InsertNewProductCost(SqlTransaction transaction, DataGridViewRow row, decimal cost)
+        {
+            try
+            {
+                using (SqlCommand tmpCommand = new SqlCommand("INSERT INTO tblProductCost (PCode, VendorID, Cost, StartDate, EndDate) " +
+                    "VALUES (@pcode, @vendorid, @cost, @startdate, @enddate)", con, transaction))
+                {
+                    tmpCommand.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                    tmpCommand.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
+                    tmpCommand.Parameters.AddWithValue("@cost", cost);
+                    tmpCommand.Parameters.AddWithValue("@startdate", DateTime.Today);
+                    tmpCommand.Parameters.AddWithValue("@enddate", new DateTime(9999, 12, 31));
+                    tmpCommand.ExecuteNonQuery();
+                }
+
+            } catch (Exception ex)
+            {
+                throw new Exception("Fail to insert into tblProductCost: " +ex.Message);
+            }
+        }
     }
 }
