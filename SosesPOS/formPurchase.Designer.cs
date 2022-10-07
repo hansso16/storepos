@@ -67,12 +67,15 @@
             this.label8 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvCostHistory = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSearchVendor = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnSaveAndPrint = new System.Windows.Forms.Button();
+            this.btnNewTrans = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblSubTotal = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -86,15 +89,13 @@
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.slid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.site = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnSearchVendor = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.btnPrint = new System.Windows.Forms.Button();
-            this.btnLoad = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnSaveAndPrint = new System.Windows.Forms.Button();
-            this.btnNewTrans = new System.Windows.Forms.Button();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCostHistory)).BeginInit();
@@ -452,8 +453,8 @@
             this.dgvCostHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCostHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn4,
-            this.ID,
             this.dataGridViewTextBoxColumn10,
+            this.Column1,
             this.dataGridViewTextBoxColumn11});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -471,37 +472,6 @@
             this.dgvCostHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCostHistory.Size = new System.Drawing.Size(228, 214);
             this.dgvCostHistory.TabIndex = 25;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.HeaderText = "#";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 39;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn10.HeaderText = "COST";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "columnQty";
-            this.dataGridViewTextBoxColumn11.HeaderText = "DATE";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            this.dataGridViewTextBoxColumn11.Width = 61;
             // 
             // label2
             // 
@@ -527,6 +497,125 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 445);
             this.panel1.TabIndex = 5;
+            // 
+            // btnSearchVendor
+            // 
+            this.btnSearchVendor.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSearchVendor.FlatAppearance.BorderSize = 0;
+            this.btnSearchVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchVendor.ForeColor = System.Drawing.Color.White;
+            this.btnSearchVendor.Image = global::SosesPOS.Properties.Resources.search_white;
+            this.btnSearchVendor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSearchVendor.Location = new System.Drawing.Point(0, 185);
+            this.btnSearchVendor.Name = "btnSearchVendor";
+            this.btnSearchVendor.Size = new System.Drawing.Size(200, 37);
+            this.btnSearchVendor.TabIndex = 15;
+            this.btnSearchVendor.Text = "     [F6] Search Vendor";
+            this.btnSearchVendor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSearchVendor.UseVisualStyleBackColor = true;
+            this.btnSearchVendor.Click += new System.EventHandler(this.btnSearchVendor_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Image = global::SosesPOS.Properties.Resources.apps_white;
+            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClose.Location = new System.Drawing.Point(0, 408);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(200, 37);
+            this.btnClose.TabIndex = 20;
+            this.btnClose.Text = "     [F10] Close";
+            this.btnClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClose.UseVisualStyleBackColor = true;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPrint.Enabled = false;
+            this.btnPrint.FlatAppearance.BorderSize = 0;
+            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrint.ForeColor = System.Drawing.Color.White;
+            this.btnPrint.Image = global::SosesPOS.Properties.Resources.print;
+            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPrint.Location = new System.Drawing.Point(0, 148);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(200, 37);
+            this.btnPrint.TabIndex = 14;
+            this.btnPrint.Text = "     [F5] Print";
+            this.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Visible = false;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLoad.FlatAppearance.BorderSize = 0;
+            this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoad.ForeColor = System.Drawing.Color.White;
+            this.btnLoad.Image = global::SosesPOS.Properties.Resources.load;
+            this.btnLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLoad.Location = new System.Drawing.Point(0, 111);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(200, 37);
+            this.btnLoad.TabIndex = 13;
+            this.btnLoad.Text = "     [F4] Load";
+            this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Visible = false;
+            // 
+            // btnSave
+            // 
+            this.btnSave.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Image = global::SosesPOS.Properties.Resources.save;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.Location = new System.Drawing.Point(0, 74);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(200, 37);
+            this.btnSave.TabIndex = 12;
+            this.btnSave.Text = "     [F3] Save";
+            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnSaveAndPrint
+            // 
+            this.btnSaveAndPrint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSaveAndPrint.FlatAppearance.BorderSize = 0;
+            this.btnSaveAndPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveAndPrint.ForeColor = System.Drawing.Color.White;
+            this.btnSaveAndPrint.Image = global::SosesPOS.Properties.Resources.save;
+            this.btnSaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSaveAndPrint.Location = new System.Drawing.Point(0, 37);
+            this.btnSaveAndPrint.Name = "btnSaveAndPrint";
+            this.btnSaveAndPrint.Size = new System.Drawing.Size(200, 37);
+            this.btnSaveAndPrint.TabIndex = 11;
+            this.btnSaveAndPrint.Text = "     [F2] Save and Print";
+            this.btnSaveAndPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSaveAndPrint.UseVisualStyleBackColor = true;
+            this.btnSaveAndPrint.Visible = false;
+            // 
+            // btnNewTrans
+            // 
+            this.btnNewTrans.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnNewTrans.FlatAppearance.BorderSize = 0;
+            this.btnNewTrans.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNewTrans.ForeColor = System.Drawing.Color.White;
+            this.btnNewTrans.Image = global::SosesPOS.Properties.Resources.plus_white;
+            this.btnNewTrans.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewTrans.Location = new System.Drawing.Point(0, 0);
+            this.btnNewTrans.Name = "btnNewTrans";
+            this.btnNewTrans.Size = new System.Drawing.Size(200, 37);
+            this.btnNewTrans.TabIndex = 10;
+            this.btnNewTrans.Text = "     [F1] New Transaction";
+            this.btnNewTrans.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnNewTrans.UseVisualStyleBackColor = true;
+            this.btnNewTrans.Click += new System.EventHandler(this.btnNewTrans_Click);
             // 
             // panel2
             // 
@@ -584,6 +673,7 @@
             this.total,
             this.slid,
             this.site,
+            this.count,
             this.Delete});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
@@ -672,15 +762,12 @@
             this.site.ReadOnly = true;
             this.site.Width = 55;
             // 
-            // dataGridViewImageColumn1
+            // count
             // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewImageColumn1.Width = 17;
+            this.count.HeaderText = "COUNT";
+            this.count.Name = "count";
+            this.count.ReadOnly = true;
+            this.count.Visible = false;
             // 
             // Delete
             // 
@@ -692,121 +779,46 @@
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Delete.Width = 17;
             // 
-            // btnSearchVendor
+            // dataGridViewImageColumn1
             // 
-            this.btnSearchVendor.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSearchVendor.FlatAppearance.BorderSize = 0;
-            this.btnSearchVendor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearchVendor.ForeColor = System.Drawing.Color.White;
-            this.btnSearchVendor.Image = global::SosesPOS.Properties.Resources.search_white;
-            this.btnSearchVendor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSearchVendor.Location = new System.Drawing.Point(0, 185);
-            this.btnSearchVendor.Name = "btnSearchVendor";
-            this.btnSearchVendor.Size = new System.Drawing.Size(200, 37);
-            this.btnSearchVendor.TabIndex = 15;
-            this.btnSearchVendor.Text = "     [F6] Search Vendor";
-            this.btnSearchVendor.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnSearchVendor.UseVisualStyleBackColor = true;
-            this.btnSearchVendor.Click += new System.EventHandler(this.btnSearchVendor_Click);
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // btnClose
+            // dataGridViewTextBoxColumn4
             // 
-            this.btnClose.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Image = global::SosesPOS.Properties.Resources.apps_white;
-            this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(0, 408);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(200, 37);
-            this.btnClose.TabIndex = 20;
-            this.btnClose.Text = "     [F10] Close";
-            this.btnClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClose.UseVisualStyleBackColor = true;
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.HeaderText = "#";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 39;
             // 
-            // btnPrint
+            // dataGridViewTextBoxColumn10
             // 
-            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPrint.Enabled = false;
-            this.btnPrint.FlatAppearance.BorderSize = 0;
-            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrint.ForeColor = System.Drawing.Color.White;
-            this.btnPrint.Image = global::SosesPOS.Properties.Resources.print;
-            this.btnPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPrint.Location = new System.Drawing.Point(0, 148);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(200, 37);
-            this.btnPrint.TabIndex = 14;
-            this.btnPrint.Text = "     [F5] Print";
-            this.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPrint.UseVisualStyleBackColor = true;
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn10.HeaderText = "COST";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 63;
             // 
-            // btnLoad
+            // Column1
             // 
-            this.btnLoad.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLoad.FlatAppearance.BorderSize = 0;
-            this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoad.ForeColor = System.Drawing.Color.White;
-            this.btnLoad.Image = global::SosesPOS.Properties.Resources.load;
-            this.btnLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLoad.Location = new System.Drawing.Point(0, 111);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(200, 37);
-            this.btnLoad.TabIndex = 13;
-            this.btnLoad.Text = "     [F4] Load";
-            this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLoad.UseVisualStyleBackColor = true;
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column1.HeaderText = "WHOLE";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 75;
             // 
-            // btnSave
+            // dataGridViewTextBoxColumn11
             // 
-            this.btnSave.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Image = global::SosesPOS.Properties.Resources.save;
-            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSave.Location = new System.Drawing.Point(0, 74);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(200, 37);
-            this.btnSave.TabIndex = 12;
-            this.btnSave.Text = "     [F3] Save";
-            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnSaveAndPrint
-            // 
-            this.btnSaveAndPrint.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSaveAndPrint.FlatAppearance.BorderSize = 0;
-            this.btnSaveAndPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveAndPrint.ForeColor = System.Drawing.Color.White;
-            this.btnSaveAndPrint.Image = global::SosesPOS.Properties.Resources.save;
-            this.btnSaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSaveAndPrint.Location = new System.Drawing.Point(0, 37);
-            this.btnSaveAndPrint.Name = "btnSaveAndPrint";
-            this.btnSaveAndPrint.Size = new System.Drawing.Size(200, 37);
-            this.btnSaveAndPrint.TabIndex = 11;
-            this.btnSaveAndPrint.Text = "     [F2] Save and Print";
-            this.btnSaveAndPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnSaveAndPrint.UseVisualStyleBackColor = true;
-            // 
-            // btnNewTrans
-            // 
-            this.btnNewTrans.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnNewTrans.FlatAppearance.BorderSize = 0;
-            this.btnNewTrans.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNewTrans.ForeColor = System.Drawing.Color.White;
-            this.btnNewTrans.Image = global::SosesPOS.Properties.Resources.plus_white;
-            this.btnNewTrans.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNewTrans.Location = new System.Drawing.Point(0, 0);
-            this.btnNewTrans.Name = "btnNewTrans";
-            this.btnNewTrans.Size = new System.Drawing.Size(200, 37);
-            this.btnNewTrans.TabIndex = 10;
-            this.btnNewTrans.Text = "     [F1] New Transaction";
-            this.btnNewTrans.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnNewTrans.UseVisualStyleBackColor = true;
-            this.btnNewTrans.Click += new System.EventHandler(this.btnNewTrans_Click);
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "columnQty";
+            this.dataGridViewTextBoxColumn11.HeaderText = "DATE";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
             // formPurchase
             // 
@@ -885,11 +897,8 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.TextBox txtCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.ComboBox cboUOM;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn pcode;
         private System.Windows.Forms.DataGridViewTextBoxColumn pdesc;
@@ -899,7 +908,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn slid;
         private System.Windows.Forms.DataGridViewTextBoxColumn site;
+        private System.Windows.Forms.DataGridViewTextBoxColumn count;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
     }
 }

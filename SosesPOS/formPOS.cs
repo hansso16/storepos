@@ -302,11 +302,7 @@ namespace SosesPOS
                     btnPrint_Click(sender, e);
                 }
             }
-            else if (e.KeyCode == Keys.F6) // Search Product
-            {
-                btnSearchProduct_Click(sender, e);
-            }
-            else if (e.KeyCode == Keys.F7) // Search Customer
+            else if (e.KeyCode == Keys.F6) // Search Customer
             {
                 btnSearchCustomer_Click(sender, e);
             }

@@ -217,6 +217,7 @@ namespace SosesPOS
                 {
                     ClearProductDetails();
                     string pcode = null;
+                    int count = 1;
                     if (cboSearch.SelectedValue == null)
                     {
                         pcode = cboSearch.Text;
@@ -245,6 +246,7 @@ namespace SosesPOS
                                 cboUOM.Items.Add("WHOLE");
                                 cboUOM.Items.Add("BROKEN");
                                 cboUOM.SelectedItem = "WHOLE";
+                                count = Convert.ToInt32(dr["count"]);
                             }
                             else
                             {
@@ -258,6 +260,24 @@ namespace SosesPOS
                         MessageBox.Show("Invalid Product Code. Please try again.", "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         cboSearch.Focus();
                         cboSearch.SelectAll();
+                    }
+                    dr.Close();
+
+                    dgvCostHistory.Rows.Clear();
+                    com = new SqlCommand("SELECT Cost, StartDate from tblProductCost " +
+                        "WHERE PCode = @pcode AND VendorID = @vendorid ORDER BY StartDate", con);
+                    com.Parameters.AddWithValue("@pcode", pcode);
+                    com.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
+                    dr = com.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        int i = 0;
+                        while (dr.Read())
+                        {
+                            dgvCostHistory.Rows.Add(++i, String.Format("{0:n}", dr["Cost"])
+                                , String.Format("{0:n}", Convert.ToDecimal(dr["Cost"]) * count)
+                                , Convert.ToDateTime(dr["StartDate"]).ToString("MM/dd/yyyy"));
+                        }
                     }
                     dr.Close();
                     con.Close();
@@ -354,11 +374,13 @@ namespace SosesPOS
                 
                 total = qty * cost;
                 subtotal += total;
+                string count = String.IsNullOrEmpty(txtCount.Text)? "0":txtCount.Text;
 
                 this.cartGridView.Rows.Add(++i, txtPCode.Text, txtPDesc.Text
                     , this.txtQty.Text, cboUOM.Text
                     , String.Format("{0:n}", cost), String.Format("{0:n}", total)
-                    , cboSite.SelectedValue, cboSite.SelectedText);
+                    , cboSite.SelectedValue, cboSite.SelectedText
+                    , count);
                 
                 this.lblSubTotal.Text = String.Format("{0:n}", subtotal);
 
@@ -516,12 +538,31 @@ namespace SosesPOS
             com.Transaction = transaction;
             try
             {
+                com = new SqlCommand("INSERT INTO tblPurchasing (ReferenceNo, VendorID, VendorReferenceNo, DateIn, Status) " +
+                    "OUTPUT inserted.PurchaseID " +
+                    "VALUES (@refno, @vendorid, @vendorrefno, @datein, @status)", con, transaction);
+                com.Parameters.AddWithValue("@refno", "");
+                com.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
+                com.Parameters.AddWithValue("@vendorrefno", "");
+                com.Parameters.AddWithValue("@datein", DateTime.Today);
+                com.Parameters.AddWithValue("@status", "RECORDED");
+                int purchaseId = Convert.ToInt32(com.ExecuteScalar());
+                com.Dispose();
 
                 foreach (DataGridViewRow row in cartGridView.Rows)
                 {
-                    //totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
-
+                    // if wholesale - qty * count ; cost / count
+                    // saving per piece unit only
                     decimal cost = Convert.ToDecimal(row.Cells["cost"].Value);
+                    string unit = row.Cells["uom"].Value.ToString();
+                    decimal costPerU = cost;
+                    int count = Convert.ToInt32(row.Cells["count"].Value);
+                    int qty = Convert.ToInt32(row.Cells["qty"].Value);
+                    if (count > 0)
+                    {
+                        costPerU = cost / count;
+                        qty = qty * count;
+                    }
 
                     using (SqlConnection drCon = new SqlConnection(dbcon.MyConnection()))
                     {
@@ -545,24 +586,31 @@ namespace SosesPOS
                                             UpdateExistingProductCost(transaction, row, reader);
 
                                             // Insert New Cost with Active EndDate
-                                            InsertNewProductCost(transaction, row, cost);
+                                            InsertNewProductCost(transaction, row, costPerU);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    InsertNewProductCost(transaction, row, cost);
+                                    InsertNewProductCost(transaction, row, costPerU);
                                 }
                             }
-
-
-
-
                         }
                     }
+
+                    com = new SqlCommand("INSERT INTO tblInventory (SLID, PCode, PurchaseID, Qty) " +
+                        "VALUES (@slid, @pcode, @purchaseid, @qty)", con, transaction);
+                    com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+                    com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                    com.Parameters.AddWithValue("@purchaseid", purchaseId);
+                    com.Parameters.AddWithValue("@qty", qty);
+                    com.ExecuteNonQuery();
+                    com.Dispose();
                 }
 
                 transaction.Commit();
+                MessageBox.Show("Purchase Order saved successfully.  Ref No: ", "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnNewTrans_Click(sender, e);
             } catch (Exception ex)
             {
                 transaction.Rollback();
@@ -570,6 +618,7 @@ namespace SosesPOS
             } finally
             {
                 con.Close();
+                //con.Dispose();
             }
         }
 
