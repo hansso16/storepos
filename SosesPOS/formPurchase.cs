@@ -205,7 +205,7 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                cboSearch.Focus();
+                txtVendorRefNo.Focus();
             }
         }
 
@@ -541,9 +541,9 @@ namespace SosesPOS
                 com = new SqlCommand("INSERT INTO tblPurchasing (ReferenceNo, VendorID, VendorReferenceNo, DateIn, Status) " +
                     "OUTPUT inserted.PurchaseID " +
                     "VALUES (@refno, @vendorid, @vendorrefno, @datein, @status)", con, transaction);
-                com.Parameters.AddWithValue("@refno", "");
+                com.Parameters.AddWithValue("@refno", DBNull.Value);
                 com.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
-                com.Parameters.AddWithValue("@vendorrefno", "");
+                com.Parameters.AddWithValue("@vendorrefno", txtVendorRefNo.Text);
                 com.Parameters.AddWithValue("@datein", DateTime.Today);
                 com.Parameters.AddWithValue("@status", "RECORDED");
                 int purchaseId = Convert.ToInt32(com.ExecuteScalar());
@@ -561,6 +561,8 @@ namespace SosesPOS
                     if (count > 0)
                     {
                         costPerU = cost / count;
+                        //costPerU.ToString(0.00);
+                        costPerU = decimal.Round(costPerU, 2, MidpointRounding.AwayFromZero);
                         qty = qty * count;
                     }
 
@@ -579,8 +581,8 @@ namespace SosesPOS
                                 {
                                     if (reader.Read())
                                     {
-                                        // If there is a change in cost - update and insert
-                                        if (cost != Convert.ToDecimal(reader["Cost"].ToString()))
+                                        // If there is a change in cost - update old cost and insert new cost
+                                        if (costPerU != Convert.ToDecimal(reader["Cost"].ToString()))
                                         {
                                             // Update EndDate to Today
                                             UpdateExistingProductCost(transaction, row, reader);
@@ -660,6 +662,14 @@ namespace SosesPOS
             } catch (Exception ex)
             {
                 throw new Exception("Fail to insert into tblProductCost: " +ex.Message);
+            }
+        }
+
+        private void txtVendorRefNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                cboSearch.Focus();
             }
         }
     }

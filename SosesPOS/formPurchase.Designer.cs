@@ -61,12 +61,16 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtVCode = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtTransNo = new System.Windows.Forms.TextBox();
+            this.txtVendorRefNo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtQty = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvCostHistory = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSearchVendor = new System.Windows.Forms.Button();
@@ -92,10 +96,6 @@
             this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCostHistory)).BeginInit();
@@ -133,7 +133,7 @@
             this.panel3.Controls.Add(this.label4);
             this.panel3.Controls.Add(this.txtVCode);
             this.panel3.Controls.Add(this.label10);
-            this.panel3.Controls.Add(this.txtTransNo);
+            this.panel3.Controls.Add(this.txtVendorRefNo);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.txtQty);
             this.panel3.Controls.Add(this.label8);
@@ -375,7 +375,7 @@
             // 
             // txtVCode
             // 
-            this.txtVCode.Location = new System.Drawing.Point(117, 29);
+            this.txtVCode.Location = new System.Drawing.Point(12, 29);
             this.txtVCode.Name = "txtVCode";
             this.txtVCode.Size = new System.Drawing.Size(128, 25);
             this.txtVCode.TabIndex = 1;
@@ -385,28 +385,28 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(114, 9);
+            this.label10.Location = new System.Drawing.Point(9, 9);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(85, 17);
             this.label10.TabIndex = 13;
             this.label10.Text = "Vendor Code";
             // 
-            // txtTransNo
+            // txtVendorRefNo
             // 
-            this.txtTransNo.Location = new System.Drawing.Point(12, 29);
-            this.txtTransNo.Name = "txtTransNo";
-            this.txtTransNo.ReadOnly = true;
-            this.txtTransNo.Size = new System.Drawing.Size(99, 25);
-            this.txtTransNo.TabIndex = 9;
+            this.txtVendorRefNo.Location = new System.Drawing.Point(146, 29);
+            this.txtVendorRefNo.Name = "txtVendorRefNo";
+            this.txtVendorRefNo.Size = new System.Drawing.Size(99, 25);
+            this.txtVendorRefNo.TabIndex = 9;
+            this.txtVendorRefNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVendorRefNo_KeyDown);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 8);
+            this.label9.Location = new System.Drawing.Point(146, 8);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(99, 17);
+            this.label9.Size = new System.Drawing.Size(98, 17);
             this.label9.TabIndex = 11;
-            this.label9.Text = "Transaction No.";
+            this.label9.Text = "Vendor Ref No.";
             // 
             // txtQty
             // 
@@ -472,6 +472,38 @@
             this.dgvCostHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCostHistory.Size = new System.Drawing.Size(228, 214);
             this.dgvCostHistory.TabIndex = 25;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.HeaderText = "#";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 41;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn10.HeaderText = "COST";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 63;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Column1.HeaderText = "WHOLE";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 75;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "columnQty";
+            this.dataGridViewTextBoxColumn11.HeaderText = "DATE";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
             // label2
             // 
@@ -788,38 +820,6 @@
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.HeaderText = "#";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Visible = false;
-            this.dataGridViewTextBoxColumn4.Width = 39;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn10.HeaderText = "COST";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 63;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column1.HeaderText = "WHOLE";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 75;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "columnQty";
-            this.dataGridViewTextBoxColumn11.HeaderText = "DATE";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
             // formPurchase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -867,7 +867,7 @@
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.TextBox txtVCode;
         private System.Windows.Forms.Label label10;
-        public System.Windows.Forms.TextBox txtTransNo;
+        public System.Windows.Forms.TextBox txtVendorRefNo;
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Label label8;
