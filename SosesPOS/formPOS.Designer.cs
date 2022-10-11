@@ -105,6 +105,7 @@
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.slid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel3.SuspendLayout();
@@ -836,6 +837,7 @@
             this.total,
             this.location,
             this.slid,
+            this.count,
             this.Edit,
             this.Delete});
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -956,6 +958,13 @@
             this.slid.ReadOnly = true;
             this.slid.Visible = false;
             // 
+            // count
+            // 
+            this.count.HeaderText = "COUNT";
+            this.count.Name = "count";
+            this.count.ReadOnly = true;
+            this.count.Visible = false;
+            // 
             // Edit
             // 
             this.Edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -1075,6 +1084,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn location;
         private System.Windows.Forms.DataGridViewTextBoxColumn slid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn count;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
     }
