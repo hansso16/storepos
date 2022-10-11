@@ -42,6 +42,31 @@ namespace SosesPOS
             cboLocation.ValueMember = "Value";
         }
 
+        private void LoadProductLocation(string pcode)
+        {
+            con.Open();
+            com = new SqlCommand("SELECT sl.SLID, sl.LocationName, sl.LocationType " +
+                "FROM tblInventory i INNER JOIN tblStockLocation sl ON sl.SLID = i.SLID " +
+                "WHERE PCode = @pcode AND Qty > 0 " +
+                "GROUP BY sl.SLID, sl.LocationName, sl.LocationType", con);
+            com.Parameters.AddWithValue("@pcode", pcode);
+            dr = com.ExecuteReader();
+            List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+            //AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+            while (dr.Read())
+            {
+                //MessageBox.Show("HERE");
+                dataSource.Add(new ComboBoxDTO() { Name = dr["LocationName"].ToString(), Value = dr["SLID"].ToString() });
+                //collection.Add(dr["pdesc"].ToString());
+            }
+            cboSearch.DataSource = dataSource;
+            cboSearch.DisplayMember = "Name";
+            cboSearch.ValueMember = "Value";
+            //cboTest.AutoCompleteCustomSource = collection;
+            dr.Close();
+            con.Close();
+        }
+
         private void LoadSuggestedProducts()
         {
             //con.Open();
@@ -142,10 +167,10 @@ namespace SosesPOS
                 }
                 else
                 {
-                    // add to cart
                     int qty = 0;
                     decimal price = 0, total = 0, subtotal = 0;
 
+                    // Check for duplicates
                     foreach (DataGridViewRow row in cartGridView.Rows)
                     {
                         if (row.Cells["PCODE"].Value.ToString().Equals(txtPCode.Text)
@@ -159,7 +184,7 @@ namespace SosesPOS
                         }
                     }
 
-                    //MessageBox.Show(cboUOM.SelectedValue.ToString());
+                    // Compute Price
                     foreach (DataGridViewRow row in priceListView.Rows)
                     {
                         if (row.Cells[1].Value.ToString().Equals(cboUOM.SelectedValue.ToString())) 
@@ -171,20 +196,29 @@ namespace SosesPOS
                         }
                     }
 
-                    string pdesc = null;
-                    if ("0".Equals(cboLocation.SelectedValue.ToString()))
+                    // Check Location Type
+                    string pdesc = null, locationType = null;
+                    con.Open();
+                    com = new SqlCommand("SELECT LocationType from tblStockLocation WHERE SLID = @slid", con);
+                    com.Parameters.AddWithValue("@slid", cboLocation.SelectedValue);
+                    dr = com.ExecuteReader();
+                    if(dr.Read())
                     {
-                        pdesc = "*"+txtPDesc.Text;
-                    } else
-                    {
-                        pdesc = txtPDesc.Text;
+                        locationType = dr["LocationType"].ToString();
+                        if ("0".Equals(locationType))
+                        {
+                            pdesc = "*"+txtPDesc.Text;
+                        } else
+                        {
+                            pdesc = txtPDesc.Text;
+                        }
                     }
 
-
+                    // Add to Cart
                     this.cartGridView.Rows.Add(++i, "id", txtPCode.Text, pdesc
                         , qty, cboUOM.SelectedValue.ToString(), cboUOM.Text
                         , String.Format("{0:n}", price), String.Format("{0:n}", total)
-                        , cboLocation.SelectedValue.ToString());
+                        , locationType, cboLocation.SelectedValue);
 
                     subtotal = Convert.ToDecimal(lblSubTotal.Text);
                     subtotal += total;
@@ -218,8 +252,9 @@ namespace SosesPOS
 
         private void ClearProductDetails()
         {
-            this.txtPCode.Text = "";
-            this.txtPDesc.Text = "";
+            this.txtPCode.Clear();
+            this.txtPDesc.Clear();
+            this.txtCount.Clear();
         }
 
         private void ClearProductForm()
@@ -234,7 +269,9 @@ namespace SosesPOS
             this.cboUOM.Items.Clear();
             this.cboUOM.Text = "";
             this.cboLocation.Enabled = true;
-            //this.cboLocation.Text = "";
+            this.cboLocation.DataSource = null;
+            this.cboLocation.Items.Clear();
+            this.cboLocation.Text = "";
         }
 
         private void ClearCustomerDetails()
@@ -254,6 +291,8 @@ namespace SosesPOS
         {
             this.priceListView.Rows.Clear();
             this.priceListView.Refresh();
+            this.dgvInventory.Rows.Clear();
+            this.dgvInventory.Refresh();
         }
 
         public void ClearCart()
@@ -359,26 +398,27 @@ namespace SosesPOS
                     cboUOM.SelectAll();
                     return;
                 }
-
-                foreach (DataGridViewRow row in priceListView.Rows)
-                {
-                    if (row.Cells["ID"].Value.ToString().Equals(cboUOM.SelectedValue))
-                    {
-                        if ("0".Equals(row.Cells["CODE"].Value.ToString()))
-                        {
-                            cboLocation.Enabled = true;
-                            cboLocation.SelectedIndex = 0;
-                            cboLocation.Focus();
-                            cboLocation.SelectAll();
-                        } else
-                        {
-                            cboLocation.SelectedIndex = cboLocation.FindStringExact("Store");
-                            cboLocation.Enabled = false;
-                            txtQty.Focus();
-                            txtQty.SelectAll();
-                        }
-                    }
-                }
+                cboLocation.Focus();
+                cboLocation.SelectAll();
+                //foreach (DataGridViewRow row in priceListView.Rows)
+                //{
+                //    if (row.Cells["ID"].Value.ToString().Equals(cboUOM.SelectedValue))
+                //    {
+                //        if ("0".Equals(row.Cells["CODE"].Value.ToString()))
+                //        {
+                //            cboLocation.Enabled = true;
+                //            cboLocation.SelectedIndex = 0;
+                //            cboLocation.Focus();
+                //            cboLocation.SelectAll();
+                //        } else
+                //        {
+                //            cboLocation.SelectedIndex = cboLocation.FindStringExact("Store");
+                //            cboLocation.Enabled = false;
+                //            txtQty.Focus();
+                //            txtQty.SelectAll();
+                //        }
+                //    }
+                //}
             }
         }
 
@@ -450,21 +490,57 @@ namespace SosesPOS
                     com.Parameters.AddWithValue("@invoiceid", invoiceId);
                     com.ExecuteNonQuery();
 
-                    // Save to tblInvoiceDetails
                     foreach (DataGridViewRow row in cartGridView.Rows)
                     {
-                        //MessageBox.Show(row.Cells["total"].Value.ToString());
+                        Queue<int> queue = new Queue<int>();
                         totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
-                        com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location) " +
-                            "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location)", con, transaction);
-                        com.Parameters.AddWithValue("@invoiceid", invoiceId);
-                        com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
-                        com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
-                        com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
-                        com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
-                        com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
-                        com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
-                        com.ExecuteNonQuery();
+
+                        // Get Inventory Qty List
+                        com = new SqlCommand("SELECT  i.InventoryID, i.Qty " +
+                            "FROM tblInventory i INNER JOIN tblStockLocation sl ON sl.SLID = i.SLID " +
+                            "INNER JOIN tblPurchasing p ON p.PurchaseID = i.PurchaseID " +
+                            "WHERE i.PCode = @pcode AND i.SLID = @slid " +
+                            "ORDER BY p.DateIn, i.InventoryID", con, transaction);
+                        com.Parameters.AddWithValue("@pcode", "");
+                        com.Parameters.AddWithValue("@slid", "");
+                        dr = com.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            // Add to Queue
+                            queue.Enqueue(dr.GetInt32(0));
+
+                            // Identify next inventory
+                            int invQty = dr.GetInt32(1);
+                            int saleQty = 1;//Convert.ToInt32(row.Cells["qty"].Value);
+                            int count = Convert.ToInt32(txtCount.Text);
+                            if (String.IsNullOrEmpty(txtCount.Text) && count > 1)
+                            {
+                                saleQty = saleQty * count;
+                            }
+                            if (invQty > saleQty)
+                            {
+                                break;
+                            }
+                        }
+                        dr.Close();
+
+
+                        // Save to tblInvoiceDetails
+                        while (queue.Count > 0)
+                        {
+                            int invID = queue.Dequeue();
+                            com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location, InventoryID) " +
+                                "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location, @inventoryid)", con, transaction);
+                            com.Parameters.AddWithValue("@invoiceid", invoiceId);
+                            com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                            com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
+                            com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
+                            com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
+                            com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
+                            com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
+                            com.Parameters.AddWithValue("@inventoryid", invID);
+                            com.ExecuteNonQuery();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -523,22 +599,87 @@ namespace SosesPOS
                     invoiceId = Convert.ToInt32(com.ExecuteScalar().ToString());
                     //invoiceId = Int32.Parse(com.ExecuteScalar().ToString());
 
-                    // Save to tblInvoiceDetails
+
                     foreach (DataGridViewRow row in cartGridView.Rows)
                     {
-
-                        //MessageBox.Show(row.Cells["total"].Value.ToString());
+                        Queue<int> queue = new Queue<int>();
                         totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
-                        com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location) " +
-                            "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location)", con, transaction);
-                        com.Parameters.AddWithValue("@invoiceid", invoiceId);
-                        com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
-                        com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
-                        com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
-                        com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
-                        com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
-                        com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
-                        com.ExecuteNonQuery();
+
+                        // Get Inventory Qty List
+                        com = new SqlCommand("SELECT  i.InventoryID, i.Qty " +
+                            "FROM tblInventory i INNER JOIN tblStockLocation sl ON sl.SLID = i.SLID " +
+                            "INNER JOIN tblPurchasing p ON p.PurchaseID = i.PurchaseID " +
+                            "WHERE i.PCode = @pcode AND i.SLID = @slid " +
+                            "ORDER BY p.DateIn, i.InventoryID", con, transaction);
+                        com.Parameters.AddWithValue("@pcode", "");
+                        com.Parameters.AddWithValue("@slid", "");
+                        dr = com.ExecuteReader();
+                        if (dr.HasRows)
+                        {
+                            int inventoryQty = dr.GetInt32(1);
+                            int invoiceQty = 0;//Convert.ToInt32(row.Cells["qty"].Value);
+                            int count = Convert.ToInt32(txtCount.Text);
+                            while (dr.Read())
+                            {
+                                // Add to Queue
+                                int inventoryId = dr.GetInt32(0);
+                                queue.Enqueue(inventoryId);
+                                inventoryQty = dr.GetInt32(1);
+                                invoiceQty = 1;//Convert.ToInt32(row.Cells["qty"].Value);
+                                count = Convert.ToInt32(txtCount.Text);
+                                // Identify next inventory
+                                if (String.IsNullOrEmpty(txtCount.Text) && count > 1)
+                                {
+                                    invoiceQty = invoiceQty * count;
+                                }
+                                if (inventoryQty > invoiceQty)
+                                {
+                                    // update inventory qty: inventoryQty - invoiceQty
+                                    // TODO
+                                    int newInventoryQty = inventoryQty - invoiceQty;
+                                    invoiceQty = 0;
+
+
+
+
+                                    break;
+                                } else
+                                {
+                                    // update inventory qty: invoiceQty - inventoryQty
+                                    // TODO
+                                    invoiceQty = invoiceQty - inventoryQty;
+                                    inventoryQty = 0;
+                                }
+                            }
+                            dr.Close();
+
+                            while (queue.Count > 0)
+                            {
+                                int invID = queue.Dequeue();
+                                // Save to tblInvoiceDetails With Inventory Reserved
+                                SaveInvoiceDetails(invoiceId, transaction, row, invID);
+                            }
+
+                            if (invoiceQty > 0)
+                            {
+                                // create negative inv: TODO
+
+
+                                // Save to tblInvoiceDetails without Inventory
+                                SaveInvoiceDetails(invoiceId, transaction, row, 0);
+                            }
+                        } else
+                        {
+                            dr.Close();
+
+                            // create negative inv TODO
+
+
+                            // Save to tblInvoiceDetails without Inventory
+                            SaveInvoiceDetails(invoiceId, transaction, row, 0);
+                        }
+
+
                     }
                 }
                 catch (Exception ex)
@@ -556,6 +697,27 @@ namespace SosesPOS
             {
                 return false;
             }
+        }
+
+        private void SaveInvoiceDetails(int invoiceId, SqlTransaction transaction, DataGridViewRow row, int inventoryID)
+        {
+            com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location, InventoryID) " +
+                                                "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location, @inventoryid)", con, transaction);
+            com.Parameters.AddWithValue("@invoiceid", invoiceId);
+            com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+            com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
+            com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
+            com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
+            com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
+            com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
+            if (inventoryID == 0)
+            {
+                com.Parameters.AddWithValue("@inventoryid", DBNull.Value);
+            } else
+            {
+                com.Parameters.AddWithValue("@inventoryid", inventoryID);
+            }
+            com.ExecuteNonQuery();
         }
 
         // F1 New Trans
@@ -681,6 +843,9 @@ namespace SosesPOS
                     // Set Order to Printed
                     setOrderStatusPrinted(refno);
 
+                    // Adjust Inv based on Inv
+                    AdjustInventory(refno);
+
                     // Update A/R
                     updateCustomerCollection();
 
@@ -694,6 +859,44 @@ namespace SosesPOS
                     }
                     MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void AdjustInventory(string refno)
+        {
+            try
+            {
+                con.Open();
+                SqlTransaction transaction = con.BeginTransaction();
+                com.Transaction = transaction;
+
+                using (SqlConnection drCon = new SqlConnection(dbcon.MyConnection()))
+                {
+                    drCon.Open();
+                    using (SqlCommand tmpCom = new SqlCommand("Select InventoryID, Qty " +
+                            "FROM tblInvoice i INNER JOIN tblInvoiceDetails id ON i.InvoiceID = id.InvoiceID " +
+                            "WHERE i.ReferenceNo = @refno", drCon))
+                    {
+                        tmpCom.Parameters.AddWithValue("@refno", refno);
+                        dr = com.ExecuteReader();
+                        using (SqlDataReader reader = tmpCom.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                //com = new SqlCommand("UPDATE", con, transaction); TODO:
+                            }
+                        }
+                    }
+                }
+                con.Close();
+            } 
+            catch (Exception ex)
+            {
+                if (con != null && (con.State == ConnectionState.Open || con.State == ConnectionState.Broken))
+                {
+                    con.Close();
+                }
+                MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -794,7 +997,7 @@ namespace SosesPOS
                     pcode = cboSearch.SelectedValue.ToString();
                 }
                 con.Open();
-                com = new SqlCommand("select pcode, pdesc from tblProduct " +
+                com = new SqlCommand("select pcode, pdesc, count from tblProduct " +
                     "where pcode = @pcode", con);
                 com.Parameters.AddWithValue("@pcode", pcode);
                 dr = com.ExecuteReader();
@@ -804,6 +1007,7 @@ namespace SosesPOS
                     {
                         this.txtPCode.Text = dr["pcode"].ToString();
                         this.txtPDesc.Text = dr["pdesc"].ToString();
+                        this.txtCount.Text = dr["count"].ToString();
                     }
                 } else
                 {
@@ -816,6 +1020,71 @@ namespace SosesPOS
                 }
                 dr.Close();
 
+                // Load Product Location - cboLocation
+                com = new SqlCommand("SELECT sl.SLID, sl.LocationName " +
+                "FROM tblInventory i INNER JOIN tblStockLocation sl ON sl.SLID = i.SLID " +
+                "WHERE PCode = @pcode AND Qty > 0 " +
+                "GROUP BY sl.SLID, sl.LocationName", con);
+                com.Parameters.AddWithValue("@pcode", pcode);
+                dr = com.ExecuteReader();
+                List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        dataSource.Add(new ComboBoxDTO() { Name = dr["LocationName"].ToString(), Value = dr["SLID"].ToString() }); 
+                    }
+                } else
+                {
+                    dataSource.Add(new ComboBoxDTO() { Name = "STORE", Value = "1" });// default
+                }
+                cboLocation.DataSource = dataSource;
+                cboLocation.DisplayMember = "Name";
+                cboLocation.ValueMember = "Value";
+                dr.Close();
+
+                // Load Inventory Information // PROBLEM HERE - dgvInventory
+                com = new SqlCommand("SELECT sl.SLID, sl.LocationName, sl.LocationType, i.PCode, SUM(i.Qty) QTY " +
+                    "FROM tblInventory i INNER JOIN tblPurchasing p ON p.PurchaseID = i.PurchaseID " +
+                    "INNER JOIN tblStockLocation sl ON sl.SLID = i.SLID " +
+                    "WHERE i.PCode = @pcode and Qty > 0 " + // get rin ba ng utang?
+                    "GROUP BY sl.SLID, sl.LocationName, sl.LocationType, i.PCode", con);
+                com.Parameters.AddWithValue("@pcode", pcode);
+                dr = com.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    int count = 1;
+                    if (!String.IsNullOrEmpty(txtCount.Text))
+                    {
+                        count = Convert.ToInt32(txtCount.Text);
+                    }
+                    while (dr.Read())
+                    {
+                        int qty = Convert.ToInt32(dr["QTY"]);
+                        int div = qty;
+                        if (qty > 0)
+                        {
+                            div = qty / count;
+                        }
+
+                        string finalQty = null;
+                        if (count == 1 || qty <= 0)
+                        {
+                            finalQty = div + "pcs";
+                        } else if (count > 1)
+                        {
+                            int mod = qty % count;
+                            finalQty = div + "whl " + mod + "pc";
+                        }
+
+
+                        dgvInventory.Rows.Add(dr["SLID"].ToString(), dr["LocationType"].ToString()
+                            , dr["LocationName"].ToString(), finalQty);
+                    }
+                }
+                dr.Close();
+
+                // Load PriceList and UOM
                 com = new SqlCommand("SELECT u.id, u.type, u.description, u.code, pd.price FROM tblProductDetails pd " +
                     "INNER JOIN tblUOM u ON pd.UOM = u.ID " +
                     "WHERE pd.pcode = @pcode ", con);
@@ -823,16 +1092,16 @@ namespace SosesPOS
                 dr = com.ExecuteReader();
                 if (dr.HasRows)
                 {
-                    List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+                    List<ComboBoxDTO> uomDataSource = new List<ComboBoxDTO>();
                     int i = 0;
                     while (dr.Read())
                     {
                         string uom = dr["type"].ToString().ToUpper(); //+ " - " + dr["description"].ToString();
                         priceListView.Rows.Add(++i, dr["id"].ToString(), uom
                             , String.Format("{0:n}", Convert.ToDecimal(dr["price"])), "", dr["code"].ToString());
-                        dataSource.Add(new ComboBoxDTO() { Name = uom, Value = dr["id"].ToString() });
+                        uomDataSource.Add(new ComboBoxDTO() { Name = uom, Value = dr["id"].ToString() });
                     }
-                    this.cboUOM.DataSource = dataSource;
+                    this.cboUOM.DataSource = uomDataSource;
                     this.cboUOM.DisplayMember = "Name";
                     this.cboUOM.ValueMember = "Value";
                 }

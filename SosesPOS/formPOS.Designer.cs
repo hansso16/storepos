@@ -30,10 +30,14 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formPOS));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formPOS));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtCount = new System.Windows.Forms.TextBox();
             this.txtOpenBalance = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.hlblInvoiceId = new System.Windows.Forms.Label();
@@ -58,7 +62,18 @@
             this.txtQty = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.dgvInventory = new System.Windows.Forms.DataGridView();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceListView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSearchCustomer = new System.Windows.Forms.Button();
@@ -77,6 +92,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.cartGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,18 +104,12 @@
             this.price = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.slid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CODE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.priceListView)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -108,6 +119,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Controls.Add(this.txtCount);
             this.panel3.Controls.Add(this.txtOpenBalance);
             this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.hlblInvoiceId);
@@ -138,6 +151,23 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(984, 216);
             this.panel3.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(537, 155);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(42, 17);
+            this.label14.TabIndex = 29;
+            this.label14.Text = "Count";
+            // 
+            // txtCount
+            // 
+            this.txtCount.Location = new System.Drawing.Point(540, 175);
+            this.txtCount.Name = "txtCount";
+            this.txtCount.ReadOnly = true;
+            this.txtCount.Size = new System.Drawing.Size(87, 25);
+            this.txtCount.TabIndex = 28;
             // 
             // txtOpenBalance
             // 
@@ -247,7 +277,7 @@
             this.txtPDesc.Location = new System.Drawing.Point(167, 175);
             this.txtPDesc.Name = "txtPDesc";
             this.txtPDesc.ReadOnly = true;
-            this.txtPDesc.Size = new System.Drawing.Size(460, 25);
+            this.txtPDesc.Size = new System.Drawing.Size(366, 25);
             this.txtPDesc.TabIndex = 8;
             // 
             // txtCName
@@ -348,6 +378,7 @@
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.dgvInventory);
             this.panel6.Controls.Add(this.priceListView);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel6.Location = new System.Drawing.Point(633, 0);
@@ -355,11 +386,11 @@
             this.panel6.Size = new System.Drawing.Size(351, 216);
             this.panel6.TabIndex = 8;
             // 
-            // priceListView
+            // dgvInventory
             // 
-            this.priceListView.AllowUserToAddRows = false;
-            this.priceListView.BackgroundColor = System.Drawing.Color.White;
-            this.priceListView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvInventory.AllowUserToAddRows = false;
+            this.dgvInventory.BackgroundColor = System.Drawing.Color.White;
+            this.dgvInventory.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -367,7 +398,74 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.priceListView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvInventory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvInventory.ColumnHeadersHeight = 30;
+            this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvInventory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column3,
+            this.Column4,
+            this.Column2,
+            this.dataGridViewTextBoxColumn8});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvInventory.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvInventory.Dock = System.Windows.Forms.DockStyle.Right;
+            this.dgvInventory.EnableHeadersVisualStyles = false;
+            this.dgvInventory.Location = new System.Drawing.Point(-1, 0);
+            this.dgvInventory.Name = "dgvInventory";
+            this.dgvInventory.RowHeadersVisible = false;
+            this.dgvInventory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvInventory.Size = new System.Drawing.Size(196, 214);
+            this.dgvInventory.TabIndex = 31;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "SLID";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Visible = false;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "SLType";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column2.HeaderText = "LOC";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "columnQty";
+            this.dataGridViewTextBoxColumn8.HeaderText = "INV";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 52;
+            // 
+            // priceListView
+            // 
+            this.priceListView.AllowUserToAddRows = false;
+            this.priceListView.BackgroundColor = System.Drawing.Color.White;
+            this.priceListView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.priceListView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.priceListView.ColumnHeadersHeight = 30;
             this.priceListView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.priceListView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -377,22 +475,72 @@
             this.dataGridViewTextBoxColumn10,
             this.dataGridViewTextBoxColumn11,
             this.CODE});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.priceListView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.priceListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.priceListView.DefaultCellStyle = dataGridViewCellStyle4;
+            this.priceListView.Dock = System.Windows.Forms.DockStyle.Right;
             this.priceListView.EnableHeadersVisualStyles = false;
-            this.priceListView.Location = new System.Drawing.Point(0, 0);
+            this.priceListView.Location = new System.Drawing.Point(195, 0);
             this.priceListView.Name = "priceListView";
             this.priceListView.RowHeadersVisible = false;
             this.priceListView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.priceListView.Size = new System.Drawing.Size(349, 214);
+            this.priceListView.Size = new System.Drawing.Size(154, 214);
             this.priceListView.TabIndex = 25;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn4.HeaderText = "#";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.dataGridViewTextBoxColumn4.Width = 41;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn9.HeaderText = "UOM";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn10.HeaderText = "PRICE";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 64;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "columnQty";
+            this.dataGridViewTextBoxColumn11.HeaderText = "INVENTORY";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
+            this.dataGridViewTextBoxColumn11.Visible = false;
+            this.dataGridViewTextBoxColumn11.Width = 102;
+            // 
+            // CODE
+            // 
+            this.CODE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CODE.HeaderText = "CODE";
+            this.CODE.Name = "CODE";
+            this.CODE.ReadOnly = true;
+            this.CODE.Visible = false;
+            this.CODE.Width = 67;
             // 
             // label2
             // 
@@ -666,14 +814,14 @@
             this.cartGridView.AllowUserToAddRows = false;
             this.cartGridView.BackgroundColor = System.Drawing.Color.White;
             this.cartGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.cartGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.cartGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.cartGridView.ColumnHeadersHeight = 30;
             this.cartGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.cartGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -687,16 +835,17 @@
             this.price,
             this.total,
             this.location,
+            this.slid,
             this.Edit,
             this.Delete});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.cartGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.cartGridView.DefaultCellStyle = dataGridViewCellStyle6;
             this.cartGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cartGridView.EnableHeadersVisualStyles = false;
             this.cartGridView.Location = new System.Drawing.Point(0, 0);
@@ -707,6 +856,22 @@
             this.cartGridView.TabIndex = 26;
             this.cartGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.cartGridView_CellContentClick);
             this.cartGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.cartGridView_CellEndEdit);
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            // 
+            // dataGridViewImageColumn2
+            // 
+            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn2.Image")));
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -784,6 +949,13 @@
             this.location.ReadOnly = true;
             this.location.Visible = false;
             // 
+            // slid
+            // 
+            this.slid.HeaderText = "SLID";
+            this.slid.Name = "slid";
+            this.slid.ReadOnly = true;
+            this.slid.Visible = false;
+            // 
             // Edit
             // 
             this.Edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -801,69 +973,6 @@
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Delete.Width = 17;
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            // 
-            // dataGridViewImageColumn2
-            // 
-            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn2.HeaderText = "";
-            this.dataGridViewImageColumn2.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn2.Image")));
-            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
-            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn4.HeaderText = "#";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 39;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn9.HeaderText = "UOM";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn10.HeaderText = "PRICE";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 64;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "columnQty";
-            this.dataGridViewTextBoxColumn11.HeaderText = "INVENTORY";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
-            // 
-            // CODE
-            // 
-            this.CODE.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.CODE.HeaderText = "CODE";
-            this.CODE.Name = "CODE";
-            this.CODE.ReadOnly = true;
-            this.CODE.Visible = false;
-            this.CODE.Width = 65;
             // 
             // formPOS
             // 
@@ -884,6 +993,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.priceListView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -937,6 +1047,23 @@
         private System.Windows.Forms.Label label13;
         public System.Windows.Forms.ComboBox cboLocation;
         public System.Windows.Forms.Label hlblInvoiceId;
+        private System.Windows.Forms.TextBox txtOpenBalance;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtCount;
+        private System.Windows.Forms.DataGridView dgvInventory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CODE;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn pcode;
@@ -947,17 +1074,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn price;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.DataGridViewTextBoxColumn location;
+        private System.Windows.Forms.DataGridViewTextBoxColumn slid;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
-        private System.Windows.Forms.TextBox txtOpenBalance;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CODE;
     }
 }
