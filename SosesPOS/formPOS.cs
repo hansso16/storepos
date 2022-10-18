@@ -213,7 +213,8 @@ namespace SosesPOS
                             pdesc = txtPDesc.Text;
                         }
                     }
-
+                    dr.Close();
+                    con.Close(); 
                     // Add to Cart
                     this.cartGridView.Rows.Add(++i, "id", txtPCode.Text, pdesc
                         , qty, cboUOM.SelectedValue.ToString(), cboUOM.Text
@@ -604,6 +605,7 @@ namespace SosesPOS
                     foreach (DataGridViewRow row in cartGridView.Rows)
                     {
                         Queue<int> queue = new Queue<int>();
+                        Queue<int> qtyQueue = new Queue<int>();
                         totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
 
                         using (SqlConnection drCon = new SqlConnection(dbcon.MyConnection()))
@@ -612,13 +614,18 @@ namespace SosesPOS
                             using (SqlCommand tmpCom = new SqlCommand("SELECT  i.InventoryID, i.Qty " +
                             "FROM tblInventory i INNER JOIN tblStockLocation sl ON sl.SLID = i.SLID " +
                             "INNER JOIN tblPurchasing p ON p.PurchaseID = i.PurchaseID " +
-                            "WHERE i.PCode = @pcode AND i.SLID = @slid " +
+                            "WHERE i.PCode = @pcode AND i.SLID = @slid AND i.Qty > 0 " +
                             "ORDER BY p.DateIn, i.InventoryID", drCon))
                             {
-                                tmpCom.Parameters.AddWithValue("@pcode", "");
-                                tmpCom.Parameters.AddWithValue("@slid", "");
-                                int count = Convert.ToInt32(row.Cells["count"].Value);
+                                tmpCom.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                                tmpCom.Parameters.AddWithValue("@slid", row.Cells["slid"].Value.ToString());
+                                Console.WriteLine(tmpCom.CommandText);
                                 int invoiceQty = Convert.ToInt32(row.Cells["qty"].Value);
+                                int count = 0;
+                                if (!String.IsNullOrEmpty(row.Cells["count"].Value.ToString()))
+                                {
+                                    count = Convert.ToInt32(row.Cells["count"].Value);
+                                }
                                 if (!String.IsNullOrEmpty(txtCount.Text) && count > 1)
                                 {
                                     invoiceQty = invoiceQty * count;
@@ -627,12 +634,13 @@ namespace SosesPOS
                                 {
                                     if (reader.HasRows)
                                     {
-                                        int inventoryQty = reader.GetInt32(1);
                                         while (reader.Read())
                                         {
                                             // Add to Queue
                                             int inventoryId = reader.GetInt32(0);
+                                            int inventoryQty = reader.GetInt32(1);
                                             queue.Enqueue(inventoryId);
+                                            qtyQueue.Enqueue(inventoryQty);
                                             // Identify next inventory
                                             if (inventoryQty > invoiceQty)
                                             {
@@ -651,29 +659,32 @@ namespace SosesPOS
                                             }
                                         }
 
-                                        while (queue.Count > 0)
+                                        while (queue.Count > 0 && qtyQueue.Count > 0)
                                         {
                                             int invID = queue.Dequeue();
+                                            int invQty = qtyQueue.Dequeue();
                                             // Save to tblInvoiceDetails With Inventory Reserved
-                                            SaveInvoiceDetails(invoiceId, transaction, row, invID);
+                                            SaveInvoiceDetails(invoiceId, transaction, row, invID, invQty);
                                         }
 
                                         if (invoiceQty > 0)
                                         {
-                                            invoiceQty = invoiceQty * -1;
-                                            InsertNegativeInventory(transaction, row, invoiceQty);
+                                            invoiceQty = -invoiceQty;
+                                            int invId = InsertNegativeInventory(transaction, row, invoiceQty);
 
                                             // Save to tblInvoiceDetails without Inventory
-                                            SaveInvoiceDetails(invoiceId, transaction, row, 0);
+                                            invoiceQty = -invoiceQty;
+                                            SaveInvoiceDetails(invoiceId, transaction, row, invId, invoiceQty);
                                         }
                                     }
                                     else
                                     {
-                                        invoiceQty = invoiceQty * -1;
-                                        InsertNegativeInventory(transaction, row, invoiceQty);
+                                        invoiceQty = -invoiceQty;
+                                        int invId = InsertNegativeInventory(transaction, row, invoiceQty);
 
                                         // Save to tblInvoiceDetails without Inventory
-                                        SaveInvoiceDetails(invoiceId, transaction, row, 0);
+                                        invoiceQty = -invoiceQty;
+                                        SaveInvoiceDetails(invoiceId, transaction, row, invId, invoiceQty);
                                     }
                                 }
                             }
@@ -697,15 +708,17 @@ namespace SosesPOS
             }
         }
 
-        private void InsertNegativeInventory(SqlTransaction transaction, DataGridViewRow row, int invoiceQty)
+        private int InsertNegativeInventory(SqlTransaction transaction, DataGridViewRow row, int invoiceQty)
         {
             try
             {
                 com = new SqlCommand("INSERT INTO tblInventory (pcode, qty) " +
+                    "OUTPUT inserted.InventoryID " +
                     "VALUES (@pcode, @qty)", con, transaction);
                 com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                 com.Parameters.AddWithValue("@qty", invoiceQty);
-                com.ExecuteNonQuery();
+                int invId = Convert.ToInt32(com.ExecuteScalar());
+                return invId;
             } catch (Exception ex)
             {
                 throw new Exception("InsertNegativeInventory failed: " + ex.Message);
@@ -717,7 +730,7 @@ namespace SosesPOS
             try
             {
                 com = new SqlCommand("UPDATE tblInventory SET Qty = @qty " +
-                    "WHERE IventoryID = @inventoryid", con, transaction);
+                    "WHERE InventoryID = @inventoryid", con, transaction);
                 com.Parameters.AddWithValue("@qty", newInventoryQty);
                 com.Parameters.AddWithValue("@inventoryid", inventoryId);
                 com.ExecuteNonQuery();
@@ -727,7 +740,7 @@ namespace SosesPOS
             }
 }
 
-        private void SaveInvoiceDetails(int invoiceId, SqlTransaction transaction, DataGridViewRow row, int inventoryID)
+        private void SaveInvoiceDetails(int invoiceId, SqlTransaction transaction, DataGridViewRow row, int inventoryID, int qty)
         {
             try
             {
@@ -736,17 +749,13 @@ namespace SosesPOS
                 com.Parameters.AddWithValue("@invoiceid", invoiceId);
                 com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                 com.Parameters.AddWithValue("@uom", row.Cells["uomid"].Value.ToString());
-                com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
-                com.Parameters.AddWithValue("@totalitemprice", Convert.ToDecimal(row.Cells["total"].Value.ToString()));
-                com.Parameters.AddWithValue("@sellingprice", Convert.ToDecimal(row.Cells["price"].Value.ToString()));
+                //com.Parameters.AddWithValue("@qty", row.Cells["qty"].Value.ToString());
+                com.Parameters.AddWithValue("@qty", qty);
+                decimal price = Convert.ToDecimal(row.Cells["price"].Value.ToString());
+                com.Parameters.AddWithValue("@sellingprice", price);
+                com.Parameters.AddWithValue("@totalitemprice", price * qty);
                 com.Parameters.AddWithValue("@location", row.Cells["location"].Value.ToString());
-                if (inventoryID == 0)
-                {
-                    com.Parameters.AddWithValue("@inventoryid", DBNull.Value);
-                } else
-                {
-                    com.Parameters.AddWithValue("@inventoryid", inventoryID);
-                }
+                com.Parameters.AddWithValue("@inventoryid", inventoryID);
                 com.ExecuteNonQuery();
             } catch (Exception ex)
             {

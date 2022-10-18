@@ -563,7 +563,7 @@ namespace SosesPOS
                         costPerU = cost / count;
                         //costPerU.ToString(0.00);
                         costPerU = decimal.Round(costPerU, 2, MidpointRounding.AwayFromZero);
-                        qty = qty * count;
+                        qty = qty * count; // convet qty to pcs
                     }
 
                     using (SqlConnection drCon = new SqlConnection(dbcon.MyConnection()))
@@ -598,16 +598,64 @@ namespace SosesPOS
                                 }
                             }
                         }
-                    }
 
-                    com = new SqlCommand("INSERT INTO tblInventory (SLID, PCode, PurchaseID, Qty) " +
-                        "VALUES (@slid, @pcode, @purchaseid, @qty)", con, transaction);
-                    com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
-                    com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
-                    com.Parameters.AddWithValue("@purchaseid", purchaseId);
-                    com.Parameters.AddWithValue("@qty", qty);
-                    com.ExecuteNonQuery();
-                    com.Dispose();
+                        using (SqlCommand tmpCom = new SqlCommand("SELECT InventoryID, Qty " +
+                            "FROM tblInventory " +
+                            "WHERE PCode = @pcode AND Qty < 0", drCon))
+                        {
+                            tmpCom.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+                            using (SqlDataReader reader = tmpCom.ExecuteReader())
+                            {
+                                if (reader.HasRows) // if true -> there are negative inventory
+                                {
+                                    // Negate Negative Inventory
+                                    while (reader.Read() && qty > 0)
+                                    {
+                                        int inventoryID = Convert.ToInt32(reader["InventoryID"]);
+                                        int inventoryQty = Convert.ToInt32(reader["Qty"]);
+                                        int newInvQty = 0;
+
+                                        inventoryQty = System.Math.Abs(inventoryQty);
+                                        if (qty >= inventoryQty) // if new stock is higher
+                                        {
+                                            qty = qty - inventoryQty;
+
+                                            // update inventory
+                                            com = new SqlCommand("UPDATE tblInventory SET SLID = @slid, PurchaseID = @purchaseid, Qty = @qty " +
+                                            "WHERE InventoryID = @inventoryid", con, transaction);
+                                            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+                                            com.Parameters.AddWithValue("@purchaseid", purchaseId);
+                                            com.Parameters.AddWithValue("@qty", newInvQty);
+                                            com.Parameters.AddWithValue("@inventoryid", inventoryID);
+                                            com.ExecuteNonQuery();
+                                        } else // if negative is higher
+                                        {
+                                            newInvQty = qty - inventoryQty;
+                                            qty = 0;
+
+                                            // TODO: update inventory to 0 and insert new for the excess both inventory and invoicedetails
+                                            com = new SqlCommand("UPDATE tblInventory SET SLID = @slid, PurchaseID = @purchaseid, Qty = @qty " +
+                                                "WHERE InventoryID = @inventoryid", con, transaction);
+                                            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+                                            com.Parameters.AddWithValue("@purchaseid", purchaseId);
+                                            com.Parameters.AddWithValue("@qty", newInvQty);
+                                            com.Parameters.AddWithValue("@inventoryid", inventoryID);
+                                            com.ExecuteNonQuery();
+                                        }
+                                    }
+
+                                    if (qty > 0)
+                                    {
+                                        SaveNewInventory(transaction, purchaseId, row, qty);
+                                    }
+                                }
+                                else
+                                {
+                                    SaveNewInventory(transaction, purchaseId, row, qty);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 transaction.Commit();
@@ -622,6 +670,18 @@ namespace SosesPOS
                 con.Close();
                 //con.Dispose();
             }
+        }
+
+        private void SaveNewInventory(SqlTransaction transaction, int purchaseId, DataGridViewRow row, int qty)
+        {
+            com = new SqlCommand("INSERT INTO tblInventory (SLID, PCode, PurchaseID, Qty) " +
+                                                        "VALUES (@slid, @pcode, @purchaseid, @qty)", con, transaction);
+            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+            com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
+            com.Parameters.AddWithValue("@purchaseid", purchaseId);
+            com.Parameters.AddWithValue("@qty", qty);
+            com.ExecuteNonQuery();
+            com.Dispose();
         }
 
         private void UpdateExistingProductCost(SqlTransaction transaction, DataGridViewRow row, SqlDataReader reader)
