@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using SosesPOS.util;
+using SosesPOS.DTO;
 
 namespace SosesPOS
 {
@@ -109,6 +110,8 @@ namespace SosesPOS
             this.txtContactNumber.Clear();
             this.txtContactPerson.Clear();
             this.txtEmailAddress.Clear();
+            this.txtVendorRefNo.Clear();
+            this.txtVendorRefNo.ReadOnly = false;
             this.txtVCode.ReadOnly = false;
             this.txtVName.ReadOnly = true;
             this.txtVAddress.ReadOnly = true;
@@ -620,27 +623,71 @@ namespace SosesPOS
                                         {
                                             qty = qty - inventoryQty;
 
-                                            // update inventory
-                                            com = new SqlCommand("UPDATE tblInventory SET SLID = @slid, PurchaseID = @purchaseid, Qty = @qty " +
-                                            "WHERE InventoryID = @inventoryid", con, transaction);
-                                            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
-                                            com.Parameters.AddWithValue("@purchaseid", purchaseId);
-                                            com.Parameters.AddWithValue("@qty", newInvQty);
-                                            com.Parameters.AddWithValue("@inventoryid", inventoryID);
-                                            com.ExecuteNonQuery();
-                                        } else // if negative is higher
+                                            // update inventory to 0
+                                            UpdateInventory(transaction, purchaseId, inventoryID, 0);
+                                        }
+                                        else // if negative is higher
                                         {
                                             newInvQty = qty - inventoryQty;
-                                            qty = 0;
+                                            
 
-                                            // TODO: update inventory to 0 and insert new for the excess both inventory and invoicedetails
-                                            com = new SqlCommand("UPDATE tblInventory SET SLID = @slid, PurchaseID = @purchaseid, Qty = @qty " +
+                                            // update inventory to 0 
+                                            UpdateInventory(transaction, purchaseId, inventoryID, 0);
+
+                                            // Excess Negative Qty
+                                            // Insert Negative Inventory
+                                            int newInvID = SaveNewInventory(transaction, 0, row, newInvQty);
+
+                                            // Get Invoice Details
+                                            InventoryDetailsDTO inventoryDetailsDTO = new InventoryDetailsDTO();
+                                            SqlCommand idCom = new SqlCommand("SELECT InvoiceId, PCode, UOM, InventoryID, Qty, SellingPrice, Location " +
+                                                "FROM tblInvoiceDetails id " +
                                                 "WHERE InventoryID = @inventoryid", con, transaction);
-                                            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
-                                            com.Parameters.AddWithValue("@purchaseid", purchaseId);
-                                            com.Parameters.AddWithValue("@qty", newInvQty);
+                                            idCom.Parameters.AddWithValue("@inventoryid", inventoryID);
+                                            Console.WriteLine(idCom.CommandText);
+                                            dr = idCom.ExecuteReader();
+                                            if (dr.HasRows)
+                                            {
+                                                newInvQty = System.Math.Abs(newInvQty);
+                                                if (dr.Read())
+                                                {
+                                                    inventoryDetailsDTO.invoiceId = Convert.ToInt32(dr["InvoiceID"]);
+                                                    inventoryDetailsDTO.pcode = dr["PCode"].ToString();
+                                                    inventoryDetailsDTO.uom = Convert.ToInt32(dr["UOM"]);
+                                                    inventoryDetailsDTO.qty = Convert.ToInt32(dr["Qty"]);
+                                                    //decimal price = Convert.ToDecimal(dr["SellingPrice"]);
+                                                    inventoryDetailsDTO.sellingPrice = Convert.ToDecimal(dr["SellingPrice"]);
+                                                    //inventoryDetailsDTO.totalItemPrice = qty * price);
+                                                    inventoryDetailsDTO.location = Convert.ToInt32(dr["Location"]);
+                                                    inventoryDetailsDTO.inventoryId = newInvID;
+
+                                                }
+                                            }
+                                            dr.Close();
+                                            // Update Invoice Details Qty
+                                            com = new SqlCommand("UPDATE tblInvoiceDetails SET Qty = @qty, TotalItemPrice = @totalitemprice " +
+                                                "WHERE InvoiceId = @invoiceid and InventoryID = @inventoryid", con, transaction);
+                                            com.Parameters.AddWithValue("@qty", qty);
+                                            com.Parameters.AddWithValue("@totalitemprice", inventoryQty * inventoryDetailsDTO.sellingPrice);
+                                            com.Parameters.AddWithValue("@invoiceid", inventoryDetailsDTO.invoiceId);
                                             com.Parameters.AddWithValue("@inventoryid", inventoryID);
                                             com.ExecuteNonQuery();
+
+
+                                            // Insert New InvoiceDetails Qty
+                                            com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location, InventoryID) " +
+                                                "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location, @inventoryid)", con, transaction);
+                                            com.Parameters.AddWithValue("@invoiceid", inventoryDetailsDTO.invoiceId);
+                                            com.Parameters.AddWithValue("@pcode", inventoryDetailsDTO.pcode);
+                                            com.Parameters.AddWithValue("@uom", inventoryDetailsDTO.uom);
+                                            com.Parameters.AddWithValue("@qty", newInvQty);
+                                            com.Parameters.AddWithValue("@sellingprice", inventoryDetailsDTO.sellingPrice);
+                                            com.Parameters.AddWithValue("@totalitemprice", inventoryDetailsDTO.sellingPrice * newInvQty);
+                                            com.Parameters.AddWithValue("@location", inventoryDetailsDTO.location);
+                                            com.Parameters.AddWithValue("@inventoryid", inventoryDetailsDTO.inventoryId);
+                                            com.ExecuteNonQuery();
+
+                                            qty = 0;
                                         }
                                     }
 
@@ -672,16 +719,33 @@ namespace SosesPOS
             }
         }
 
-        private void SaveNewInventory(SqlTransaction transaction, int purchaseId, DataGridViewRow row, int qty)
+        private void UpdateInventory(SqlTransaction transaction, int purchaseId, int inventoryID, int newInvQty)
+        {
+            com = new SqlCommand("UPDATE tblInventory SET SLID = @slid, PurchaseID = @purchaseid, Qty = @qty " +
+                                                        "WHERE InventoryID = @inventoryid", con, transaction);
+            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+            com.Parameters.AddWithValue("@purchaseid", purchaseId);
+            com.Parameters.AddWithValue("@qty", newInvQty);
+            com.Parameters.AddWithValue("@inventoryid", inventoryID);
+            com.ExecuteNonQuery();
+        }
+
+        private int SaveNewInventory(SqlTransaction transaction, int purchaseId, DataGridViewRow row, int qty)
         {
             com = new SqlCommand("INSERT INTO tblInventory (SLID, PCode, PurchaseID, Qty) " +
-                                                        "VALUES (@slid, @pcode, @purchaseid, @qty)", con, transaction);
-            com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+                "OUTPUT inserted.InventoryID VALUES (@slid, @pcode, @purchaseid, @qty)", con, transaction);
             com.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
-            com.Parameters.AddWithValue("@purchaseid", purchaseId);
+            if (purchaseId > 0)
+            {
+                com.Parameters.AddWithValue("@slid", cboSite.SelectedValue.ToString());
+                com.Parameters.AddWithValue("@purchaseid", purchaseId);
+            } else
+            {
+                com.Parameters.AddWithValue("@slid", DBNull.Value);
+                com.Parameters.AddWithValue("@purchaseid", DBNull.Value);
+            }
             com.Parameters.AddWithValue("@qty", qty);
-            com.ExecuteNonQuery();
-            com.Dispose();
+            return Convert.ToInt32(com.ExecuteScalar());
         }
 
         private void UpdateExistingProductCost(SqlTransaction transaction, DataGridViewRow row, SqlDataReader reader)
