@@ -151,7 +151,6 @@ namespace SosesPOS
 
         private void ClearCostHistory()
         {
-            // TODO:
             this.dgvCostHistory.Enabled = true;
             this.dgvCostHistory.Rows.Clear();
             this.dgvCostHistory.Refresh();

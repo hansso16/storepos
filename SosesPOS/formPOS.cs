@@ -595,7 +595,7 @@ namespace SosesPOS
                         "VALUES (@orderid, @refno, @totalprice, @entrytimestamp)", con, transaction);
                     com.Parameters.AddWithValue("@orderid", orderId);
                     com.Parameters.AddWithValue("@refno", txtTransNo.Text);
-                    com.Parameters.AddWithValue("@totalprice", Convert.ToDecimal(lblSubTotal.Text)); // TODO: 
+                    com.Parameters.AddWithValue("@totalprice", Convert.ToDecimal(lblSubTotal.Text));
                     com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
                     invoiceId = Convert.ToInt32(com.ExecuteScalar().ToString());
                     //invoiceId = Int32.Parse(com.ExecuteScalar().ToString());
@@ -640,12 +640,12 @@ namespace SosesPOS
                                             int inventoryId = reader.GetInt32(0);
                                             int inventoryQty = reader.GetInt32(1);
                                             queue.Enqueue(inventoryId);
-                                            qtyQueue.Enqueue(inventoryQty);
                                             // Identify next inventory
                                             if (inventoryQty > invoiceQty)
                                             {
                                                 // update inventory qty: inventoryQty - invoiceQty
                                                 int newInventoryQty = inventoryQty - invoiceQty;
+                                                qtyQueue.Enqueue(invoiceQty);
                                                 invoiceQty = 0;
                                                 UpdateInventoryQty(transaction, inventoryId, newInventoryQty);
                                                 break;
@@ -654,6 +654,7 @@ namespace SosesPOS
                                             {
                                                 // update inventory qty: invoiceQty - inventoryQty
                                                 invoiceQty = invoiceQty - inventoryQty;
+                                                qtyQueue.Enqueue(inventoryQty);
                                                 inventoryQty = 0;
                                                 UpdateInventoryQty(transaction, inventoryId, inventoryQty);
                                             }
@@ -887,7 +888,8 @@ namespace SosesPOS
                     setOrderStatusPrinted(refno);
 
                     // Adjust Inv based on Inv
-                    AdjustInventory(refno);
+                    // NOTE: Moved to Sales Invoice
+                    //AdjustInventory(refno);
 
                     // Update A/R
                     updateCustomerCollection();
@@ -926,7 +928,7 @@ namespace SosesPOS
                         {
                             while (reader.Read())
                             {
-                                //com = new SqlCommand("UPDATE", con, transaction); TODO:
+                                //com = new SqlCommand("UPDATE", con, transaction);
                             }
                         }
                     }
