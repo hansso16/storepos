@@ -81,6 +81,7 @@ namespace SosesPOS
                 form.txtPCode.ReadOnly = true;
                 form.LoadPrice(pcode);
                 form.LoadUOM();
+                form.LoadInventory(pcode);
                 form.ShowDialog();
             }
             else if (colName == "Delete")

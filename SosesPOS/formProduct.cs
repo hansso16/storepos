@@ -73,7 +73,7 @@ namespace SosesPOS
             productDetailsView.Rows.Clear();
             productDetailsView.Refresh();
             con.Open();
-            com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price FROM tblProductDetails pd " +
+            com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price, pd.startdate FROM tblProductDetails pd " +
                 "INNER JOIN tblUOM u ON u.id = pd.uom " +
                 "WHERE pd.pcode = @pcode", con);
             com.Parameters.AddWithValue("@pcode", pcode);
@@ -83,10 +83,70 @@ namespace SosesPOS
             {
                 productDetailsView.Rows.Add(++productDetailsCounter, dr["id"].ToString()
                     , dr["type"].ToString(), dr["description"].ToString()
-                    , dr["price"].ToString(), "");
+                    , string.Format("{0:n}", Convert.ToDecimal(dr["price"])), Convert.ToDateTime(dr["startdate"]).ToString("MM/dd/yyyy"));
             }
             dr.Close();
             con.Close();
+        }
+
+        public void LoadInventory(string pcode)
+        {
+            dgvInventory.Rows.Clear();
+            dgvInventory.Refresh();
+            try
+            {
+                int count = 1;
+                if (!string.IsNullOrWhiteSpace(txtCount.Text))
+                {
+                    count = Convert.ToInt32(txtCount.Text);
+                }
+                using (SqlConnection conn = new SqlConnection(dbcon.MyConnection()))
+                {
+                    conn.Open();
+                    string commandText = "SELECT SUM(i.Qty) Qty, i.PCode, sl.SLID, sl.LocationName FROM tblInventory i " +
+                        "LEFT JOIN tblStockLocation sl ON i.SLID = sl.SLID " +
+                        "WHERE i.PCode = @pcode AND i.Qty != 0 " +
+                        "GROUP BY i.PCode, sl.SLID, sl.LocationName";
+                    using (SqlCommand scom = new SqlCommand(commandText, conn))
+                    {
+                        scom.Parameters.AddWithValue("@pcode", pcode);
+                        using (SqlDataReader sdr = scom.ExecuteReader())
+                        {
+                            int i = 0;
+                            while (sdr.Read())
+                            {
+                                int qty = Convert.ToInt32(sdr["Qty"]);
+                                StringBuilder sb = new StringBuilder();
+                                if (count == 1)
+                                {
+                                    sb.Append(qty + "pcs");
+                                }
+                                else if (count > 1)
+                                {
+                                    sb.Append(qty / count);
+                                    sb.Append("whl");
+                                    int mod = qty % count;
+                                    if (mod > 0)
+                                    {
+                                        sb.Append("; ");
+                                        sb.Append(mod);
+                                        sb.Append("pc(s)");
+                                    }
+                                }
+                                string finalQty = sb.ToString();
+                                dgvInventory.Rows.Add(++i, sdr["SLID"]
+                                    , sdr["LocationName"], finalQty);
+                            }
+                            sdr.Close();
+                        }
+                    }
+                    conn.Close();
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show("LoadInventory(pcode): " + ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void Clear()
@@ -101,9 +161,10 @@ namespace SosesPOS
             cboUOM.Text = "";
             cboCategory.Text = "";
             txtPrice.Clear();
-            txtQty.Clear();
             productDetailsView.Rows.Clear();
             productDetailsView.Refresh();
+            dgvInventory.Rows.Clear();
+            dgvInventory.Refresh();
             txtPCode.Focus();
         }
 
@@ -187,19 +248,14 @@ namespace SosesPOS
 
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 8)
+            if (e.KeyChar == 8 || e.KeyChar == 13 || e.KeyChar == 46)
             {
-                // accept backspace
-            }
-            else if (e.KeyChar == 46)
-            {
-                // accept . character
+                // accept backspace and enter and "." (period)
             }
             else if (e.KeyChar < 48 || e.KeyChar > 57)
             {
                 e.Handled = true;
             }
-            
         }
 
         private void txtQty_KeyPress(object sender, KeyPressEventArgs e)
@@ -217,9 +273,16 @@ namespace SosesPOS
         private void btnAddPrice_Click(object sender, EventArgs e)
         {
             // Validate
+            if (String.IsNullOrEmpty(cboUOM.Text) || cboUOM.SelectedIndex < 0)
+            {
+                MessageBox.Show("Invalid Unit. Please try again", "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cboUOM.Focus();
+                cboUOM.SelectAll();
+                return;
+            }
             foreach (DataGridViewRow row in productDetailsView.Rows)
             {
-                if (row.Cells[1].Value.ToString().Equals(cboUOM.SelectedValue.ToString()))
+                if (row.Cells["id"].Value.ToString().Equals(cboUOM.SelectedValue.ToString()))
                 {
                     MessageBox.Show("Price Level already exists", "Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -232,39 +295,23 @@ namespace SosesPOS
                 txtPCode.SelectAll();
                 return;
             }
-            if (String.IsNullOrEmpty(txtPrice.Text) || String.IsNullOrEmpty(txtQty.Text))
+            if (String.IsNullOrEmpty(txtPrice.Text))
             {
-                MessageBox.Show("Please input PRICE and QTY", "Product Module", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!Int32.TryParse(txtPrice.Text, out _) || !Int32.TryParse(txtQty.Text, out _))
-            {
-                MessageBox.Show("PRICE and QTY must be numeric only.", "Product", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please input PRICE", "Product Module", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             con.Open();
             // insert to tblProductDetails
-            com = new SqlCommand("INSERT INTO tblProductDetails (pcode,uom,price,qty) VALUES (@pcode,@uom,@price,@qty)", con);
+            com = new SqlCommand("INSERT INTO tblProductDetails (pcode,uom,price,startdate,enddate) VALUES (@pcode,@uom,@price,@startdate,@enddate)", con);
             com.Parameters.AddWithValue("@pcode", txtPCode.Text);
             com.Parameters.AddWithValue("@uom", cboUOM.SelectedValue.ToString());
             com.Parameters.AddWithValue("@price", txtPrice.Text);
-            com.Parameters.AddWithValue("@qty", txtQty.Text);
+            com.Parameters.AddWithValue("@startdate", DateTime.Today);
+            com.Parameters.AddWithValue("@enddate", new DateTime(9999, 12, 31));
             com.ExecuteNonQuery();
             con.Close();
-            // udpate dgv
             LoadPrice(txtPCode.Text);
-            //            com = new SqlCommand("SELECT * FROM tblUOM where id = @id", con);
-            //            com.Parameters.AddWithValue("@id", cboUOM.SelectedValue.ToString());
-            //            dr = com.ExecuteReader();
-            ////            int i = 0;
-            //            while (dr.Read())
-            //            {
-            //                productDetailsView.Rows.Add(++productDetailsCounter, dr["id"].ToString()
-            //                    , dr["type"].ToString(), dr["description"].ToString()
-            //                    , txtPrice.Text, txtQty.Text);
-            //            }
-            //            dr.Close();
         }
 
         private void productDetailsView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -282,22 +329,22 @@ namespace SosesPOS
                 form.ShowDialog();
                 form.txtPrice.Focus();
             }
-            else if (colName == "Delete")
-            {
-                if (MessageBox.Show("Are you sure you want to delete this price?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    con.Open();
+            //else if (colName == "Delete")
+            //{
+            //    if (MessageBox.Show("Are you sure you want to delete this price?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        con.Open();
 
-                    com = new SqlCommand("DELETE from tblProductDetails WHERE pcode = @pcode and uom = @uom", con);
-                    com.Parameters.AddWithValue("@pcode", this.txtPCode.Text);
-                    //com.Parameters.AddWithValue("@uom", productDetailsView[2, e.RowIndex].Value.ToString());
-                    com.Parameters.AddWithValue("@uom", productDetailsView["id", e.RowIndex].Value.ToString());
-                    com.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Price has been successfully deleted.", "POS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadPrice(this.txtPCode.Text);
-                }
-            }
+            //        com = new SqlCommand("DELETE from tblProductDetails WHERE pcode = @pcode and uom = @uom", con);
+            //        com.Parameters.AddWithValue("@pcode", this.txtPCode.Text);
+            //        //com.Parameters.AddWithValue("@uom", productDetailsView[2, e.RowIndex].Value.ToString());
+            //        com.Parameters.AddWithValue("@uom", productDetailsView["id", e.RowIndex].Value.ToString());
+            //        com.ExecuteNonQuery();
+            //        con.Close();
+            //        MessageBox.Show("Price has been successfully deleted.", "POS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        LoadPrice(this.txtPCode.Text);
+            //    }
+            //}
         }
 
         private void txtPCode_Leave(object sender, EventArgs e)
@@ -334,6 +381,37 @@ namespace SosesPOS
             else if (e.KeyChar < 48 || e.KeyChar > 57)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void cboUOM_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (String.IsNullOrEmpty(cboUOM.Text) || cboUOM.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Invalid Unit. Please try again", "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cboUOM.Focus();
+                    cboUOM.SelectAll();
+                    return;
+                }
+                txtPrice.Focus();
+                txtPrice.SelectAll();
+            }
+        }
+
+        private void txtPrice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (String.IsNullOrEmpty(txtPrice.Text))
+                {
+                    MessageBox.Show("Invalid Price. Please try again", "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPrice.Focus();
+                    txtPrice.SelectAll();
+                    return;
+                }
+                btnAddPrice_Click(sender, e);
             }
         }
     }

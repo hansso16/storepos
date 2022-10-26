@@ -401,25 +401,6 @@ namespace SosesPOS
                 }
                 cboLocation.Focus();
                 cboLocation.SelectAll();
-                //foreach (DataGridViewRow row in priceListView.Rows)
-                //{
-                //    if (row.Cells["ID"].Value.ToString().Equals(cboUOM.SelectedValue))
-                //    {
-                //        if ("0".Equals(row.Cells["CODE"].Value.ToString()))
-                //        {
-                //            cboLocation.Enabled = true;
-                //            cboLocation.SelectedIndex = 0;
-                //            cboLocation.Focus();
-                //            cboLocation.SelectAll();
-                //        } else
-                //        {
-                //            cboLocation.SelectedIndex = cboLocation.FindStringExact("Store");
-                //            cboLocation.Enabled = false;
-                //            txtQty.Focus();
-                //            txtQty.SelectAll();
-                //        }
-                //    }
-                //}
             }
         }
 
