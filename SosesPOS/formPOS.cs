@@ -392,7 +392,7 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (String.IsNullOrEmpty(cboUOM.Text))
+                if (String.IsNullOrEmpty(cboUOM.Text) || cboUOM.SelectedIndex < 0)
                 {
                     MessageBox.Show("Invalid Unit. Please try again", "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     cboUOM.Focus();
@@ -1172,7 +1172,7 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (String.IsNullOrEmpty(cboLocation.Text) || String.IsNullOrEmpty(cboLocation.SelectedValue.ToString()))
+                if (String.IsNullOrEmpty(cboLocation.Text) || cboLocation.SelectedIndex < 0)
                 {
                     MessageBox.Show("Invalid Location. Please try again", "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     cboUOM.Focus();

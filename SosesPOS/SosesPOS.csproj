@@ -172,6 +172,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\InventoryDAO.cs" />
+    <Compile Include="DAO\ProductCostDAO.cs" />
     <Compile Include="dataset\dsInvoiceReceipt.cs">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
     </Compile>
@@ -182,6 +184,8 @@
     </Compile>
     <Compile Include="DbConnection.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
+    <Compile Include="DTO\InventoryDTO.cs" />
+    <Compile Include="DTO\ProductCostDTO.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

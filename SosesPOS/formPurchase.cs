@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using SosesPOS.util;
 using SosesPOS.DTO;
+using SosesPOS.DAO;
 
 namespace SosesPOS
 {
@@ -354,6 +355,14 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
+                if (String.IsNullOrEmpty(cboSite.Text) || cboSite.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Invalid Site. Please try again", "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cboSite.Focus();
+                    cboSite.SelectAll();
+                    return;
+                }
+
                 int qty = 0;
                 decimal cost = 0, total = 0, subtotal = 0;
 
@@ -540,12 +549,19 @@ namespace SosesPOS
             com.Transaction = transaction;
             try
             {
+                string vendorRefNo = String.IsNullOrWhiteSpace(txtVendorRefNo.Text)? null : txtVendorRefNo.Text;
                 com = new SqlCommand("INSERT INTO tblPurchasing (ReferenceNo, VendorID, VendorReferenceNo, DateIn, Status) " +
                     "OUTPUT inserted.PurchaseID " +
                     "VALUES (@refno, @vendorid, @vendorrefno, @datein, @status)", con, transaction);
                 com.Parameters.AddWithValue("@refno", DBNull.Value);
                 com.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
-                com.Parameters.AddWithValue("@vendorrefno", txtVendorRefNo.Text);
+                if (vendorRefNo == null) 
+                {
+                    com.Parameters.AddWithValue("@vendorrefno", DBNull.Value);
+                } else
+                {
+                    com.Parameters.AddWithValue("@vendorrefno", vendorRefNo);
+                }
                 com.Parameters.AddWithValue("@datein", DateTime.Today);
                 com.Parameters.AddWithValue("@status", "RECORDED");
                 int purchaseId = Convert.ToInt32(com.ExecuteScalar());
@@ -553,155 +569,146 @@ namespace SosesPOS
 
                 foreach (DataGridViewRow row in cartGridView.Rows)
                 {
-                    // if wholesale - qty * count ; cost / count
-                    // saving per piece unit only
+                    string pcode = row.Cells["pcode"].Value.ToString();
                     decimal cost = Convert.ToDecimal(row.Cells["cost"].Value);
                     string unit = row.Cells["uom"].Value.ToString();
                     decimal costPerU = cost;
                     int count = Convert.ToInt32(row.Cells["count"].Value);
-                    int qty = Convert.ToInt32(row.Cells["qty"].Value);
+                    int purchaseQty = Convert.ToInt32(row.Cells["qty"].Value);
+
+                    // insert into purchase detail.
+                    com = new SqlCommand("INSERT INTO tblPurchaseDetails (PurchaseID, PCode, UOM, SLID, Qty, Cost, Total) " +
+                        "VALUES (@purchaseid, @pcode, @uom, @slid, @qty, @cost, @total)", con, transaction);
+                    com.Parameters.AddWithValue("@purchaseid", purchaseId);
+                    com.Parameters.AddWithValue("@pcode", pcode);
+                    com.Parameters.AddWithValue("@uom", row.Cells["uom"].Value);
+                    com.Parameters.AddWithValue("@slid", row.Cells["slid"].Value);
+                    com.Parameters.AddWithValue("@qty", purchaseQty);
+                    com.Parameters.AddWithValue("@cost", cost);
+                    com.Parameters.AddWithValue("@total", purchaseQty * cost);
+                    com.ExecuteNonQuery();
+
+
+                    // saving per piece unit only
                     if (count > 0)
                     {
                         costPerU = cost / count;
                         //costPerU.ToString(0.00);
                         costPerU = decimal.Round(costPerU, 2, MidpointRounding.AwayFromZero);
-                        qty = qty * count; // convet qty to pcs
+                        purchaseQty = purchaseQty * count; // convet qty to pcs
                     }
 
-                    using (SqlConnection drCon = new SqlConnection(dbcon.MyConnection()))
+                    ProductCostDAO productCostDAO = new ProductCostDAO(con, transaction);
+                    ProductCostDTO productCostDTO = productCostDAO.retrieveProductCostByPCodeAndVendorID(pcode, hlblVendorID.Text);
+                    if (productCostDTO != null)
                     {
-                        drCon.Open();
-                        using (SqlCommand tmpCom = new SqlCommand("SELECT PCode, VendorID, Cost, StartDate, EndDate " +
-                            "FROM tblProductCost " +
-                            "WHERE PCode = @pcode AND VendorID = @vendorid AND EndDate = '9999-12-31'", drCon))
+                        // If there is a change in cost - update old cost and insert new cost
+                        if (costPerU != productCostDTO.cost)
                         {
-                            tmpCom.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
-                            tmpCom.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
-                            using (SqlDataReader reader = tmpCom.ExecuteReader())
-                            {
-                                if (reader.HasRows)
-                                {
-                                    if (reader.Read())
-                                    {
-                                        // If there is a change in cost - update old cost and insert new cost
-                                        if (costPerU != Convert.ToDecimal(reader["Cost"].ToString()))
-                                        {
-                                            // Update EndDate to Today
-                                            UpdateExistingProductCost(transaction, row, reader);
+                            // Update EndDate to Today
+                            UpdateExistingProductCost(transaction, row, productCostDTO);
 
-                                            // Insert New Cost with Active EndDate
-                                            InsertNewProductCost(transaction, row, costPerU);
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    InsertNewProductCost(transaction, row, costPerU);
-                                }
-                            }
+                            // Insert New Cost with Active EndDate
+                            InsertNewProductCost(transaction, row, costPerU);
                         }
-
-                        using (SqlCommand tmpCom = new SqlCommand("SELECT InventoryID, Qty " +
-                            "FROM tblInventory " +
-                            "WHERE PCode = @pcode AND Qty < 0", drCon))
-                        {
-                            tmpCom.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
-                            using (SqlDataReader reader = tmpCom.ExecuteReader())
-                            {
-                                if (reader.HasRows) // if true -> there are negative inventory
-                                {
-                                    // Negate Negative Inventory
-                                    while (reader.Read() && qty > 0)
-                                    {
-                                        int inventoryID = Convert.ToInt32(reader["InventoryID"]);
-                                        int inventoryQty = Convert.ToInt32(reader["Qty"]);
-                                        int newInvQty = 0;
-
-                                        inventoryQty = System.Math.Abs(inventoryQty);
-                                        if (qty >= inventoryQty) // if new stock is higher
-                                        {
-                                            qty = qty - inventoryQty;
-
-                                            // update inventory to 0
-                                            UpdateInventory(transaction, purchaseId, inventoryID, 0);
-                                        }
-                                        else // if negative is higher
-                                        {
-                                            newInvQty = qty - inventoryQty;
-                                            
-
-                                            // update inventory to 0 
-                                            UpdateInventory(transaction, purchaseId, inventoryID, 0);
-
-                                            // Excess Negative Qty
-                                            // Insert Negative Inventory
-                                            int newInvID = SaveNewInventory(transaction, 0, row, newInvQty);
-
-                                            // Get Invoice Details
-                                            InventoryDetailsDTO inventoryDetailsDTO = new InventoryDetailsDTO();
-                                            SqlCommand idCom = new SqlCommand("SELECT InvoiceId, PCode, UOM, InventoryID, Qty, SellingPrice, Location " +
-                                                "FROM tblInvoiceDetails id " +
-                                                "WHERE InventoryID = @inventoryid", con, transaction);
-                                            idCom.Parameters.AddWithValue("@inventoryid", inventoryID);
-                                            Console.WriteLine(idCom.CommandText);
-                                            dr = idCom.ExecuteReader();
-                                            if (dr.HasRows)
-                                            {
-                                                newInvQty = System.Math.Abs(newInvQty);
-                                                if (dr.Read())
-                                                {
-                                                    inventoryDetailsDTO.invoiceId = Convert.ToInt32(dr["InvoiceID"]);
-                                                    inventoryDetailsDTO.pcode = dr["PCode"].ToString();
-                                                    inventoryDetailsDTO.uom = Convert.ToInt32(dr["UOM"]);
-                                                    inventoryDetailsDTO.qty = Convert.ToInt32(dr["Qty"]);
-                                                    //decimal price = Convert.ToDecimal(dr["SellingPrice"]);
-                                                    inventoryDetailsDTO.sellingPrice = Convert.ToDecimal(dr["SellingPrice"]);
-                                                    //inventoryDetailsDTO.totalItemPrice = qty * price);
-                                                    inventoryDetailsDTO.location = Convert.ToInt32(dr["Location"]);
-                                                    inventoryDetailsDTO.inventoryId = newInvID;
-
-                                                }
-                                            }
-                                            dr.Close();
-                                            // Update Invoice Details Qty
-                                            com = new SqlCommand("UPDATE tblInvoiceDetails SET Qty = @qty, TotalItemPrice = @totalitemprice " +
-                                                "WHERE InvoiceId = @invoiceid and InventoryID = @inventoryid", con, transaction);
-                                            com.Parameters.AddWithValue("@qty", qty);
-                                            com.Parameters.AddWithValue("@totalitemprice", inventoryQty * inventoryDetailsDTO.sellingPrice);
-                                            com.Parameters.AddWithValue("@invoiceid", inventoryDetailsDTO.invoiceId);
-                                            com.Parameters.AddWithValue("@inventoryid", inventoryID);
-                                            com.ExecuteNonQuery();
-
-
-                                            // Insert New InvoiceDetails Qty
-                                            com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location, InventoryID) " +
-                                                "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location, @inventoryid)", con, transaction);
-                                            com.Parameters.AddWithValue("@invoiceid", inventoryDetailsDTO.invoiceId);
-                                            com.Parameters.AddWithValue("@pcode", inventoryDetailsDTO.pcode);
-                                            com.Parameters.AddWithValue("@uom", inventoryDetailsDTO.uom);
-                                            com.Parameters.AddWithValue("@qty", newInvQty);
-                                            com.Parameters.AddWithValue("@sellingprice", inventoryDetailsDTO.sellingPrice);
-                                            com.Parameters.AddWithValue("@totalitemprice", inventoryDetailsDTO.sellingPrice * newInvQty);
-                                            com.Parameters.AddWithValue("@location", inventoryDetailsDTO.location);
-                                            com.Parameters.AddWithValue("@inventoryid", inventoryDetailsDTO.inventoryId);
-                                            com.ExecuteNonQuery();
-
-                                            qty = 0;
-                                        }
-                                    }
-
-                                    if (qty > 0)
-                                    {
-                                        SaveNewInventory(transaction, purchaseId, row, qty);
-                                    }
-                                }
-                                else
-                                {
-                                    SaveNewInventory(transaction, purchaseId, row, qty);
-                                }
-                            }
-                        }
+                    } else
+                    {
+                        InsertNewProductCost(transaction, row, costPerU);
                     }
+
+
+                    InventoryDAO inventoryDAO = new InventoryDAO(con, transaction);
+                    List<InventoryDTO> inventoryList = inventoryDAO.retrieveNegativeInventoryByPCode(pcode);
+                    if (inventoryList != null && inventoryList.Count > 0)
+                    {
+                        foreach (InventoryDTO inventoryDTO in inventoryList) if (purchaseQty > 0)
+                        {
+                            int inventoryID = inventoryDTO.inventoryID;
+                            int inventoryQty = inventoryDTO.qty;
+                            int newInvQty = 0;
+
+                            inventoryQty = System.Math.Abs(inventoryQty);
+                            if (purchaseQty >= inventoryQty) // if new stock is higher
+                            {
+                                purchaseQty = purchaseQty - inventoryQty;
+
+                                // update inventory to 0
+                                UpdateInventory(transaction, purchaseId, inventoryID, 0);
+                            }
+                            else // if negative is higher
+                            {
+                                newInvQty = purchaseQty - inventoryQty;
+
+
+                                // update inventory to 0 
+                                UpdateInventory(transaction, purchaseId, inventoryID, 0);
+
+                                // Excess Negative Qty
+                                // Insert Negative Inventory
+                                int newInvID = SaveNewInventory(transaction, 0, row, newInvQty);
+
+                                // Get Invoice Details
+                                InventoryDetailsDTO inventoryDetailsDTO = new InventoryDetailsDTO();
+                                SqlCommand idCom = new SqlCommand("SELECT InvoiceId, PCode, UOM, InventoryID, Qty, SellingPrice, Location " +
+                                    "FROM tblInvoiceDetails id " +
+                                    "WHERE InventoryID = @inventoryid", con, transaction);
+                                idCom.Parameters.AddWithValue("@inventoryid", inventoryID);
+                                Console.WriteLine(idCom.CommandText);
+                                dr = idCom.ExecuteReader();
+                                if (dr.HasRows)
+                                {
+                                    newInvQty = System.Math.Abs(newInvQty);
+                                    if (dr.Read())
+                                    {
+                                        inventoryDetailsDTO.invoiceId = Convert.ToInt32(dr["InvoiceID"]);
+                                        inventoryDetailsDTO.pcode = dr["PCode"].ToString();
+                                        inventoryDetailsDTO.uom = Convert.ToInt32(dr["UOM"]);
+                                        inventoryDetailsDTO.qty = Convert.ToInt32(dr["Qty"]);
+                                        //decimal price = Convert.ToDecimal(dr["SellingPrice"]);
+                                        inventoryDetailsDTO.sellingPrice = Convert.ToDecimal(dr["SellingPrice"]);
+                                        //inventoryDetailsDTO.totalItemPrice = qty * price);
+                                        inventoryDetailsDTO.location = Convert.ToInt32(dr["Location"]);
+                                        inventoryDetailsDTO.inventoryId = newInvID;
+
+                                    }
+                                }
+                                dr.Close();
+                                // Update Invoice Details Qty
+                                com = new SqlCommand("UPDATE tblInvoiceDetails SET Qty = @qty, TotalItemPrice = @totalitemprice " +
+                                    "WHERE InvoiceId = @invoiceid and InventoryID = @inventoryid", con, transaction);
+                                com.Parameters.AddWithValue("@qty", purchaseQty);
+                                com.Parameters.AddWithValue("@totalitemprice", inventoryQty * inventoryDetailsDTO.sellingPrice);
+                                com.Parameters.AddWithValue("@invoiceid", inventoryDetailsDTO.invoiceId);
+                                com.Parameters.AddWithValue("@inventoryid", inventoryID);
+                                com.ExecuteNonQuery();
+
+
+                                // Insert New InvoiceDetails Qty
+                                com = new SqlCommand("INSERT INTO tblInvoiceDetails (InvoiceId, PCode, UOM, Qty, SellingPrice, TotalItemPrice, Location, InventoryID) " +
+                                    "VALUES (@invoiceid, @pcode, @uom, @qty, @sellingprice, @totalitemprice, @location, @inventoryid)", con, transaction);
+                                com.Parameters.AddWithValue("@invoiceid", inventoryDetailsDTO.invoiceId);
+                                com.Parameters.AddWithValue("@pcode", inventoryDetailsDTO.pcode);
+                                com.Parameters.AddWithValue("@uom", inventoryDetailsDTO.uom);
+                                com.Parameters.AddWithValue("@qty", newInvQty);
+                                com.Parameters.AddWithValue("@sellingprice", inventoryDetailsDTO.sellingPrice);
+                                com.Parameters.AddWithValue("@totalitemprice", inventoryDetailsDTO.sellingPrice * newInvQty);
+                                com.Parameters.AddWithValue("@location", inventoryDetailsDTO.location);
+                                com.Parameters.AddWithValue("@inventoryid", inventoryDetailsDTO.inventoryId);
+                                com.ExecuteNonQuery();
+
+                                purchaseQty = 0;
+                            }
+                        }
+
+                        if (purchaseQty > 0) // insert positive inventory qty
+                        {
+                            SaveNewInventory(transaction, purchaseId, row, purchaseQty);
+                        }
+                    } else
+                    {
+                        SaveNewInventory(transaction, purchaseId, row, purchaseQty);
+                    }
+                        
                 }
 
                 transaction.Commit();
@@ -747,7 +754,7 @@ namespace SosesPOS
             return Convert.ToInt32(com.ExecuteScalar());
         }
 
-        private void UpdateExistingProductCost(SqlTransaction transaction, DataGridViewRow row, SqlDataReader reader)
+        private void UpdateExistingProductCost(SqlTransaction transaction, DataGridViewRow row, ProductCostDTO productCostDTO)
         {
             try
             {
@@ -757,7 +764,7 @@ namespace SosesPOS
                     tmpCommand.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                     tmpCommand.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
                     tmpCommand.Parameters.AddWithValue("@newenddate", DateTime.Today);
-                    tmpCommand.Parameters.AddWithValue("@oldenddate", Convert.ToDateTime(reader["EndDate"]));
+                    tmpCommand.Parameters.AddWithValue("@oldenddate", productCostDTO.endDate);
                     tmpCommand.ExecuteNonQuery();
                 }
 
