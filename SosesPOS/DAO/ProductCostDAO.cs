@@ -31,7 +31,6 @@ namespace SosesPOS.DAO
                 {
                     tmpCom.Parameters.AddWithValue("@pcode", pcode);
                     tmpCom.Parameters.AddWithValue("@vendorid", vendorid);
-                    Console.WriteLine(tmpCom.CommandText);
                     using (SqlDataReader reader = tmpCom.ExecuteReader())
                     {
                         if (reader.HasRows)

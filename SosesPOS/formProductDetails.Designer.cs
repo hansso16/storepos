@@ -33,7 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtPrice = new System.Windows.Forms.TextBox();
             this.lblPrice = new System.Windows.Forms.Label();
-            this.txtQty = new System.Windows.Forms.TextBox();
+            this.txtStartDate = new System.Windows.Forms.TextBox();
             this.lblQty = new System.Windows.Forms.Label();
             this.lblBrand = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -41,6 +41,7 @@
             this.txtUOM = new System.Windows.Forms.TextBox();
             this.lblPCode = new System.Windows.Forms.Label();
             this.lblUOMID = new System.Windows.Forms.Label();
+            this.txtEndDate = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -98,14 +99,14 @@
             this.lblPrice.TabIndex = 26;
             this.lblPrice.Text = "Price";
             // 
-            // txtQty
+            // txtStartDate
             // 
-            this.txtQty.Location = new System.Drawing.Point(94, 119);
-            this.txtQty.Name = "txtQty";
-            this.txtQty.Size = new System.Drawing.Size(237, 25);
-            this.txtQty.TabIndex = 28;
-            this.txtQty.Visible = false;
-            this.txtQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQty_KeyPress);
+            this.txtStartDate.Location = new System.Drawing.Point(94, 119);
+            this.txtStartDate.Name = "txtStartDate";
+            this.txtStartDate.Size = new System.Drawing.Size(237, 25);
+            this.txtStartDate.TabIndex = 28;
+            this.txtStartDate.Visible = false;
+            this.txtStartDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQty_KeyPress);
             // 
             // lblQty
             // 
@@ -180,12 +181,21 @@
             this.lblUOMID.TabIndex = 34;
             this.lblUOMID.Visible = false;
             // 
+            // txtEndDate
+            // 
+            this.txtEndDate.Location = new System.Drawing.Point(94, 188);
+            this.txtEndDate.Name = "txtEndDate";
+            this.txtEndDate.Size = new System.Drawing.Size(237, 25);
+            this.txtEndDate.TabIndex = 51;
+            this.txtEndDate.Visible = false;
+            // 
             // formProductDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(380, 215);
             this.ControlBox = false;
+            this.Controls.Add(this.txtEndDate);
             this.Controls.Add(this.lblUOMID);
             this.Controls.Add(this.lblPCode);
             this.Controls.Add(this.txtUOM);
@@ -193,7 +203,7 @@
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.lblPrice);
-            this.Controls.Add(this.txtQty);
+            this.Controls.Add(this.txtStartDate);
             this.Controls.Add(this.lblQty);
             this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.panel1);
@@ -217,7 +227,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label lblPrice;
-        public System.Windows.Forms.TextBox txtQty;
+        public System.Windows.Forms.TextBox txtStartDate;
         private System.Windows.Forms.Label lblQty;
         private System.Windows.Forms.Label lblBrand;
         private System.Windows.Forms.Button btnCancel;
@@ -225,5 +235,6 @@
         public System.Windows.Forms.TextBox txtUOM;
         public System.Windows.Forms.Label lblPCode;
         public System.Windows.Forms.Label lblUOMID;
+        public System.Windows.Forms.TextBox txtEndDate;
     }
 }

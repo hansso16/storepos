@@ -70,17 +70,30 @@ namespace SosesPOS
                 return;
             }
 
+            con.Open();
+            SqlTransaction transaction = con.BeginTransaction();
+            //com.Transaction = transaction;
             try
             {
                 if (MessageBox.Show("Are you sure you want to update the price?", "Update Price", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    con.Open();
-                    com = new SqlCommand("update tblProductDetails SET price = @price WHERE pcode = @pcode and uom = @uom", con);
-                    com.Parameters.AddWithValue("@price", txtPrice.Text);
-                    //com.Parameters.AddWithValue("@qty", txtQty.Text);
+                    com = new SqlCommand("update tblProductDetails SET enddate = @newenddate WHERE pcode = @pcode and uom = @uom and enddate = @enddate", con, transaction);
+                    com.Parameters.AddWithValue("@newenddate", DateTime.Today);
                     com.Parameters.AddWithValue("@pcode", lblPCode.Text);
                     com.Parameters.AddWithValue("@uom", lblUOMID.Text);
+                    com.Parameters.AddWithValue("@enddate", txtEndDate.Text);
                     com.ExecuteNonQuery();
+
+                    com = new SqlCommand("INSERT INTO tblProductDetails (pcode, uom, price, startdate, enddate) " +
+                        "VALUES (@pcode, @uom, @price, @startdate, @enddate)", con, transaction);
+                    com.Parameters.AddWithValue("@pcode", lblPCode.Text);
+                    com.Parameters.AddWithValue("@uom", lblUOMID.Text);
+                    com.Parameters.AddWithValue("@price", txtPrice.Text);
+                    com.Parameters.AddWithValue("@startdate", DateTime.Today);
+                    com.Parameters.AddWithValue("@enddate", new DateTime(9999, 12, 31));
+                    com.ExecuteNonQuery();
+
+                    transaction.Commit();
                     con.Close();
                     MessageBox.Show("Price has been successfully updated.");
                     formProduct.LoadPrice(lblPCode.Text);
@@ -89,6 +102,8 @@ namespace SosesPOS
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
+                con.Close();
                 MessageBox.Show(ex.Message);
             }
         }

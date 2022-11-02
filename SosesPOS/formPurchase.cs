@@ -653,7 +653,6 @@ namespace SosesPOS
                                     "FROM tblInvoiceDetails id " +
                                     "WHERE InventoryID = @inventoryid", con, transaction);
                                 idCom.Parameters.AddWithValue("@inventoryid", inventoryID);
-                                Console.WriteLine(idCom.CommandText);
                                 dr = idCom.ExecuteReader();
                                 if (dr.HasRows)
                                 {
@@ -712,7 +711,7 @@ namespace SosesPOS
                 }
 
                 transaction.Commit();
-                MessageBox.Show("Purchase Order saved successfully.  Ref No: ", "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Purchase Order saved successfully.  Vendor Ref No: " + txtVendorRefNo.Text, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnNewTrans_Click(sender, e);
             } catch (Exception ex)
             {

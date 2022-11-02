@@ -73,7 +73,7 @@ namespace SosesPOS
             productDetailsView.Rows.Clear();
             productDetailsView.Refresh();
             con.Open();
-            com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price, pd.startdate FROM tblProductDetails pd " +
+            com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price, pd.startdate, pd.enddate FROM tblProductDetails pd " +
                 "INNER JOIN tblUOM u ON u.id = pd.uom " +
                 "WHERE pd.pcode = @pcode", con);
             com.Parameters.AddWithValue("@pcode", pcode);
@@ -83,7 +83,8 @@ namespace SosesPOS
             {
                 productDetailsView.Rows.Add(++productDetailsCounter, dr["id"].ToString()
                     , dr["type"].ToString(), dr["description"].ToString()
-                    , string.Format("{0:n}", Convert.ToDecimal(dr["price"])), Convert.ToDateTime(dr["startdate"]).ToString("MM/dd/yyyy"));
+                    , string.Format("{0:n}", Convert.ToDecimal(dr["price"])), Convert.ToDateTime(dr["startdate"]).ToString("MM/dd/yyyy")
+                    , Convert.ToDateTime(dr["enddate"]).ToString("MM/dd/yyyy"));
             }
             dr.Close();
             con.Close();
@@ -324,7 +325,8 @@ namespace SosesPOS
                 form.txtUOM.Text = productDetailsView[2, e.RowIndex].Value.ToString() + " - " + productDetailsView[3, e.RowIndex].Value.ToString();
                 form.lblUOMID.Text = productDetailsView[1, e.RowIndex].Value.ToString();
                 form.txtPrice.Text = productDetailsView[4, e.RowIndex].Value.ToString();
-                form.txtQty.Text = productDetailsView[5, e.RowIndex].Value.ToString();
+                form.txtStartDate.Text = productDetailsView[5, e.RowIndex].Value.ToString();
+                form.txtEndDate.Text = productDetailsView[6, e.RowIndex].Value.ToString();
 
                 form.ShowDialog();
                 form.txtPrice.Focus();

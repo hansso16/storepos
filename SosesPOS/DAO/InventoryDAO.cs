@@ -34,7 +34,7 @@ namespace SosesPOS.DAO
                         if (reader.HasRows)
                         {
                             inventoryList = new List<InventoryDTO>();
-                            if (reader.Read())
+                            while (reader.Read())
                             {
                                 InventoryDTO inventoryDTO = new InventoryDTO();
                                 inventoryDTO.pcode = reader["PCode"].ToString();

@@ -321,13 +321,13 @@ namespace SosesPOS
                     btnSaveAndPrint_Click(sender, e);
                 }
             }
-            else if (e.KeyCode == Keys.F3) // Save
-            {
-                if (this.btnSave.Enabled)
-                {
-                    btnSave_Click(sender, e);
-                }
-            }
+            //else if (e.KeyCode == Keys.F3) // Save
+            //{
+            //    if (this.btnSave.Enabled)
+            //    {
+            //        btnSave_Click(sender, e);
+            //    }
+            //}
             else if (e.KeyCode == Keys.F4) // Load
             {
                 if (this.btnLoad.Enabled)
@@ -356,35 +356,7 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                con.Open();
-                com = new SqlCommand("SELECT c.CustomerId, c.CustomerName, c.CustomerAddress, cc.OpenBalance from tblCustomer c " +
-                    "INNER JOIN tblCustomerCollection cc ON cc.CustomerId = c.CustomerId " +
-                    "where c.CustomerCode = @customercode", con);
-                com.Parameters.AddWithValue("@customercode", txtCCode.Text.Trim());
-                dr = com.ExecuteReader();
-                if (dr.Read())
-                {
-                    hlblCustomerId.Text = dr["CustomerId"].ToString();
-                    txtCName.Text = dr["CustomerName"].ToString();
-                    txtCAddress.Text = dr["CustomerAddress"].ToString();
-                    txtOpenBalance.Text = String.Format("{0:n}", dr["OpenBalance"]);
-                    //txtCCode.ReadOnly = true;
-                }
-                dr.Close();
-                con.Close();
-
-                if (txtCCode.Text.Equals("0"))
-                {
-                    txtCName.ReadOnly = false;
-                    txtCName.Focus();
-                } else
-                {
-                    txtCName.ReadOnly = true;
-                    //txtSearch.Focus();
-                    cboSearch.Focus();
-                    cboSearch.SelectAll();
-                }
-                
+                SearchCustomerByCustomerCode();
             }
         }
 
@@ -547,6 +519,13 @@ namespace SosesPOS
                 MessageBox.Show("Invalid Invoice Details. Please check again.", "Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+            if (String.IsNullOrEmpty(hlblCustomerId.Text))
+            {
+                MessageBox.Show("Invalid Customer Code. Please check again.", "Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCCode.Focus();
+                txtCCode.SelectAll();
+                return false;
+            }
 
             int orderId = 0, invoiceId = 0;
             decimal totalPrice = 0;
@@ -600,7 +579,6 @@ namespace SosesPOS
                             {
                                 tmpCom.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                                 tmpCom.Parameters.AddWithValue("@slid", row.Cells["slid"].Value.ToString());
-                                Console.WriteLine(tmpCom.CommandText);
                                 int invoiceQty = Convert.ToInt32(row.Cells["qty"].Value);
                                 int count = 0;
                                 if (!String.IsNullOrEmpty(row.Cells["count"].Value.ToString()))
@@ -848,43 +826,44 @@ namespace SosesPOS
             string refno = txtTransNo.Text;
             string invoiceId = hlblInvoiceId.Text;
             bool isSuccessTrans = false;
-            if (String.IsNullOrEmpty(invoiceId))
-            {
-                // Save Invoice
-                isSuccessTrans = SaveInvoice();
-            } else
-            {
-                // Update Invoice
-                isSuccessTrans = UpdateInvoice();
-            }
 
-            if (isSuccessTrans)
+            try
             {
-                try
+                if (String.IsNullOrEmpty(invoiceId))
                 {
-                    // Print Invoice
-                    PrintInvoice(refno);
-                    
-                    // Set Order to Printed
-                    setOrderStatusPrinted(refno);
-
-                    // Adjust Inv based on Inv
-                    // NOTE: Moved to Sales Invoice
-                    //AdjustInventory(refno);
-
-                    // Update A/R
-                    updateCustomerCollection();
-
-                    // Reset form
-                    ResetInvoiceForm();
-                } catch (Exception ex)
+                    // Save Invoice
+                    isSuccessTrans = SaveInvoice();
+                } else
                 {
-                    if (con != null && (con.State == ConnectionState.Open || con.State == ConnectionState.Broken))
-                    {
-                        con.Close();
-                    }
-                    MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Update Invoice
+                    isSuccessTrans = UpdateInvoice();
                 }
+
+                if (isSuccessTrans)
+                {
+                // Print Invoice
+                PrintInvoice(refno);
+                    
+                // Set Order to Printed
+                setOrderStatusPrinted(refno);
+
+                // Adjust Inv based on Inv
+                // NOTE: Moved to Sales Invoice
+                //AdjustInventory(refno);
+
+                // Update A/R
+                updateCustomerCollection();
+
+                // Reset form
+                ResetInvoiceForm();
+                }
+            } catch (Exception ex)
+            {
+                if (con != null && (con.State == ConnectionState.Open || con.State == ConnectionState.Broken))
+                {
+                    con.Close();
+                }
+                MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1113,7 +1092,7 @@ namespace SosesPOS
                 // Load PriceList and UOM
                 com = new SqlCommand("SELECT u.id, u.type, u.description, u.code, pd.price FROM tblProductDetails pd " +
                     "INNER JOIN tblUOM u ON pd.UOM = u.ID " +
-                    "WHERE pd.pcode = @pcode ", con);
+                    "WHERE pd.pcode = @pcode and pd.enddate = '9999-12-31'", con);
                 com.Parameters.AddWithValue("@pcode", pcode);
                 dr = com.ExecuteReader();
                 if (dr.HasRows)
@@ -1225,6 +1204,56 @@ namespace SosesPOS
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private void txtCCode_Leave(object sender, EventArgs e)
+        {
+            SearchCustomerByCustomerCode();
+        }
+
+        private void SearchCustomerByCustomerCode()
+        {
+            con.Open();
+            com = new SqlCommand("SELECT c.CustomerId, c.CustomerName, c.CustomerAddress, cc.OpenBalance from tblCustomer c " +
+                "INNER JOIN tblCustomerCollection cc ON cc.CustomerId = c.CustomerId " +
+                "where c.CustomerCode = @customercode", con);
+            com.Parameters.AddWithValue("@customercode", txtCCode.Text.Trim());
+            dr = com.ExecuteReader();
+            if (dr.HasRows)
+            {
+                if (dr.Read())
+                {
+                    hlblCustomerId.Text = dr["CustomerId"].ToString();
+                    txtCName.Text = dr["CustomerName"].ToString();
+                    txtCAddress.Text = dr["CustomerAddress"].ToString();
+                    txtOpenBalance.Text = String.Format("{0:n}", dr["OpenBalance"]);
+                    //txtCCode.ReadOnly = true;
+                }
+            }
+            else
+            {
+                dr.Close();
+                con.Close();
+                MessageBox.Show("Invalid Customer Code. Please try again", "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCCode.Focus();
+                txtCCode.SelectAll();
+                return;
+            }
+            dr.Close();
+            con.Close();
+
+            if (txtCCode.Text.Equals("0"))
+            {
+                txtCName.ReadOnly = false;
+                txtCName.Focus();
+            }
+            else
+            {
+                txtCName.ReadOnly = true;
+                //txtSearch.Focus();
+                cboSearch.Focus();
+                cboSearch.SelectAll();
+            }
         }
     }
 }

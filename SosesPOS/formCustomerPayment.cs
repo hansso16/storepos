@@ -165,10 +165,6 @@ namespace SosesPOS
             if (String.IsNullOrEmpty(lblOpenBalance.Text) || String.IsNullOrEmpty(txtAmount.Text)
                 || String.IsNullOrEmpty(cboPaymentMethod.Text) || String.IsNullOrEmpty(lblCustomerId.Text))
             {
-                Console.WriteLine(lblOpenBalance.Text);
-                Console.WriteLine(txtAmount.Text);
-                Console.WriteLine(cboPaymentMethod.SelectedText);
-                Console.WriteLine(lblCustomerId.Text);
                 MessageBox.Show("Invalid form details. Please check and try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
