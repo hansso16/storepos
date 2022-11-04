@@ -204,6 +204,12 @@
     <Compile Include="formBankList.Designer.cs">
       <DependentUpon>formBankList.cs</DependentUpon>
     </Compile>
+    <Compile Include="formBillingPOS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formBillingPOS.Designer.cs">
+      <DependentUpon>formBillingPOS.cs</DependentUpon>
+    </Compile>
     <Compile Include="formCustomerModule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -363,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formBankList.resx">
       <DependentUpon>formBankList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formBillingPOS.resx">
+      <DependentUpon>formBillingPOS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCustomerModule.resx">
       <DependentUpon>formCustomerModule.cs</DependentUpon>

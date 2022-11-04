@@ -45,6 +45,7 @@
             this.lblRole = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +71,7 @@
             this.panel2.Controls.Add(this.btnVendor);
             this.panel2.Controls.Add(this.btnCustomer);
             this.panel2.Controls.Add(this.btnProduct);
+            this.panel2.Controls.Add(this.btnBillingInvoice);
             this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.lblRole);
             this.panel2.Controls.Add(this.lblUsername);
@@ -87,7 +89,7 @@
             this.button8.ForeColor = System.Drawing.SystemColors.Control;
             this.button8.Image = global::SosesPOS.Properties.Resources.logout;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 438);
+            this.button8.Location = new System.Drawing.Point(0, 475);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(301, 37);
             this.button8.TabIndex = 11;
@@ -105,7 +107,7 @@
             this.btnStockIn.ForeColor = System.Drawing.SystemColors.Control;
             this.btnStockIn.Image = global::SosesPOS.Properties.Resources.stock_replenishment;
             this.btnStockIn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockIn.Location = new System.Drawing.Point(0, 401);
+            this.btnStockIn.Location = new System.Drawing.Point(0, 438);
             this.btnStockIn.Name = "btnStockIn";
             this.btnStockIn.Size = new System.Drawing.Size(301, 37);
             this.btnStockIn.TabIndex = 6;
@@ -122,7 +124,7 @@
             this.btnReceivePayments.ForeColor = System.Drawing.SystemColors.Control;
             this.btnReceivePayments.Image = global::SosesPOS.Properties.Resources.payment;
             this.btnReceivePayments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReceivePayments.Location = new System.Drawing.Point(0, 364);
+            this.btnReceivePayments.Location = new System.Drawing.Point(0, 401);
             this.btnReceivePayments.Name = "btnReceivePayments";
             this.btnReceivePayments.Size = new System.Drawing.Size(301, 37);
             this.btnReceivePayments.TabIndex = 9;
@@ -139,7 +141,7 @@
             this.btnStockLocation.ForeColor = System.Drawing.SystemColors.Control;
             this.btnStockLocation.Image = global::SosesPOS.Properties.Resources.stock;
             this.btnStockLocation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockLocation.Location = new System.Drawing.Point(0, 327);
+            this.btnStockLocation.Location = new System.Drawing.Point(0, 364);
             this.btnStockLocation.Name = "btnStockLocation";
             this.btnStockLocation.Size = new System.Drawing.Size(301, 37);
             this.btnStockLocation.TabIndex = 13;
@@ -156,7 +158,7 @@
             this.btnCategory.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCategory.Image = global::SosesPOS.Properties.Resources.folder1;
             this.btnCategory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCategory.Location = new System.Drawing.Point(0, 290);
+            this.btnCategory.Location = new System.Drawing.Point(0, 327);
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(301, 37);
             this.btnCategory.TabIndex = 8;
@@ -173,7 +175,7 @@
             this.btnBank.ForeColor = System.Drawing.SystemColors.Control;
             this.btnBank.Image = global::SosesPOS.Properties.Resources.folder1;
             this.btnBank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBank.Location = new System.Drawing.Point(0, 253);
+            this.btnBank.Location = new System.Drawing.Point(0, 290);
             this.btnBank.Name = "btnBank";
             this.btnBank.Size = new System.Drawing.Size(301, 37);
             this.btnBank.TabIndex = 12;
@@ -190,7 +192,7 @@
             this.btnBrand.ForeColor = System.Drawing.SystemColors.Control;
             this.btnBrand.Image = global::SosesPOS.Properties.Resources.uom;
             this.btnBrand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBrand.Location = new System.Drawing.Point(0, 216);
+            this.btnBrand.Location = new System.Drawing.Point(0, 253);
             this.btnBrand.Name = "btnBrand";
             this.btnBrand.Size = new System.Drawing.Size(301, 37);
             this.btnBrand.TabIndex = 7;
@@ -207,7 +209,7 @@
             this.btnVendor.ForeColor = System.Drawing.SystemColors.Control;
             this.btnVendor.Image = global::SosesPOS.Properties.Resources.vendor;
             this.btnVendor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVendor.Location = new System.Drawing.Point(0, 179);
+            this.btnVendor.Location = new System.Drawing.Point(0, 216);
             this.btnVendor.Name = "btnVendor";
             this.btnVendor.Size = new System.Drawing.Size(301, 37);
             this.btnVendor.TabIndex = 10;
@@ -224,7 +226,7 @@
             this.btnCustomer.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCustomer.Image = global::SosesPOS.Properties.Resources.customer;
             this.btnCustomer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCustomer.Location = new System.Drawing.Point(0, 142);
+            this.btnCustomer.Location = new System.Drawing.Point(0, 179);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(301, 37);
             this.btnCustomer.TabIndex = 4;
@@ -241,7 +243,7 @@
             this.btnProduct.ForeColor = System.Drawing.SystemColors.Control;
             this.btnProduct.Image = global::SosesPOS.Properties.Resources.product;
             this.btnProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProduct.Location = new System.Drawing.Point(0, 105);
+            this.btnProduct.Location = new System.Drawing.Point(0, 142);
             this.btnProduct.Name = "btnProduct";
             this.btnProduct.Size = new System.Drawing.Size(301, 37);
             this.btnProduct.TabIndex = 5;
@@ -301,6 +303,23 @@
             this.panel3.TabIndex = 2;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
+            // btnBillingInvoice
+            // 
+            this.btnBillingInvoice.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBillingInvoice.FlatAppearance.BorderSize = 0;
+            this.btnBillingInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBillingInvoice.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnBillingInvoice.Image = global::SosesPOS.Properties.Resources.invoice;
+            this.btnBillingInvoice.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBillingInvoice.Location = new System.Drawing.Point(0, 105);
+            this.btnBillingInvoice.Name = "btnBillingInvoice";
+            this.btnBillingInvoice.Size = new System.Drawing.Size(301, 37);
+            this.btnBillingInvoice.TabIndex = 14;
+            this.btnBillingInvoice.Text = "Billing Invoice";
+            this.btnBillingInvoice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBillingInvoice.UseVisualStyleBackColor = true;
+            this.btnBillingInvoice.Click += new System.EventHandler(this.btnBillingInvoice_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -339,6 +358,7 @@
         private System.Windows.Forms.Button btnReceivePayments;
         private System.Windows.Forms.Button btnBank;
         private System.Windows.Forms.Button btnStockLocation;
+        private System.Windows.Forms.Button btnBillingInvoice;
     }
 }
 

@@ -32,7 +32,7 @@ namespace SosesPOS
             LoadLocation();
         }
 
-        private void LoadLocation()
+        protected void LoadLocation()
         {
             List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
             dataSource.Add(new ComboBoxDTO() { Name = "Warehouse", Value = "0" });
@@ -67,7 +67,7 @@ namespace SosesPOS
             con.Close();
         }
 
-        private void LoadSuggestedProducts()
+        protected void LoadSuggestedProducts()
         {
             //con.Open();
             //com = new SqlCommand("select pcode, pdesc from tblProduct", con);
@@ -346,6 +346,10 @@ namespace SosesPOS
             {
                 btnSearchCustomer_Click(sender, e);
             }
+            else if (e.KeyCode == Keys.F7)
+            {
+                btnGenerateReport_Click(sender, e);
+            }
             else if (e.KeyCode == Keys.F10) // Close
             {
                 this.Dispose();
@@ -403,7 +407,7 @@ namespace SosesPOS
             }
         }
 
-        private bool UpdateInvoice()
+        protected bool UpdateInvoice()
         {
             if (String.IsNullOrEmpty(txtCCode.Text) || cartGridView.Rows.Count == 0 || String.IsNullOrEmpty(hlblInvoiceId.Text))
             {
@@ -512,7 +516,7 @@ namespace SosesPOS
             return false;
         }
 
-        private bool SaveInvoice()
+        protected bool SaveInvoice()
         {
             if (String.IsNullOrEmpty(txtCCode.Text) || cartGridView.Rows.Count == 0)
             {
@@ -733,7 +737,7 @@ namespace SosesPOS
             }
         }
 
-        private void ResetInvoiceForm()
+        protected void ResetInvoiceForm()
         {
             GenerateNewTrans();
 
@@ -757,7 +761,7 @@ namespace SosesPOS
             this.btnPrint.Enabled = false;
         }
 
-        private void GenerateNewTrans()
+        protected void GenerateNewTrans()
         {
             string refNo = DateTime.Now.ToString("yyMMdd");
             con.Open();
@@ -771,13 +775,10 @@ namespace SosesPOS
             txtTransNo.Text = refNo;
         }
 
-        // F6 Search Product
-        private void btnSearchProduct_Click(object sender, EventArgs e)
+        // F7 Search Product
+        protected virtual void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            //txtSearch.Focus();
-            //txtSearch.SelectAll();
-            cboSearch.Focus();
-            cboSearch.SelectAll();
+            
         }
 
         private void cartGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -821,7 +822,7 @@ namespace SosesPOS
             form.ShowDialog();
         }
 
-        private void btnSaveAndPrint_Click(object sender, EventArgs e)
+        protected virtual void btnSaveAndPrint_Click(object sender, EventArgs e)
         {
             string refno = txtTransNo.Text;
             string invoiceId = hlblInvoiceId.Text;
@@ -845,7 +846,7 @@ namespace SosesPOS
                 PrintInvoice(refno);
                     
                 // Set Order to Printed
-                setOrderStatusPrinted(refno);
+                setOrderStatusIssued(refno);
 
                 // Adjust Inv based on Inv
                 // NOTE: Moved to Sales Invoice
@@ -905,7 +906,7 @@ namespace SosesPOS
             }
         }
 
-        private void updateCustomerCollection()
+        protected void updateCustomerCollection()
         {
             string customerId = hlblCustomerId.Text;
             decimal total = Convert.ToDecimal(lblSubTotal.Text);
@@ -934,7 +935,7 @@ namespace SosesPOS
             }
         }
 
-        private void setOrderStatusPrinted(string refno)
+        private void setOrderStatusIssued(string refno)
         {
             int orderId = 0;
             decimal openBalance = Convert.ToDecimal(txtOpenBalance.Text);
@@ -959,7 +960,7 @@ namespace SosesPOS
                     com = new SqlCommand("UPDATE tblOrder SET OrderStatus = @orderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
                         "WHERE OrderId = @orderid", con);
                     com.Parameters.AddWithValue("@orderid", orderId);
-                    com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED);
+                    com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_ISSUED);
                     com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
                     com.ExecuteNonQuery();
 
@@ -981,7 +982,7 @@ namespace SosesPOS
             }
         }
 
-        private static void PrintInvoice(string refno)
+        protected void PrintInvoice(string refno)
         {
             formInvoiceReceipt form = new formInvoiceReceipt();
             form.LoadReport(refno);

@@ -148,5 +148,11 @@ namespace SosesPOS
             form.BringToFront();
             form.Show();
         }
+
+        private void btnBillingInvoice_Click(object sender, EventArgs e)
+        {
+            formBillingPOS form = new formBillingPOS();
+            form.ShowDialog();
+        }
     }
 }
