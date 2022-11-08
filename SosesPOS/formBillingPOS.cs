@@ -133,7 +133,7 @@ namespace SosesPOS
 
         protected override void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            
+            MessageBox.Show("GENERATE THE REPORT");
         }
     }
 }

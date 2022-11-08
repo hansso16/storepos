@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBillingPOS));
             this.SuspendLayout();
             // 
+            // txtTransNo
+            // 
+            this.txtTransNo.Text = "";
+            // 
             // cboUOM
             // 
             this.cboUOM.Size = new System.Drawing.Size(64, 25);

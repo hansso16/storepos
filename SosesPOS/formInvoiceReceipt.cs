@@ -189,7 +189,7 @@ namespace SosesPOS
             {
                 printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
                 m_currentPageIndex = 0;
-                MessageBox.Show("PRINTING");
+                MessageBox.Show("Document is ready for printing.");
                 printDoc.Print();
                 this.Dispose();
                 //MessageBox.Show("DONE");
