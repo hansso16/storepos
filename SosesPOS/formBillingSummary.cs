@@ -83,7 +83,6 @@ namespace SosesPOS
                         {
                             // populate SDA/report
                             dsBillingSummary ds = new dsBillingSummary();
-                            dsBillingSummary tds = new dsBillingSummary();
                             pAreaName = new ReportParameter("pAreaName", areaDTO.areaName);
                             reportViewer1.LocalReport.SetParameters(pAreaName);
 
