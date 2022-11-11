@@ -114,3 +114,4 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockLocationList.resou
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPurchase.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formSearchVendor.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formBillingPOS.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formBillingSummary.resources

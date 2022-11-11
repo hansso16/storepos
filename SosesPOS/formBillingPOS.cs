@@ -133,7 +133,9 @@ namespace SosesPOS
 
         protected override void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("GENERATE THE REPORT");
+            formBillingSummary form = new formBillingSummary();
+            form.LoadReport();
+            //form.Show();
         }
     }
 }
