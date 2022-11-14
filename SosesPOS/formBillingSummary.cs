@@ -14,22 +14,18 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Drawing.Imaging;
 using SosesPOS.DTO;
+using SosesPOS.util;
 
 namespace SosesPOS
 {
     public partial class formBillingSummary : Form
     {
-        SqlConnection con = null;
-        SqlCommand com = null;
         DbConnection dbcon = new DbConnection();
-        SqlDataReader dr = null;
-        SqlDataAdapter sda = new SqlDataAdapter();
         private int m_currentPageIndex;
         private IList<Stream> m_streams;
         public formBillingSummary()
         {
             InitializeComponent();
-            con = new SqlConnection(dbcon.MyConnection());
         }
 
         private void formBillingSummary_Load(object sender, EventArgs e)
@@ -83,6 +79,7 @@ namespace SosesPOS
                         {
                             // populate SDA/report
                             dsBillingSummary ds = new dsBillingSummary();
+                            SqlDataAdapter sda = new SqlDataAdapter();
                             pAreaName = new ReportParameter("pAreaName", areaDTO.areaName);
                             reportViewer1.LocalReport.SetParameters(pAreaName);
 
@@ -118,6 +115,7 @@ namespace SosesPOS
                                         }
                                         if (prevInvt <= 0)
                                         {
+                                            // NO STOCK INVENTORY
                                             row["priority"] = 0;
                                             row["prev"] = "";
                                             row["current"] = "";
@@ -159,13 +157,21 @@ namespace SosesPOS
                             Export(reportViewer1.LocalReport);
                             Print(areaDTO.areaName);
                         }
-                        MessageBox.Show("Printing Completed");
+                        
+                        // Update Order status to issued after printing.
+                        using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus " +
+                            "WHERE OrderStatus = @oldorderstatus", con))
+                        {
+                            com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED);
+                            com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
+                            com.ExecuteNonQuery();
+                        }
                     }
+                    MessageBox.Show("Printing Completed");
                 }
             }
             catch (Exception ex)
             {
-                con.Close();
                 MessageBox.Show(ex.Message, "Generate Billing Summary", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
