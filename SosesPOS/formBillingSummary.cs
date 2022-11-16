@@ -83,14 +83,14 @@ namespace SosesPOS
                             pAreaName = new ReportParameter("pAreaName", areaDTO.areaName);
                             reportViewer1.LocalReport.SetParameters(pAreaName);
 
-                            sda.SelectCommand = new SqlCommand("SELECT id.PCode, p.pdesc, '' AS PREV, SUM(id.Qty) AS OUT, '' AS CRNT , c.AreaCode " +
+                            sda.SelectCommand = new SqlCommand("SELECT id.PCode, p.pdesc, '' AS PREV, SUM(id.Qty) AS OUT, '' AS CRNT , c.AreaCode, id.Location " +
                                 "FROM tblOrder o " +
                                 "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId " +
                                 "INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
                                 "INNER JOIN tblInvoiceDetails id ON id.InvoiceId = i.InvoiceId " +
                                 "INNER JOIN tblProduct p ON p.pcode = id.PCode " +
                                 "WHERE o.OrderStatus = '15' and c.AreaCode = @areacode " +
-                                "GROUP BY id.PCode, p.pdesc, c.AreaCode", con);
+                                "GROUP BY id.PCode, p.pdesc, c.AreaCode, id.location ORDER BY p.pdesc ", con);
                             sda.SelectCommand.Parameters.AddWithValue("@areacode", areaDTO.areaCode);
                             sda.Fill(ds.Tables["dtItems"]);
 
@@ -113,23 +113,12 @@ namespace SosesPOS
                                             currentInvt = Convert.ToInt32(dr["qty"]);
                                             prevInvt = currentInvt + outInvt;
                                         }
-                                        if (prevInvt <= 0)
-                                        {
-                                            // NO STOCK INVENTORY
-                                            row["priority"] = 0;
-                                            row["prev"] = "";
-                                            row["current"] = "";
-                                            //row["pdesc"] = row["pdesc"] + "*";
-                                        } else
-                                        {
-                                            row["priority"] = 1;
-                                            row["prev"] = prevInvt;
-                                            row["current"] = currentInvt;
-                                        }
+                                        row["prev"] = prevInvt;
+                                        row["current"] = currentInvt;
                                     }
                                 }
                             }
-                            table.DefaultView.Sort = "priority, pdesc ASC";
+                            table.DefaultView.Sort = "Location DESC";
                             table = table.DefaultView.ToTable();
 
                             ds.Tables.Clear();
@@ -141,7 +130,7 @@ namespace SosesPOS
 
                             // Paper Settings
                             PageSettings page = new PageSettings();
-                            PaperSize size = new PaperSize("Billing Summary", 491, 846);
+                            PaperSize size = new PaperSize("Billing Summary", 528, 816); // name, width, height
                             size.RawKind = (int)PaperKind.Custom;
                             page.PaperSize = size;
 
@@ -159,12 +148,13 @@ namespace SosesPOS
                         }
                         
                         // Update Order status to issued after printing.
-                        using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus " +
+                        using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
                             "WHERE OrderStatus = @oldorderstatus", con))
                         {
                             com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED);
                             com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
-                            com.ExecuteNonQuery();
+                            com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
+                            //com.ExecuteNonQuery();
                         }
                     }
                     MessageBox.Show("Printing Completed");

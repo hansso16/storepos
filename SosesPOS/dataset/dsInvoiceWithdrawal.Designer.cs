@@ -20,9 +20,9 @@ namespace SosesPOS.dataset {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("dsBillingSummary")]
+    [global::System.Xml.Serialization.XmlRootAttribute("dsInvoiceWithdrawal")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class dsBillingSummary : global::System.Data.DataSet {
+    public partial class dsInvoiceWithdrawal : global::System.Data.DataSet {
         
         private dtItemsDataTable tabledtItems;
         
@@ -30,7 +30,7 @@ namespace SosesPOS.dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public dsBillingSummary() {
+        public dsInvoiceWithdrawal() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -41,7 +41,7 @@ namespace SosesPOS.dataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        protected dsBillingSummary(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected dsInvoiceWithdrawal(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -127,7 +127,7 @@ namespace SosesPOS.dataset {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            dsBillingSummary cln = ((dsBillingSummary)(base.Clone()));
+            dsInvoiceWithdrawal cln = ((dsInvoiceWithdrawal)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -199,9 +199,9 @@ namespace SosesPOS.dataset {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "dsBillingSummary";
+            this.DataSetName = "dsInvoiceWithdrawal";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/dsBillingSummary.xsd";
+            this.Namespace = "http://tempuri.org/dsInvoiceWithdrawal.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tabledtItems = new dtItemsDataTable();
@@ -225,7 +225,7 @@ namespace SosesPOS.dataset {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            dsBillingSummary ds = new dsBillingSummary();
+            dsInvoiceWithdrawal ds = new dsInvoiceWithdrawal();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -291,7 +291,7 @@ namespace SosesPOS.dataset {
             
             private global::System.Data.DataColumn columnAreaCode;
             
-            private global::System.Data.DataColumn columnLocation;
+            private global::System.Data.DataColumn columnpriority;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -376,9 +376,9 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn LocationColumn {
+            public global::System.Data.DataColumn priorityColumn {
                 get {
-                    return this.columnLocation;
+                    return this.columnpriority;
                 }
             }
             
@@ -419,7 +419,7 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public dtItemsRow AdddtItemsRow(string pcode, string pdesc, string prev, int _out, string current, string AreaCode, string Location) {
+            public dtItemsRow AdddtItemsRow(string pcode, string pdesc, string prev, int _out, string current, string AreaCode, string priority) {
                 dtItemsRow rowdtItemsRow = ((dtItemsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         pcode,
@@ -428,7 +428,7 @@ namespace SosesPOS.dataset {
                         _out,
                         current,
                         AreaCode,
-                        Location};
+                        priority};
                 rowdtItemsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtItemsRow);
                 return rowdtItemsRow;
@@ -457,7 +457,7 @@ namespace SosesPOS.dataset {
                 this.columnout = base.Columns["out"];
                 this.columncurrent = base.Columns["current"];
                 this.columnAreaCode = base.Columns["AreaCode"];
-                this.columnLocation = base.Columns["Location"];
+                this.columnpriority = base.Columns["priority"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -478,8 +478,8 @@ namespace SosesPOS.dataset {
                 base.Columns.Add(this.columncurrent);
                 this.columnAreaCode = new global::System.Data.DataColumn("AreaCode", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAreaCode);
-                this.columnLocation = new global::System.Data.DataColumn("Location", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLocation);
+                this.columnpriority = new global::System.Data.DataColumn("priority", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnpriority);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -547,7 +547,7 @@ namespace SosesPOS.dataset {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                dsBillingSummary ds = new dsBillingSummary();
+                dsInvoiceWithdrawal ds = new dsInvoiceWithdrawal();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -718,17 +718,17 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Location {
+            public string priority {
                 get {
                     try {
-                        return ((string)(this[this.tabledtItems.LocationColumn]));
+                        return ((string)(this[this.tabledtItems.priorityColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Location\' in table \'dtItems\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'priority\' in table \'dtItems\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tabledtItems.LocationColumn] = value;
+                    this[this.tabledtItems.priorityColumn] = value;
                 }
             }
             
@@ -806,14 +806,14 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsLocationNull() {
-                return this.IsNull(this.tabledtItems.LocationColumn);
+            public bool IspriorityNull() {
+                return this.IsNull(this.tabledtItems.priorityColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetLocationNull() {
-                this[this.tabledtItems.LocationColumn] = global::System.Convert.DBNull;
+            public void SetpriorityNull() {
+                this[this.tabledtItems.priorityColumn] = global::System.Convert.DBNull;
             }
         }
         

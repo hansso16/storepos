@@ -205,7 +205,7 @@ namespace SosesPOS
                     if(dr.Read())
                     {
                         locationType = dr["LocationType"].ToString();
-                        if ("0".Equals(locationType))
+                        if (GlobalConstant.STORE_CODE.Equals(locationType))
                         {
                             pdesc = "*"+txtPDesc.Text;
                         } else
@@ -566,6 +566,13 @@ namespace SosesPOS
 
 
                     // Get Inventory Qty List
+                    if (cartGridView.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Invalid Invoice Details. Please check again.", "Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        cboSearch.Focus();
+                        cboSearch.SelectAll();
+                        return false;
+                    }
                     foreach (DataGridViewRow row in cartGridView.Rows)
                     {
                         Queue<int> queue = new Queue<int>();

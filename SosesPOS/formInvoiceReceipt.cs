@@ -81,7 +81,7 @@ namespace SosesPOS
                 dsInvoiceReceipt ds = new dsInvoiceReceipt();
                 sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
                     ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
-                    ", CAST(CASE WHEN id.location = '0' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                    ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
                     "from tblInvoice i " +
                     "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
                     "inner join tblProduct p on p.pcode = id.PCode " +

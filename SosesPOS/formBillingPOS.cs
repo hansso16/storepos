@@ -27,7 +27,7 @@ namespace SosesPOS
 
         protected override void btnSaveAndPrint_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("OVERRIDDEN");
+            //MessageBox.Show("OVERRIDDEN");
             string refno = txtTransNo.Text;
             string invoiceId = hlblInvoiceId.Text;
             bool isSuccessTrans = false;

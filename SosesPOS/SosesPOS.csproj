@@ -190,6 +190,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dataset\dsInvoiceWithdrawal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DbConnection.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
@@ -374,6 +379,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="System\Windows\Controls.cs" />
     <Compile Include="util\ComboBoxDTO.cs" />
+    <Compile Include="util\GlobalConstant.cs" />
     <Compile Include="util\OrderStatusConstant.cs" />
     <Compile Include="util\OrderStatusEnum.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -475,6 +481,7 @@
     </Compile>
     <EmbeddedResource Include="report\rptBillingSummary.rdlc" />
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc" />
+    <EmbeddedResource Include="report\rptInvoiceWithdrawal.rdlc" />
     <None Include="dataset\dsBillingSummary.xsc">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
     </None>
@@ -496,6 +503,17 @@
     </None>
     <None Include="dataset\dsInvoiceReceipt.xss">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsInvoiceWithdrawal.xsc">
+      <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsInvoiceWithdrawal.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsInvoiceWithdrawal.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\dsInvoiceWithdrawal.xss">
+      <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
