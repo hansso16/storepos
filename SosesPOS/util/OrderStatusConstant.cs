@@ -12,6 +12,8 @@ namespace SosesPOS.util
 
         public const string INV_PRINTED = "15";
 
+        public const string INV_PRINTED_BODEGA_OUT = "16";
+
         public const string INV_ISSUED = "20";
     }
 }

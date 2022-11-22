@@ -97,6 +97,12 @@ namespace SosesPOS
                             DataTable table = ds.Tables["dtItems"];
                             foreach (DataRow row in table.Rows)
                             {
+                                if (row["Location"].Equals("1")) // 1 = Store Code
+                                {
+                                    row["prev"] = "";
+                                    row["current"] = "";
+                                    continue;
+                                }
                                 using (SqlCommand com = new SqlCommand("SELECT SUM(i.Qty) qty, p.pcode, p.count " +
                                     "FROM tblInventory i INNER JOIN tblProduct p ON i.PCode = p.pcode " +
                                     "WHERE i.pcode = @pcode and i.Qty > 0 " +

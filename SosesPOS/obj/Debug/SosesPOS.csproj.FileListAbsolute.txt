@@ -115,3 +115,4 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPurchase.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formSearchVendor.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formBillingPOS.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formBillingSummary.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPOSWithdrawal.resources

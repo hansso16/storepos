@@ -785,7 +785,8 @@ namespace SosesPOS
         // F7 Search Product
         protected virtual void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            
+            formPOSWithdrawal form = new formPOSWithdrawal();
+            form.LoadReport();
         }
 
         private void cartGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -948,6 +949,7 @@ namespace SosesPOS
             decimal openBalance = Convert.ToDecimal(txtOpenBalance.Text);
             decimal totalPrice = Convert.ToDecimal(lblSubTotal.Text);
             decimal endingBalance = openBalance + totalPrice;
+            bool isBodegaOut = false;
             try
             {
                 con.Open();
@@ -962,12 +964,26 @@ namespace SosesPOS
                 }
                 dr.Close();
 
+                com = new SqlCommand("SELECT 1 FROM tblInvoice i " +
+                    "INNER JOIN tblInvoiceDetails id ON id.InvoiceId = i.InvoiceId " +
+                    "WHERE i.OrderId = @orderid and id.Location = @location", con);
+                com.Parameters.AddWithValue("@orderid", orderId);
+                com.Parameters.AddWithValue("@location", GlobalConstant.WH_CODE);
+                dr = com.ExecuteReader();
+                isBodegaOut = dr.HasRows;
+
                 if (orderId > 0)
                 {
                     com = new SqlCommand("UPDATE tblOrder SET OrderStatus = @orderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
                         "WHERE OrderId = @orderid", con);
                     com.Parameters.AddWithValue("@orderid", orderId);
-                    com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_ISSUED);
+                    if (isBodegaOut)
+                    {
+                        com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
+                    } else
+                    {
+                        com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_ISSUED);
+                    }
                     com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
                     com.ExecuteNonQuery();
 

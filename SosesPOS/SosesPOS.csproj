@@ -199,6 +199,7 @@
     <Compile Include="DTO\AreaDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
     <Compile Include="DTO\InventoryDTO.cs" />
+    <Compile Include="DTO\POSWithdrawalCustomerDTO.cs" />
     <Compile Include="DTO\ProductCostDTO.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -247,6 +248,12 @@
     </Compile>
     <Compile Include="formInvoiceReceipt.Designer.cs">
       <DependentUpon>formInvoiceReceipt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formPOSWithdrawal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPOSWithdrawal.Designer.cs">
+      <DependentUpon>formPOSWithdrawal.cs</DependentUpon>
     </Compile>
     <Compile Include="formProductDetails.cs">
       <SubType>Form</SubType>
@@ -405,6 +412,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formInvoiceReceipt.resx">
       <DependentUpon>formInvoiceReceipt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formPOSWithdrawal.resx">
+      <DependentUpon>formPOSWithdrawal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formProductDetails.resx">
       <DependentUpon>formProductDetails.cs</DependentUpon>
