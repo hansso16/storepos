@@ -17,6 +17,7 @@ namespace SosesPOS
         SqlCommand com = null;
         DbConnection dbcon = new DbConnection();
         formCategoryList formCategoryList;
+        formUnits formUnits;
 
         public formCategory(formCategoryList formCategoryList)
         {
@@ -24,6 +25,14 @@ namespace SosesPOS
             con = new SqlConnection(dbcon.MyConnection());
             this.formCategoryList = formCategoryList;
         }
+        
+        public formCategory(formUnits formUnits)
+        {
+            InitializeComponent();
+            con = new SqlConnection(dbcon.MyConnection());
+            this.formUnits = formUnits;
+        }
+
         private void Clear()
         {
             btnSave.Enabled = true;
@@ -45,7 +54,7 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("Brand record has been successfully saved");
                     Clear();
-                    formCategoryList.LoadCategoryRecords();
+                    formUnits.LoadCategoryRecords();
                 }
             }
             catch (Exception ex)
@@ -68,7 +77,7 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("Brand hass been successfully updated.");
                     Clear();
-                    formCategoryList.LoadCategoryRecords();
+                    formUnits.LoadCategoryRecords();
                     this.Dispose();
                 }
             }

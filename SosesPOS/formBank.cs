@@ -17,11 +17,20 @@ namespace SosesPOS
         SqlCommand com = null;
         DbConnection dbcon = new DbConnection();
         formBankList formBankList;
+        formUnits formUnits = null;
         public formBank(formBankList formBankList)
         {
             InitializeComponent();
             con = new SqlConnection(dbcon.MyConnection());
             this.formBankList = formBankList;
+            this.hlblBankId.Text = "";
+        }
+        
+        public formBank(formUnits formUnits)
+        {
+            InitializeComponent();
+            con = new SqlConnection(dbcon.MyConnection());
+            this.formUnits = formUnits;
             this.hlblBankId.Text = "";
         }
 
@@ -58,7 +67,7 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("Bank recordhas been successfully saved");
                     Clear();
-                    formBankList.LoadBankRecords();
+                    formUnits.LoadBankRecords();
                 }
             }
             catch (Exception ex)
@@ -82,7 +91,7 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("Bank record has been successfully updated.");
                     Clear();
-                    formBankList.LoadBankRecords();
+                    formUnits.LoadBankRecords();
                     this.Dispose();
                 }
             }

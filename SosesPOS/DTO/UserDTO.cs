@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SosesPOS.DTO
 {
-    internal class UserDTO
+    public class UserDTO
     {
         public int userId { get; set; }
         public string username { get; set; }

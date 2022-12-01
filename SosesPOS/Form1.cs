@@ -8,26 +8,66 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using SosesPOS.DTO;
 using SosesPOS;
 
 namespace SosesPOS
 {
     public partial class Form1 : Form
     {
-
-        //SqlConnection con = new SqlConnection();
-        //SqlCommand com = new SqlCommand();
-        //DbConnection dbcon = new DbConnection();
-
-
-        public Form1()
+        UserDTO user = null;
+        RoleDTO role = null;
+        formLogin formLogin = null;
+        public Form1(formLogin formLogin, UserDTO userDTO)
         {
             InitializeComponent();
+            user = userDTO;
+            role = userDTO.role;
+            this.lblUsername.Text = user.username;
+            this.lblRole.Text = role.roleName;
+            this.formLogin = formLogin;
         }
 
-        private void dashboardBtn_Click(object sender, EventArgs e)
+        public void SetAccessLevel()
         {
+            SetStaffLevel();
+            SetOfficerLevel();
+            SetMgrLevel();
+        }
 
+        private void SetStaffLevel()
+        {
+            if (role.accessLevel >= 100) 
+            {
+                this.btnBillingInvoice.Visible = true;
+            }
+        }
+
+        private void SetOfficerLevel()
+        {
+            if (role.accessLevel >= 500)
+            {
+                this.btnProduct.Visible = true;
+                this.btnCustomer.Visible = true;
+                this.btnVendor.Visible = true;
+                this.btnUnits.Visible = true;
+                //this.btnBrand.Visible = true;
+                //this.btnBank.Visible = true;
+                //this.btnCategory.Visible = true;
+                //this.btnStockLocation.Visible = true;
+                this.btnReceivePayments.Visible = true;
+                this.btnStockIn.Visible = true;
+                this.btnStockTransfer.Visible = true;
+            }
+        }
+
+        private void SetMgrLevel()
+        {
+            if (role.accessLevel >= 900)
+            {
+                this.button5.Visible = true; // Store Invoice
+                this.btnUser.Visible = true;
+            }
         }
 
         private void btnBrand_Click(object sender, EventArgs e)
@@ -111,10 +151,11 @@ namespace SosesPOS
 
         private void button8_Click(object sender, EventArgs e)
         {
+            // Logout
             panel3.Controls.Clear();
-            //formInvoiceReceipt form = new formInvoiceReceipt();
-            //form.LoadReport("2208161021");
-            //form.ShowDialog();
+            this.Hide();
+            formLogin form = new formLogin();
+            form.ShowDialog();
         }
 
         private void btnReceivePayments_Click(object sender, EventArgs e)
@@ -153,6 +194,27 @@ namespace SosesPOS
         {
             formBillingPOS form = new formBillingPOS();
             form.ShowDialog();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+            System.Environment.Exit(1);
+        }
+
+        private void btnUnits_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formUnits form = new formUnits();
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
+
+        private void btnUser_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

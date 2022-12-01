@@ -188,6 +188,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\RoleService.cs" />
+    <Compile Include="Auth\UserService.cs" />
     <Compile Include="DAO\InventoryDAO.cs" />
     <Compile Include="DAO\ProductCostDAO.cs" />
     <Compile Include="dataset\dsBillingSummary.cs">
@@ -329,6 +331,12 @@
     <Compile Include="formStockLocationList.Designer.cs">
       <DependentUpon>formStockLocationList.cs</DependentUpon>
     </Compile>
+    <Compile Include="formUnits.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formUnits.Designer.cs">
+      <DependentUpon>formUnits.cs</DependentUpon>
+    </Compile>
     <Compile Include="formUOM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -469,6 +477,9 @@
     <EmbeddedResource Include="formStockLocationList.resx">
       <DependentUpon>formStockLocationList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formUnits.resx">
+      <DependentUpon>formUnits.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formUOM.resx">
       <DependentUpon>formUOM.cs</DependentUpon>
     </EmbeddedResource>
@@ -594,6 +605,9 @@
     <None Include="Resources\print.png" />
     <None Include="Resources\search_white.png" />
     <None Include="Resources\apps_white.png" />
+    <None Include="Resources\user_settings.png" />
+    <None Include="Resources\transfer.png" />
+    <None Include="Resources\user_group.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

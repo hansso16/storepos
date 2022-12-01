@@ -18,11 +18,20 @@ namespace SosesPOS
         SqlDataReader dr = null;
         DbConnection dbcon = new DbConnection();
         formStockLocationList formStockLocationList = null;
+        formUnits formUnits = null;
+
         public formStockLocation(formStockLocationList formStockLocationList)
         {
             InitializeComponent();
             con = new SqlConnection(dbcon.MyConnection());
             this.formStockLocationList = formStockLocationList;
+        }
+        
+        public formStockLocation(formUnits formUnits)
+        {
+            InitializeComponent();
+            con = new SqlConnection(dbcon.MyConnection());
+            this.formUnits = formUnits;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -62,12 +71,12 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("Location has been successfully saved");
                     Clear();
-                    formStockLocationList.LoadStockLocationList();
+                    formUnits.LoadStockLocationList();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Vendor Module", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Stock Location", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -89,13 +98,13 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("Location has been successfully updated.");
                     Clear();
-                    formStockLocationList.LoadStockLocationList();
+                    formUnits.LoadStockLocationList();
                     this.Dispose();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Vendor Module", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Stock Location", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

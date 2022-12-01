@@ -253,6 +253,16 @@ namespace SosesPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap transfer {
+            get {
+                object obj = ResourceManager.GetObject("transfer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap trash {
             get {
                 object obj = ResourceManager.GetObject("trash", resourceCulture);
@@ -266,6 +276,26 @@ namespace SosesPOS.Properties {
         internal static System.Drawing.Bitmap uom {
             get {
                 object obj = ResourceManager.GetObject("uom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_group {
+            get {
+                object obj = ResourceManager.GetObject("user_group", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_settings {
+            get {
+                object obj = ResourceManager.GetObject("user_settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

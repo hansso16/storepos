@@ -17,11 +17,19 @@ namespace SosesPOS
         DbConnection dbcon = new DbConnection();
         SqlDataReader dr = null;
         formUOMList fromUOMList;
+        formUnits formUnits;
         public formUOM(formUOMList formUOMList)
         {
             InitializeComponent();
             con = new SqlConnection(dbcon.MyConnection());
             this.fromUOMList = formUOMList;
+        }
+        
+        public formUOM(formUnits formUnits)
+        {
+            InitializeComponent();
+            con = new SqlConnection(dbcon.MyConnection());
+            this.formUnits = formUnits;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -66,7 +74,8 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("UOM record has been successfully saved");
                     Clear();
-                    fromUOMList.LoadUOMRecords();
+                    //fromUOMList.LoadUOMRecords();
+                    formUnits.LoadUOMRecords();
                 }
             } catch (Exception ex)
             {
@@ -110,7 +119,8 @@ namespace SosesPOS
                     con.Close();
                     MessageBox.Show("UOM hass been successfully updated.");
                     Clear();
-                    fromUOMList.LoadUOMRecords();
+                    //fromUOMList.LoadUOMRecords();
+                    formUnits.LoadUOMRecords();
                     this.Dispose();
                 }
             } catch (Exception ex)
