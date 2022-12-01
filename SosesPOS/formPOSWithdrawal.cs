@@ -48,10 +48,16 @@ namespace SosesPOS
                     sda.SelectCommand = new SqlCommand("SELECT i.InvoiceId invoiceId, c.CustomerName customerName FROM tblOrder o " +
                         "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
                         "WHERE o.OrderStatus = @orderstatus", con);
-                    sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
+                    //sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
+                    sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED);
                     sda.Fill(ds.Tables["dtCustomer"]);
 
                     DataTable table = ds.Tables["dtCustomer"];
+                    if (table.Rows.Count <= 0)
+                    {
+                        MessageBox.Show("No Records qualified.");
+                        return;
+                    }
                     foreach (DataRow row in table.Rows)
                     {
                         int invoiceId = Convert.ToInt32(row["InvoiceId"]);
@@ -62,12 +68,6 @@ namespace SosesPOS
                         sdaItems.SelectCommand.Parameters.AddWithValue("@invoiceid", invoiceId);
                         sdaItems.SelectCommand.Parameters.AddWithValue("@location", GlobalConstant.WH_CODE);
                         sdaItems.Fill(ds.Tables["dtItems"]);
-                    }
-
-                    DataTable dtItems = ds.Tables["dtItems"];
-                    foreach (DataRow row in dtItems.Rows)
-                    {
-                        Console.WriteLine("Invoice ID: " + row["invoiceId"] + "; pdesc: " + row["pdesc"]);
                     }
 
                     ReportDataSource rptDataSourceCustomer = new ReportDataSource("dtCustomer", ds.Tables["dtCustomer"]);

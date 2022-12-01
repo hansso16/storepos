@@ -41,11 +41,11 @@
             this.btnVendor = new System.Windows.Forms.Button();
             this.btnCustomer = new System.Windows.Forms.Button();
             this.btnProduct = new System.Windows.Forms.Button();
+            this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.lblRole = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -252,6 +252,23 @@
             this.btnProduct.UseVisualStyleBackColor = true;
             this.btnProduct.Click += new System.EventHandler(this.button2_Click);
             // 
+            // btnBillingInvoice
+            // 
+            this.btnBillingInvoice.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnBillingInvoice.FlatAppearance.BorderSize = 0;
+            this.btnBillingInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBillingInvoice.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnBillingInvoice.Image = global::SosesPOS.Properties.Resources.invoice;
+            this.btnBillingInvoice.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBillingInvoice.Location = new System.Drawing.Point(0, 105);
+            this.btnBillingInvoice.Name = "btnBillingInvoice";
+            this.btnBillingInvoice.Size = new System.Drawing.Size(301, 37);
+            this.btnBillingInvoice.TabIndex = 14;
+            this.btnBillingInvoice.Text = "Delivery Invoice";
+            this.btnBillingInvoice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBillingInvoice.UseVisualStyleBackColor = true;
+            this.btnBillingInvoice.Click += new System.EventHandler(this.btnBillingInvoice_Click);
+            // 
             // button5
             // 
             this.button5.Dock = System.Windows.Forms.DockStyle.Top;
@@ -264,7 +281,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(301, 37);
             this.button5.TabIndex = 3;
-            this.button5.Text = "Invoice";
+            this.button5.Text = "Store Invoice";
             this.button5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
@@ -302,23 +319,6 @@
             this.panel3.Size = new System.Drawing.Size(883, 521);
             this.panel3.TabIndex = 2;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // btnBillingInvoice
-            // 
-            this.btnBillingInvoice.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnBillingInvoice.FlatAppearance.BorderSize = 0;
-            this.btnBillingInvoice.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBillingInvoice.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnBillingInvoice.Image = global::SosesPOS.Properties.Resources.invoice;
-            this.btnBillingInvoice.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBillingInvoice.Location = new System.Drawing.Point(0, 105);
-            this.btnBillingInvoice.Name = "btnBillingInvoice";
-            this.btnBillingInvoice.Size = new System.Drawing.Size(301, 37);
-            this.btnBillingInvoice.TabIndex = 14;
-            this.btnBillingInvoice.Text = "Billing Invoice";
-            this.btnBillingInvoice.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBillingInvoice.UseVisualStyleBackColor = true;
-            this.btnBillingInvoice.Click += new System.EventHandler(this.btnBillingInvoice_Click);
             // 
             // Form1
             // 
