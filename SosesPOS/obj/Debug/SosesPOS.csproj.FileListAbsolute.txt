@@ -128,3 +128,10 @@ D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\System.Numerics.Vectors.xml
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLogin.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUnits.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formChangePassword.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUserList.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUser.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formResetPassword.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formTerminateUser.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUpdateAccessLevel.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUserEdit.resources

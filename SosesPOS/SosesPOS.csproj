@@ -253,6 +253,12 @@
     <Compile Include="formBillingSummary.Designer.cs">
       <DependentUpon>formBillingSummary.cs</DependentUpon>
     </Compile>
+    <Compile Include="formChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formChangePassword.Designer.cs">
+      <DependentUpon>formChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="formCustomerModule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,6 +307,12 @@
     <Compile Include="formQty.Designer.cs">
       <DependentUpon>formQty.cs</DependentUpon>
     </Compile>
+    <Compile Include="formResetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formResetPassword.Designer.cs">
+      <DependentUpon>formResetPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="formSearchCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +342,12 @@
     </Compile>
     <Compile Include="formStockLocationList.Designer.cs">
       <DependentUpon>formStockLocationList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formTerminateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formTerminateUser.Designer.cs">
+      <DependentUpon>formTerminateUser.cs</DependentUpon>
     </Compile>
     <Compile Include="formUnits.cs">
       <SubType>Form</SubType>
@@ -403,6 +421,30 @@
     <Compile Include="formStockIn.Designer.cs">
       <DependentUpon>formStockIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="formUpdateAccessLevel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formUpdateAccessLevel.Designer.cs">
+      <DependentUpon>formUpdateAccessLevel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formUser.Designer.cs">
+      <DependentUpon>formUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formUserEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formUserEdit.Designer.cs">
+      <DependentUpon>formUserEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formUserList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formUserList.Designer.cs">
+      <DependentUpon>formUserList.cs</DependentUpon>
+    </Compile>
     <Compile Include="formVendor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -423,6 +465,7 @@
     <Compile Include="util\GlobalConstant.cs" />
     <Compile Include="util\OrderStatusConstant.cs" />
     <Compile Include="util\OrderStatusEnum.cs" />
+    <Compile Include="util\PasswordUtil.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -437,6 +480,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formBillingSummary.resx">
       <DependentUpon>formBillingSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formChangePassword.resx">
+      <DependentUpon>formChangePassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCustomerModule.resx">
       <DependentUpon>formCustomerModule.cs</DependentUpon>
@@ -462,6 +508,9 @@
     <EmbeddedResource Include="formQty.resx">
       <DependentUpon>formQty.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formResetPassword.resx">
+      <DependentUpon>formResetPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formSearchCustomer.resx">
       <DependentUpon>formSearchCustomer.cs</DependentUpon>
     </EmbeddedResource>
@@ -476,6 +525,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formStockLocationList.resx">
       <DependentUpon>formStockLocationList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formTerminateUser.resx">
+      <DependentUpon>formTerminateUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formUnits.resx">
       <DependentUpon>formUnits.cs</DependentUpon>
@@ -512,6 +564,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formStockIn.resx">
       <DependentUpon>formStockIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formUpdateAccessLevel.resx">
+      <DependentUpon>formUpdateAccessLevel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formUser.resx">
+      <DependentUpon>formUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formUserEdit.resx">
+      <DependentUpon>formUserEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formUserList.resx">
+      <DependentUpon>formUserList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formVendor.resx">
       <DependentUpon>formVendor.cs</DependentUpon>
@@ -608,6 +672,7 @@
     <None Include="Resources\user_settings.png" />
     <None Include="Resources\transfer.png" />
     <None Include="Resources\user_group.png" />
+    <None Include="Resources\change_password.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

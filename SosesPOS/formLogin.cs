@@ -25,13 +25,18 @@ namespace SosesPOS
         private void btnLogin_Click(object sender, EventArgs e)
         {
             this.lblError.Text = "";
+            string username = this.txtUsername.Text;
+            string password = this.txtPassword.Text;
+            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(password))
+            {
+                this.lblError.Text = "Invalid Username/Password. Please try again.";
+                return;
+            }
             try
             {
                 using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                 {
                     con.Open();
-                    string username = this.txtUsername.Text;
-                    string password = this.txtPassword.Text;
 
                     UserService userService = new UserService();
                     UserDTO userDTO = userService.retrieverUserDetails(con, username);

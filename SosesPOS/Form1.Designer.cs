@@ -35,6 +35,7 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
+            this.btnPassword = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
             this.btnStockTransfer = new System.Windows.Forms.Button();
             this.btnStockIn = new System.Windows.Forms.Button();
@@ -49,6 +50,7 @@
             this.btnProduct = new System.Windows.Forms.Button();
             this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.lblUserCode = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,6 +68,7 @@
             this.panel2.AutoScroll = true;
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
             this.panel2.Controls.Add(this.button8);
+            this.panel2.Controls.Add(this.btnPassword);
             this.panel2.Controls.Add(this.btnUser);
             this.panel2.Controls.Add(this.btnStockTransfer);
             this.panel2.Controls.Add(this.btnStockIn);
@@ -82,6 +85,7 @@
             this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.lblRole);
             this.panel2.Controls.Add(this.lblUsername);
+            this.panel2.Controls.Add(this.lblUserCode);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 40);
             this.panel2.Name = "panel2";
@@ -93,7 +97,7 @@
             this.lblRole.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRole.ForeColor = System.Drawing.Color.White;
-            this.lblRole.Location = new System.Drawing.Point(0, 34);
+            this.lblRole.Location = new System.Drawing.Point(0, 58);
             this.lblRole.Name = "lblRole";
             this.lblRole.Size = new System.Drawing.Size(284, 22);
             this.lblRole.TabIndex = 2;
@@ -106,7 +110,7 @@
             this.lblUsername.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.lblUsername.Location = new System.Drawing.Point(0, 0);
+            this.lblUsername.Location = new System.Drawing.Point(0, 24);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(284, 34);
             this.lblUsername.TabIndex = 1;
@@ -124,13 +128,13 @@
             // 
             // button8
             // 
-            this.button8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button8.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.SystemColors.Control;
             this.button8.Image = global::SosesPOS.Properties.Resources.logout;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 574);
+            this.button8.Location = new System.Drawing.Point(0, 635);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(284, 37);
             this.button8.TabIndex = 20;
@@ -138,6 +142,23 @@
             this.button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // btnPassword
+            // 
+            this.btnPassword.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPassword.FlatAppearance.BorderSize = 0;
+            this.btnPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPassword.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnPassword.Image = global::SosesPOS.Properties.Resources.change_password;
+            this.btnPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPassword.Location = new System.Drawing.Point(0, 598);
+            this.btnPassword.Name = "btnPassword";
+            this.btnPassword.Size = new System.Drawing.Size(284, 37);
+            this.btnPassword.TabIndex = 17;
+            this.btnPassword.Text = "Change Password";
+            this.btnPassword.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPassword.UseVisualStyleBackColor = true;
+            this.btnPassword.Click += new System.EventHandler(this.btnPassword_Click);
             // 
             // btnUser
             // 
@@ -147,7 +168,7 @@
             this.btnUser.ForeColor = System.Drawing.SystemColors.Control;
             this.btnUser.Image = global::SosesPOS.Properties.Resources.user_group;
             this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUser.Location = new System.Drawing.Point(0, 537);
+            this.btnUser.Location = new System.Drawing.Point(0, 561);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(284, 37);
             this.btnUser.TabIndex = 16;
@@ -165,7 +186,7 @@
             this.btnStockTransfer.ForeColor = System.Drawing.SystemColors.Control;
             this.btnStockTransfer.Image = global::SosesPOS.Properties.Resources.transfer;
             this.btnStockTransfer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockTransfer.Location = new System.Drawing.Point(0, 500);
+            this.btnStockTransfer.Location = new System.Drawing.Point(0, 524);
             this.btnStockTransfer.Name = "btnStockTransfer";
             this.btnStockTransfer.Size = new System.Drawing.Size(284, 37);
             this.btnStockTransfer.TabIndex = 15;
@@ -182,7 +203,7 @@
             this.btnStockIn.ForeColor = System.Drawing.SystemColors.Control;
             this.btnStockIn.Image = global::SosesPOS.Properties.Resources.stock_replenishment;
             this.btnStockIn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockIn.Location = new System.Drawing.Point(0, 463);
+            this.btnStockIn.Location = new System.Drawing.Point(0, 487);
             this.btnStockIn.Name = "btnStockIn";
             this.btnStockIn.Size = new System.Drawing.Size(284, 37);
             this.btnStockIn.TabIndex = 14;
@@ -200,7 +221,7 @@
             this.btnReceivePayments.ForeColor = System.Drawing.SystemColors.Control;
             this.btnReceivePayments.Image = global::SosesPOS.Properties.Resources.payment;
             this.btnReceivePayments.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReceivePayments.Location = new System.Drawing.Point(0, 426);
+            this.btnReceivePayments.Location = new System.Drawing.Point(0, 450);
             this.btnReceivePayments.Name = "btnReceivePayments";
             this.btnReceivePayments.Size = new System.Drawing.Size(284, 37);
             this.btnReceivePayments.TabIndex = 13;
@@ -218,7 +239,7 @@
             this.btnStockLocation.ForeColor = System.Drawing.SystemColors.Control;
             this.btnStockLocation.Image = global::SosesPOS.Properties.Resources.stock;
             this.btnStockLocation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockLocation.Location = new System.Drawing.Point(0, 389);
+            this.btnStockLocation.Location = new System.Drawing.Point(0, 413);
             this.btnStockLocation.Name = "btnStockLocation";
             this.btnStockLocation.Size = new System.Drawing.Size(284, 37);
             this.btnStockLocation.TabIndex = 12;
@@ -236,7 +257,7 @@
             this.btnCategory.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCategory.Image = global::SosesPOS.Properties.Resources.folder1;
             this.btnCategory.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCategory.Location = new System.Drawing.Point(0, 352);
+            this.btnCategory.Location = new System.Drawing.Point(0, 376);
             this.btnCategory.Name = "btnCategory";
             this.btnCategory.Size = new System.Drawing.Size(284, 37);
             this.btnCategory.TabIndex = 11;
@@ -254,7 +275,7 @@
             this.btnBank.ForeColor = System.Drawing.SystemColors.Control;
             this.btnBank.Image = global::SosesPOS.Properties.Resources.folder1;
             this.btnBank.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBank.Location = new System.Drawing.Point(0, 315);
+            this.btnBank.Location = new System.Drawing.Point(0, 339);
             this.btnBank.Name = "btnBank";
             this.btnBank.Size = new System.Drawing.Size(284, 37);
             this.btnBank.TabIndex = 10;
@@ -272,7 +293,7 @@
             this.btnBrand.ForeColor = System.Drawing.SystemColors.Control;
             this.btnBrand.Image = global::SosesPOS.Properties.Resources.uom;
             this.btnBrand.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBrand.Location = new System.Drawing.Point(0, 278);
+            this.btnBrand.Location = new System.Drawing.Point(0, 302);
             this.btnBrand.Name = "btnBrand";
             this.btnBrand.Size = new System.Drawing.Size(284, 37);
             this.btnBrand.TabIndex = 9;
@@ -290,13 +311,14 @@
             this.btnUnits.ForeColor = System.Drawing.SystemColors.Control;
             this.btnUnits.Image = global::SosesPOS.Properties.Resources.folder1;
             this.btnUnits.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUnits.Location = new System.Drawing.Point(0, 241);
+            this.btnUnits.Location = new System.Drawing.Point(0, 265);
             this.btnUnits.Name = "btnUnits";
             this.btnUnits.Size = new System.Drawing.Size(284, 37);
             this.btnUnits.TabIndex = 8;
             this.btnUnits.Text = "Units";
             this.btnUnits.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnUnits.UseVisualStyleBackColor = true;
+            this.btnUnits.Visible = false;
             this.btnUnits.Click += new System.EventHandler(this.btnUnits_Click);
             // 
             // btnVendor
@@ -307,7 +329,7 @@
             this.btnVendor.ForeColor = System.Drawing.SystemColors.Control;
             this.btnVendor.Image = global::SosesPOS.Properties.Resources.vendor;
             this.btnVendor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVendor.Location = new System.Drawing.Point(0, 204);
+            this.btnVendor.Location = new System.Drawing.Point(0, 228);
             this.btnVendor.Name = "btnVendor";
             this.btnVendor.Size = new System.Drawing.Size(284, 37);
             this.btnVendor.TabIndex = 7;
@@ -325,7 +347,7 @@
             this.btnCustomer.ForeColor = System.Drawing.SystemColors.Control;
             this.btnCustomer.Image = global::SosesPOS.Properties.Resources.customer;
             this.btnCustomer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCustomer.Location = new System.Drawing.Point(0, 167);
+            this.btnCustomer.Location = new System.Drawing.Point(0, 191);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(284, 37);
             this.btnCustomer.TabIndex = 46;
@@ -343,7 +365,7 @@
             this.btnProduct.ForeColor = System.Drawing.SystemColors.Control;
             this.btnProduct.Image = global::SosesPOS.Properties.Resources.product;
             this.btnProduct.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProduct.Location = new System.Drawing.Point(0, 130);
+            this.btnProduct.Location = new System.Drawing.Point(0, 154);
             this.btnProduct.Name = "btnProduct";
             this.btnProduct.Size = new System.Drawing.Size(284, 37);
             this.btnProduct.TabIndex = 5;
@@ -361,7 +383,7 @@
             this.btnBillingInvoice.ForeColor = System.Drawing.SystemColors.Control;
             this.btnBillingInvoice.Image = global::SosesPOS.Properties.Resources.invoice;
             this.btnBillingInvoice.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBillingInvoice.Location = new System.Drawing.Point(0, 93);
+            this.btnBillingInvoice.Location = new System.Drawing.Point(0, 117);
             this.btnBillingInvoice.Name = "btnBillingInvoice";
             this.btnBillingInvoice.Size = new System.Drawing.Size(284, 37);
             this.btnBillingInvoice.TabIndex = 4;
@@ -379,7 +401,7 @@
             this.button5.ForeColor = System.Drawing.SystemColors.Control;
             this.button5.Image = global::SosesPOS.Properties.Resources.invoice;
             this.button5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button5.Location = new System.Drawing.Point(0, 56);
+            this.button5.Location = new System.Drawing.Point(0, 80);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(284, 37);
             this.button5.TabIndex = 3;
@@ -388,6 +410,19 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // lblUserCode
+            // 
+            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
+            this.lblUserCode.Name = "lblUserCode";
+            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
+            this.lblUserCode.TabIndex = 47;
+            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserCode.Visible = false;
             // 
             // Form1
             // 
@@ -432,6 +467,8 @@
         private System.Windows.Forms.Button btnUnits;
         private System.Windows.Forms.Button btnUser;
         private System.Windows.Forms.Button btnStockTransfer;
+        private System.Windows.Forms.Button btnPassword;
+        private System.Windows.Forms.Label lblUserCode;
     }
 }
 

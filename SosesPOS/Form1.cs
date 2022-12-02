@@ -25,6 +25,7 @@ namespace SosesPOS
             role = userDTO.role;
             this.lblUsername.Text = user.username;
             this.lblRole.Text = role.roleName;
+            this.lblUserCode.Text = user.userCode.ToString();
             this.formLogin = formLogin;
         }
 
@@ -63,7 +64,7 @@ namespace SosesPOS
 
         private void SetMgrLevel()
         {
-            if (role.accessLevel >= 900)
+            if (role.accessLevel >= 800)
             {
                 this.button5.Visible = true; // Store Invoice
                 this.btnUser.Visible = true;
@@ -214,7 +215,22 @@ namespace SosesPOS
 
         private void btnUser_Click(object sender, EventArgs e)
         {
+            panel3.Controls.Clear();
+            formUserList form = new formUserList(user);
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
 
+        private void btnPassword_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formChangePassword form = new formChangePassword(this.lblUsername.Text);
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace SosesPOS.DTO
 {
     public class UserDTO
     {
-        public int userId { get; set; }
+        public int userCode { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public DateTime terminationDate { get; set; }

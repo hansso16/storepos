@@ -35,8 +35,33 @@ namespace SosesPOS.Auth
                     }
                 }
             }
-
             return role;
+        }
+
+        public List<RoleDTO> retrieveRoleByAccessLevel(SqlConnection con, RoleDTO roleDTO)
+        {
+            List<RoleDTO> roles = new List<RoleDTO>();
+            using (SqlCommand com = con.CreateCommand())
+            {
+                com.CommandText = "SELECT RoleId, RoleCode, RoleName " +
+                    "FROM tblRole WHERE AccessLevel <= @accesslevel " +
+                    "ORDER BY AccessLevel ASC";
+                com.Parameters.AddWithValue("@accesslevel", roleDTO.accessLevel);
+
+                using (SqlDataReader reader = com.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        RoleDTO dto = new RoleDTO();
+                        dto.roleId = Convert.ToInt32(reader["RoleId"]);
+                        dto.roleCode = reader["RoleCode"].ToString();
+                        dto.roleName = reader["RoleName"].ToString();
+                        roles.Add(dto);
+                    }
+                }
+
+            }
+            return roles;
         }
     }
 }

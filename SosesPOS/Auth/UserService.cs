@@ -28,7 +28,7 @@ namespace SosesPOS.Auth
                     if (reader.Read())
                     {
                         userDTO = new UserDTO();
-                        userDTO.userId = Convert.ToInt32(reader["UserCode"]);
+                        userDTO.userCode = Convert.ToInt32(reader["UserCode"]);
                         userDTO.username = reader["Username"].ToString();
                         userDTO.password = reader["Password"].ToString();
                         userDTO.terminationDate = Convert.ToDateTime(reader["TerminationDate"]);
@@ -38,8 +38,24 @@ namespace SosesPOS.Auth
                     }
                 }
             }
-
             return userDTO;
+        }
+
+        public void updateUserPassword(SqlConnection con, string username, string password)
+        {
+            if (String.IsNullOrWhiteSpace(username) || String.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentNullException("Invalid Username/Password.");
+            }
+
+            using (SqlCommand com = new SqlCommand())
+            {
+                com.Connection = con;
+                com.CommandText = "UPDATE tblUser SET Password = @password WHERE Username = @username";
+                com.Parameters.AddWithValue("@password", password);
+                com.Parameters.AddWithValue("@username", username);
+                com.ExecuteNonQuery();
+            }
         }
     }
 }
