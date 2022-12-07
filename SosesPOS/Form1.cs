@@ -18,6 +18,7 @@ namespace SosesPOS
         UserDTO user = null;
         RoleDTO role = null;
         formLogin formLogin = null;
+        private bool isCollapsed = true;
         public Form1(formLogin formLogin, UserDTO userDTO)
         {
             InitializeComponent();
@@ -57,8 +58,11 @@ namespace SosesPOS
                 //this.btnCategory.Visible = true;
                 //this.btnStockLocation.Visible = true;
                 this.btnReceivePayments.Visible = true;
-                this.btnStockIn.Visible = true;
+                this.btnStockReplenishment.Visible = true;
                 this.btnStockTransfer.Visible = true;
+                this.btnTransferRequest.Visible = true;
+                this.btnTransferDispatch.Visible = true;
+                this.btnTransferAccept.Visible = true;
             }
         }
 
@@ -231,6 +235,41 @@ namespace SosesPOS
             panel3.Controls.Add(form);
             form.BringToFront();
             form.Show();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (isCollapsed)
+            {
+                btnStockTransfer.Image = SosesPOS.Properties.Resources.collapse_icon;
+                StockTransferPanel.Height += 10;
+                if (StockTransferPanel.Size == StockTransferPanel.MaximumSize)
+                {
+                    timer1.Stop();
+                    isCollapsed = false;
+                }
+            } 
+            else
+            {
+                btnStockTransfer.Image = SosesPOS.Properties.Resources.expand_icon1;
+                StockTransferPanel.Height -= 10;
+                if (StockTransferPanel.Size == StockTransferPanel.MinimumSize)
+                {
+                    timer1.Stop();
+                    isCollapsed = true;
+                }
+            }
+        }
+
+        private void btnStockTransfer_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void btnTransferRequest_Click(object sender, EventArgs e)
+        {
+            formStockTransfer form = new formStockTransfer();
+            form.ShowDialog();
         }
     }
 }

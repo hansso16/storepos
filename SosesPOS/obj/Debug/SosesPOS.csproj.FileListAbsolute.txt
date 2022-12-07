@@ -135,3 +135,4 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formResetPassword.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formTerminateUser.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUpdateAccessLevel.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUserEdit.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockTransfer.resources

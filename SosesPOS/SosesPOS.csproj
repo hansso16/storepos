@@ -343,6 +343,12 @@
     <Compile Include="formStockLocationList.Designer.cs">
       <DependentUpon>formStockLocationList.cs</DependentUpon>
     </Compile>
+    <Compile Include="formStockTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formStockTransfer.Designer.cs">
+      <DependentUpon>formStockTransfer.cs</DependentUpon>
+    </Compile>
     <Compile Include="formTerminateUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -462,6 +468,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="System\Windows\Controls.cs" />
     <Compile Include="util\ComboBoxDTO.cs" />
+    <Compile Include="util\GeneralUtil.cs" />
     <Compile Include="util\GlobalConstant.cs" />
     <Compile Include="util\OrderStatusConstant.cs" />
     <Compile Include="util\OrderStatusEnum.cs" />
@@ -525,6 +532,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formStockLocationList.resx">
       <DependentUpon>formStockLocationList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formStockTransfer.resx">
+      <DependentUpon>formStockTransfer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formTerminateUser.resx">
       <DependentUpon>formTerminateUser.cs</DependentUpon>
@@ -673,6 +683,9 @@
     <None Include="Resources\transfer.png" />
     <None Include="Resources\user_group.png" />
     <None Include="Resources\change_password.png" />
+    <None Include="Resources\expand_icon.png" />
+    <None Include="Resources\collapse_icon.png" />
+    <None Include="Resources\expand_icon1.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

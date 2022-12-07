@@ -28,17 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblRole = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.lblUserCode = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.StockTransferPanel = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnTransferAccept = new System.Windows.Forms.Button();
+            this.btnTransferDispatch = new System.Windows.Forms.Button();
+            this.btnTransferRequest = new System.Windows.Forms.Button();
+            this.btnStockTransfer = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.btnPassword = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
-            this.btnStockTransfer = new System.Windows.Forms.Button();
-            this.btnStockIn = new System.Windows.Forms.Button();
+            this.btnStockReplenishment = new System.Windows.Forms.Button();
             this.btnReceivePayments = new System.Windows.Forms.Button();
             this.btnStockLocation = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
@@ -50,8 +57,8 @@
             this.btnProduct = new System.Windows.Forms.Button();
             this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.lblUserCode = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
+            this.StockTransferPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -70,8 +77,8 @@
             this.panel2.Controls.Add(this.button8);
             this.panel2.Controls.Add(this.btnPassword);
             this.panel2.Controls.Add(this.btnUser);
-            this.panel2.Controls.Add(this.btnStockTransfer);
-            this.panel2.Controls.Add(this.btnStockIn);
+            this.panel2.Controls.Add(this.StockTransferPanel);
+            this.panel2.Controls.Add(this.btnStockReplenishment);
             this.panel2.Controls.Add(this.btnReceivePayments);
             this.panel2.Controls.Add(this.btnStockLocation);
             this.panel2.Controls.Add(this.btnCategory);
@@ -117,6 +124,19 @@
             this.lblUsername.Text = "Username";
             this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblUserCode
+            // 
+            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
+            this.lblUserCode.Name = "lblUserCode";
+            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
+            this.lblUserCode.TabIndex = 47;
+            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserCode.Visible = false;
+            // 
             // panel3
             // 
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -125,6 +145,94 @@
             this.panel3.Size = new System.Drawing.Size(883, 521);
             this.panel3.TabIndex = 2;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // StockTransferPanel
+            // 
+            this.StockTransferPanel.Controls.Add(this.btnTransferAccept);
+            this.StockTransferPanel.Controls.Add(this.btnTransferDispatch);
+            this.StockTransferPanel.Controls.Add(this.btnTransferRequest);
+            this.StockTransferPanel.Controls.Add(this.btnStockTransfer);
+            this.StockTransferPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.StockTransferPanel.Location = new System.Drawing.Point(0, 524);
+            this.StockTransferPanel.MaximumSize = new System.Drawing.Size(284, 144);
+            this.StockTransferPanel.MinimumSize = new System.Drawing.Size(284, 37);
+            this.StockTransferPanel.Name = "StockTransferPanel";
+            this.StockTransferPanel.Size = new System.Drawing.Size(284, 37);
+            this.StockTransferPanel.TabIndex = 0;
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 15;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnTransferAccept
+            // 
+            this.btnTransferAccept.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransferAccept.FlatAppearance.BorderSize = 0;
+            this.btnTransferAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferAccept.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnTransferAccept.Image = global::SosesPOS.Properties.Resources.transfer;
+            this.btnTransferAccept.Location = new System.Drawing.Point(0, 111);
+            this.btnTransferAccept.Name = "btnTransferAccept";
+            this.btnTransferAccept.Size = new System.Drawing.Size(284, 37);
+            this.btnTransferAccept.TabIndex = 18;
+            this.btnTransferAccept.Text = "Transfer Accept";
+            this.btnTransferAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTransferAccept.UseVisualStyleBackColor = true;
+            this.btnTransferAccept.Visible = false;
+            // 
+            // btnTransferDispatch
+            // 
+            this.btnTransferDispatch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransferDispatch.FlatAppearance.BorderSize = 0;
+            this.btnTransferDispatch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferDispatch.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnTransferDispatch.Image = global::SosesPOS.Properties.Resources.transfer;
+            this.btnTransferDispatch.Location = new System.Drawing.Point(0, 74);
+            this.btnTransferDispatch.Name = "btnTransferDispatch";
+            this.btnTransferDispatch.Size = new System.Drawing.Size(284, 37);
+            this.btnTransferDispatch.TabIndex = 17;
+            this.btnTransferDispatch.Text = "Transfer Dispatch";
+            this.btnTransferDispatch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTransferDispatch.UseVisualStyleBackColor = true;
+            this.btnTransferDispatch.Visible = false;
+            // 
+            // btnTransferRequest
+            // 
+            this.btnTransferRequest.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransferRequest.FlatAppearance.BorderSize = 0;
+            this.btnTransferRequest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferRequest.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnTransferRequest.Image = global::SosesPOS.Properties.Resources.transfer;
+            this.btnTransferRequest.Location = new System.Drawing.Point(0, 37);
+            this.btnTransferRequest.Name = "btnTransferRequest";
+            this.btnTransferRequest.Size = new System.Drawing.Size(284, 37);
+            this.btnTransferRequest.TabIndex = 16;
+            this.btnTransferRequest.Text = "Transfer Request";
+            this.btnTransferRequest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTransferRequest.UseVisualStyleBackColor = true;
+            this.btnTransferRequest.Visible = false;
+            this.btnTransferRequest.Click += new System.EventHandler(this.btnTransferRequest_Click);
+            // 
+            // btnStockTransfer
+            // 
+            this.btnStockTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnStockTransfer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockTransfer.FlatAppearance.BorderSize = 0;
+            this.btnStockTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockTransfer.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStockTransfer.Image = global::SosesPOS.Properties.Resources.expand_icon1;
+            this.btnStockTransfer.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnStockTransfer.Location = new System.Drawing.Point(0, 0);
+            this.btnStockTransfer.Name = "btnStockTransfer";
+            this.btnStockTransfer.Size = new System.Drawing.Size(284, 37);
+            this.btnStockTransfer.TabIndex = 20;
+            this.btnStockTransfer.Text = "Stock Transfer";
+            this.btnStockTransfer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStockTransfer.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnStockTransfer.UseVisualStyleBackColor = true;
+            this.btnStockTransfer.Visible = false;
+            this.btnStockTransfer.Click += new System.EventHandler(this.btnStockTransfer_Click);
             // 
             // button8
             // 
@@ -178,40 +286,23 @@
             this.btnUser.Visible = false;
             this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
             // 
-            // btnStockTransfer
+            // btnStockReplenishment
             // 
-            this.btnStockTransfer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStockTransfer.FlatAppearance.BorderSize = 0;
-            this.btnStockTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockTransfer.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStockTransfer.Image = global::SosesPOS.Properties.Resources.transfer;
-            this.btnStockTransfer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockTransfer.Location = new System.Drawing.Point(0, 524);
-            this.btnStockTransfer.Name = "btnStockTransfer";
-            this.btnStockTransfer.Size = new System.Drawing.Size(284, 37);
-            this.btnStockTransfer.TabIndex = 15;
-            this.btnStockTransfer.Text = "Stock Transfer";
-            this.btnStockTransfer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnStockTransfer.UseVisualStyleBackColor = true;
-            this.btnStockTransfer.Visible = false;
-            // 
-            // btnStockIn
-            // 
-            this.btnStockIn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStockIn.FlatAppearance.BorderSize = 0;
-            this.btnStockIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockIn.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStockIn.Image = global::SosesPOS.Properties.Resources.stock_replenishment;
-            this.btnStockIn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockIn.Location = new System.Drawing.Point(0, 487);
-            this.btnStockIn.Name = "btnStockIn";
-            this.btnStockIn.Size = new System.Drawing.Size(284, 37);
-            this.btnStockIn.TabIndex = 14;
-            this.btnStockIn.Text = "Stock Replenishment";
-            this.btnStockIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnStockIn.UseVisualStyleBackColor = true;
-            this.btnStockIn.Visible = false;
-            this.btnStockIn.Click += new System.EventHandler(this.button1_Click);
+            this.btnStockReplenishment.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockReplenishment.FlatAppearance.BorderSize = 0;
+            this.btnStockReplenishment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockReplenishment.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStockReplenishment.Image = global::SosesPOS.Properties.Resources.stock_replenishment;
+            this.btnStockReplenishment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStockReplenishment.Location = new System.Drawing.Point(0, 487);
+            this.btnStockReplenishment.Name = "btnStockReplenishment";
+            this.btnStockReplenishment.Size = new System.Drawing.Size(284, 37);
+            this.btnStockReplenishment.TabIndex = 14;
+            this.btnStockReplenishment.Text = "Stock Replenishment";
+            this.btnStockReplenishment.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnStockReplenishment.UseVisualStyleBackColor = true;
+            this.btnStockReplenishment.Visible = false;
+            this.btnStockReplenishment.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnReceivePayments
             // 
@@ -411,19 +502,6 @@
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // lblUserCode
-            // 
-            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
-            this.lblUserCode.Name = "lblUserCode";
-            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
-            this.lblUserCode.TabIndex = 47;
-            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblUserCode.Visible = false;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -441,6 +519,7 @@
             this.Text = "SOSE\'S STORE POS";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.panel2.ResumeLayout(false);
+            this.StockTransferPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -456,7 +535,7 @@
         private System.Windows.Forms.Button btnBrand;
         private System.Windows.Forms.Button btnCategory;
         private System.Windows.Forms.Button btnProduct;
-        private System.Windows.Forms.Button btnStockIn;
+        private System.Windows.Forms.Button btnStockReplenishment;
         private System.Windows.Forms.Label lblRole;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Panel panel3;
@@ -466,9 +545,14 @@
         private System.Windows.Forms.Button btnBillingInvoice;
         private System.Windows.Forms.Button btnUnits;
         private System.Windows.Forms.Button btnUser;
-        private System.Windows.Forms.Button btnStockTransfer;
         private System.Windows.Forms.Button btnPassword;
         private System.Windows.Forms.Label lblUserCode;
+        private System.Windows.Forms.Panel StockTransferPanel;
+        private System.Windows.Forms.Button btnTransferAccept;
+        private System.Windows.Forms.Button btnTransferDispatch;
+        private System.Windows.Forms.Button btnTransferRequest;
+        private System.Windows.Forms.Button btnStockTransfer;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

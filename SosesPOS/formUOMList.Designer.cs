@@ -191,6 +191,7 @@
             this.Delete.Name = "Delete";
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Delete.Visible = false;
             this.Delete.Width = 17;
             // 
             // formUOMList
