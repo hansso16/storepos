@@ -268,8 +268,20 @@ namespace SosesPOS
 
         private void btnTransferRequest_Click(object sender, EventArgs e)
         {
-            formStockTransfer form = new formStockTransfer();
+            formStockTransfer form = new formStockTransfer(user);
             form.ShowDialog();
+        }
+
+        private void btnTransferDispatch_Click(object sender, EventArgs e)
+        {
+            formStockTransferDispatch form = new formStockTransferDispatch(user);
+            form.Show();
+        }
+
+        private void btnTransferAccept_Click(object sender, EventArgs e)
+        {
+            formStockTransferAccept form = new formStockTransferAccept(user);
+            form.Show();
         }
     }
 }

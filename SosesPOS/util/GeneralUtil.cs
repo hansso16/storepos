@@ -9,7 +9,7 @@ namespace SosesPOS.util
 {
     public class GeneralUtil
     {
-        public static bool ValidateComboBox(ComboBox cbo, string title)
+        public static bool isValidComboBox(ComboBox cbo, string title)
         {
             if (string.IsNullOrEmpty(cbo.Text) || cbo.SelectedIndex < 0)
             {

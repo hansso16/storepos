@@ -573,6 +573,7 @@ namespace SosesPOS
                         MessageBox.Show("Invalid Invoice Details. Please check again.", "Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         cboSearch.Focus();
                         cboSearch.SelectAll();
+                        transaction.Rollback();
                         return false;
                     }
                     foreach (DataGridViewRow row in cartGridView.Rows)

@@ -1,6 +1,6 @@
 ﻿namespace SosesPOS
 {
-    partial class formStockTransfer
+    partial class formStockTransferAccept
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formStockTransfer));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formStockTransferAccept));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.txtRefNo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.cboTo = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -70,15 +72,15 @@
             this.btnSaveAndPrint = new System.Windows.Forms.Button();
             this.btnNewTrans = new System.Windows.Forms.Button();
             this.dgvCart = new System.Windows.Forms.DataGridView();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.txtNote = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pdesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtNote = new System.Windows.Forms.TextBox();
+            this.hlblStockTransferID = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFromInv)).BeginInit();
@@ -89,7 +91,10 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.hlblStockTransferID);
             this.panel3.Controls.Add(this.txtNote);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.txtRefNo);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.label7);
             this.panel3.Controls.Add(this.cboTo);
@@ -110,13 +115,30 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(984, 214);
-            this.panel3.TabIndex = 2;
+            this.panel3.Size = new System.Drawing.Size(984, 249);
+            this.panel3.TabIndex = 29;
+            // 
+            // txtRefNo
+            // 
+            this.txtRefNo.Location = new System.Drawing.Point(206, 7);
+            this.txtRefNo.MaxLength = 8;
+            this.txtRefNo.Name = "txtRefNo";
+            this.txtRefNo.Size = new System.Drawing.Size(418, 29);
+            this.txtRefNo.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(192, 21);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "Stock Transfer Request No";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(330, 9);
+            this.label7.Location = new System.Drawing.Point(326, 43);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 21);
             this.label7.TabIndex = 34;
@@ -126,20 +148,20 @@
             // 
             this.cboTo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboTo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboTo.Enabled = false;
             this.cboTo.FormattingEnabled = true;
             this.cboTo.Items.AddRange(new object[] {
             "Warehouse",
             "Store"});
-            this.cboTo.Location = new System.Drawing.Point(334, 33);
+            this.cboTo.Location = new System.Drawing.Point(330, 67);
             this.cboTo.Name = "cboTo";
             this.cboTo.Size = new System.Drawing.Size(294, 29);
             this.cboTo.TabIndex = 6;
-            this.cboTo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboTo_KeyDown);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(312, 36);
+            this.label6.Location = new System.Drawing.Point(308, 70);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 21);
             this.label6.TabIndex = 32;
@@ -148,7 +170,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 9);
+            this.label3.Location = new System.Drawing.Point(8, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 21);
             this.label3.TabIndex = 31;
@@ -158,17 +180,17 @@
             // 
             this.cboFrom.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.cboFrom.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboFrom.Enabled = false;
             this.cboFrom.FormattingEnabled = true;
-            this.cboFrom.Location = new System.Drawing.Point(16, 33);
+            this.cboFrom.Location = new System.Drawing.Point(12, 67);
             this.cboFrom.Name = "cboFrom";
             this.cboFrom.Size = new System.Drawing.Size(290, 29);
-            this.cboFrom.TabIndex = 1;
-            this.cboFrom.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboFrom_KeyDown);
+            this.cboFrom.TabIndex = 3;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(536, 121);
+            this.label14.Location = new System.Drawing.Point(532, 155);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(52, 21);
             this.label14.TabIndex = 29;
@@ -176,7 +198,7 @@
             // 
             // txtCount
             // 
-            this.txtCount.Location = new System.Drawing.Point(540, 145);
+            this.txtCount.Location = new System.Drawing.Point(536, 179);
             this.txtCount.Name = "txtCount";
             this.txtCount.ReadOnly = true;
             this.txtCount.Size = new System.Drawing.Size(88, 29);
@@ -188,15 +210,14 @@
             this.cboSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboSearch.Enabled = false;
             this.cboSearch.FormattingEnabled = true;
-            this.cboSearch.Location = new System.Drawing.Point(16, 89);
+            this.cboSearch.Location = new System.Drawing.Point(12, 123);
             this.cboSearch.Name = "cboSearch";
             this.cboSearch.Size = new System.Drawing.Size(518, 29);
             this.cboSearch.TabIndex = 11;
-            this.cboSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSearch_KeyDown);
             // 
             // txtPDesc
             // 
-            this.txtPDesc.Location = new System.Drawing.Point(174, 145);
+            this.txtPDesc.Location = new System.Drawing.Point(170, 179);
             this.txtPDesc.Name = "txtPDesc";
             this.txtPDesc.ReadOnly = true;
             this.txtPDesc.Size = new System.Drawing.Size(360, 29);
@@ -205,7 +226,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(170, 121);
+            this.label5.Location = new System.Drawing.Point(166, 155);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(147, 21);
             this.label5.TabIndex = 3;
@@ -213,7 +234,7 @@
             // 
             // txtPCode
             // 
-            this.txtPCode.Location = new System.Drawing.Point(16, 145);
+            this.txtPCode.Location = new System.Drawing.Point(12, 179);
             this.txtPCode.Name = "txtPCode";
             this.txtPCode.ReadOnly = true;
             this.txtPCode.Size = new System.Drawing.Size(152, 29);
@@ -222,7 +243,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 121);
+            this.label4.Location = new System.Drawing.Point(8, 155);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 21);
             this.label4.TabIndex = 1;
@@ -230,18 +251,16 @@
             // 
             // txtQty
             // 
-            this.txtQty.Location = new System.Drawing.Point(540, 89);
+            this.txtQty.Location = new System.Drawing.Point(536, 123);
             this.txtQty.Name = "txtQty";
             this.txtQty.ReadOnly = true;
             this.txtQty.Size = new System.Drawing.Size(88, 29);
             this.txtQty.TabIndex = 16;
-            this.txtQty.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtQty_KeyDown);
-            this.txtQty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQty_KeyPress);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(536, 65);
+            this.label8.Location = new System.Drawing.Point(532, 99);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(35, 21);
             this.label8.TabIndex = 9;
@@ -255,7 +274,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel6.Location = new System.Drawing.Point(634, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(350, 214);
+            this.panel6.Size = new System.Drawing.Size(350, 249);
             this.panel6.TabIndex = 8;
             // 
             // dgvFromInv
@@ -263,35 +282,35 @@
             this.dgvFromInv.AllowUserToAddRows = false;
             this.dgvFromInv.BackgroundColor = System.Drawing.Color.White;
             this.dgvFromInv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvFromInv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvFromInv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvFromInv.ColumnHeadersHeight = 30;
             this.dgvFromInv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvFromInv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.fromSLID,
             this.fromLocationName,
             this.fromQty});
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFromInv.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvFromInv.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvFromInv.Dock = System.Windows.Forms.DockStyle.Right;
             this.dgvFromInv.EnableHeadersVisualStyles = false;
             this.dgvFromInv.Location = new System.Drawing.Point(-1, 0);
             this.dgvFromInv.Name = "dgvFromInv";
             this.dgvFromInv.RowHeadersVisible = false;
             this.dgvFromInv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvFromInv.Size = new System.Drawing.Size(176, 212);
+            this.dgvFromInv.Size = new System.Drawing.Size(176, 247);
             this.dgvFromInv.TabIndex = 32;
             // 
             // fromSLID
@@ -322,35 +341,35 @@
             this.dgvToInv.AllowUserToAddRows = false;
             this.dgvToInv.BackgroundColor = System.Drawing.Color.White;
             this.dgvToInv.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvToInv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvToInv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvToInv.ColumnHeadersHeight = 30;
             this.dgvToInv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvToInv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.toSLID,
             this.toLocationName,
             this.toQty});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvToInv.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvToInv.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvToInv.Dock = System.Windows.Forms.DockStyle.Right;
             this.dgvToInv.EnableHeadersVisualStyles = false;
             this.dgvToInv.Location = new System.Drawing.Point(175, 0);
             this.dgvToInv.Name = "dgvToInv";
             this.dgvToInv.RowHeadersVisible = false;
             this.dgvToInv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvToInv.Size = new System.Drawing.Size(173, 212);
+            this.dgvToInv.Size = new System.Drawing.Size(173, 247);
             this.dgvToInv.TabIndex = 31;
             // 
             // toSLID
@@ -379,7 +398,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 65);
+            this.label2.Location = new System.Drawing.Point(8, 99);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(115, 21);
             this.label2.TabIndex = 0;
@@ -397,14 +416,15 @@
             this.panel1.Controls.Add(this.btnSaveAndPrint);
             this.panel1.Controls.Add(this.btnNewTrans);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 214);
+            this.panel1.Location = new System.Drawing.Point(0, 249);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 447);
-            this.panel1.TabIndex = 5;
+            this.panel1.Size = new System.Drawing.Size(200, 412);
+            this.panel1.TabIndex = 30;
             // 
             // btnGenerateReport
             // 
             this.btnGenerateReport.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnGenerateReport.Enabled = false;
             this.btnGenerateReport.FlatAppearance.BorderSize = 0;
             this.btnGenerateReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerateReport.ForeColor = System.Drawing.Color.White;
@@ -444,7 +464,7 @@
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.Image = global::SosesPOS.Properties.Resources.apps_white;
             this.btnClose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClose.Location = new System.Drawing.Point(0, 410);
+            this.btnClose.Location = new System.Drawing.Point(0, 375);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(200, 37);
             this.btnClose.TabIndex = 60;
@@ -469,11 +489,12 @@
             this.btnPrint.Text = "     [F5] Print";
             this.btnPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            this.btnPrint.Visible = false;
             // 
             // btnLoad
             // 
             this.btnLoad.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLoad.Enabled = false;
             this.btnLoad.FlatAppearance.BorderSize = 0;
             this.btnLoad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoad.ForeColor = System.Drawing.Color.White;
@@ -486,6 +507,7 @@
             this.btnLoad.Text = "     [F4] Load";
             this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Visible = false;
             // 
             // btnSave
             // 
@@ -503,6 +525,7 @@
             this.btnSave.Text = "     [F3] Save";
             this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnSaveAndPrint
             // 
@@ -520,7 +543,7 @@
             this.btnSaveAndPrint.Text = "     [F2] Save and Print";
             this.btnSaveAndPrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSaveAndPrint.UseVisualStyleBackColor = true;
-            this.btnSaveAndPrint.Click += new System.EventHandler(this.btnSaveAndPrint_Click);
+            this.btnSaveAndPrint.Visible = false;
             // 
             // btnNewTrans
             // 
@@ -544,14 +567,14 @@
             this.dgvCart.AllowUserToAddRows = false;
             this.dgvCart.BackgroundColor = System.Drawing.Color.White;
             this.dgvCart.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCart.ColumnHeadersHeight = 30;
             this.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -561,34 +584,40 @@
             this.qty,
             this.count,
             this.Delete});
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCart.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCart.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCart.EnableHeadersVisualStyles = false;
-            this.dgvCart.Location = new System.Drawing.Point(200, 214);
+            this.dgvCart.Location = new System.Drawing.Point(200, 249);
             this.dgvCart.Name = "dgvCart";
             this.dgvCart.RowHeadersVisible = false;
             this.dgvCart.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCart.Size = new System.Drawing.Size(784, 447);
-            this.dgvCart.TabIndex = 27;
-            this.dgvCart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellContentClick);
-            this.dgvCart.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellValueChanged);
-            this.dgvCart.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvCart_EditingControlShowing);
+            this.dgvCart.Size = new System.Drawing.Size(784, 412);
+            this.dgvCart.TabIndex = 31;
             // 
-            // dataGridViewImageColumn1
+            // txtNote
             // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = ((System.Drawing.Image)(resources.GetObject("dataGridViewImageColumn1.Image")));
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.txtNote.Location = new System.Drawing.Point(61, 214);
+            this.txtNote.MaxLength = 39;
+            this.txtNote.Name = "txtNote";
+            this.txtNote.ReadOnly = true;
+            this.txtNote.Size = new System.Drawing.Size(563, 29);
+            this.txtNote.TabIndex = 39;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 216);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 21);
+            this.label9.TabIndex = 38;
+            this.label9.Text = "FOR: ";
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -639,27 +668,19 @@
             this.Delete.ReadOnly = true;
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Delete.Visible = false;
             this.Delete.Width = 17;
             // 
-            // label1
+            // hlblStockTransferID
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 182);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 21);
-            this.label1.TabIndex = 35;
-            this.label1.Text = "FOR: ";
+            this.hlblStockTransferID.AutoSize = true;
+            this.hlblStockTransferID.Location = new System.Drawing.Point(68, 30);
+            this.hlblStockTransferID.Name = "hlblStockTransferID";
+            this.hlblStockTransferID.Size = new System.Drawing.Size(0, 21);
+            this.hlblStockTransferID.TabIndex = 40;
+            this.hlblStockTransferID.Visible = false;
             // 
-            // txtNote
-            // 
-            this.txtNote.Location = new System.Drawing.Point(65, 180);
-            this.txtNote.MaxLength = 39;
-            this.txtNote.Name = "txtNote";
-            this.txtNote.ReadOnly = true;
-            this.txtNote.Size = new System.Drawing.Size(563, 29);
-            this.txtNote.TabIndex = 36;
-            // 
-            // formStockTransfer
+            // formStockTransferAccept
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -670,10 +691,10 @@
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "formStockTransfer";
+            this.Name = "formStockTransferAccept";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Stock Transfer";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formStockTransfer_KeyDown);
+            this.Text = "Accept Stock Transfer";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formStockTransferDispatch_KeyDown);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -688,6 +709,13 @@
         #endregion
 
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.TextBox txtRefNo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.ComboBox cboTo;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.ComboBox cboFrom;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtCount;
         public System.Windows.Forms.ComboBox cboSearch;
@@ -698,7 +726,14 @@
         public System.Windows.Forms.TextBox txtQty;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.DataGridView dgvFromInv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fromSLID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fromLocationName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fromQty;
         private System.Windows.Forms.DataGridView dgvToInv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn toSLID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn toLocationName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn toQty;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
         protected internal System.Windows.Forms.Button btnGenerateReport;
@@ -710,26 +745,14 @@
         public System.Windows.Forms.Button btnSaveAndPrint;
         private System.Windows.Forms.Button btnNewTrans;
         public System.Windows.Forms.DataGridView dgvCart;
-        private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.ComboBox cboTo;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox cboFrom;
-        private System.Windows.Forms.DataGridView dgvFromInv;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fromSLID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fromLocationName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fromQty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn toSLID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn toLocationName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn toQty;
+        private System.Windows.Forms.TextBox txtNote;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn pcode;
         private System.Windows.Forms.DataGridViewTextBoxColumn pdesc;
         private System.Windows.Forms.DataGridViewTextBoxColumn qty;
         private System.Windows.Forms.DataGridViewTextBoxColumn count;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
-        private System.Windows.Forms.TextBox txtNote;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label hlblStockTransferID;
     }
 }

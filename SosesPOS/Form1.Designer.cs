@@ -32,19 +32,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblRole = new System.Windows.Forms.Label();
-            this.lblUsername = new System.Windows.Forms.Label();
-            this.lblUserCode = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
+            this.btnPassword = new System.Windows.Forms.Button();
+            this.btnUser = new System.Windows.Forms.Button();
             this.StockTransferPanel = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnTransferAccept = new System.Windows.Forms.Button();
             this.btnTransferDispatch = new System.Windows.Forms.Button();
             this.btnTransferRequest = new System.Windows.Forms.Button();
             this.btnStockTransfer = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.btnPassword = new System.Windows.Forms.Button();
-            this.btnUser = new System.Windows.Forms.Button();
             this.btnStockReplenishment = new System.Windows.Forms.Button();
             this.btnReceivePayments = new System.Windows.Forms.Button();
             this.btnStockLocation = new System.Windows.Forms.Button();
@@ -57,6 +52,11 @@
             this.btnProduct = new System.Windows.Forms.Button();
             this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.lblRole = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblUserCode = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.StockTransferPanel.SuspendLayout();
             this.SuspendLayout();
@@ -98,141 +98,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(301, 521);
             this.panel2.TabIndex = 1;
-            // 
-            // lblRole
-            // 
-            this.lblRole.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRole.ForeColor = System.Drawing.Color.White;
-            this.lblRole.Location = new System.Drawing.Point(0, 58);
-            this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(284, 22);
-            this.lblRole.TabIndex = 2;
-            this.lblRole.Text = "Role Name";
-            this.lblRole.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.lblUsername.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.lblUsername.Location = new System.Drawing.Point(0, 24);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(284, 34);
-            this.lblUsername.TabIndex = 1;
-            this.lblUsername.Text = "Username";
-            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUserCode
-            // 
-            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
-            this.lblUserCode.Name = "lblUserCode";
-            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
-            this.lblUserCode.TabIndex = 47;
-            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblUserCode.Visible = false;
-            // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(301, 40);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(883, 521);
-            this.panel3.TabIndex = 2;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // StockTransferPanel
-            // 
-            this.StockTransferPanel.Controls.Add(this.btnTransferAccept);
-            this.StockTransferPanel.Controls.Add(this.btnTransferDispatch);
-            this.StockTransferPanel.Controls.Add(this.btnTransferRequest);
-            this.StockTransferPanel.Controls.Add(this.btnStockTransfer);
-            this.StockTransferPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.StockTransferPanel.Location = new System.Drawing.Point(0, 524);
-            this.StockTransferPanel.MaximumSize = new System.Drawing.Size(284, 144);
-            this.StockTransferPanel.MinimumSize = new System.Drawing.Size(284, 37);
-            this.StockTransferPanel.Name = "StockTransferPanel";
-            this.StockTransferPanel.Size = new System.Drawing.Size(284, 37);
-            this.StockTransferPanel.TabIndex = 0;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 15;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // btnTransferAccept
-            // 
-            this.btnTransferAccept.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTransferAccept.FlatAppearance.BorderSize = 0;
-            this.btnTransferAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTransferAccept.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnTransferAccept.Image = global::SosesPOS.Properties.Resources.transfer;
-            this.btnTransferAccept.Location = new System.Drawing.Point(0, 111);
-            this.btnTransferAccept.Name = "btnTransferAccept";
-            this.btnTransferAccept.Size = new System.Drawing.Size(284, 37);
-            this.btnTransferAccept.TabIndex = 18;
-            this.btnTransferAccept.Text = "Transfer Accept";
-            this.btnTransferAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTransferAccept.UseVisualStyleBackColor = true;
-            this.btnTransferAccept.Visible = false;
-            // 
-            // btnTransferDispatch
-            // 
-            this.btnTransferDispatch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTransferDispatch.FlatAppearance.BorderSize = 0;
-            this.btnTransferDispatch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTransferDispatch.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnTransferDispatch.Image = global::SosesPOS.Properties.Resources.transfer;
-            this.btnTransferDispatch.Location = new System.Drawing.Point(0, 74);
-            this.btnTransferDispatch.Name = "btnTransferDispatch";
-            this.btnTransferDispatch.Size = new System.Drawing.Size(284, 37);
-            this.btnTransferDispatch.TabIndex = 17;
-            this.btnTransferDispatch.Text = "Transfer Dispatch";
-            this.btnTransferDispatch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTransferDispatch.UseVisualStyleBackColor = true;
-            this.btnTransferDispatch.Visible = false;
-            // 
-            // btnTransferRequest
-            // 
-            this.btnTransferRequest.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTransferRequest.FlatAppearance.BorderSize = 0;
-            this.btnTransferRequest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTransferRequest.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnTransferRequest.Image = global::SosesPOS.Properties.Resources.transfer;
-            this.btnTransferRequest.Location = new System.Drawing.Point(0, 37);
-            this.btnTransferRequest.Name = "btnTransferRequest";
-            this.btnTransferRequest.Size = new System.Drawing.Size(284, 37);
-            this.btnTransferRequest.TabIndex = 16;
-            this.btnTransferRequest.Text = "Transfer Request";
-            this.btnTransferRequest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTransferRequest.UseVisualStyleBackColor = true;
-            this.btnTransferRequest.Visible = false;
-            this.btnTransferRequest.Click += new System.EventHandler(this.btnTransferRequest_Click);
-            // 
-            // btnStockTransfer
-            // 
-            this.btnStockTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnStockTransfer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnStockTransfer.FlatAppearance.BorderSize = 0;
-            this.btnStockTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStockTransfer.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnStockTransfer.Image = global::SosesPOS.Properties.Resources.expand_icon1;
-            this.btnStockTransfer.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnStockTransfer.Location = new System.Drawing.Point(0, 0);
-            this.btnStockTransfer.Name = "btnStockTransfer";
-            this.btnStockTransfer.Size = new System.Drawing.Size(284, 37);
-            this.btnStockTransfer.TabIndex = 20;
-            this.btnStockTransfer.Text = "Stock Transfer";
-            this.btnStockTransfer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockTransfer.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
-            this.btnStockTransfer.UseVisualStyleBackColor = true;
-            this.btnStockTransfer.Visible = false;
-            this.btnStockTransfer.Click += new System.EventHandler(this.btnStockTransfer_Click);
             // 
             // button8
             // 
@@ -285,6 +150,91 @@
             this.btnUser.UseVisualStyleBackColor = true;
             this.btnUser.Visible = false;
             this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
+            // 
+            // StockTransferPanel
+            // 
+            this.StockTransferPanel.Controls.Add(this.btnTransferAccept);
+            this.StockTransferPanel.Controls.Add(this.btnTransferDispatch);
+            this.StockTransferPanel.Controls.Add(this.btnTransferRequest);
+            this.StockTransferPanel.Controls.Add(this.btnStockTransfer);
+            this.StockTransferPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.StockTransferPanel.Location = new System.Drawing.Point(0, 524);
+            this.StockTransferPanel.MaximumSize = new System.Drawing.Size(284, 144);
+            this.StockTransferPanel.MinimumSize = new System.Drawing.Size(284, 37);
+            this.StockTransferPanel.Name = "StockTransferPanel";
+            this.StockTransferPanel.Size = new System.Drawing.Size(284, 37);
+            this.StockTransferPanel.TabIndex = 0;
+            // 
+            // btnTransferAccept
+            // 
+            this.btnTransferAccept.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransferAccept.FlatAppearance.BorderSize = 0;
+            this.btnTransferAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferAccept.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnTransferAccept.Image = global::SosesPOS.Properties.Resources.transfer;
+            this.btnTransferAccept.Location = new System.Drawing.Point(0, 111);
+            this.btnTransferAccept.Name = "btnTransferAccept";
+            this.btnTransferAccept.Size = new System.Drawing.Size(284, 37);
+            this.btnTransferAccept.TabIndex = 18;
+            this.btnTransferAccept.Text = "Transfer Accept";
+            this.btnTransferAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTransferAccept.UseVisualStyleBackColor = true;
+            this.btnTransferAccept.Visible = false;
+            this.btnTransferAccept.Click += new System.EventHandler(this.btnTransferAccept_Click);
+            // 
+            // btnTransferDispatch
+            // 
+            this.btnTransferDispatch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransferDispatch.FlatAppearance.BorderSize = 0;
+            this.btnTransferDispatch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferDispatch.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnTransferDispatch.Image = global::SosesPOS.Properties.Resources.transfer;
+            this.btnTransferDispatch.Location = new System.Drawing.Point(0, 74);
+            this.btnTransferDispatch.Name = "btnTransferDispatch";
+            this.btnTransferDispatch.Size = new System.Drawing.Size(284, 37);
+            this.btnTransferDispatch.TabIndex = 17;
+            this.btnTransferDispatch.Text = "Transfer Dispatch";
+            this.btnTransferDispatch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTransferDispatch.UseVisualStyleBackColor = true;
+            this.btnTransferDispatch.Visible = false;
+            this.btnTransferDispatch.Click += new System.EventHandler(this.btnTransferDispatch_Click);
+            // 
+            // btnTransferRequest
+            // 
+            this.btnTransferRequest.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransferRequest.FlatAppearance.BorderSize = 0;
+            this.btnTransferRequest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferRequest.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnTransferRequest.Image = global::SosesPOS.Properties.Resources.transfer;
+            this.btnTransferRequest.Location = new System.Drawing.Point(0, 37);
+            this.btnTransferRequest.Name = "btnTransferRequest";
+            this.btnTransferRequest.Size = new System.Drawing.Size(284, 37);
+            this.btnTransferRequest.TabIndex = 16;
+            this.btnTransferRequest.Text = "Transfer Request";
+            this.btnTransferRequest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTransferRequest.UseVisualStyleBackColor = true;
+            this.btnTransferRequest.Visible = false;
+            this.btnTransferRequest.Click += new System.EventHandler(this.btnTransferRequest_Click);
+            // 
+            // btnStockTransfer
+            // 
+            this.btnStockTransfer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnStockTransfer.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStockTransfer.FlatAppearance.BorderSize = 0;
+            this.btnStockTransfer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockTransfer.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnStockTransfer.Image = global::SosesPOS.Properties.Resources.expand_icon1;
+            this.btnStockTransfer.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnStockTransfer.Location = new System.Drawing.Point(0, 0);
+            this.btnStockTransfer.Name = "btnStockTransfer";
+            this.btnStockTransfer.Size = new System.Drawing.Size(284, 37);
+            this.btnStockTransfer.TabIndex = 20;
+            this.btnStockTransfer.Text = "Stock Transfer";
+            this.btnStockTransfer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnStockTransfer.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnStockTransfer.UseVisualStyleBackColor = true;
+            this.btnStockTransfer.Visible = false;
+            this.btnStockTransfer.Click += new System.EventHandler(this.btnStockTransfer_Click);
             // 
             // btnStockReplenishment
             // 
@@ -501,6 +451,58 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // lblRole
+            // 
+            this.lblRole.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.ForeColor = System.Drawing.Color.White;
+            this.lblRole.Location = new System.Drawing.Point(0, 58);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(284, 22);
+            this.lblRole.TabIndex = 2;
+            this.lblRole.Text = "Role Name";
+            this.lblRole.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.lblUsername.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.lblUsername.Location = new System.Drawing.Point(0, 24);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(284, 34);
+            this.lblUsername.TabIndex = 1;
+            this.lblUsername.Text = "Username";
+            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUserCode
+            // 
+            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
+            this.lblUserCode.Name = "lblUserCode";
+            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
+            this.lblUserCode.TabIndex = 47;
+            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserCode.Visible = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(301, 40);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(883, 521);
+            this.panel3.TabIndex = 2;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 15;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 

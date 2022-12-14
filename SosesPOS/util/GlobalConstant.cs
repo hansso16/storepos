@@ -13,5 +13,9 @@ namespace SosesPOS.util
 
         public static readonly string WHOLE_UOM_CODE = "0";
         public static readonly string BROKEN_UOM_CODE = "1";
+
+        public static readonly string STOCK_TRANSFER_REQUESTED = "01";
+        public static readonly string STOCK_TRANSFER_DISPATCHED = "15";
+        public static readonly string STOCK_TRANSFER_ACCEPTED = "20";
     }
 }

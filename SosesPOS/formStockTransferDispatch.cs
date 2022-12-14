@@ -13,14 +13,14 @@ using System.Windows.Forms;
 
 namespace SosesPOS
 {
-    public partial class formStockTransfer : Form
+    public partial class formStockTransferDispatch : Form
     {
         DbConnection dbcon = new DbConnection();
         UserDTO user = null;
         private string title = "Stock Transfer";
         private int formStatus = 1;
         private int i = 1;
-        public formStockTransfer(UserDTO user)
+        public formStockTransferDispatch(UserDTO user)
         {
             InitializeComponent();
             this.user = user;
@@ -53,7 +53,8 @@ namespace SosesPOS
                         cboSearch.ValueMember = "Value";
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Loading Products failed: " + ex.Message, "Stock Transfer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -65,11 +66,11 @@ namespace SosesPOS
             {
                 using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                 {
-                    con.Open(); 
+                    con.Open();
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.CommandText = "SELECT SLID, LocationName, LocationType FROM tblStockLocation";
-                        List < ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+                        List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
                         List<ComboBoxDTO> toDataSource = new List<ComboBoxDTO>();
                         using (SqlDataReader reader = com.ExecuteReader())
                         {
@@ -107,7 +108,6 @@ namespace SosesPOS
             this.txtPCode.Clear();
             this.txtPDesc.Clear();
             this.txtCount.Clear();
-            this.txtNote.Clear();
         }
 
         private void ClearInventoryView()
@@ -130,16 +130,31 @@ namespace SosesPOS
             this.cboFrom.Enabled = true;
             this.cboTo.Text = "";
             this.cboTo.Enabled = true;
+            this.txtRefNo.Clear();
+            this.txtRefNo.ReadOnly = false;
         }
 
         private void DisableProductForm()
         {
             cboSearch.Enabled = false;
             txtQty.ReadOnly = true;
-            txtNote.ReadOnly = true;
         }
 
-        private void formStockTransfer_KeyDown(object sender, KeyEventArgs e)
+        private void ResetForm()
+        {
+            ClearStockLocation();
+            DisableProductForm();
+            ClearProductDetails();
+            ClearInventoryView();
+            ClearCart();
+            ResetButtons();
+            i = 1;
+            this.formStatus = 1;
+            //this.cboFrom.Focus();
+            this.txtRefNo.Focus();
+        }
+
+        private void formStockTransferDispatch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1) // New Transaction
             {
@@ -168,6 +183,13 @@ namespace SosesPOS
                 if (this.btnClose.Enabled)
                 {
                     btnClose_Click(sender, e);
+                }
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                if (this.btnPrint.Enabled)
+                {
+                    btnPrint_Click(sender, e);
                 }
             }
         }
@@ -282,7 +304,8 @@ namespace SosesPOS
                                     if (count == 1)
                                     {
                                         finalQty = qty + "pcs";
-                                    } else
+                                    }
+                                    else
                                     {
                                         int div = qty / count;
                                         int mod = qty % count;
@@ -323,11 +346,60 @@ namespace SosesPOS
                     txtQty.Clear();
                     txtQty.Focus();
                     txtQty.SelectAll();
-                } catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show("Loading Stock Location/Site failed: " + ex.Message, "Stock Transfer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnNewTrans_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Reset and generate new transaction?", "Stock Transaction", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ResetForm();
+            }
+        }
+
+        private void btnSet_Click(object sender, EventArgs e)
+        {
+            if (!GeneralUtil.isValidComboBox(cboTo, title) || !GeneralUtil.isValidComboBox(cboFrom, title)
+                || cboTo.SelectedValue.ToString().Equals(cboFrom.SelectedValue.ToString()))
+            {
+                MessageBox.Show("Invalid Site. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cboFrom.Focus();
+                cboFrom.SelectAll();
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(txtRefNo.Text) || txtRefNo.TextLength != 8)
+            {
+                MessageBox.Show("Invalid Reference Number. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtRefNo.Focus();
+                txtRefNo.SelectAll();
+                return;
+            }
+
+            cboTo.Enabled = false;
+            cboFrom.Enabled = false;
+            this.txtRefNo.ReadOnly = true;
+
+            cboSearch.Enabled = true;
+            txtQty.ReadOnly = false;
+
+            btnSet.Enabled = false;
+            //btnSave.Enabled = true;
+            btnSaveAndPrint.Enabled = true;
+
+            this.cboSearch.Focus();
+            this.cboSearch.SelectAll();
+
+            this.formStatus = 10;
         }
 
         private void txtQty_KeyDown(object sender, KeyEventArgs e)
@@ -357,60 +429,6 @@ namespace SosesPOS
                 cboSearch.Focus();
                 cboSearch.SelectAll();
             }
-        }
-
-        private void btnNewTrans_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Reset and generate new transaction?", "Stock Transaction", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                ResetForm();
-            }
-        }
-
-        private void ResetForm()
-        {
-            ClearStockLocation();
-            DisableProductForm();
-            ClearProductDetails();
-            ClearInventoryView();
-            ClearCart();
-            ResetButtons();
-            i = 1;
-            this.formStatus = 1;
-            this.cboFrom.Focus();
-        }
-
-        private void btnSet_Click(object sender, EventArgs e)
-        {
-            if (!GeneralUtil.isValidComboBox(cboTo, title) || !GeneralUtil.isValidComboBox(cboFrom, title)
-                || cboTo.SelectedValue.ToString().Equals(cboFrom.SelectedValue.ToString()))
-            {
-                MessageBox.Show("Invalid Site. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cboFrom.Focus();
-                cboFrom.SelectAll();
-                return;
-            }
-
-            cboTo.Enabled = false;
-            cboFrom.Enabled = false;
-
-            cboSearch.Enabled = true;
-            txtQty.ReadOnly = false;
-            txtNote.ReadOnly = false;
-
-            btnSet.Enabled = false;
-            btnSave.Enabled = true;
-            btnSaveAndPrint.Enabled = true;
-
-            this.cboSearch.Focus();
-            this.cboSearch.SelectAll();
-
-            this.formStatus = 10;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
         }
 
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -458,10 +476,10 @@ namespace SosesPOS
                     string qty = dgvCart.Rows[e.RowIndex].Cells["qty"].Value.ToString();
                     if (string.IsNullOrWhiteSpace(qty) || "0".Equals(qty))
                     {
-                        //MessageBox.Show(qty);
-                        //dgvCart.Rows.RemoveAt(e.RowIndex);
+                        dgvCart.Rows.RemoveAt(e.RowIndex);
                     }
-                } else
+                }
+                else
                 {
                     dgvCart.Rows.RemoveAt(e.RowIndex);
                 }
@@ -476,17 +494,19 @@ namespace SosesPOS
                 cboFrom.Focus();
                 cboFrom.SelectAll();
                 return;
-            } else if (dgvCart.RowCount <= 0)
+            }
+            else if (dgvCart.RowCount <= 0)
             {
                 MessageBox.Show("No Items to transfer. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cboSearch.Focus();
                 cboSearch.SelectAll();
                 return;
-            } else if (string.IsNullOrWhiteSpace(txtNote.Text) && txtNote.Text.Trim().Length > 40)
+            }
+            else if (string.IsNullOrWhiteSpace(txtRefNo.Text))
             {
-                MessageBox.Show("'FOR' is too long. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtNote.Focus();
-                txtNote.SelectAll();
+                MessageBox.Show("Invalid Reference Number. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtRefNo.Focus();
+                txtRefNo.SelectAll();
                 return;
             }
 
@@ -500,25 +520,13 @@ namespace SosesPOS
                     string fromSLID = cboFrom.SelectedValue.ToString();
                     string toSLID = cboTo.SelectedValue.ToString();
 
-                    string refNo = DateTime.Now.ToString("yyMMdd");
-                    using (SqlCommand com = con.CreateCommand())
+                    string refNoPrefix = DateTime.Now.ToString("yyMMdd");
+                    string refNo = refNoPrefix + GenerateRefNo(con, transaction);
+
+                    // verify
+                    while (!VerifyReferenceNo(con, transaction, refNo))
                     {
-                        com.Transaction = transaction;
-                        com.CommandText = "SELECT NEXT VALUE FOR sqx_stock_transfer_no";
-                        using (SqlDataReader reader = com.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                int result = Convert.ToInt32(reader[0]);
-                                if (result < 10)
-                                {
-                                    refNo += "0"+result;
-                                } else
-                                {
-                                    refNo += result;
-                                }
-                            }
-                        }
+                        refNo = refNoPrefix + GenerateRefNo(con, transaction);
                     }
 
                     int stockTransferId = 0;
@@ -526,14 +534,13 @@ namespace SosesPOS
                     {
                         com.Transaction = transaction;
                         com.CommandText = "INSERT INTO tblStockTransfer " +
-                            "(StockTransferNo, FromSite, ToSite, Note, TransferStatus, EntryTimestamp, LastChangedTimestamp, LastChangedUserCode) " +
+                            "(StockTransferNo, FromSite, ToSite, TransferStatus, EntryTimestamp, LastChangedTimestamp, LastChangedUserCode) " +
                             "OUTPUT inserted.StockTransferID " +
-                            "VALUES (@stocktransferno, @fromsite, @tosite, @note, @transferstatus, @entrytimestamp, @lastchangedtimestamp, @lastchangedusercode)";
+                            "VALUES (@stocktransferno, @fromsite, @tosite, @transferstatus, @entrytimestamp, @lastchangedtimestamp, @lastchangedusercode)";
                         com.Parameters.AddWithValue("@stocktransferno", refNo);
                         com.Parameters.AddWithValue("@fromsite", fromSLID);
                         com.Parameters.AddWithValue("@tosite", toSLID);
-                        com.Parameters.AddWithValue("@note", txtNote.Text);
-                        com.Parameters.AddWithValue("@transferstatus", GlobalConstant.STOCK_TRANSFER_REQUESTED);
+                        com.Parameters.AddWithValue("@transferstatus", GlobalConstant.STOCK_TRANSFER_DISPATCHED);
                         com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
                         com.Parameters.AddWithValue("@lastchangedtimestamp", DateTime.Now);
                         com.Parameters.AddWithValue("@lastchangedusercode", user.userCode);
@@ -544,7 +551,7 @@ namespace SosesPOS
                     {
                         string pcode = row.Cells["pcode"].Value.ToString();
                         int qty = Convert.ToInt32(row.Cells["qty"].Value);
-                        
+
                         using (SqlCommand com = con.CreateCommand())
                         {
                             com.Transaction = transaction;
@@ -558,28 +565,73 @@ namespace SosesPOS
                     }
 
                     // Print
-                    PrintTransferRequest(refNo);
+                    PrintTransferDispatch(refNo);
 
                     //MessageBox
                     transaction.Commit();
-                    MessageBox.Show("Stock Transfer successfully requested. Ref no: " + refNo, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Stock Transfer successfully saved. Ref no: " + refNo, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ResetForm();
                 }
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Save Transfer Request Failed: " + ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        protected void PrintTransferRequest(string refno)
+        private static bool VerifyReferenceNo(SqlConnection con, SqlTransaction transaction, string refNo)
+        {
+            bool isValid = true;
+            using (SqlCommand com = con.CreateCommand())
+            {
+                com.Transaction = transaction;
+                com.CommandText = "SELECT 1 FROM tblStockTransfer WHERE StockTransferNo = @stocktransferno";
+                com.Parameters.AddWithValue("@stocktransferno", refNo);
+                using (SqlDataReader reader = com.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        isValid = false;
+                    }
+                }
+            }
+            return isValid;
+        }
+
+        private static string GenerateRefNo(SqlConnection con, SqlTransaction transaction)
+        {
+
+            using (SqlCommand com = con.CreateCommand())
+            {
+                com.Transaction = transaction;
+                com.CommandText = "SELECT NEXT VALUE FOR sqx_stock_transfer_no";
+                using (SqlDataReader reader = com.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int result = Convert.ToInt32(reader[0]);
+                        if (result < 10)
+                        {
+                           return "0" + result;
+                        }
+                        else
+                        {
+                            return "" + result;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        protected void PrintTransferDispatch(string refno)
         {
 
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            PrintTransferRequest("");
+            PrintTransferDispatch("");
         }
     }
 }

@@ -136,3 +136,5 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formTerminateUser.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUpdateAccessLevel.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formUserEdit.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockTransfer.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockTransferDispatch.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formStockTransferAccept.resources

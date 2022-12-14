@@ -349,6 +349,18 @@
     <Compile Include="formStockTransfer.Designer.cs">
       <DependentUpon>formStockTransfer.cs</DependentUpon>
     </Compile>
+    <Compile Include="formStockTransferAccept.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formStockTransferAccept.Designer.cs">
+      <DependentUpon>formStockTransferAccept.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formStockTransferDispatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formStockTransferDispatch.Designer.cs">
+      <DependentUpon>formStockTransferDispatch.cs</DependentUpon>
+    </Compile>
     <Compile Include="formTerminateUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -535,6 +547,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formStockTransfer.resx">
       <DependentUpon>formStockTransfer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formStockTransferAccept.resx">
+      <DependentUpon>formStockTransferAccept.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formStockTransferDispatch.resx">
+      <DependentUpon>formStockTransferDispatch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formTerminateUser.resx">
       <DependentUpon>formTerminateUser.cs</DependentUpon>
