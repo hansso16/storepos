@@ -558,7 +558,7 @@ namespace SosesPOS
                     }
 
                     // Print
-                    PrintTransferRequest(refNo);
+                    PrintTransferRequest(con, transaction, refNo);
 
                     //MessageBox
                     transaction.Commit();
@@ -572,14 +572,15 @@ namespace SosesPOS
             }
         }
 
-        protected void PrintTransferRequest(string refno)
+        protected void PrintTransferRequest(SqlConnection con, SqlTransaction transaction, string refno)
         {
-
+            formStockTransferPrint form = new formStockTransferPrint();
+            form.LoadReport(con, transaction, refno);
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            PrintTransferRequest("");
+            //PrintTransferRequest("");
         }
     }
 }

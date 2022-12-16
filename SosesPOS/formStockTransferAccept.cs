@@ -137,7 +137,7 @@ namespace SosesPOS
                     int stockTransferId = 0;
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "SELECT st.StockTransferID, slf.LocationName FromLocation, slt.LocationName ToLocation, st.TransferStatus, st.Note " +
+                        com.CommandText = "SELECT st.StockTransferID, slf.SLID FromSLID, slf.LocationName FromLocation, slt.SLID ToSLID, slt.LocationName ToLocation, st.TransferStatus, st.Note " +
                             "FROM tblStockTransfer st " +
                             "INNER JOIN tblStockLocation slf ON slf.SLID = st.FromSite " +
                             "INNER JOIN tblStockLocation slt ON slt.SLID = st.ToSite " +
@@ -150,6 +150,8 @@ namespace SosesPOS
                                 cboFrom.Text = reader["FromLocation"].ToString();
                                 cboTo.Text = reader["ToLocation"].ToString();
                                 txtNote.Text = reader["Note"].ToString();
+                                this.hlblFromSLID.Text = reader["FromSLID"].ToString();
+                                this.hlblToSLID.Text = reader["ToSLID"].ToString();
                                 stockTransferId = Convert.ToInt32(reader["StockTransferID"]);
                             }
                         }
@@ -163,6 +165,7 @@ namespace SosesPOS
                         return;
                     }
 
+                    this.hlblStockTransferID.Text = stockTransferId.ToString();
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.CommandText = "SELECT str.PCode, p.pdesc, str.Qty, p.count " +
@@ -193,7 +196,8 @@ namespace SosesPOS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (formStatus != 10 || string.IsNullOrWhiteSpace(hlblStockTransferID.Text))
+            if (formStatus != 10 || string.IsNullOrWhiteSpace(hlblStockTransferID.Text)
+                || string.IsNullOrWhiteSpace(hlblToSLID.Text) || string.IsNullOrWhiteSpace(hlblFromSLID.Text))
             {
                 MessageBox.Show("Invalid Form. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ResetForm();
@@ -212,10 +216,93 @@ namespace SosesPOS
                     con.Open();
                     SqlTransaction transaction = con.BeginTransaction();
 
-                    //TODO: iterate through cart and adjust inventory
+                    // iterate through cart
+                    string stockTransferId = hlblStockTransferID.Text;
+                    foreach (DataGridViewRow row in dgvCart.Rows)
+                    {
+                        string pcode = row.Cells["pcode"].Value.ToString();
+                        int qty = Convert.ToInt32(row.Cells["qty"].Value);
+                        int count = Convert.ToInt32(row.Cells["count"].Value);
+                        int requestQty = qty * count;
+                        List<InventoryDTO> posInventoryList = new List<InventoryDTO>();
 
+                        // adjust inventory
+                        using (SqlCommand com = new SqlCommand("SELECT  i.InventoryID, i.PurchaseID, i.Qty " +
+                        "FROM tblInventory i " +
+                        "INNER JOIN tblPurchasing p ON p.PurchaseID = i.PurchaseID " +
+                        "WHERE i.PCode = @pcode AND i.SLID = @slid AND i.Qty > 0 " +
+                        "ORDER BY p.DateIn, i.InventoryID", con, transaction))
+                        {
+                            com.Parameters.AddWithValue("@pcode", pcode);
+                            com.Parameters.AddWithValue("@slid", hlblFromSLID.Text);
+                            using (SqlDataReader reader = com.ExecuteReader())
+                            {
+                                // put into list
+                                InventoryDTO dto = new InventoryDTO();
+                                dto.qty = Convert.ToInt32(reader["Qty"]);
+                                dto.inventoryID = Convert.ToInt32(reader["InventoryID"]);
+                                dto.purchaseID = Convert.ToInt32(reader["PurchaseID"]);
+                                posInventoryList.Add(dto);
+                            }
+                        }
 
-                    // Update Stock Transfer
+                        // iterate list
+                        Queue<InventoryDTO> qtyQueue = new Queue<InventoryDTO>();
+                        foreach (InventoryDTO inventoryDTO in posInventoryList)
+                        {
+                            int qtyCounter = 0;
+                            int inventoryQty = inventoryDTO.qty;
+                            int inventoryId = inventoryDTO.inventoryID;
+                            int purchaseId = inventoryDTO.purchaseID;
+                            while (inventoryQty >= count && requestQty > 0) // count
+                            {
+                                inventoryQty -= count;
+                                requestQty -= count;
+                                qtyCounter += count;
+                            }
+
+                            if (qtyCounter > 0)
+                            {
+                                //qtyQueue.Enqueue(qtyCounter); should we still use a queue?
+                                UpdateInventoryQty(con, transaction, inventoryId, inventoryQty);
+
+                                InventoryDTO dto = new InventoryDTO();
+                                dto.purchaseID = purchaseId;
+                                dto.qty = qtyCounter;
+                                dto.pcode = pcode;
+                                dto.slid = Convert.ToInt32(hlblToSLID.Text);
+                                qtyQueue.Enqueue(dto);
+                            }
+                        }
+
+                        //queue check
+                        while (qtyQueue.Count > 0)
+                        {
+                            InventoryDTO dto = qtyQueue.Dequeue();
+                            // Save to tblInventory with new SLID
+                            SaveInventory(con, transaction, dto);
+                        }
+
+                        // save negative; WHAT TO DO WITH NEGATIVE. TODO
+                        if (requestQty > 0)
+                        {
+
+                        }
+
+                        // save to items accepted to child table
+                        using (SqlCommand com = con.CreateCommand())
+                        {
+                            com.Transaction = transaction;
+                            com.CommandText = "INSERT INTO tblStockTransferItems (StockTransferID, PCode, Qty) " +
+                                "VALUES (@stocktransferid, @pcode, @qty)";
+                            com.Parameters.AddWithValue("@stocktransferid", stockTransferId);
+                            com.Parameters.AddWithValue("@pcode", pcode);
+                            com.Parameters.AddWithValue("@qty", qty);
+                            com.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Update Stock Transfer parent table
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.Transaction = transaction;
@@ -225,16 +312,59 @@ namespace SosesPOS
                         com.Parameters.AddWithValue("@transferstatus", GlobalConstant.STOCK_TRANSFER_ACCEPTED);
                         com.Parameters.AddWithValue("@lastchangedtimestamp", DateTime.Now);
                         com.Parameters.AddWithValue("@lastchangedusercode", user.userCode);
-                        com.Parameters.AddWithValue("@stocktransferid", hlblStockTransferID.Text);
+                        com.Parameters.AddWithValue("@stocktransferid", stockTransferId);
                         com.ExecuteNonQuery();
                     }
 
                     transaction.Commit();
+                    MessageBox.Show("Transfer Requested Accepted. System updated.", title, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             } 
             catch (Exception ex)
             {
                 MessageBox.Show("Saving Data failed: " + ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void UpdateInventoryQty(SqlConnection con, SqlTransaction transaction, int inventoryId, int newInventoryQty)
+        {
+            try
+            {
+                using (SqlCommand com = con.CreateCommand())
+                {
+                    com.Transaction = transaction;
+                    com.CommandText = "UPDATE tblInventory SET Qty = @qty " +
+                        "WHERE InventoryID = @inventoryid";
+                    com.Parameters.AddWithValue("@qty", newInventoryQty);
+                    com.Parameters.AddWithValue("@inventoryid", inventoryId);
+                    com.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("UpdateInventoryQty failed: " + ex.Message);
+            }
+        }
+
+        private void SaveInventory(SqlConnection con, SqlTransaction transaction, InventoryDTO inventoryDTO)
+        {
+            try
+            {
+                using (SqlCommand com = con.CreateCommand())
+                {
+                    com.Transaction = transaction;
+                    com.CommandText = "INSERT INTO tblInventory (PCode, SLID, PurchaseID, Qty) " +
+                        "VALUES (@pcode, @slid, @purchaseid, @qty)";
+                    com.Parameters.AddWithValue("@pcode", inventoryDTO.pcode);
+                    com.Parameters.AddWithValue("@slid", inventoryDTO.slid);
+                    com.Parameters.AddWithValue("@purchaseid", inventoryDTO.purchaseID);
+                    com.Parameters.AddWithValue("@qty", inventoryDTO.qty);
+                    com.ExecuteNonQuery();
+                }
+            } 
+            catch (Exception ex )
+            {
+                throw new Exception("Save Inventory to new site failed: " + ex.Message);
             }
         }
     }

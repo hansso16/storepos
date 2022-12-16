@@ -801,7 +801,7 @@ namespace SosesPOS
             {
                 throw new Exception("UpdateInventoryQty failed: " + ex.Message);
             }
-}
+        }
 
         private void SaveInvoiceDetails(int invoiceId, SqlTransaction transaction, DataGridViewRow row, int inventoryID, int qty)
         {

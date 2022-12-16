@@ -213,6 +213,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dataset\dsStockTransferRequest.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DbConnection.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
@@ -361,6 +366,12 @@
     <Compile Include="formStockTransferDispatch.Designer.cs">
       <DependentUpon>formStockTransferDispatch.cs</DependentUpon>
     </Compile>
+    <Compile Include="formStockTransferPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formStockTransferPrint.Designer.cs">
+      <DependentUpon>formStockTransferPrint.cs</DependentUpon>
+    </Compile>
     <Compile Include="formTerminateUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -479,6 +490,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="System\Windows\Controls.cs" />
+    <Compile Include="util\BasePrintHelper.cs" />
     <Compile Include="util\ComboBoxDTO.cs" />
     <Compile Include="util\GeneralUtil.cs" />
     <Compile Include="util\GlobalConstant.cs" />
@@ -554,6 +566,9 @@
     <EmbeddedResource Include="formStockTransferDispatch.resx">
       <DependentUpon>formStockTransferDispatch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formStockTransferPrint.resx">
+      <DependentUpon>formStockTransferPrint.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formTerminateUser.resx">
       <DependentUpon>formTerminateUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -624,6 +639,7 @@
     <EmbeddedResource Include="report\rptBillingSummary.rdlc" />
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc" />
     <EmbeddedResource Include="report\rptInvoiceWithdrawal.rdlc" />
+    <EmbeddedResource Include="report\rptStockTransferRequest.rdlc" />
     <None Include="dataset\dsBillingSummary.xsc">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
     </None>
@@ -656,6 +672,17 @@
     </None>
     <None Include="dataset\dsInvoiceWithdrawal.xss">
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsStockTransferRequest.xsc">
+      <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsStockTransferRequest.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsStockTransferRequest.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\dsStockTransferRequest.xss">
+      <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\SosesPOS.DTO.UserDTO.datasource" />

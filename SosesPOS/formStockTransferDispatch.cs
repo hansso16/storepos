@@ -564,8 +564,8 @@ namespace SosesPOS
                         }
                     }
 
-                    // Print
-                    PrintTransferDispatch(refNo);
+                    // Print pa ba?
+                    //PrintTransferDispatch(refNo);
 
                     //MessageBox
                     transaction.Commit();

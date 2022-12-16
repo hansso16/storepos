@@ -36,6 +36,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formStockTransferAccept));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.hlblStockTransferID = new System.Windows.Forms.Label();
+            this.txtNote = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.txtRefNo = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -72,15 +75,14 @@
             this.btnSaveAndPrint = new System.Windows.Forms.Button();
             this.btnNewTrans = new System.Windows.Forms.Button();
             this.dgvCart = new System.Windows.Forms.DataGridView();
-            this.txtNote = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pdesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.hlblStockTransferID = new System.Windows.Forms.Label();
+            this.hlblFromSLID = new System.Windows.Forms.Label();
+            this.hlblToSLID = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFromInv)).BeginInit();
@@ -91,6 +93,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.hlblToSLID);
+            this.panel3.Controls.Add(this.hlblFromSLID);
             this.panel3.Controls.Add(this.hlblStockTransferID);
             this.panel3.Controls.Add(this.txtNote);
             this.panel3.Controls.Add(this.label9);
@@ -117,6 +121,33 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(984, 249);
             this.panel3.TabIndex = 29;
+            // 
+            // hlblStockTransferID
+            // 
+            this.hlblStockTransferID.AutoSize = true;
+            this.hlblStockTransferID.Location = new System.Drawing.Point(68, 30);
+            this.hlblStockTransferID.Name = "hlblStockTransferID";
+            this.hlblStockTransferID.Size = new System.Drawing.Size(0, 21);
+            this.hlblStockTransferID.TabIndex = 40;
+            this.hlblStockTransferID.Visible = false;
+            // 
+            // txtNote
+            // 
+            this.txtNote.Location = new System.Drawing.Point(61, 214);
+            this.txtNote.MaxLength = 39;
+            this.txtNote.Name = "txtNote";
+            this.txtNote.ReadOnly = true;
+            this.txtNote.Size = new System.Drawing.Size(563, 29);
+            this.txtNote.TabIndex = 39;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 216);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(47, 21);
+            this.label9.TabIndex = 38;
+            this.label9.Text = "FOR: ";
             // 
             // txtRefNo
             // 
@@ -601,24 +632,6 @@
             this.dgvCart.Size = new System.Drawing.Size(784, 412);
             this.dgvCart.TabIndex = 31;
             // 
-            // txtNote
-            // 
-            this.txtNote.Location = new System.Drawing.Point(61, 214);
-            this.txtNote.MaxLength = 39;
-            this.txtNote.Name = "txtNote";
-            this.txtNote.ReadOnly = true;
-            this.txtNote.Size = new System.Drawing.Size(563, 29);
-            this.txtNote.TabIndex = 39;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 216);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 21);
-            this.label9.TabIndex = 38;
-            this.label9.Text = "FOR: ";
-            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -626,7 +639,7 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             this.dataGridViewTextBoxColumn1.Visible = false;
-            this.dataGridViewTextBoxColumn1.Width = 42;
+            this.dataGridViewTextBoxColumn1.Width = 44;
             // 
             // pcode
             // 
@@ -669,16 +682,25 @@
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Delete.Visible = false;
-            this.Delete.Width = 17;
+            this.Delete.Width = 19;
             // 
-            // hlblStockTransferID
+            // hlblFromSLID
             // 
-            this.hlblStockTransferID.AutoSize = true;
-            this.hlblStockTransferID.Location = new System.Drawing.Point(68, 30);
-            this.hlblStockTransferID.Name = "hlblStockTransferID";
-            this.hlblStockTransferID.Size = new System.Drawing.Size(0, 21);
-            this.hlblStockTransferID.TabIndex = 40;
-            this.hlblStockTransferID.Visible = false;
+            this.hlblFromSLID.AutoSize = true;
+            this.hlblFromSLID.Location = new System.Drawing.Point(74, 30);
+            this.hlblFromSLID.Name = "hlblFromSLID";
+            this.hlblFromSLID.Size = new System.Drawing.Size(0, 21);
+            this.hlblFromSLID.TabIndex = 41;
+            this.hlblFromSLID.Visible = false;
+            // 
+            // hlblToSLID
+            // 
+            this.hlblToSLID.AutoSize = true;
+            this.hlblToSLID.Location = new System.Drawing.Point(80, 30);
+            this.hlblToSLID.Name = "hlblToSLID";
+            this.hlblToSLID.Size = new System.Drawing.Size(0, 21);
+            this.hlblToSLID.TabIndex = 42;
+            this.hlblToSLID.Visible = false;
             // 
             // formStockTransferAccept
             // 
@@ -754,5 +776,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn count;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
         private System.Windows.Forms.Label hlblStockTransferID;
+        private System.Windows.Forms.Label hlblToSLID;
+        private System.Windows.Forms.Label hlblFromSLID;
     }
 }
