@@ -99,7 +99,8 @@ namespace SosesPOS
         {
             btnSet.Enabled = true;
             btnSave.Enabled = false;
-            btnSaveAndPrint.Enabled = false;
+            //btnSaveAndPrint.Enabled = false;
+            btnSave.Enabled = false;
             btnPrint.Enabled = false;
         }
 
@@ -164,11 +165,18 @@ namespace SosesPOS
                 }
 
             }
-            else if (e.KeyCode == Keys.F2) // Save & Print
+            //else if (e.KeyCode == Keys.F2) // Save & Print
+            //{
+            //    if (this.btnSaveAndPrint.Enabled)
+            //    {
+            //        btnSaveAndPrint_Click(sender, e);
+            //    }
+            //}
+            else if (e.KeyCode == Keys.F3) // Save & Print
             {
-                if (this.btnSaveAndPrint.Enabled)
+                if (this.btnSave.Enabled)
                 {
-                    btnSaveAndPrint_Click(sender, e);
+                    btnSave_Click(sender, e);
                 }
             }
             else if (e.KeyCode == Keys.F6) // Set Site
@@ -393,8 +401,8 @@ namespace SosesPOS
             txtQty.ReadOnly = false;
 
             btnSet.Enabled = false;
-            //btnSave.Enabled = true;
-            btnSaveAndPrint.Enabled = true;
+            btnSave.Enabled = true;
+            //btnSaveAndPrint.Enabled = true;
 
             this.cboSearch.Focus();
             this.cboSearch.SelectAll();
@@ -516,53 +524,7 @@ namespace SosesPOS
                 {
                     con.Open();
                     SqlTransaction transaction = con.BeginTransaction();
-
-                    string fromSLID = cboFrom.SelectedValue.ToString();
-                    string toSLID = cboTo.SelectedValue.ToString();
-
-                    string refNoPrefix = DateTime.Now.ToString("yyMMdd");
-                    string refNo = refNoPrefix + GenerateRefNo(con, transaction);
-
-                    // verify
-                    while (!VerifyReferenceNo(con, transaction, refNo))
-                    {
-                        refNo = refNoPrefix + GenerateRefNo(con, transaction);
-                    }
-
-                    int stockTransferId = 0;
-                    using (SqlCommand com = con.CreateCommand())
-                    {
-                        com.Transaction = transaction;
-                        com.CommandText = "INSERT INTO tblStockTransfer " +
-                            "(StockTransferNo, FromSite, ToSite, TransferStatus, EntryTimestamp, LastChangedTimestamp, LastChangedUserCode) " +
-                            "OUTPUT inserted.StockTransferID " +
-                            "VALUES (@stocktransferno, @fromsite, @tosite, @transferstatus, @entrytimestamp, @lastchangedtimestamp, @lastchangedusercode)";
-                        com.Parameters.AddWithValue("@stocktransferno", refNo);
-                        com.Parameters.AddWithValue("@fromsite", fromSLID);
-                        com.Parameters.AddWithValue("@tosite", toSLID);
-                        com.Parameters.AddWithValue("@transferstatus", GlobalConstant.STOCK_TRANSFER_DISPATCHED);
-                        com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
-                        com.Parameters.AddWithValue("@lastchangedtimestamp", DateTime.Now);
-                        com.Parameters.AddWithValue("@lastchangedusercode", user.userCode);
-                        stockTransferId = Convert.ToInt32(com.ExecuteScalar());
-                    }
-
-                    foreach (DataGridViewRow row in dgvCart.Rows)
-                    {
-                        string pcode = row.Cells["pcode"].Value.ToString();
-                        int qty = Convert.ToInt32(row.Cells["qty"].Value);
-
-                        using (SqlCommand com = con.CreateCommand())
-                        {
-                            com.Transaction = transaction;
-                            com.CommandText = "INSERT INTO tblStockTransferRequest (StockTransferID, PCode, Qty) " +
-                                "VALUES (@stocktransferid, @pcode, @qty)";
-                            com.Parameters.AddWithValue("@stocktransferid", stockTransferId);
-                            com.Parameters.AddWithValue("@pcode", pcode);
-                            com.Parameters.AddWithValue("@qty", qty);
-                            com.ExecuteNonQuery();
-                        }
-                    }
+                    string refNo = ProcessTransferDispatch(con, transaction);
 
                     // Print pa ba?
                     //PrintTransferDispatch(refNo);
@@ -576,6 +538,197 @@ namespace SosesPOS
             catch (Exception ex)
             {
                 MessageBox.Show("Save Transfer Request Failed: " + ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string ProcessTransferDispatch(SqlConnection con, SqlTransaction transaction)
+        {
+            try
+            {
+                string fromSLID = cboFrom.SelectedValue.ToString();
+                string toSLID = cboTo.SelectedValue.ToString();
+
+                string refNoPrefix = DateTime.Now.ToString("yyMMdd");
+                string refNo = refNoPrefix + GenerateRefNo(con, transaction);
+
+                // verify
+                while (!VerifyReferenceNo(con, transaction, refNo))
+                {
+                    refNo = refNoPrefix + GenerateRefNo(con, transaction);
+                }
+
+                int stockTransferId = 0;
+                using (SqlCommand com = con.CreateCommand())
+                {
+                    com.Transaction = transaction;
+                    com.CommandText = "INSERT INTO tblStockTransfer " +
+                        "(StockTransferNo, FromSite, ToSite, TransferStatus, EntryTimestamp, LastChangedTimestamp, LastChangedUserCode) " +
+                        "OUTPUT inserted.StockTransferID " +
+                        "VALUES (@stocktransferno, @fromsite, @tosite, @transferstatus, @entrytimestamp, @lastchangedtimestamp, @lastchangedusercode)";
+                    com.Parameters.AddWithValue("@stocktransferno", refNo);
+                    com.Parameters.AddWithValue("@fromsite", fromSLID);
+                    com.Parameters.AddWithValue("@tosite", toSLID);
+                    com.Parameters.AddWithValue("@transferstatus", GlobalConstant.STOCK_TRANSFER_DISPATCHED);
+                    com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
+                    com.Parameters.AddWithValue("@lastchangedtimestamp", DateTime.Now);
+                    com.Parameters.AddWithValue("@lastchangedusercode", user.userCode);
+                    stockTransferId = Convert.ToInt32(com.ExecuteScalar());
+                }
+
+                foreach (DataGridViewRow row in dgvCart.Rows)
+                {
+                    string pcode = row.Cells["pcode"].Value.ToString();
+                    int qty = Convert.ToInt32(row.Cells["qty"].Value);
+                    int count = Convert.ToInt32(row.Cells["count"].Value);
+                    int requestQty = qty * count;
+                    List<InventoryDTO> posInventoryList = new List<InventoryDTO>();
+
+                    // adjust inventory
+                    using (SqlCommand com = new SqlCommand("SELECT  i.InventoryID, i.PurchaseID, i.Qty " +
+                    "FROM tblInventory i " +
+                    "INNER JOIN tblPurchasing p ON p.PurchaseID = i.PurchaseID " +
+                    "WHERE i.PCode = @pcode AND i.SLID = @slid AND i.Qty > 0 " +
+                    "ORDER BY p.DateIn, i.InventoryID", con, transaction))
+                    {
+                        com.Parameters.AddWithValue("@pcode", pcode);
+                        com.Parameters.AddWithValue("@slid", hlblFromSLID.Text);
+                        using (SqlDataReader reader = com.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // put into list
+                                InventoryDTO dto = new InventoryDTO();
+                                dto.qty = Convert.ToInt32(reader["Qty"]);
+                                dto.inventoryID = Convert.ToInt32(reader["InventoryID"]);
+                                dto.purchaseID = Convert.ToInt32(reader["PurchaseID"]);
+                                posInventoryList.Add(dto);
+                            }
+                        }
+                    }
+
+                    // iterate list
+                    Queue<InventoryDTO> qtyQueue = new Queue<InventoryDTO>();
+                    int latestPurchaseID = 0;
+                    foreach (InventoryDTO inventoryDTO in posInventoryList)
+                    {
+                        int qtyCounter = 0;
+                        int inventoryQty = inventoryDTO.qty;
+                        int inventoryId = inventoryDTO.inventoryID;
+                        int purchaseId = inventoryDTO.purchaseID;
+                        while (inventoryQty >= count && requestQty > 0) // count
+                        {
+                            inventoryQty -= count;
+                            requestQty -= count;
+                            qtyCounter += count;
+                            latestPurchaseID = purchaseId;
+                        }
+
+                        if (qtyCounter > 0)
+                        {
+                            UpdateInventoryQty(con, transaction, inventoryId, inventoryQty);
+
+                            InventoryDTO dto = new InventoryDTO();
+                            dto.purchaseID = purchaseId;
+                            dto.qty = qtyCounter;
+                            dto.pcode = pcode;
+                            dto.slid = Convert.ToInt32(hlblToSLID.Text);
+                            qtyQueue.Enqueue(dto);
+                        }
+
+                        if (requestQty == 0)
+                        {
+                            break;
+                        }
+                    }
+
+                    //queue check
+                    while (qtyQueue.Count > 0)
+                    {
+                        InventoryDTO dto = qtyQueue.Dequeue();
+                        // Save to tblInventory with new SLID
+                        SaveInventory(con, transaction, dto);
+                    }
+
+                    // EXCESS QTY not in system
+                    if (requestQty > 0)
+                    {
+                        InventoryDTO positiveToInventory = new InventoryDTO();
+                        positiveToInventory.pcode = pcode;
+                        positiveToInventory.slid = Convert.ToInt32(hlblToSLID.Text);
+                        positiveToInventory.purchaseID = latestPurchaseID;
+                        positiveToInventory.qty = requestQty;
+                        SaveInventory(con, transaction, positiveToInventory);
+
+                        InventoryDTO negativeFromInventory = new InventoryDTO();
+                        negativeFromInventory.pcode = pcode;
+                        negativeFromInventory.slid = Convert.ToInt32(hlblFromSLID.Text);
+                        negativeFromInventory.purchaseID = latestPurchaseID;
+                        negativeFromInventory.qty = requestQty * -1;
+                        SaveInventory(con, transaction, negativeFromInventory);
+                    }
+
+
+
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.Transaction = transaction;
+                        com.CommandText = "INSERT INTO tblStockTransferRequest (StockTransferID, PCode, Qty) " +
+                            "VALUES (@stocktransferid, @pcode, @qty)";
+                        com.Parameters.AddWithValue("@stocktransferid", stockTransferId);
+                        com.Parameters.AddWithValue("@pcode", pcode);
+                        com.Parameters.AddWithValue("@qty", qty);
+                        com.ExecuteNonQuery();
+                    }
+                }
+
+                return refNo;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ProcessTransferDispatch: " + ex.Message);
+            }
+            
+        }
+
+        private void UpdateInventoryQty(SqlConnection con, SqlTransaction transaction, int inventoryId, int newInventoryQty)
+        {
+            try
+            {
+                using (SqlCommand com = con.CreateCommand())
+                {
+                    com.Transaction = transaction;
+                    com.CommandText = "UPDATE tblInventory SET Qty = @qty " +
+                        "WHERE InventoryID = @inventoryid";
+                    com.Parameters.AddWithValue("@qty", newInventoryQty);
+                    com.Parameters.AddWithValue("@inventoryid", inventoryId);
+                    com.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("UpdateInventoryQty failed: " + ex.Message);
+            }
+        }
+
+        private void SaveInventory(SqlConnection con, SqlTransaction transaction, InventoryDTO inventoryDTO)
+        {
+            try
+            {
+                using (SqlCommand com = con.CreateCommand())
+                {
+                    com.Transaction = transaction;
+                    com.CommandText = "INSERT INTO tblInventory (PCode, SLID, PurchaseID, Qty) " +
+                        "VALUES (@pcode, @slid, @purchaseid, @qty)";
+                    com.Parameters.AddWithValue("@pcode", inventoryDTO.pcode);
+                    com.Parameters.AddWithValue("@slid", inventoryDTO.slid);
+                    com.Parameters.AddWithValue("@purchaseid", inventoryDTO.purchaseID);
+                    com.Parameters.AddWithValue("@qty", inventoryDTO.qty);
+                    com.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Save Inventory to site failed: " + ex.Message);
             }
         }
 
@@ -632,6 +785,50 @@ namespace SosesPOS
         private void btnPrint_Click(object sender, EventArgs e)
         {
             PrintTransferDispatch("");
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (this.formStatus != 10)
+            {
+                MessageBox.Show("Invalid Form. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cboFrom.Focus();
+                cboFrom.SelectAll();
+                return;
+            }
+            else if (dgvCart.RowCount <= 0)
+            {
+                MessageBox.Show("No Items to transfer. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cboSearch.Focus();
+                cboSearch.SelectAll();
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(txtRefNo.Text))
+            {
+                MessageBox.Show("Invalid Reference Number. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtRefNo.Focus();
+                txtRefNo.SelectAll();
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    SqlTransaction transaction = con.BeginTransaction();
+                    string refNo = ProcessTransferDispatch(con, transaction);
+
+                    //MessageBox
+                    transaction.Commit();
+                    MessageBox.Show("Stock Transfer successfully saved. Ref no: " + refNo, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ResetForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Save Transfer Request Failed: " + ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

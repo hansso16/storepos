@@ -58,6 +58,8 @@ namespace SosesPOS
             this.txtCount.Clear();
             this.txtRefNo.Clear();
             this.txtRefNo.ReadOnly = false;
+            this.hlblFromSLID.Text = "";
+            this.hlblToSLID.Text = "";
         }
 
         private void ResetForm()
@@ -237,17 +239,21 @@ namespace SosesPOS
                             com.Parameters.AddWithValue("@slid", hlblFromSLID.Text);
                             using (SqlDataReader reader = com.ExecuteReader())
                             {
-                                // put into list
-                                InventoryDTO dto = new InventoryDTO();
-                                dto.qty = Convert.ToInt32(reader["Qty"]);
-                                dto.inventoryID = Convert.ToInt32(reader["InventoryID"]);
-                                dto.purchaseID = Convert.ToInt32(reader["PurchaseID"]);
-                                posInventoryList.Add(dto);
+                                while (reader.Read())
+                                {
+                                    // put into list
+                                    InventoryDTO dto = new InventoryDTO();
+                                    dto.qty = Convert.ToInt32(reader["Qty"]);
+                                    dto.inventoryID = Convert.ToInt32(reader["InventoryID"]);
+                                    dto.purchaseID = Convert.ToInt32(reader["PurchaseID"]);
+                                    posInventoryList.Add(dto);
+                                }
                             }
                         }
 
                         // iterate list
                         Queue<InventoryDTO> qtyQueue = new Queue<InventoryDTO>();
+                        int latestPurchaseID = 0;
                         foreach (InventoryDTO inventoryDTO in posInventoryList)
                         {
                             int qtyCounter = 0;
@@ -259,11 +265,11 @@ namespace SosesPOS
                                 inventoryQty -= count;
                                 requestQty -= count;
                                 qtyCounter += count;
+                                latestPurchaseID = purchaseId;
                             }
 
                             if (qtyCounter > 0)
                             {
-                                //qtyQueue.Enqueue(qtyCounter); should we still use a queue?
                                 UpdateInventoryQty(con, transaction, inventoryId, inventoryQty);
 
                                 InventoryDTO dto = new InventoryDTO();
@@ -272,6 +278,11 @@ namespace SosesPOS
                                 dto.pcode = pcode;
                                 dto.slid = Convert.ToInt32(hlblToSLID.Text);
                                 qtyQueue.Enqueue(dto);
+                            }
+
+                            if (requestQty == 0)
+                            {
+                                break;
                             }
                         }
 
@@ -283,13 +294,25 @@ namespace SosesPOS
                             SaveInventory(con, transaction, dto);
                         }
 
-                        // save negative; WHAT TO DO WITH NEGATIVE. TODO
+                        // EXCESS QTY not in system
                         if (requestQty > 0)
                         {
+                            InventoryDTO positiveToInventory = new InventoryDTO();
+                            positiveToInventory.pcode = pcode;
+                            positiveToInventory.slid = Convert.ToInt32(hlblToSLID.Text);
+                            positiveToInventory.purchaseID = latestPurchaseID;
+                            positiveToInventory.qty = requestQty;
+                            SaveInventory(con, transaction, positiveToInventory);
 
+                            InventoryDTO negativeFromInventory = new InventoryDTO();
+                            negativeFromInventory.pcode = pcode;
+                            negativeFromInventory.slid = Convert.ToInt32(hlblFromSLID.Text);
+                            negativeFromInventory.purchaseID = latestPurchaseID;
+                            negativeFromInventory.qty = requestQty * -1;
+                            SaveInventory(con, transaction, negativeFromInventory);
                         }
 
-                        // save to items accepted to child table
+                        // save accepted TO items to child table
                         using (SqlCommand com = con.CreateCommand())
                         {
                             com.Transaction = transaction;
@@ -364,7 +387,7 @@ namespace SosesPOS
             } 
             catch (Exception ex )
             {
-                throw new Exception("Save Inventory to new site failed: " + ex.Message);
+                throw new Exception("Save Inventory to site failed: " + ex.Message);
             }
         }
     }

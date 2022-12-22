@@ -482,9 +482,9 @@ namespace SosesPOS
                 cboSearch.Focus();
                 cboSearch.SelectAll();
                 return;
-            } else if (string.IsNullOrWhiteSpace(txtNote.Text) && txtNote.Text.Trim().Length > 40)
+            } else if (string.IsNullOrEmpty(txtNote.Text) || txtNote.Text.Trim().Length > 40)
             {
-                MessageBox.Show("'FOR' is too long. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Request Note. Please try again.", title, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtNote.Focus();
                 txtNote.SelectAll();
                 return;
@@ -580,7 +580,19 @@ namespace SosesPOS
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            //PrintTransferRequest("");
+            try
+            {
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    SqlTransaction transaction = con.BeginTransaction();
+                    PrintTransferRequest(con, transaction, "");
+                    transaction.Commit();
+                }
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show("Printing Stock Request Failed: " + ex.Message, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
