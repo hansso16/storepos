@@ -97,7 +97,7 @@ namespace SosesPOS
         private void ResetButtons()
         {
             btnSet.Enabled = true;
-            btnSave.Enabled = false;
+            //btnSave.Enabled = false;
             btnSaveAndPrint.Enabled = false;
             btnPrint.Enabled = false;
         }
@@ -399,7 +399,7 @@ namespace SosesPOS
             txtNote.ReadOnly = false;
 
             btnSet.Enabled = false;
-            btnSave.Enabled = true;
+            //btnSave.Enabled = true;
             btnSaveAndPrint.Enabled = true;
 
             this.cboSearch.Focus();
