@@ -164,6 +164,7 @@
             this.StockTransferPanel.Name = "StockTransferPanel";
             this.StockTransferPanel.Size = new System.Drawing.Size(284, 37);
             this.StockTransferPanel.TabIndex = 0;
+            this.StockTransferPanel.Visible = false;
             // 
             // btnTransferAccept
             // 
