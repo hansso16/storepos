@@ -35,6 +35,7 @@ namespace SosesPOS
             SetStaffLevel();
             SetOfficerLevel();
             SetMgrLevel();
+            SetPresLevel();
         }
 
         private void SetStaffLevel()
@@ -72,6 +73,14 @@ namespace SosesPOS
             {
                 this.button5.Visible = true; // Store Invoice
                 this.btnUser.Visible = true;
+            }
+        }
+
+        private void SetPresLevel()
+        {
+            if (role.accessLevel == 50 || role.accessLevel == 999)
+            {
+                this.btnWriteCheck.Visible = true;
             }
         }
 
@@ -281,6 +290,17 @@ namespace SosesPOS
         private void btnTransferAccept_Click(object sender, EventArgs e)
         {
             formStockTransferAccept form = new formStockTransferAccept(user);
+            form.Show();
+        }
+
+        private void btnWriteCheck_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formWriteCheckList form = new formWriteCheckList(user);
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.LoadVendorList();
             form.Show();
         }
     }

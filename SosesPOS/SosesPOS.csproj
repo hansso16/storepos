@@ -23,7 +23,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -66,6 +66,9 @@
   <ItemGroup>
     <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.95.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ClosedXML.0.95.4\lib\net46\ClosedXML.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <HintPath>..\packages\CrystalReports.Engine.13.0.4001\lib\net40\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
@@ -122,6 +125,15 @@
       <HintPath>..\packages\CrystalReports.Shared.13.0.4001\lib\net40\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CsvHelper, Version=27.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.27.2.1\lib\net47\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.15.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.15.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
@@ -133,6 +145,12 @@
     </Reference>
     <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.0.0\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -174,6 +192,9 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -185,6 +206,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auth\RoleService.cs" />
@@ -198,6 +220,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dataset\dsCheckPrint.cs">
+      <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dataset\dsCheckPrint.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsCheckPrint.xsd</DependentUpon>
     </Compile>
     <Compile Include="dataset\dsInvoiceReceipt.cs">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
@@ -219,6 +249,7 @@
     </Compile>
     <Compile Include="DbConnection.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
+    <Compile Include="DTO\CheckCSVDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
     <Compile Include="DTO\InventoryDTO.cs" />
     <Compile Include="DTO\POSInventoryDTO.cs" />
@@ -262,6 +293,12 @@
     </Compile>
     <Compile Include="formChangePassword.Designer.cs">
       <DependentUpon>formChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formCheckPrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCheckPrint.Designer.cs">
+      <DependentUpon>formCheckPrint.cs</DependentUpon>
     </Compile>
     <Compile Include="formCustomerModule.cs">
       <SubType>Form</SubType>
@@ -485,6 +522,18 @@
     <Compile Include="formVendorList.Designer.cs">
       <DependentUpon>formVendorList.cs</DependentUpon>
     </Compile>
+    <Compile Include="formWriteCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formWriteCheck.Designer.cs">
+      <DependentUpon>formWriteCheck.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formWriteCheckList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formWriteCheckList.Designer.cs">
+      <DependentUpon>formWriteCheckList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -493,6 +542,7 @@
     <Compile Include="util\ComboBoxDTO.cs" />
     <Compile Include="util\GeneralUtil.cs" />
     <Compile Include="util\GlobalConstant.cs" />
+    <Compile Include="util\IntegerUtil.cs" />
     <Compile Include="util\OrderStatusConstant.cs" />
     <Compile Include="util\OrderStatusEnum.cs" />
     <Compile Include="util\PasswordUtil.cs" />
@@ -513,6 +563,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formChangePassword.resx">
       <DependentUpon>formChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCheckPrint.resx">
+      <DependentUpon>formCheckPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCustomerModule.resx">
       <DependentUpon>formCustomerModule.cs</DependentUpon>
@@ -625,6 +678,12 @@
     <EmbeddedResource Include="formVendorList.resx">
       <DependentUpon>formVendorList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formWriteCheck.resx">
+      <DependentUpon>formWriteCheck.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formWriteCheckList.resx">
+      <DependentUpon>formWriteCheckList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -636,6 +695,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="report\rptBillingSummary.rdlc" />
+    <EmbeddedResource Include="report\rptCheckPrint.rdlc" />
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc" />
     <EmbeddedResource Include="report\rptInvoiceWithdrawal.rdlc" />
     <EmbeddedResource Include="report\rptStockTransferRequest.rdlc" />
@@ -649,6 +709,17 @@
     </None>
     <None Include="dataset\dsBillingSummary.xss">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsCheckPrint.xsc">
+      <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsCheckPrint.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsCheckPrint.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\dsCheckPrint.xss">
+      <DependentUpon>dsCheckPrint.xsd</DependentUpon>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xsc">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
@@ -730,6 +801,9 @@
     <None Include="Resources\expand_icon.png" />
     <None Include="Resources\collapse_icon.png" />
     <None Include="Resources\expand_icon1.png" />
+    <None Include="Resources\cheque.png" />
+    <None Include="Resources\blank_cheque1.jpg" />
+    <Content Include="Resources\blank_cheque.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

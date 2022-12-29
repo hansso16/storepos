@@ -17,5 +17,8 @@ namespace SosesPOS.util
         public static readonly string STOCK_TRANSFER_REQUESTED = "01";
         public static readonly string STOCK_TRANSFER_DISPATCHED = "15";
         public static readonly string STOCK_TRANSFER_ACCEPTED = "20";
+
+        public static readonly string COMMA_SEPARATOR = ",";
+        public static readonly string CHECK_CSV_FILE_PARAMETER_ID = "1";
     }
 }

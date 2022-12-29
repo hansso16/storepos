@@ -54,6 +54,15 @@ namespace SosesPOS.util
             foreach (Stream stream in m_streams)
                 stream.Position = 0;
         }
+        
+        internal void Export(LocalReport report, string deviceInfo)
+        {            Warning[] warnings;
+            m_streams = new List<Stream>();
+            report.Render("Image", deviceInfo, CreateStream,
+               out warnings);
+            foreach (Stream stream in m_streams)
+                stream.Position = 0;
+        }
 
         // Handler for PrintPageEvents
         private void PrintPage(object sender, PrintPageEventArgs ev)

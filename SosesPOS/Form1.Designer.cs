@@ -32,10 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.StockTransferPanel = new System.Windows.Forms.Panel();
+            this.lblRole = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.lblUserCode = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button8 = new System.Windows.Forms.Button();
             this.btnPassword = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
-            this.StockTransferPanel = new System.Windows.Forms.Panel();
+            this.btnWriteCheck = new System.Windows.Forms.Button();
             this.btnTransferAccept = new System.Windows.Forms.Button();
             this.btnTransferDispatch = new System.Windows.Forms.Button();
             this.btnTransferRequest = new System.Windows.Forms.Button();
@@ -52,11 +58,6 @@
             this.btnProduct = new System.Windows.Forms.Button();
             this.btnBillingInvoice = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.lblRole = new System.Windows.Forms.Label();
-            this.lblUsername = new System.Windows.Forms.Label();
-            this.lblUserCode = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             this.StockTransferPanel.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@
             this.panel2.Controls.Add(this.button8);
             this.panel2.Controls.Add(this.btnPassword);
             this.panel2.Controls.Add(this.btnUser);
+            this.panel2.Controls.Add(this.btnWriteCheck);
             this.panel2.Controls.Add(this.StockTransferPanel);
             this.panel2.Controls.Add(this.btnStockReplenishment);
             this.panel2.Controls.Add(this.btnReceivePayments);
@@ -99,6 +101,73 @@
             this.panel2.Size = new System.Drawing.Size(301, 521);
             this.panel2.TabIndex = 1;
             // 
+            // StockTransferPanel
+            // 
+            this.StockTransferPanel.Controls.Add(this.btnTransferAccept);
+            this.StockTransferPanel.Controls.Add(this.btnTransferDispatch);
+            this.StockTransferPanel.Controls.Add(this.btnTransferRequest);
+            this.StockTransferPanel.Controls.Add(this.btnStockTransfer);
+            this.StockTransferPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.StockTransferPanel.Location = new System.Drawing.Point(0, 524);
+            this.StockTransferPanel.MaximumSize = new System.Drawing.Size(284, 144);
+            this.StockTransferPanel.MinimumSize = new System.Drawing.Size(284, 37);
+            this.StockTransferPanel.Name = "StockTransferPanel";
+            this.StockTransferPanel.Size = new System.Drawing.Size(284, 37);
+            this.StockTransferPanel.TabIndex = 0;
+            this.StockTransferPanel.Visible = false;
+            // 
+            // lblRole
+            // 
+            this.lblRole.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.ForeColor = System.Drawing.Color.White;
+            this.lblRole.Location = new System.Drawing.Point(0, 58);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(284, 22);
+            this.lblRole.TabIndex = 2;
+            this.lblRole.Text = "Role Name";
+            this.lblRole.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.lblUsername.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.lblUsername.Location = new System.Drawing.Point(0, 24);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(284, 34);
+            this.lblUsername.TabIndex = 1;
+            this.lblUsername.Text = "Username";
+            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblUserCode
+            // 
+            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
+            this.lblUserCode.Name = "lblUserCode";
+            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
+            this.lblUserCode.TabIndex = 47;
+            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblUserCode.Visible = false;
+            // 
+            // panel3
+            // 
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(301, 40);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(883, 521);
+            this.panel3.TabIndex = 2;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 15;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // button8
             // 
             this.button8.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -107,7 +176,7 @@
             this.button8.ForeColor = System.Drawing.SystemColors.Control;
             this.button8.Image = global::SosesPOS.Properties.Resources.logout;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 635);
+            this.button8.Location = new System.Drawing.Point(0, 672);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(284, 37);
             this.button8.TabIndex = 20;
@@ -124,7 +193,7 @@
             this.btnPassword.ForeColor = System.Drawing.SystemColors.Control;
             this.btnPassword.Image = global::SosesPOS.Properties.Resources.change_password;
             this.btnPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPassword.Location = new System.Drawing.Point(0, 598);
+            this.btnPassword.Location = new System.Drawing.Point(0, 635);
             this.btnPassword.Name = "btnPassword";
             this.btnPassword.Size = new System.Drawing.Size(284, 37);
             this.btnPassword.TabIndex = 17;
@@ -141,7 +210,7 @@
             this.btnUser.ForeColor = System.Drawing.SystemColors.Control;
             this.btnUser.Image = global::SosesPOS.Properties.Resources.user_group;
             this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUser.Location = new System.Drawing.Point(0, 561);
+            this.btnUser.Location = new System.Drawing.Point(0, 598);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(284, 37);
             this.btnUser.TabIndex = 16;
@@ -151,20 +220,23 @@
             this.btnUser.Visible = false;
             this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
             // 
-            // StockTransferPanel
+            // btnWriteCheck
             // 
-            this.StockTransferPanel.Controls.Add(this.btnTransferAccept);
-            this.StockTransferPanel.Controls.Add(this.btnTransferDispatch);
-            this.StockTransferPanel.Controls.Add(this.btnTransferRequest);
-            this.StockTransferPanel.Controls.Add(this.btnStockTransfer);
-            this.StockTransferPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.StockTransferPanel.Location = new System.Drawing.Point(0, 524);
-            this.StockTransferPanel.MaximumSize = new System.Drawing.Size(284, 144);
-            this.StockTransferPanel.MinimumSize = new System.Drawing.Size(284, 37);
-            this.StockTransferPanel.Name = "StockTransferPanel";
-            this.StockTransferPanel.Size = new System.Drawing.Size(284, 37);
-            this.StockTransferPanel.TabIndex = 0;
-            this.StockTransferPanel.Visible = false;
+            this.btnWriteCheck.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnWriteCheck.FlatAppearance.BorderSize = 0;
+            this.btnWriteCheck.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWriteCheck.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnWriteCheck.Image = global::SosesPOS.Properties.Resources.cheque;
+            this.btnWriteCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnWriteCheck.Location = new System.Drawing.Point(0, 561);
+            this.btnWriteCheck.Name = "btnWriteCheck";
+            this.btnWriteCheck.Size = new System.Drawing.Size(284, 37);
+            this.btnWriteCheck.TabIndex = 48;
+            this.btnWriteCheck.Text = "Write Check";
+            this.btnWriteCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnWriteCheck.UseVisualStyleBackColor = true;
+            this.btnWriteCheck.Visible = false;
+            this.btnWriteCheck.Click += new System.EventHandler(this.btnWriteCheck_Click);
             // 
             // btnTransferAccept
             // 
@@ -453,58 +525,6 @@
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // lblRole
-            // 
-            this.lblRole.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRole.ForeColor = System.Drawing.Color.White;
-            this.lblRole.Location = new System.Drawing.Point(0, 58);
-            this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(284, 22);
-            this.lblRole.TabIndex = 2;
-            this.lblRole.Text = "Role Name";
-            this.lblRole.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.lblUsername.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.lblUsername.Location = new System.Drawing.Point(0, 24);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(284, 34);
-            this.lblUsername.TabIndex = 1;
-            this.lblUsername.Text = "Username";
-            this.lblUsername.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblUserCode
-            // 
-            this.lblUserCode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            this.lblUserCode.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblUserCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserCode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.lblUserCode.Location = new System.Drawing.Point(0, 0);
-            this.lblUserCode.Name = "lblUserCode";
-            this.lblUserCode.Size = new System.Drawing.Size(284, 24);
-            this.lblUserCode.TabIndex = 47;
-            this.lblUserCode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblUserCode.Visible = false;
-            // 
-            // panel3
-            // 
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(301, 40);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(883, 521);
-            this.panel3.TabIndex = 2;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 15;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -556,6 +576,7 @@
         private System.Windows.Forms.Button btnTransferRequest;
         private System.Windows.Forms.Button btnStockTransfer;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnWriteCheck;
     }
 }
 

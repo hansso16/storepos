@@ -88,13 +88,13 @@ namespace SosesPOS
             {
                 if (MessageBox.Show("Are you sure you want to delete this brand?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    con.Open();
-                    com = new SqlCommand("DELETE from tblCustomer WHERE CustomerId = @id", con);
-                    com.Parameters.AddWithValue("@id", customerListView[1, e.RowIndex].Value.ToString());
-                    com.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Customer has been successfully deleted.", "POS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadCustomerRecords();
+                    //con.Open();
+                    //com = new SqlCommand("DELETE from tblCustomer WHERE CustomerId = @id", con);
+                    //com.Parameters.AddWithValue("@id", customerListView[1, e.RowIndex].Value.ToString());
+                    //com.ExecuteNonQuery();
+                    //con.Close();
+                    //MessageBox.Show("Customer has been successfully deleted.", "POS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //LoadCustomerRecords();
                 }
             }
         }
