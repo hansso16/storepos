@@ -32,15 +32,18 @@ namespace SosesPOS
         {
             try
             {
+                dgvVendorList.Rows.Clear();
                 using (SqlConnection con = new SqlConnection(dbcon.MyConnection())) 
                 {
                     con.Open();
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "SELECT VendorID, VendorCode, VendorName " +
-                            "FROM tblVendor WHERE VendorCode LIKE '%'+@search+'%' " +
-                            "OR VendorName LIKE '%'+@search+'%'";
+                        com.CommandText = "SELECT v.VendorID, v.VendorCode, v.VendorName, v.CheckPayee, v.Term, v.CategoryID " +
+                            "FROM tblVendor v " +
+                            "WHERE v.VendorCode LIKE '%'+@search+'%' " +
+                            "OR v.VendorName LIKE '%'+@search+'%' ORDER BY v.VendorID";
                         com.Parameters.AddWithValue("@search", this.txtSearch.Text);
+                        Console.Write(com.CommandText);
                         using (SqlDataReader reader = com.ExecuteReader())
                         {
                             int i = 1;
@@ -49,7 +52,8 @@ namespace SosesPOS
                                 //dgvPayeeList.Rows.Add();
                                 dgvVendorList.Rows.Add(i++, reader["VendorID"]
                                     , reader["VendorCode"], reader["VendorName"]
-                                    , i);
+                                    , reader["CheckPayee"], reader["Term"]
+                                    , reader["CategoryID"]);
                             }
                         }
                     }
@@ -90,11 +94,23 @@ namespace SosesPOS
                 Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
 
                 formWriteCheck form = new formWriteCheck(user);
-                form.txtPayee.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
-                form.dtpCheckDate.Value = DateTime.Now.AddDays(30);
+                form.txtPayee.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
+                int term = Convert.ToInt32(dgvVendorList[5, e.RowIndex].Value);
+                form.dtpCheckDate.Value = DateTime.Now.AddDays(term);
+                form.txtVendorShortName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
+                form.hlblVendorCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
+                form.hlblCategoryID.Text = dgvVendorList[6, e.RowIndex].Value.ToString();
                 form.txtAmount.Focus();
                 form.ShowDialog();
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            formWriteCheck form = new formWriteCheck(user);
+            form.dtpCheckDate.Value = DateTime.Now;
+            form.txtAmount.Focus();
+            form.ShowDialog();
         }
     }
 }

@@ -60,6 +60,7 @@ namespace SosesPOS
                 //this.btnStockLocation.Visible = true;
                 this.btnReceivePayments.Visible = true;
                 this.btnStockReplenishment.Visible = true;
+                this.StockTransferPanel.Visible = true;
                 this.btnStockTransfer.Visible = true;
                 this.btnTransferRequest.Visible = true;
                 this.btnTransferDispatch.Visible = true;

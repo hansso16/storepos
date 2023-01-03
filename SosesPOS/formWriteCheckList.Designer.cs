@@ -39,9 +39,11 @@
             this.dgvVendorList = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vendorCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vendorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.payee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.term = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.View = new System.Windows.Forms.DataGridViewImageColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
@@ -119,6 +121,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox2.TabIndex = 4;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pictureBox1
             // 
@@ -159,9 +162,11 @@
             this.dgvVendorList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
-            this.Column5,
+            this.vendorCode,
+            this.vendorName,
+            this.payee,
+            this.term,
             this.Column3,
-            this.Column4,
             this.View,
             this.Edit,
             this.Delete});
@@ -199,28 +204,43 @@
             this.Column2.ReadOnly = true;
             this.Column2.Visible = false;
             // 
-            // Column5
+            // vendorCode
             // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column5.HeaderText = "VENDOR CODE";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 141;
+            this.vendorCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.vendorCode.HeaderText = "CODE";
+            this.vendorCode.Name = "vendorCode";
+            this.vendorCode.ReadOnly = true;
+            this.vendorCode.Width = 74;
+            // 
+            // vendorName
+            // 
+            this.vendorName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.vendorName.HeaderText = "VENDOR NAME";
+            this.vendorName.Name = "vendorName";
+            this.vendorName.ReadOnly = true;
+            // 
+            // payee
+            // 
+            this.payee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.payee.HeaderText = "PAYEE";
+            this.payee.Name = "payee";
+            this.payee.ReadOnly = true;
+            this.payee.Width = 75;
+            // 
+            // term
+            // 
+            this.term.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.term.HeaderText = "TERM";
+            this.term.Name = "term";
+            this.term.ReadOnly = true;
+            this.term.Width = 73;
             // 
             // Column3
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "VENDOR NAME";
+            this.Column3.HeaderText = "CATEGORY ID";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column4.HeaderText = "TERM";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 73;
+            this.Column3.Visible = false;
             // 
             // View
             // 
@@ -288,9 +308,11 @@
         private System.Windows.Forms.DataGridView dgvVendorList;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vendorCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vendorName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn payee;
+        private System.Windows.Forms.DataGridViewTextBoxColumn term;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewImageColumn View;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;

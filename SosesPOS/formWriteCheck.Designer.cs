@@ -43,6 +43,9 @@
             this.hlblCheckBankID = new System.Windows.Forms.Label();
             this.hlblVendorCode = new System.Windows.Forms.Label();
             this.hlblBankShortName = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtVendorShortName = new System.Windows.Forms.TextBox();
+            this.hlblCategoryID = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,7 +174,7 @@
             // hlblCheckBankID
             // 
             this.hlblCheckBankID.AutoSize = true;
-            this.hlblCheckBankID.Location = new System.Drawing.Point(149, 45);
+            this.hlblCheckBankID.Location = new System.Drawing.Point(149, 12);
             this.hlblCheckBankID.Name = "hlblCheckBankID";
             this.hlblCheckBankID.Size = new System.Drawing.Size(0, 13);
             this.hlblCheckBankID.TabIndex = 13;
@@ -195,6 +198,33 @@
             this.hlblBankShortName.TabIndex = 15;
             this.hlblBankShortName.Visible = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(94, 339);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 21);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Vendor Name";
+            // 
+            // txtVendorShortName
+            // 
+            this.txtVendorShortName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVendorShortName.Location = new System.Drawing.Point(206, 336);
+            this.txtVendorShortName.Name = "txtVendorShortName";
+            this.txtVendorShortName.Size = new System.Drawing.Size(295, 29);
+            this.txtVendorShortName.TabIndex = 17;
+            // 
+            // hlblCategoryID
+            // 
+            this.hlblCategoryID.AutoSize = true;
+            this.hlblCategoryID.Location = new System.Drawing.Point(56, 55);
+            this.hlblCategoryID.Name = "hlblCategoryID";
+            this.hlblCategoryID.Size = new System.Drawing.Size(0, 13);
+            this.hlblCategoryID.TabIndex = 18;
+            this.hlblCategoryID.Visible = false;
+            // 
             // formWriteCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,6 +232,9 @@
             this.BackgroundImage = global::SosesPOS.Properties.Resources.blank_cheque1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(782, 398);
+            this.Controls.Add(this.hlblCategoryID);
+            this.Controls.Add(this.txtVendorShortName);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.hlblBankShortName);
             this.Controls.Add(this.hlblVendorCode);
             this.Controls.Add(this.hlblCheckBankID);
@@ -240,7 +273,10 @@
         private System.Windows.Forms.RadioButton rbOther;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label hlblCheckBankID;
-        private System.Windows.Forms.Label hlblVendorCode;
         private System.Windows.Forms.Label hlblBankShortName;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox txtVendorShortName;
+        public System.Windows.Forms.Label hlblVendorCode;
+        public System.Windows.Forms.Label hlblCategoryID;
     }
 }

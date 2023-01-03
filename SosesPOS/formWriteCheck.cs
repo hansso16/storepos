@@ -126,7 +126,7 @@ namespace SosesPOS
             try
             {
                 ProcessAmount();
-                if (MessageBox.Show("Do you wish to save? Changes are irreversible", module
+                if (MessageBox.Show("Save and Print? Changes are irreversible", module
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
@@ -145,6 +145,7 @@ namespace SosesPOS
                             string fileName = null;
                             int checkBankID = Convert.ToInt32(hlblCheckBankID.Text);
                             int checkNo = Convert.ToInt32(txtCheckNo.Text) + 1;
+                            decimal decAmount = Convert.ToDecimal(txtAmount.Text);
 
                             // retrieve file path and name
                             using (SqlCommand com = con.CreateCommand())
@@ -173,13 +174,13 @@ namespace SosesPOS
                             csvDTO.Bank = hlblBankShortName.Text;
                             csvDTO.CheckNo = txtCheckNo.Text;
                             csvDTO.CheckDate = dtpCheckDate.Value.ToString("MM/dd/yyyy");
-                            csvDTO.CheckAmount = Convert.ToDecimal(txtAmount.Text).ToString();
+                            csvDTO.CheckAmount = decAmount.ToString();
                             csvDTO.VendorCode = hlblVendorCode.Text;
-                            csvDTO.VendorShortName = "";
+                            csvDTO.VendorShortName = txtVendorShortName.Text;
                             csvDTO.VendorFullName = txtPayee.Text;
-                            csvDTO.Category = "";
+                            csvDTO.Category = hlblCategoryID.Text;
                             csvDTO.Computer = "1";
-                            csvDTO.Retain = "";
+                            csvDTO.Retain = decAmount.Equals(decimal.Zero) ? "1" : "0";
 
                             // Save to CheckIssue table
                             using (SqlCommand com = con.CreateCommand())
@@ -191,7 +192,7 @@ namespace SosesPOS
                                     ", @computer, @retain, @entrytimestamp, @lastchangeduser)";
                                 com.Parameters.AddWithValue("@checkno", csvDTO.CheckNo);
                                 com.Parameters.AddWithValue("@checkdate", csvDTO.CheckDate);
-                                com.Parameters.AddWithValue("@checkamount", Convert.ToDecimal(csvDTO.CheckAmount));
+                                com.Parameters.AddWithValue("@checkamount", decAmount);
                                 com.Parameters.AddWithValue("@checkbankid", checkBankID);
                                 com.Parameters.AddWithValue("@vendorcode", csvDTO.VendorCode);
                                 com.Parameters.AddWithValue("@payeename", csvDTO.VendorFullName);
