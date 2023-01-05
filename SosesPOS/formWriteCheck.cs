@@ -72,7 +72,6 @@ namespace SosesPOS
             {
                 try
                 {
-                    //ProcessAmount();
                     this.btnSubmit.Focus();
                 }
                 catch (Exception ex)
@@ -85,21 +84,27 @@ namespace SosesPOS
             }
         }
 
-        private void ProcessAmount()
+        private bool ProcessAmount()
         {
             if (ValidateCost())
             {
                 decimal amount = Convert.ToDecimal(txtAmount.Text);
+                amount = IntegerUtil.Normalize(amount);
                 string strAmount = $"{amount:n}";
-                string writtenNumbers = IntegerUtil.NumberToCurrencyText(amount, MidpointRounding.AwayFromZero);
                 this.txtAmount.Text = strAmount;
-                this.lblWrittenInteger.Text = writtenNumbers;
+                if (!amount.Equals(decimal.Zero))
+                {
+                    string writtenNumbers = IntegerUtil.NumberToCurrencyText(amount, MidpointRounding.AwayFromZero);
+                    this.lblWrittenInteger.Text = writtenNumbers;
+                }
+                return true;
             }
+            return false;
         }
 
         private bool ValidateCost()
         {
-            if (String.IsNullOrEmpty(txtAmount.Text) || Convert.ToDecimal(txtAmount.Text) <= 0)
+            if (String.IsNullOrEmpty(txtAmount.Text) || Convert.ToDecimal(txtAmount.Text) < 0)
             {
                 MessageBox.Show("Invalid Check Amount. Please try again", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.txtAmount.Focus();
@@ -111,30 +116,64 @@ namespace SosesPOS
 
         private void txtPayee_Leave(object sender, EventArgs e)
         {
+            //if (string.IsNullOrEmpty(txtPayee.Text.Trim()))
+            //{
+            //    MessageBox.Show("Invalid Payee Information", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    txtPayee.Focus();
+            //    txtPayee.SelectAll();
+            //}
+            //txtAmount.Focus();
+            //txtAmount.SelectAll();
+        }
+
+        private bool ValidateCheck()
+        {
+            if (!ProcessAmount())
+            {
+                return false;
+            }
             if (string.IsNullOrEmpty(txtPayee.Text.Trim()))
             {
                 MessageBox.Show("Invalid Payee Information", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtPayee.Focus();
                 txtPayee.SelectAll();
+                return false;
             }
-            txtAmount.Focus();
-            txtAmount.SelectAll();
+            return true;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             try
             {
-                ProcessAmount();
+                if (!ValidateCheck())
+                {
+                    return;
+                }
                 if (MessageBox.Show("Save and Print? Changes are irreversible", module
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
                     {
-                        // if other no need to continue processing
+                        // if other, we only need to print
                         if (rbOther.Checked)
                         {
                             PrintCheck(dtpCheckDate.Value.ToString("MM/dd/yyyy"), txtAmount.Text, txtPayee.Text);
+                            this.Dispose();
+                            return;
+                        }
+
+                        if (String.IsNullOrEmpty(cboCategory.Text) || cboCategory.SelectedIndex < 0)
+                        {
+                            MessageBox.Show("Invalid Category.", "Check Writer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cboCategory.Focus();
+                            return;
+                        }
+                        if (String.IsNullOrEmpty(txtVendorShortName.Text))
+                        {
+                            MessageBox.Show("Invalid Vendor.", "Check Writer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtVendorShortName.Focus();
+                            txtVendorShortName.SelectAll();
                             return;
                         }
 
@@ -175,10 +214,10 @@ namespace SosesPOS
                             csvDTO.CheckNo = txtCheckNo.Text;
                             csvDTO.CheckDate = dtpCheckDate.Value.ToString("MM/dd/yyyy");
                             csvDTO.CheckAmount = decAmount.ToString();
-                            csvDTO.VendorCode = hlblVendorCode.Text;
+                            csvDTO.VendorCode = hlblPayeeCode.Text;
                             csvDTO.VendorShortName = txtVendorShortName.Text;
                             csvDTO.VendorFullName = txtPayee.Text;
-                            csvDTO.Category = hlblCategoryID.Text;
+                            csvDTO.Category = cboCategory.SelectedValue.ToString();
                             csvDTO.Computer = "1";
                             csvDTO.Retain = decAmount.Equals(decimal.Zero) ? "1" : "0";
 
@@ -187,14 +226,14 @@ namespace SosesPOS
                             {
                                 com.Transaction = transaction;
                                 com.CommandText = "INSERT INTO tblCheckIssue (CheckNo, CheckDate, CheckAmount, CheckBankID" +
-                                    ", VendorCode, PayeeName, Computer, Retain, EntryTimestamp, LastChangedUser) " +
-                                    "VALUES (@checkno, @checkdate, @checkamount, @checkbankid, @vendorcode, @payeename" +
+                                    ", PayeeCode, PayeeName, Computer, Retain, EntryTimestamp, LastChangedUser) " +
+                                    "VALUES (@checkno, @checkdate, @checkamount, @checkbankid, @payeecode, @payeename" +
                                     ", @computer, @retain, @entrytimestamp, @lastchangeduser)";
                                 com.Parameters.AddWithValue("@checkno", csvDTO.CheckNo);
                                 com.Parameters.AddWithValue("@checkdate", csvDTO.CheckDate);
                                 com.Parameters.AddWithValue("@checkamount", decAmount);
                                 com.Parameters.AddWithValue("@checkbankid", checkBankID);
-                                com.Parameters.AddWithValue("@vendorcode", csvDTO.VendorCode);
+                                com.Parameters.AddWithValue("@payeecode", csvDTO.VendorCode);
                                 com.Parameters.AddWithValue("@payeename", csvDTO.VendorFullName);
                                 com.Parameters.AddWithValue("@computer", csvDTO.Computer);
                                 com.Parameters.AddWithValue("@retain", csvDTO.Retain);
@@ -316,6 +355,39 @@ namespace SosesPOS
                         txtCheckNo.Clear();
                     }
                 }
+            }
+        }
+
+        public void LoadCategory(string categoryId)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.CommandText = "SELECT id, category FROM tblCategory";
+                        using (SqlDataReader reader = com.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                dataSource.Add(new ComboBoxDTO() { Name = reader["category"].ToString(), Value = reader["id"].ToString() });
+                                //collection.Add(dr["pdesc"].ToString());
+                            }
+                            cboCategory.DataSource = dataSource;
+                            cboCategory.DisplayMember = "Name";
+                            cboCategory.ValueMember = "Value";
+                            cboCategory.SelectedValue = categoryId;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Write Check: formWriteCheck(): " + ex.Message, "Write Check", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

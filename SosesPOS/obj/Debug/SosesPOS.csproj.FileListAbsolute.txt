@@ -157,3 +157,4 @@ D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\Microsoft.Bcl.HashCode.xml
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCheckPrint.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPayee.resources

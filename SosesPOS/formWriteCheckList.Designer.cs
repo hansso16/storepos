@@ -37,10 +37,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvVendorList = new System.Windows.Forms.DataGridView();
+            this.btnBlankCheck = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vendorCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vendorName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WriteCheck = new System.Windows.Forms.DataGridViewLinkColumn();
             this.payee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.term = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +58,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnBlankCheck);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -163,7 +165,7 @@
             this.Column1,
             this.Column2,
             this.vendorCode,
-            this.vendorName,
+            this.WriteCheck,
             this.payee,
             this.term,
             this.Column3,
@@ -189,6 +191,18 @@
             this.dgvVendorList.TabIndex = 5;
             this.dgvVendorList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendorList_CellContentClick);
             // 
+            // btnBlankCheck
+            // 
+            this.btnBlankCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.btnBlankCheck.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnBlankCheck.Location = new System.Drawing.Point(203, 6);
+            this.btnBlankCheck.Name = "btnBlankCheck";
+            this.btnBlankCheck.Size = new System.Drawing.Size(145, 28);
+            this.btnBlankCheck.TabIndex = 10;
+            this.btnBlankCheck.Text = "Blank Check";
+            this.btnBlankCheck.UseVisualStyleBackColor = false;
+            this.btnBlankCheck.Click += new System.EventHandler(this.btnBlankCheck_Click);
+            // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -212,20 +226,23 @@
             this.vendorCode.ReadOnly = true;
             this.vendorCode.Width = 74;
             // 
-            // vendorName
+            // WriteCheck
             // 
-            this.vendorName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.vendorName.HeaderText = "VENDOR NAME";
-            this.vendorName.Name = "vendorName";
-            this.vendorName.ReadOnly = true;
+            this.WriteCheck.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.WriteCheck.HeaderText = "VENDOR NAME";
+            this.WriteCheck.Name = "WriteCheck";
+            this.WriteCheck.ReadOnly = true;
+            this.WriteCheck.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.WriteCheck.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.WriteCheck.TrackVisitedState = false;
+            this.WriteCheck.Width = 144;
             // 
             // payee
             // 
-            this.payee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.payee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.payee.HeaderText = "PAYEE";
             this.payee.Name = "payee";
             this.payee.ReadOnly = true;
-            this.payee.Width = 75;
             // 
             // term
             // 
@@ -306,10 +323,11 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvVendorList;
+        private System.Windows.Forms.Button btnBlankCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn vendorCode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vendorName;
+        private System.Windows.Forms.DataGridViewLinkColumn WriteCheck;
         private System.Windows.Forms.DataGridViewTextBoxColumn payee;
         private System.Windows.Forms.DataGridViewTextBoxColumn term;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;

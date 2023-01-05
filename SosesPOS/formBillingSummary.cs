@@ -160,7 +160,7 @@ namespace SosesPOS
                             com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED);
                             com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
                             com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
-                            //com.ExecuteNonQuery();
+                            com.ExecuteNonQuery();
                         }
                     }
                     MessageBox.Show("Printing Completed");

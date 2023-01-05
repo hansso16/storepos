@@ -48,8 +48,8 @@ namespace SosesPOS
                     sda.SelectCommand = new SqlCommand("SELECT i.InvoiceId invoiceId, c.CustomerName customerName FROM tblOrder o " +
                         "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
                         "WHERE o.OrderStatus = @orderstatus", con);
-                    //sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
-                    sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED);
+                    sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
+                    //sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED);
                     sda.Fill(ds.Tables["dtCustomer"]);
 
                     DataTable table = ds.Tables["dtCustomer"];
@@ -101,7 +101,7 @@ namespace SosesPOS
                         com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
                         com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
                         com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
-                        //com.ExecuteNonQuery();
+                        com.ExecuteNonQuery();
                     }
                     MessageBox.Show("Printing Completed");
                 }

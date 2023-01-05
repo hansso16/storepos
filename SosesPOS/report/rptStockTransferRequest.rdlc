@@ -246,7 +246,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="FOR: " &amp; CStr(Lookup(Fields!StockTransferID.Value,Fields!StockTransferID.Value,Fields!Note.Value,"dtStockTransfer"))</Value>
+                                  <Value>="FOR: " &amp; First(Fields!Note.Value, "dtStockTransfer")</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily>Segoe UI</FontFamily>
@@ -288,7 +288,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>="Reference No: " &amp; CStr(Lookup(Fields!StockTransferID.Value,Fields!StockTransferID.Value,Fields!StockTransferNo.Value,"dtStockTransfer"))</Value>
+                                  <Value>="Reference No: " &amp; First(Fields!StockTransferNo.Value, "dtStockTransfer")</Value>
                                   <Style>
                                     <FontFamily>Segoe UI</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -314,6 +314,7 @@
                           </Style>
                         </Textbox>
                         <ColSpan>3</ColSpan>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -587,7 +588,7 @@
             <Top>0.07056cm</Top>
             <Left>0.42016cm</Left>
             <Height>4.51377cm</Height>
-            <Width>13.04396cm</Width>
+            <Width>13.04397cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

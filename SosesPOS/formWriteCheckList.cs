@@ -38,10 +38,10 @@ namespace SosesPOS
                     con.Open();
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "SELECT v.VendorID, v.VendorCode, v.VendorName, v.CheckPayee, v.Term, v.CategoryID " +
-                            "FROM tblVendor v " +
-                            "WHERE v.VendorCode LIKE '%'+@search+'%' " +
-                            "OR v.VendorName LIKE '%'+@search+'%' ORDER BY v.VendorID";
+                        com.CommandText = "SELECT PayeeCode, PayeeShortName, PayeeName, Term, CategoryID " +
+                            "FROM tblPayee " +
+                            "WHERE PayeeCode LIKE '%'+@search+'%' " +
+                            "OR PayeeName LIKE '%'+@search+'%' ORDER BY PayeeShortName, PayeeName";
                         com.Parameters.AddWithValue("@search", this.txtSearch.Text);
                         Console.Write(com.CommandText);
                         using (SqlDataReader reader = com.ExecuteReader())
@@ -50,9 +50,9 @@ namespace SosesPOS
                             while (reader.Read())
                             {
                                 //dgvPayeeList.Rows.Add();
-                                dgvVendorList.Rows.Add(i++, reader["VendorID"]
-                                    , reader["VendorCode"], reader["VendorName"]
-                                    , reader["CheckPayee"], reader["Term"]
+                                dgvVendorList.Rows.Add(i++, ""
+                                    , reader["PayeeCode"], reader["PayeeShortName"]
+                                    , reader["PayeeName"], reader["Term"]
                                     , reader["CategoryID"]);
                             }
                         }
@@ -73,42 +73,48 @@ namespace SosesPOS
         private void dgvVendorList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             String colName = dgvVendorList.Columns[e.ColumnIndex].Name;
-            if (colName == "Edit")
+            if (colName == "WriteCheck")
             {
-                //MessageBox.Show("EDIT");
-                decimal a = (decimal)15.25;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)11.00;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)123.76;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)1240.32;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)46544.0;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)987766;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)8888888.88;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-                a = (decimal)77777777.77;
-                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
-
                 formWriteCheck form = new formWriteCheck(user);
                 form.txtPayee.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
                 int term = Convert.ToInt32(dgvVendorList[5, e.RowIndex].Value);
                 form.dtpCheckDate.Value = DateTime.Now.AddDays(term);
                 form.txtVendorShortName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
-                form.hlblVendorCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
-                form.hlblCategoryID.Text = dgvVendorList[6, e.RowIndex].Value.ToString();
+                form.hlblPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
+                string categoryId = dgvVendorList[6, e.RowIndex].Value.ToString();
+                form.LoadCategory(categoryId);
                 form.txtAmount.Focus();
+                form.ShowDialog();
+            }
+            else if (colName == "Edit")
+            {
+                decimal a = (decimal)15.25;
+                Console.WriteLine(IntegerUtil.NumberToCurrencyText(a, MidpointRounding.AwayFromZero));
+
+                formPayee form = new formPayee(user, this);
+                form.btnSave.Enabled = false;
+
+                form.txtPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
+                form.txtVendorName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
+                form.txtPayeeName.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
+                form.txtTerm.Text = dgvVendorList[5, e.RowIndex].Value.ToString();
+                form.cboCategory.SelectedValue = dgvVendorList[6, e.RowIndex].Value.ToString();
                 form.ShowDialog();
             }
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            formPayee form = new formPayee(user, this);
+            form.btnUpdate.Enabled = false;
+            form.ShowDialog();
+        }
+
+        private void btnBlankCheck_Click(object sender, EventArgs e)
+        {
             formWriteCheck form = new formWriteCheck(user);
             form.dtpCheckDate.Value = DateTime.Now;
+            form.LoadCategory("101");
             form.txtAmount.Focus();
             form.ShowDialog();
         }

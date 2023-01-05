@@ -580,6 +580,7 @@ namespace SosesPOS
                     {
                         Queue<int> queue = new Queue<int>();
                         Queue<int> qtyQueue = new Queue<int>();
+                        Queue<int> qtyCountQueue = new Queue<int>();
                         totalPrice += Decimal.Parse(row.Cells["total"].Value.ToString());
 
                         using (SqlCommand tmpCom = new SqlCommand("SELECT  i.InventoryID, i.Qty " +
@@ -621,12 +622,13 @@ namespace SosesPOS
                                     reader.Close();
 
                                     // Process Inventory
-                                    invoiceQty = UpdateInventory(transaction, queue, qtyQueue, invoiceQty, posInventoryList, row); 
+                                    invoiceQty = UpdateInventory(transaction, queue, qtyQueue, qtyCountQueue, invoiceQty, posInventoryList, row); 
 
-                                    while (queue.Count > 0 && qtyQueue.Count > 0)
+                                    while (queue.Count > 0 && qtyQueue.Count > 0 && qtyCountQueue.Count > 0)
                                     {
                                         int invID = queue.Dequeue();
                                         int invQty = qtyQueue.Dequeue();
+                                        int qtyCount = qtyCountQueue.Dequeue();
                                         // Save to tblInvoiceDetails With Inventory Reserved
                                         SaveInvoiceDetails(invoiceId, transaction, row, invID, invQty);
                                     }
@@ -674,14 +676,15 @@ namespace SosesPOS
             }
         }
 
-        private int UpdateInventory(SqlTransaction transaction, Queue<int> queue, Queue<int> qtyQueue, int invoiceQty, List<POSInventoryDTO> posInventoryList
-            , DataGridViewRow row)
+        private int UpdateInventory(SqlTransaction transaction, Queue<int> queue, Queue<int> qtyQueue, Queue<int> qtyCountQueue
+            , int invoiceQty, List<POSInventoryDTO> posInventoryList, DataGridViewRow row)
         {
             int uomid = Convert.ToInt32(row.Cells["uomid"].Value);
             string uomCode = null;
             int uomCount = 0;
             int productWholeCount = 1;
             bool isWholeTransaction = false;
+            int totalQty = invoiceQty;
             using (SqlCommand com = new SqlCommand("SELECT type, description, code, count " +
                 "FROM tblUOM WHERE id = @id", con, transaction))
             {
@@ -730,12 +733,14 @@ namespace SosesPOS
                 {
                     // Process inventory - whole
                     int qtyCounter = 0;
+                    int qtyCountCounter = 0;
                     bool isWhole = false;
                     while (inventoryQty >= productWholeCount && invoiceQty > 0) // count
                     {
                         inventoryQty-= productWholeCount;
                         invoiceQty-= productWholeCount;
-                        qtyCounter+= productWholeCount;
+                        qtyCounter++;
+                        qtyCountCounter += productWholeCount;
                         isWhole = true;
                     }
 
@@ -743,6 +748,7 @@ namespace SosesPOS
                     {
                         //update inventory
                         qtyQueue.Enqueue(qtyCounter);
+                        qtyCountQueue.Enqueue(qtyCountCounter);
                         UpdateInventoryQty(transaction, inventoryId, inventoryQty);
                     }
                 }
@@ -753,17 +759,32 @@ namespace SosesPOS
                     {
                         // update inventory qty: inventoryQty - invoiceQty
                         int newInventoryQty = inventoryQty - invoiceQty;
-                        qtyQueue.Enqueue(invoiceQty);
+                        qtyQueue.Enqueue(totalQty);
+                        qtyCountQueue.Enqueue(invoiceQty);
                         invoiceQty = 0;
                         UpdateInventoryQty(transaction, inventoryId, newInventoryQty);
                         break;
                     }
                     else
                     {
+                        int qtyCounter = 0;
+                        int qtyCountCounter = 0;
                         // update inventory qty: invoiceQty - inventoryQty
-                        invoiceQty = invoiceQty - inventoryQty;
-                        qtyQueue.Enqueue(inventoryQty);
-                        inventoryQty = 0;
+                        while (inventoryQty >= uomCount && invoiceQty > 0)
+                        {
+                            inventoryQty -= uomCount;
+                            invoiceQty -= inventoryQty;
+                            qtyCounter++;
+                            qtyCountCounter += uomCount;
+                        }
+
+                        if (qtyCounter > 0 && qtyCountCounter > 0)
+                        {
+                            qtyQueue.Enqueue(qtyCounter);
+                            qtyCountQueue.Enqueue(qtyCountCounter);
+                        }
+                        //invoiceQty = invoiceQty - inventoryQty;
+                        //inventoryQty = 0;
                         UpdateInventoryQty(transaction, inventoryId, inventoryQty);
                     }
                 }

@@ -26,11 +26,19 @@ namespace SosesPOS
             {
                 this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptCheckPrint.rdlc";
                 this.reportViewer1.LocalReport.DataSources.Clear();
+                decimal amount = Convert.ToDecimal(checkAmount);
+                amount = IntegerUtil.Normalize(amount);
+                string writtenFigures = " ";
+                string strAmount = " ";
 
                 ReportParameter pCheckDate = new ReportParameter("pCheckDate", checkDate);
-                ReportParameter pCheckAmount = new ReportParameter("pCheckAmount", checkAmount);
                 ReportParameter pPayee = new ReportParameter("pPayee", payee);
-                string writtenFigures = IntegerUtil.NumberToCurrencyText(Convert.ToDecimal(checkAmount), MidpointRounding.AwayFromZero);
+                if (!amount.Equals(decimal.Zero))
+                {
+                    writtenFigures = IntegerUtil.NumberToCurrencyText(amount, MidpointRounding.AwayFromZero);
+                    strAmount = checkAmount;
+                }
+                ReportParameter pCheckAmount = new ReportParameter("pCheckAmount", strAmount);
                 ReportParameter pWrittenFigures = new ReportParameter("pWrittenFigures", writtenFigures);
 
                 reportViewer1.LocalReport.SetParameters(pCheckDate);
