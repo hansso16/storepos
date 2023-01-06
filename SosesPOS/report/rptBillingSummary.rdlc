@@ -96,7 +96,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>CODE</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -129,7 +131,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>DESCRIPTION</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -164,7 +168,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value />
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -199,7 +205,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>PREV</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -234,7 +242,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>OUT</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -269,7 +279,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>CRNT</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -309,7 +321,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!pcode.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -339,7 +353,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!pdesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -371,7 +387,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=IIF(Fields!Location.Value.Equals("1"), "*", "")</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -403,7 +421,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!prev.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -435,7 +455,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!out.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -467,7 +489,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!current.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -779,7 +803,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>="Total Out: " &amp; Sum(Fields!out.Value)</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -880,14 +906,14 @@
                     <TextRun>
                       <Value>Date: </Value>
                       <Style>
-                        <FontFamily>Segoe UI</FontFamily>
+                        <FontFamily>Verdana</FontFamily>
                         <FontSize>14pt</FontSize>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=Parameters!pDate.Value</Value>
                       <Style>
-                        <FontFamily>Segoe UI</FontFamily>
+                        <FontFamily>Verdana</FontFamily>
                         <FontSize>14pt</FontSize>
                       </Style>
                     </TextRun>
@@ -919,7 +945,7 @@
                     <TextRun>
                       <Value>Stock Withdrawal - Whole</Value>
                       <Style>
-                        <FontFamily>Segoe UI</FontFamily>
+                        <FontFamily>Verdana</FontFamily>
                         <FontSize>14pt</FontSize>
                       </Style>
                     </TextRun>
@@ -952,7 +978,7 @@
                     <TextRun>
                       <Value>=Parameters!pAreaName.Value</Value>
                       <Style>
-                        <FontFamily>Segoe UI</FontFamily>
+                        <FontFamily>Verdana</FontFamily>
                         <FontSize>14pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -998,25 +1024,25 @@
                     <TextRun>
                       <Value>Page: </Value>
                       <Style>
-                        <FontFamily />
+                        <FontFamily>Verdana</FontFamily>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=Globals!PageNumber</Value>
                       <Style>
-                        <FontFamily />
+                        <FontFamily>Verdana</FontFamily>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value> of </Value>
                       <Style>
-                        <FontFamily />
+                        <FontFamily>Verdana</FontFamily>
                       </Style>
                     </TextRun>
                     <TextRun>
                       <Value>=Globals!TotalPages</Value>
                       <Style>
-                        <FontFamily />
+                        <FontFamily>Verdana</FontFamily>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -1025,9 +1051,9 @@
               </Paragraphs>
               <rd:DefaultName>Textbox31</rd:DefaultName>
               <Top>0.60537cm</Top>
-              <Left>11.33687cm</Left>
+              <Left>10.70187cm</Left>
               <Height>0.6cm</Height>
-              <Width>2.31246cm</Width>
+              <Width>2.94746cm</Width>
               <ZIndex>4</ZIndex>
               <Style>
                 <Border>
@@ -1059,13 +1085,16 @@
                   <TextRuns>
                     <TextRun>
                       <Value>( Continue on next page )</Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox287</rd:DefaultName>
+              <Top>0cm</Top>
               <Left>2.04078cm</Left>
               <Height>0.6cm</Height>
               <Width>6.45604cm</Width>

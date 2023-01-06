@@ -116,7 +116,7 @@
                                 <TextRun>
                                   <Value>="Date: " &amp; Parameters!pDate.Value</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -184,7 +184,7 @@
                                 <TextRun>
                                   <Value>Stock Withdrawal - Whole</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -252,7 +252,7 @@
                                 <TextRun>
                                   <Value>=Lookup(Fields!invoiceId.Value,Fields!invoiceId.Value,Fields!customerName.Value,"dtCustomer")</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -328,7 +328,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Code</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -362,7 +364,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Stock Description</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -396,7 +400,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Out</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -437,7 +443,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!pcode.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -466,7 +474,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!pdesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -495,7 +505,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!out.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -561,6 +573,7 @@
                                 <TextRun>
                                   <Value>="Total Out: " &amp; Sum(Fields!out.Value)</Value>
                                   <Style>
+                                    <FontFamily>Verdana</FontFamily>
                                     <TextDecoration>Underline</TextDecoration>
                                   </Style>
                                 </TextRun>
@@ -601,7 +614,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value />
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -630,7 +645,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value />
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -662,7 +679,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value />
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -736,16 +755,17 @@
             </TablixRowHierarchy>
             <DataSetName>dtItems</DataSetName>
             <Left>0.36724cm</Left>
-            <Height>3.88635cm</Height>
-            <Width>13.17625cm</Width>
+            <Height>3.88636cm</Height>
+            <Width>13.17624cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <FontFamily>Verdana</FontFamily>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>3.88635cm</Height>
+        <Height>3.88636cm</Height>
         <Style />
       </Body>
       <Width>5.5in</Width>

@@ -101,7 +101,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!pcode.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -132,15 +134,21 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!qty.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value xml:space="preserve"> </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                                 <TextRun>
                                   <Value>=Fields!uom.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -171,7 +179,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!pdesc.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -203,6 +213,7 @@
                                 <TextRun>
                                   <Value>=FormatNumber(Fields!price.Value, 2)</Value>
                                   <Style>
+                                    <FontFamily>Verdana</FontFamily>
                                     <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -236,6 +247,7 @@
                                 <TextRun>
                                   <Value>=FormatNumber(Fields!total.Value, 2)</Value>
                                   <Style>
+                                    <FontFamily>Verdana</FontFamily>
                                     <Format>#,0.00;(#,0.00)</Format>
                                   </Style>
                                 </TextRun>
@@ -363,7 +375,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Total Sale </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -520,7 +534,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>less: VAT </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -674,7 +690,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Net of VAT </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -828,7 +846,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>less: Discount </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -982,7 +1002,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Amount Due </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1136,7 +1158,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Add: VAT </Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Verdana</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1291,7 +1315,7 @@
                                 <TextRun>
                                   <Value>Total </Value>
                                   <Style>
-                                    <FontSize>11pt</FontSize>
+                                    <FontFamily>Verdana</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1436,6 +1460,7 @@
               <Border>
                 <Style>None</Style>
               </Border>
+              <FontFamily>Verdana</FontFamily>
             </Style>
           </Tablix>
         </ReportItems>
@@ -1449,7 +1474,7 @@
       <Width>15cm</Width>
       <Page>
         <PageHeader>
-          <Height>5.39749cm</Height>
+          <Height>4.97416cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1461,14 +1486,16 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=Parameters!pDate.Value</Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>pDate</rd:DefaultName>
-              <Top>1.37721cm</Top>
+              <Top>1.24077cm</Top>
               <Left>12.6217cm</Left>
               <Height>0.53178cm</Height>
               <Width>2.15604cm</Width>
@@ -1490,14 +1517,16 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=Parameters!pCName.Value</Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>pCName</rd:DefaultName>
-              <Top>1.40367cm</Top>
+              <Top>1.26723cm</Top>
               <Left>7.91274cm</Left>
               <Height>0.53178cm</Height>
               <Width>3.97288cm</Width>
@@ -1520,14 +1549,16 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=Parameters!pCAddress.Value</Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>pCAddress</rd:DefaultName>
-              <Top>2.11184cm</Top>
+              <Top>1.9754cm</Top>
               <Left>7.91274cm</Left>
               <Height>1.02333cm</Height>
               <Width>6.865cm</Width>
@@ -1550,14 +1581,16 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=Parameters!pCCode.Value</Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>pCCode</rd:DefaultName>
-              <Top>0.5326cm</Top>
+              <Top>0.39616cm</Top>
               <Left>12.6217cm</Left>
               <Height>0.53178cm</Height>
               <Width>2.15604cm</Width>
@@ -1580,14 +1613,16 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=Parameters!pRefNo.Value</Value>
-                      <Style />
+                      <Style>
+                        <FontFamily>Verdana</FontFamily>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>pRefNo</rd:DefaultName>
-              <Top>0.5326cm</Top>
+              <Top>0.39616cm</Top>
               <Left>7.91274cm</Left>
               <Height>0.6cm</Height>
               <Width>3.97288cm</Width>

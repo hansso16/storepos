@@ -104,7 +104,7 @@
                                 <TextRun>
                                   <Value>="Date: " &amp; Parameters!pDate.Value</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -176,7 +176,7 @@
                                   <Value>WITHDRAWALS</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>14pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -249,7 +249,7 @@
                                   <Value>="FOR: " &amp; First(Fields!Note.Value, "dtStockTransfer")</Value>
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>14pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -290,7 +290,7 @@
                                 <TextRun>
                                   <Value>="Reference No: " &amp; First(Fields!StockTransferNo.Value, "dtStockTransfer")</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>14pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -314,7 +314,6 @@
                           </Style>
                         </Textbox>
                         <ColSpan>3</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell />
@@ -335,7 +334,7 @@
                                 <TextRun>
                                   <Value>CODE</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -371,7 +370,7 @@
                                 <TextRun>
                                   <Value>ITEM</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -407,7 +406,7 @@
                                 <TextRun>
                                   <Value>OUT</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -450,7 +449,7 @@
                                 <TextRun>
                                   <Value>=Fields!PCode.Value</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -482,7 +481,7 @@
                                 <TextRun>
                                   <Value>=Fields!PDesc.Value</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
@@ -514,7 +513,7 @@
                                 <TextRun>
                                   <Value>=Fields!Qty.Value</Value>
                                   <Style>
-                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontFamily>Verdana</FontFamily>
                                     <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
