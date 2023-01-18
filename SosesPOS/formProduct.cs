@@ -79,6 +79,7 @@ namespace SosesPOS
             com.Parameters.AddWithValue("@pcode", pcode);
             dr = com.ExecuteReader();
             //int i = 0;
+            productDetailsCounter = 0;
             while (dr.Read())
             {
                 productDetailsView.Rows.Add(++productDetailsCounter, dr["id"].ToString()

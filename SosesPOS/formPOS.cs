@@ -593,20 +593,6 @@ namespace SosesPOS
                             tmpCom.Parameters.AddWithValue("@slid", row.Cells["slid"].Value.ToString());
                             int invoiceQty = Convert.ToInt32(row.Cells["qty"].Value);
 
-                            //int count = 0;
-                            //if (!String.IsNullOrEmpty(row.Cells["count"].Value.ToString())) // TODO
-                            //{
-                            //    count = Convert.ToInt32(row.Cells["count"].Value);
-                            //    invoiceQty = invoiceQty * count;
-                            //}
-                            //else
-                            //{
-                            //    invoiceQty = invoiceQty * uomDto.count;
-                            //}
-                            //if (!String.IsNullOrEmpty(txtCount.Text) && count > 1)
-                            //{
-                            //    invoiceQty = invoiceQty * count;
-                            //}
                             using (SqlDataReader reader = tmpCom.ExecuteReader())
                             {
                                 if (reader.HasRows)
@@ -789,6 +775,15 @@ namespace SosesPOS
                     }
                 }
             }
+
+            if (isWholeTransaction && invoiceQty > 0)
+            {
+                invoiceQty = invoiceQty / productWholeCount;
+            } else if (invoiceQty > 0)
+            {
+                invoiceQty = invoiceQty / uomCount;
+            }
+
             return invoiceQty;
         }
 

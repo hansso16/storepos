@@ -84,11 +84,13 @@ namespace SosesPOS
                     com.Parameters.AddWithValue("@enddate", txtEndDate.Text);
                     com.ExecuteNonQuery();
 
+                    decimal price = Convert.ToDecimal(txtPrice.Text);
+
                     com = new SqlCommand("INSERT INTO tblProductDetails (pcode, uom, price, startdate, enddate) " +
                         "VALUES (@pcode, @uom, @price, @startdate, @enddate)", con, transaction);
                     com.Parameters.AddWithValue("@pcode", lblPCode.Text);
                     com.Parameters.AddWithValue("@uom", lblUOMID.Text);
-                    com.Parameters.AddWithValue("@price", txtPrice.Text);
+                    com.Parameters.AddWithValue("@price", price);
                     com.Parameters.AddWithValue("@startdate", DateTime.Today);
                     com.Parameters.AddWithValue("@enddate", new DateTime(9999, 12, 31));
                     com.ExecuteNonQuery();

@@ -208,7 +208,7 @@ namespace SosesPOS
                                 return;
                             }
 
-                            // Set up data // TODO
+                            // Set up data
                             CheckCSVDTO csvDTO = new CheckCSVDTO();
                             csvDTO.Bank = hlblBankShortName.Text;
                             csvDTO.CheckNo = txtCheckNo.Text;
@@ -412,7 +412,7 @@ namespace SosesPOS
 
             //string newLine = string.Format("{0}, {1}, {2}, {3}", "", "", "", 01);
             String[] newLine = { csv.Bank.ToString(), csv.CheckNo, csv.CheckDate, csv.CheckAmount, csv.VendorCode
-                    , csv.VendorShortName, csv.VendorFullName, csv.Category, csv.Computer, csv.Retain };
+                    , "\"" + csv.VendorShortName + "\"", "\"" + csv.VendorFullName + "\"", csv.Category, csv.Computer, csv.Retain };
             output.AppendLine(string.Join(GlobalConstant.COMMA_SEPARATOR, newLine));
 
             try
