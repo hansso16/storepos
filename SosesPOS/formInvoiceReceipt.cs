@@ -43,7 +43,6 @@ namespace SosesPOS
             ReportDataSource rptDataSource;
             try
             {
-                MessageBox.Show(System.IO.Path.GetDirectoryName(Application.StartupPath));
                 //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptInvoiceReceipt.rdlc";
                 //this.reportViewer1.LocalReport.ReportPath = "~/report/rptInvoiceReceipt.rdlc";
                 this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptInvoiceReceipt.rdlc";
