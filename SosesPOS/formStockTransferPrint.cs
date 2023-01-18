@@ -27,7 +27,8 @@ namespace SosesPOS
         {
             try
             {
-                this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptStockTransferRequest.rdlc";
+                //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptStockTransferRequest.rdlc";
+                this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptStockTransferRequest.rdlc";
                 this.reportViewer1.LocalReport.DataSources.Clear();
 
                 ReportParameter pDate = new ReportParameter("pDate", DateTime.Today.ToString("ddd, MM/dd/yyyy"));

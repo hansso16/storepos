@@ -38,7 +38,8 @@ namespace SosesPOS
             ReportDataSource rptDataSource;
             try
             {
-                this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptBillingSummary.rdlc";
+                //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptBillingSummary.rdlc";
+                this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptBillingSummary.rdlc";
                 this.reportViewer1.LocalReport.DataSources.Clear();
 
                 ReportParameter pDate = new ReportParameter("pDate", DateTime.Today.ToString("ddd, MM/dd/yyyy"));

@@ -43,7 +43,11 @@ namespace SosesPOS
             ReportDataSource rptDataSource;
             try
             {
-                this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptInvoiceReceipt.rdlc";
+                MessageBox.Show(System.IO.Path.GetDirectoryName(Application.StartupPath));
+                //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptInvoiceReceipt.rdlc";
+                //this.reportViewer1.LocalReport.ReportPath = "~/report/rptInvoiceReceipt.rdlc";
+                this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptInvoiceReceipt.rdlc";
+                //MessageBox.Show(this.reportViewer1.LocalReport.ReportEmbeddedResource);
                 this.reportViewer1.LocalReport.DataSources.Clear();
 
                 ReportParameter pRefNo = new ReportParameter("pRefNo", RefNo);

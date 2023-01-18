@@ -24,7 +24,8 @@ namespace SosesPOS
         {
             try
             {
-                this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptCheckPrint.rdlc";
+                //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptCheckPrint.rdlc";
+                this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptCheckPrint.rdlc";
                 this.reportViewer1.LocalReport.DataSources.Clear();
                 decimal amount = Convert.ToDecimal(checkAmount);
                 amount = IntegerUtil.Normalize(amount);
