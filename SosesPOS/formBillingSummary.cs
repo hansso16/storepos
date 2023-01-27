@@ -152,6 +152,7 @@ namespace SosesPOS
                             //Print
                             Export(reportViewer1.LocalReport);
                             Print(areaDTO.areaName);
+                            this.Focus();
                         }
                         
                         // Update Order status to issued after printing.

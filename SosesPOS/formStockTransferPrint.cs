@@ -51,12 +51,10 @@ namespace SosesPOS
                 foreach (DataRow row in table.Rows)
                 {
                     int stockTransferId = Convert.ToInt32(row["StockTransferID"]);
-                    Console.WriteLine(row["StockTransferNo"].ToString());
-                    Console.WriteLine(row["Note"].ToString());
                     SqlDataAdapter sdaItems = new SqlDataAdapter();
                     sdaItems.SelectCommand = new SqlCommand("SELECT str.StockTransferID, str.PCode, str.Qty, p.pdesc " +
                         "FROM tblStockTransferRequest str INNER JOIN tblProduct p ON p.pcode = str.PCode " +
-                        "WHERE str.StockTransferID = @stocktransferid", con, transaction);
+                        "WHERE str.StockTransferID = @stocktransferid ORDER BY p.pdesc, str.PCode", con, transaction);
                     sdaItems.SelectCommand.Parameters.AddWithValue("@stocktransferid", stockTransferId);
                     sdaItems.Fill(ds.Tables["dtStockTransferItems"]);
                 }

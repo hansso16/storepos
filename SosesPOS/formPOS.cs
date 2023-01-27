@@ -895,6 +895,7 @@ namespace SosesPOS
         {
             formPOSWithdrawal form = new formPOSWithdrawal();
             form.LoadReport();
+            this.Focus();
         }
 
         private void cartGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1119,6 +1120,7 @@ namespace SosesPOS
         {
             formInvoiceReceipt form = new formInvoiceReceipt();
             form.LoadReport(refno);
+            this.Focus();
         }
 
         private void cboSearch_KeyDown(object sender, KeyEventArgs e)

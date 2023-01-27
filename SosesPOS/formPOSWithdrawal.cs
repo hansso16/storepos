@@ -104,6 +104,7 @@ namespace SosesPOS
                         com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
                         com.ExecuteNonQuery();
                     }
+                    this.Focus();
                     MessageBox.Show("Printing Completed");
                 }
             }

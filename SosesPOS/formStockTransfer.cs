@@ -559,6 +559,7 @@ namespace SosesPOS
 
                     // Print
                     PrintTransferRequest(con, transaction, refNo);
+                    this.Focus();
 
                     //MessageBox
                     transaction.Commit();

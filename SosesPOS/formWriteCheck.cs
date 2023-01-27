@@ -451,6 +451,7 @@ namespace SosesPOS
         {
             formCheckPrint form = new formCheckPrint();
             form.PrintCheck(checkDate, checkAmount, payee);
+            this.Focus();
         }
     }
 }
