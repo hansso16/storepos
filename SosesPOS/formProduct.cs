@@ -203,7 +203,7 @@ namespace SosesPOS
                     com.Parameters.AddWithValue("@cid", cboCategoryId);
                     com.Parameters.AddWithValue("@count", txtCount.Text);
                     com.ExecuteNonQuery();
-                    0
+
                     con.Close();
                     MessageBox.Show("Product record has been successfully saved");
                     Clear();
