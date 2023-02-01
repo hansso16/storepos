@@ -56,7 +56,7 @@
             this.txtPayee.Location = new System.Drawing.Point(190, 162);
             this.txtPayee.Name = "txtPayee";
             this.txtPayee.Size = new System.Drawing.Size(311, 29);
-            this.txtPayee.TabIndex = 0;
+            this.txtPayee.TabIndex = 35;
             this.txtPayee.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPayee_KeyDown);
             this.txtPayee.Leave += new System.EventHandler(this.txtPayee_Leave);
             // 
@@ -68,7 +68,7 @@
             this.dtpCheckDate.Location = new System.Drawing.Point(533, 96);
             this.dtpCheckDate.Name = "dtpCheckDate";
             this.dtpCheckDate.Size = new System.Drawing.Size(139, 29);
-            this.dtpCheckDate.TabIndex = 1;
+            this.dtpCheckDate.TabIndex = 30;
             // 
             // txtAmount
             // 
@@ -76,7 +76,7 @@
             this.txtAmount.Location = new System.Drawing.Point(533, 162);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(139, 29);
-            this.txtAmount.TabIndex = 2;
+            this.txtAmount.TabIndex = 40;
             this.txtAmount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAmount_KeyDown);
             this.txtAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAmount_KeyPress);
             this.txtAmount.Leave += new System.EventHandler(this.txtAmount_Leave);
@@ -99,7 +99,7 @@
             this.btnSubmit.Location = new System.Drawing.Point(533, 330);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(139, 39);
-            this.btnSubmit.TabIndex = 4;
+            this.btnSubmit.TabIndex = 50;
             this.btnSubmit.Text = "Save and Print";
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
@@ -121,7 +121,7 @@
             this.txtCheckNo.Location = new System.Drawing.Point(291, 96);
             this.txtCheckNo.Name = "txtCheckNo";
             this.txtCheckNo.Size = new System.Drawing.Size(133, 29);
-            this.txtCheckNo.TabIndex = 6;
+            this.txtCheckNo.TabIndex = 25;
             this.txtCheckNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheckNo_KeyPress);
             // 
             // rbBDO
@@ -215,7 +215,7 @@
             this.txtVendorShortName.Location = new System.Drawing.Point(206, 336);
             this.txtVendorShortName.Name = "txtVendorShortName";
             this.txtVendorShortName.Size = new System.Drawing.Size(295, 29);
-            this.txtVendorShortName.TabIndex = 17;
+            this.txtVendorShortName.TabIndex = 45;
             // 
             // label3
             // 

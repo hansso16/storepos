@@ -86,6 +86,7 @@ namespace SosesPOS
                 print.Export(reportViewer1.LocalReport);
                 print.Print();
 
+                this.Dispose();
                 //MessageBox.Show("Printing Completed");
             } 
             catch (Exception ex)

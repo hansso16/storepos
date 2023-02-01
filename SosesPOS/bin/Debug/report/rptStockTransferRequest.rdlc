@@ -320,7 +320,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.67938cm</Height>
+                  <Height>0.54709cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -349,6 +349,7 @@
                             <BottomBorder>
                               <Style>Dashed</Style>
                             </BottomBorder>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -384,6 +385,7 @@
                             <BottomBorder>
                               <Style>Dashed</Style>
                             </BottomBorder>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -421,6 +423,7 @@
                             <BottomBorder>
                               <Style>Dashed</Style>
                             </BottomBorder>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -432,7 +435,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.60854cm</Height>
+                  <Height>0.58208cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -457,6 +460,7 @@
                             <Border>
                               <Color>LightGrey</Color>
                             </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -488,6 +492,7 @@
                             <Border>
                               <Color>LightGrey</Color>
                             </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -521,6 +526,7 @@
                             <Border>
                               <Color>LightGrey</Color>
                             </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -532,7 +538,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.62646cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -590,6 +596,7 @@
                             <Border>
                               <Color>LightGrey</Color>
                             </Border>
+                            <VerticalAlign>Bottom</VerticalAlign>
                             <PaddingLeft>0cm</PaddingLeft>
                             <PaddingRight>0cm</PaddingRight>
                             <PaddingTop>0cm</PaddingTop>
@@ -656,7 +663,7 @@
             <DataSetName>dtStockTransferItems</DataSetName>
             <Top>0.07056cm</Top>
             <Left>0.42016cm</Left>
-            <Height>4.24065cm</Height>
+            <Height>4.10836cm</Height>
             <Width>13.04397cm</Width>
             <Style>
               <Border>

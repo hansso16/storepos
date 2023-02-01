@@ -100,6 +100,7 @@ namespace SosesPOS
                 form.txtTerm.Text = dgvVendorList[5, e.RowIndex].Value.ToString();
                 form.cboCategory.SelectedValue = dgvVendorList[6, e.RowIndex].Value.ToString();
                 form.ShowDialog();
+                form.cboCategory.Focus();
             }
         }
 

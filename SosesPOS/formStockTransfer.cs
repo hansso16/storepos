@@ -577,6 +577,7 @@ namespace SosesPOS
         {
             formStockTransferPrint form = new formStockTransferPrint();
             form.LoadReport(con, transaction, refno);
+            this.Focus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

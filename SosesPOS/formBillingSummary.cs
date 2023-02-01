@@ -39,6 +39,7 @@ namespace SosesPOS
             try
             {
                 //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptBillingSummary.rdlc";
+                this.reportViewer1.LocalReport.Refresh();
                 this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptBillingSummary.rdlc";
                 this.reportViewer1.LocalReport.DataSources.Clear();
 
@@ -166,6 +167,7 @@ namespace SosesPOS
                         }
                     }
                     MessageBox.Show("Printing Completed");
+                    this.Dispose();
                 }
             }
             catch (Exception ex)
@@ -244,7 +246,6 @@ namespace SosesPOS
                 m_currentPageIndex = 0;
                 MessageBox.Show("Printing SUMMARY for Area: " + area.ToUpper());
                 printDoc.Print();
-                this.Dispose();
                 //MessageBox.Show("DONE");
             }
         }

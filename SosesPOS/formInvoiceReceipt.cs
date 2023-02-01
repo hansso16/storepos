@@ -116,6 +116,7 @@ namespace SosesPOS
                 Export(reportViewer1.LocalReport);
                 Print();
 
+                this.Dispose();
             } 
             catch (Exception ex)
             {
@@ -194,7 +195,6 @@ namespace SosesPOS
                 m_currentPageIndex = 0;
                 MessageBox.Show("Document is ready for printing.");
                 printDoc.Print();
-                this.Dispose();
                 //MessageBox.Show("DONE");
             }
         }

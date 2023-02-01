@@ -190,14 +190,20 @@ namespace SosesPOS
                     }
                     dr.Close();
 
+                    int cboCategoryId = 0;
+                    if (!string.IsNullOrEmpty(cboCategory.Text) || !(cboCategory.SelectedIndex == -1))
+                    {
+                        cboCategoryId = Convert.ToInt32(cboCategory.SelectedValue);
+                    }
+
                     com = new SqlCommand("INSERT INTO tblProduct (pcode, barcode, pdesc, cid, count) VALUES (@pcode, @barcode, @pdesc, @cid, @count)", con);
                     com.Parameters.AddWithValue("@pcode", txtPCode.Text);
                     com.Parameters.AddWithValue("@barcode", txtBarcode.Text);
                     com.Parameters.AddWithValue("@pdesc", txtDesc.Text);
-                    com.Parameters.AddWithValue("@cid", cboCategory.SelectedValue.ToString());
+                    com.Parameters.AddWithValue("@cid", cboCategoryId);
                     com.Parameters.AddWithValue("@count", txtCount.Text);
                     com.ExecuteNonQuery();
-
+                    0
                     con.Close();
                     MessageBox.Show("Product record has been successfully saved");
                     Clear();
@@ -217,12 +223,17 @@ namespace SosesPOS
             {
                 if (MessageBox.Show("Are you sure you want to update this product?", "Register Category", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    int cboCategoryId = 0;
+                    if (!string.IsNullOrEmpty(cboCategory.Text) || !(cboCategory.SelectedIndex == -1))
+                    {
+                        cboCategoryId = Convert.ToInt32(cboCategory.SelectedValue);
+                    }
                     con.Open();
                     com = new SqlCommand("UPDATE tblProduct SET barcode = @barcode, pdesc = @pdesc, cid = @cid, count = @count where pcode = @pcode", con);
                     com.Parameters.AddWithValue("@pcode", txtPCode.Text);
                     com.Parameters.AddWithValue("@barcode", txtBarcode.Text);
                     com.Parameters.AddWithValue("@pdesc", txtDesc.Text);
-                    com.Parameters.AddWithValue("@cid", cboCategory.SelectedValue.ToString());
+                    com.Parameters.AddWithValue("@cid", cboCategoryId);
                     com.Parameters.AddWithValue("@count", txtCount.Text);
                     com.ExecuteNonQuery();
                     con.Close();

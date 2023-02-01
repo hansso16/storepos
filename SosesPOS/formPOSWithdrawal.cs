@@ -106,6 +106,7 @@ namespace SosesPOS
                     }
                     this.Focus();
                     MessageBox.Show("Printing Completed");
+                    this.Dispose();
                 }
             }
             catch (Exception ex)
@@ -184,7 +185,6 @@ namespace SosesPOS
                 m_currentPageIndex = 0;
                 //MessageBox.Show("Printing SUMMARY for Area: " + area.ToUpper());
                 printDoc.Print();
-                this.Dispose();
                 //MessageBox.Show("DONE");
             }
         }

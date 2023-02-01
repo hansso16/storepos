@@ -135,6 +135,7 @@ namespace SosesPOS
         {
             formBillingSummary form = new formBillingSummary();
             form.LoadReport();
+            this.Focus();
             //form.Show();
         }
     }
