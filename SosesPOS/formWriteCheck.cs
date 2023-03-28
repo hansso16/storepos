@@ -129,7 +129,7 @@ namespace SosesPOS
         private bool ValidateCheck()
         {
             if (!ProcessAmount())
-            {
+            { 
                 return false;
             }
             if (string.IsNullOrEmpty(txtPayee.Text.Trim()))

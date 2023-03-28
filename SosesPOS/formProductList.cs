@@ -31,7 +31,8 @@ namespace SosesPOS
             con.Open();
             com = new SqlCommand("select p.pcode, p.barcode, p.pdesc, p.count, c.category from tblProduct p " +
                 "left join tblCategory c on c.id = p.cid " +
-                "where p.pdesc like '%'+@search+'%' or p.pcode like '%'+@search+'%'", con);
+                "where p.pdesc like '%'+@search+'%' or p.pcode like '%'+@search+'%' " +
+                "order by p.pdesc asc", con);
             com.Parameters.AddWithValue("@search", txtSearch.Text);
             dr = com.ExecuteReader();
             while (dr.Read())

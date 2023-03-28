@@ -88,7 +88,7 @@ namespace SosesPOS
             //con.Close();
 
             con.Open();
-            com = new SqlCommand("select * from tblProduct", con);
+            com = new SqlCommand("select * from tblProduct order by pdesc asc", con);
             dr = com.ExecuteReader();
             List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
             //AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
@@ -1116,7 +1116,7 @@ namespace SosesPOS
             }
         }
 
-        protected void PrintInvoice(string refno)
+        protected virtual void PrintInvoice(string refno)
         {
             formInvoiceReceipt form = new formInvoiceReceipt();
             form.LoadReport(refno);

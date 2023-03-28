@@ -28,6 +28,7 @@ namespace SosesPOS
         protected override void btnSaveAndPrint_Click(object sender, EventArgs e)
         {
             //MessageBox.Show("OVERRIDDEN");
+            //return;
             string refno = txtTransNo.Text;
             string invoiceId = hlblInvoiceId.Text;
             bool isSuccessTrans = false;
@@ -137,6 +138,15 @@ namespace SosesPOS
             form.LoadReport();
             this.Focus();
             //form.Show();
+        }
+
+        protected override void PrintInvoice(string refno)
+        {
+            formInvoiceReceipt form = new formInvoiceReceipt();
+            form.LoadBillingReport(refno, true); // whole
+            form.LoadBillingReport(refno, false); // broken
+            form.Dispose();
+            this.Focus();
         }
     }
 }

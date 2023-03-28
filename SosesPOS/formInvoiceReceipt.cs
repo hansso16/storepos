@@ -125,6 +125,109 @@ namespace SosesPOS
             }
         }
 
+        public void LoadBillingReport(string RefNo, bool isWhole)
+        {
+            ReportDataSource rptDataSource;
+            try
+            {
+                //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptInvoiceReceipt.rdlc";
+                //this.reportViewer1.LocalReport.ReportPath = "~/report/rptInvoiceReceipt.rdlc";
+                this.reportViewer1.LocalReport.ReportEmbeddedResource = "SosesPOS.report.rptInvoiceReceipt.rdlc";
+                //MessageBox.Show(this.reportViewer1.LocalReport.ReportEmbeddedResource);
+                this.reportViewer1.LocalReport.DataSources.Clear();
+
+                ReportParameter pRefNo = new ReportParameter("pRefNo", RefNo);
+                ReportParameter pCCode = null;
+                ReportParameter pCName = null;
+                ReportParameter pCAddress = null;
+                ReportParameter pDate = null;
+
+                con.Open();
+                com = new SqlCommand("SELECT c.CustomerCode, c.CustomerName, c.CustomerAddress, o.EntryTimestamp FROM tblInvoice i " +
+                    "INNER JOIN tblOrder o ON i.OrderId = o.OrderId " +
+                    "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId " +
+                    "WHERE i.ReferenceNo = @refno", con);
+                com.Parameters.AddWithValue("@refno", RefNo);
+                dr = com.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    if (dr.Read())
+                    {
+                        pCCode = new ReportParameter("pCCode", dr["CustomerCode"].ToString());
+                        pCName = new ReportParameter("pCName", dr["CustomerName"].ToString());
+                        pCAddress = new ReportParameter("pCAddress", dr["CustomerAddress"].ToString());
+                        pDate = new ReportParameter("pDate", Convert.ToDateTime(dr["EntryTimestamp"]).ToString("MM/dd/yyyy"));
+                    }
+                }
+                dr.Close();
+                //con.Close();
+
+                reportViewer1.LocalReport.SetParameters(pRefNo);
+                reportViewer1.LocalReport.SetParameters(pCCode);
+                reportViewer1.LocalReport.SetParameters(pCName);
+                reportViewer1.LocalReport.SetParameters(pCAddress);
+                reportViewer1.LocalReport.SetParameters(pDate);
+
+                dsInvoiceReceipt ds = new dsInvoiceReceipt();
+
+                if (isWhole)
+                {
+                    sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
+                        ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
+                        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                        "from tblInvoice i " +
+                        "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
+                        "inner join tblProduct p on p.pcode = id.PCode " +
+                        //"inner join tblProductDetails pd on pd.pcode = id.PCode and pd.uom = id.UOM " +
+                        "left join tblUOM u on u.id = id.UOM " +
+                        "where i.ReferenceNo = @refno and u.code = '0'" +
+                        "ORDER BY p.pdesc ASC ", con);
+                } else
+                {
+                    sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
+                        ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
+                        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                        "from tblInvoice i " +
+                        "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
+                        "inner join tblProduct p on p.pcode = id.PCode " +
+                        //"inner join tblProductDetails pd on pd.pcode = id.PCode and pd.uom = id.UOM " +
+                        "left join tblUOM u on u.id = id.UOM " +
+                        "where i.ReferenceNo = @refno and u.code = '1'" +
+                        "ORDER BY p.pdesc ASC ", con);
+                }
+                sda.SelectCommand.Parameters.AddWithValue("@refno", RefNo);
+                sda.Fill(ds.Tables["dtSold"]);
+                con.Close();
+
+                rptDataSource = new ReportDataSource("DataSet1", ds.Tables["dtSold"]);
+                reportViewer1.LocalReport.DataSources.Add(rptDataSource);
+
+
+                PageSettings page = new PageSettings();
+                PaperSize size = new PaperSize("Sales Invoice", 591, 846);
+                size.RawKind = (int)PaperKind.Custom;
+                page.PaperSize = size;
+
+                page.Margins.Top = 0;
+                page.Margins.Bottom = 0;
+                page.Margins.Left = 0;
+                page.Margins.Right = 0;
+
+                reportViewer1.SetPageSettings(page);
+                reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+
+                Export(reportViewer1.LocalReport);
+                Print();
+
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(ex.InnerException);
+            }
+        }
+
         // Routine to provide to the report renderer, in order to save an image for each page of the report.
         private Stream CreateStream(string name,
           string fileNameExtension, Encoding encoding,

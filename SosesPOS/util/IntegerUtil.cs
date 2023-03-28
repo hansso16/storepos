@@ -8,10 +8,10 @@ namespace SosesPOS.util
 {
     public class IntegerUtil
     {
-        static string[] powers = new string[] { "Thousand ", "Million ", "Billion " };
-        static string[] tens = new string[] { "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
-        static string[] ones = new string[] { "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
+        static string[] powers = new string[] { "THOUSAND ", "MILLION ", "BILLION " };
+        static string[] tens = new string[] { "TWENTY", "THIRTY", "FORTY", "FIFTY", "SIXTY", "SEVENTY", "EIGHTY", "NINETY" };
+        static string[] ones = new string[] { "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN",
+                "ELEVEN", "TWELVE", "THIRTEEN", "FOURTEEN", "FIFTEEN", "SIXTEEN", "SEVENTEEN", "EIGHTEEN", "NINETEEN" };
         public static string NumberToCurrencyText(decimal number, MidpointRounding midpointRounding)
         {
             // Round the value just in case the decimal value is longer than two digits

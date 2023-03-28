@@ -1,12 +1,12 @@
-D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptBillingSummary.rdlc
-D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptCheckPrint.rdlc
-D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptInvoiceWithdrawal.rdlc
-D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptStockTransferRequest.rdlc
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SqlServerTypes\x64\msvcr120.dll
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SqlServerTypes\x86\msvcr120.dll
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptBillingSummary.rdlc
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptCheckPrint.rdlc
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptInvoiceReceipt.rdlc
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptInvoiceWithdrawal.rdlc
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptStockTransferRequest.rdlc
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SosesPOS.exe.config
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SosesPOS.exe.manifest
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\SosesPOS.application

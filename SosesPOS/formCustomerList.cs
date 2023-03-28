@@ -31,7 +31,8 @@ namespace SosesPOS
             con.Open();
             com = new SqlCommand("select * from tblCustomer " +
                 "where CustomerName like '%"+this.txtSearch.Text+"%'" +
-                "or CustomerCode like '%"+this.txtSearch.Text+"%'", con);
+                "or CustomerCode like '%"+this.txtSearch.Text+"%' " +
+                "order by CustomerName asc", con);
             //com.Parameters.AddWithValue("@customername", this.txtSearch.Text);
             //com.Parameters.AddWithValue("@customercode", this.txtSearch.Text);
             dr = com.ExecuteReader();
