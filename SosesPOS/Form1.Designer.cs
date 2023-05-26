@@ -165,7 +165,7 @@
             this.btnWriteCheck.Name = "btnWriteCheck";
             this.btnWriteCheck.Size = new System.Drawing.Size(284, 37);
             this.btnWriteCheck.TabIndex = 48;
-            this.btnWriteCheck.Text = "Write Check";
+            this.btnWriteCheck.Text = "Check Writer";
             this.btnWriteCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnWriteCheck.UseVisualStyleBackColor = true;
             this.btnWriteCheck.Visible = false;

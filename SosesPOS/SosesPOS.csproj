@@ -294,6 +294,12 @@
     <Compile Include="formChangePassword.Designer.cs">
       <DependentUpon>formChangePassword.cs</DependentUpon>
     </Compile>
+    <Compile Include="formCheckMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCheckMonitor.Designer.cs">
+      <DependentUpon>formCheckMonitor.cs</DependentUpon>
+    </Compile>
     <Compile Include="formCheckPrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -570,6 +576,9 @@
     <EmbeddedResource Include="formChangePassword.resx">
       <DependentUpon>formChangePassword.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formCheckMonitor.resx">
+      <DependentUpon>formCheckMonitor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formCheckPrint.resx">
       <DependentUpon>formCheckPrint.cs</DependentUpon>
     </EmbeddedResource>
@@ -823,6 +832,7 @@
     <None Include="Resources\cheque.png" />
     <None Include="Resources\blank_cheque1.jpg" />
     <Content Include="Resources\blank_cheque.jpg" />
+    <None Include="Resources\check_monitoring.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

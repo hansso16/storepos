@@ -256,7 +256,7 @@ namespace SosesPOS
                             ProcessCSVFile(fileName, csvDTO);
 
                             // PRINT
-                            PrintCheck(dtpCheckDate.Value.ToString("MM/dd/yyyy"), txtAmount.Text, txtPayee.Text);
+                            PrintCheck(dtpCheckDate.Value.ToString("MM-dd-yyyy"), txtAmount.Text, txtPayee.Text);
 
                             MessageBox.Show("The data has been successfully saved.", "Check Writer"
                                 , MessageBoxButtons.OK, MessageBoxIcon.Information);

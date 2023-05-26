@@ -20,5 +20,11 @@ namespace SosesPOS.util
 
         public static readonly string COMMA_SEPARATOR = ",";
         public static readonly string CHECK_CSV_FILE_PARAMETER_ID = "1";
+
+        public static readonly string CHECK_STATUS_RCVD = "00"; // RECEIVED/COLLECTED
+        public static readonly string CHECK_STATUS_CLRD = "10"; // CLEARED
+        public static readonly string CHECK_STATUS_CNCLLD = "70"; // CANCELLED
+        public static readonly string CHECK_STATUS_BNCE = "30"; // BOUNCED
+        public static readonly string CHECK_STATUS_RTN = "20"; // RETURN
     }
 }

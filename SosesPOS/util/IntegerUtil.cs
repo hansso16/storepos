@@ -27,7 +27,7 @@ namespace SosesPOS.util
             string strWholePart = NumberToText(wholePart);
 
             // For amounts of zero dollars show 'No Dollars...' instead of 'Zero Dollars...'
-            wordNumber = (wholePart == 0 ? "No" : strWholePart) + (wholePart == 1 ? " Peso" : " Pesos");
+            wordNumber = (wholePart == 0 ? "No" : strWholePart) + (wholePart == 1 ? " PESO" : " PESOS");
 
             // If the array has more than one element then there is a fractional part otherwise there isn't
             // just add 'No Cents' to the end
@@ -38,12 +38,12 @@ namespace SosesPOS.util
                 long fractionPart = long.Parse((arrNumber[1].Length == 1 ? arrNumber[1] + "0" : arrNumber[1]));
                 string strFarctionPart = NumberToText(fractionPart);
 
-                wordNumber += (fractionPart == 0 ? " and Zero" : " and "+strFarctionPart) + (fractionPart == 1 ? " Cent" : " Cents");
+                wordNumber += (fractionPart == 0 ? " AND ZERO" : " AND "+strFarctionPart) + (fractionPart == 1 ? " CENT" : " CENTS");
             }
             else
                 wordNumber += "";
 
-            wordNumber += " only";
+            wordNumber += " ONLY";
 
             return wordNumber;
         }
@@ -51,10 +51,10 @@ namespace SosesPOS.util
         public static string NumberToText(long number)
         {
             StringBuilder wordNumber = new StringBuilder();
-            if (number == 0) { return "Zero"; }
+            if (number == 0) { return "ZERO"; }
             if (number < 0)
             {
-                wordNumber.Append("Negative ");
+                wordNumber.Append("NEGATIVE ");
                 number = -number;
             }
 
@@ -73,7 +73,7 @@ namespace SosesPOS.util
 
                 if (group >= 100)
                 {
-                    wordNumber.Append(ones[group / 100 - 1] + " Hundred ");
+                    wordNumber.Append(ones[group / 100 - 1] + " HUNDRED ");
                     group %= 100;
 
                     if (group == 0 && i > 0)

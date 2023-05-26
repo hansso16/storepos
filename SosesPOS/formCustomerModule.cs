@@ -63,7 +63,8 @@ namespace SosesPOS
                         "WHERE o.CustomerId = @customerid AND o.OrderStatus = '15' " +
                         "UNION ALL " +
                         "SELECT 'PAYMENT' as TYPE, CASE WHEN 'CHECK' = cp.Type THEN CONCAT(b.BankName, ' ', cp.BankBranch, ' - ', cp.CheckNo) ELSE 'CASH' END as RefNo" +
-                            ", cp.ProcessTimestamp, 0 as DEBIT, cp.Amount as CREDIT, cp.RunningBalance " +
+                            ", cp.ProcessTimestamp, CASE WHEN cp.Amount < 0 THEN ABS(cp.Amount) ELSE 0 END as DEBIT" +
+                            ", CASE WHEN cp.Amount >= 0 THEN cp.Amount ELSE 0 END as CREDIT, cp.RunningBalance " +
                         "FROM tblCustomerPayment cp " +
                         "LEFT JOIN tblBank b ON b.BankId = cp.CheckBank " +
                         "WHERE cp.CustomerId = @customerid) as t " +

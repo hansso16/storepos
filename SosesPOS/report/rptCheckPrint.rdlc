@@ -42,7 +42,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!pCheckAmount.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily />
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -50,9 +52,9 @@
             </Paragraphs>
             <rd:DefaultName>pCheckAmount</rd:DefaultName>
             <Top>0.92548cm</Top>
-            <Left>16.11405cm</Left>
+            <Left>15.87592cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <Width>2.73813cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -72,7 +74,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!pPayee.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily />
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
@@ -82,7 +86,7 @@
             <Top>0.92548cm</Top>
             <Left>3.78037cm</Left>
             <Height>0.6cm</Height>
-            <Width>12.15729cm</Width>
+            <Width>11.91917cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>

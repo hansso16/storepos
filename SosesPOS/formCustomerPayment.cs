@@ -15,14 +15,14 @@ namespace SosesPOS
 {
     public partial class formCustomerPayment : Form
     {
-        SqlConnection con = null;
-        SqlCommand com = null;
-        SqlDataReader dr = null;
+        //SqlConnection con = null;
+        //SqlCommand com = null;
+        //SqlDataReader dr = null;
         DbConnection dbcon = new DbConnection();
         public formCustomerPayment()
         {
             InitializeComponent();
-            con = new SqlConnection(dbcon.MyConnection());
+            //con = new SqlConnection(dbcon.MyConnection());
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -46,45 +46,68 @@ namespace SosesPOS
 
         public void LoadCustomerList()
         {
-            con.Open();
-            com = new SqlCommand("select CustomerId, CustomerCode, CustomerName from tblCustomer", con);
-            dr = com.ExecuteReader();
-            List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
-            //AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
-            while (dr.Read())
+            try
             {
-                //MessageBox.Show("HERE");
-                dataSource.Add(new ComboBoxDTO() { Name = dr["CustomerName"].ToString(), Value = dr["CustomerCode"].ToString() });
-                //collection.Add(dr["pdesc"].ToString());
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    List<ComboBoxDTO> dataSource = null;
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.CommandText = "select CustomerId, CustomerCode, CustomerName from tblCustomer";
+                        using (SqlDataReader dr = com.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                dataSource = new List<ComboBoxDTO>();
+                                while (dr.Read())
+                                {
+                                    dataSource.Add(new ComboBoxDTO() { Name = dr["CustomerName"].ToString(), Value = dr["CustomerCode"].ToString() });
+                                }
+                                cboCustomer.DataSource = dataSource;
+                                cboCustomer.DisplayMember = "Name";
+                                cboCustomer.ValueMember = "Value";
+                            }
+                        }
+
+                    }
+                }
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            cboCustomer.DataSource = dataSource;
-            cboCustomer.DisplayMember = "Name";
-            cboCustomer.ValueMember = "Value";
-            //cboTest.AutoCompleteCustomSource = collection;
-            dr.Close();
-            con.Close();
         }
 
         public void LoadBankList()
         {
             try
             {
-                con.Open();
-                com = new SqlCommand("SELECT BankId, BankName FROM tblBank ORDER BY BankName", con);
-                dr = com.ExecuteReader();
-                List<ComboBoxDTO> ds = new List<ComboBoxDTO>();
-                while (dr.Read())
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                 {
-                    ds.Add(new ComboBoxDTO() { Name = dr["BankName"].ToString(), Value = dr["BankId"].ToString() });
+                    con.Open();
+                    List<ComboBoxDTO> dataSource = null;
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.CommandText = "SELECT BankId, BankName FROM tblBank ORDER BY BankName";
+                        using (SqlDataReader dr = com.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                dataSource = new List<ComboBoxDTO>();
+                                while (dr.Read())
+                                {
+                                    dataSource.Add(new ComboBoxDTO() { Name = dr["BankName"].ToString(), Value = dr["BankId"].ToString() });
+                                }
+                                cboBank.DataSource = dataSource;
+                                cboBank.DisplayMember = "Name";
+                                cboBank.ValueMember = "Value";
+                            }
+                        }
+
+                    }
                 }
-                cboBank.DataSource = ds;
-                cboBank.DisplayMember = "Name";
-                cboBank.ValueMember = "Value";
-                dr.Close();
-                con.Close();
             } catch (Exception ex)
             {
-                con.Close();
                 MessageBox.Show(ex.Message, "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -128,7 +151,11 @@ namespace SosesPOS
 
         private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 8)
+            if (e.KeyChar == '-')
+            {
+                // accept '-' 
+            }
+            else if (e.KeyChar == 8)
             {
                 // accept backspace
             }
@@ -171,7 +198,7 @@ namespace SosesPOS
             // VALIDATE CHECK DETAILS
             string checkno = txtCheckNo.Text;
             string checkDate = dtpCheckDate.Value.ToString("yyyy-MM-dd");
-            string checkStatus = "0";
+            string checkStatus = GlobalConstant.CHECK_STATUS_RCVD;
             decimal openbalance = Convert.ToDecimal(lblOpenBalance.Text);
             decimal amount = Convert.ToDecimal(txtAmount.Text);
             decimal runningbalance = openbalance - amount;
@@ -180,59 +207,83 @@ namespace SosesPOS
             {
                 try
                 {
-                    con.Open();
-                    SqlTransaction transaction = con.BeginTransaction();
-                    com.Transaction = transaction;
-
-                    com = new SqlCommand("INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessTimestamp, Amount, PaymentDate, Type, CheckNo, CheckDate, CheckStatus, CheckBank, BankBranch, RunningBalance) " +
-                        "VALUES (@customerid, @customercode, @processtimestamp, @amount, @paymentdate, @type, @checkno, @checkdate, @checkstatus, @checkbank, @bankbranch, @runningbalance)", con, transaction);
-                    com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
-                    com.Parameters.AddWithValue("@customercode", cboCustomer.SelectedValue);
-                    com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
-                    com.Parameters.AddWithValue("@amount", amount);
-                    com.Parameters.AddWithValue("@paymentdate", dtpPaymentDate.Value.ToString("yyyy-MM-dd"));
-                    com.Parameters.AddWithValue("@type", cboPaymentMethod.Text.ToUpper());
-                    com.Parameters.AddWithValue("@runningbalance", runningbalance);
-                    if ("Check".Equals(cboPaymentMethod.Text))
+                    using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                     {
-                        if (String.IsNullOrEmpty(checkno) || String.IsNullOrEmpty(dtpCheckDate.Text) || String.IsNullOrEmpty(cboBank.Text))
+                        con.Open();
+                        SqlTransaction transaction = con.BeginTransaction();
+                        if ("Cash".Equals(cboPaymentMethod.Text))
                         {
-                            MessageBox.Show("Invalid check details. Please check and try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            con.Close();
-                            return;
-                        } else
-                        {
-                            com.Parameters.AddWithValue("@checkno", checkno);
-                            com.Parameters.AddWithValue("@checkdate", checkDate);
-                            com.Parameters.AddWithValue("@checkstatus", checkStatus);
-                            com.Parameters.AddWithValue("@checkbank", cboBank.SelectedValue.ToString());
-                            com.Parameters.AddWithValue("@bankbranch", txtBankBranch.Text);
+                            using (SqlCommand com = con.CreateCommand())
+                            {
+                                com.Transaction = transaction;
+                                com.CommandText = "INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessTimestamp, Amount, PaymentDate, Type, RunningBalance) " +
+                                    "VALUES (@customerid, @customercode, @processtimestamp, @amount, @paymentdate, @type, @runningbalance)";
+                                com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
+                                com.Parameters.AddWithValue("@customercode", cboCustomer.SelectedValue);
+                                com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
+                                com.Parameters.AddWithValue("@amount", amount);
+                                com.Parameters.AddWithValue("@paymentdate", dtpPaymentDate.Value.ToString("yyyy-MM-dd"));
+                                com.Parameters.AddWithValue("@type", cboPaymentMethod.Text.ToUpper());
+                                com.Parameters.AddWithValue("@runningbalance", runningbalance);
+                                com.ExecuteNonQuery();
+                            }
+
+                            using (SqlCommand com = con.CreateCommand())
+                            {
+                                com.Transaction = transaction;
+                                com.CommandText = "UPDATE tblCustomerCollection SET OpenBalance -= @openbalance WHERE CustomerId = @customerid";
+                                com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
+                                com.Parameters.AddWithValue("@openbalance", amount);
+                                com.ExecuteNonQuery();
+                            }
                         }
-                    } else
-                    {
-                        com.Parameters.AddWithValue("@checkno", DBNull.Value);
-                        com.Parameters.AddWithValue("@checkdate", DBNull.Value);
-                        com.Parameters.AddWithValue("@checkstatus", DBNull.Value);
-                        com.Parameters.AddWithValue("@checkbank", DBNull.Value);
-                        com.Parameters.AddWithValue("@bankbranch", DBNull.Value);
+                        else if ("Check".Equals(cboPaymentMethod.Text))
+                        {
+                            if (String.IsNullOrEmpty(checkno) || String.IsNullOrEmpty(dtpCheckDate.Text) || String.IsNullOrEmpty(cboBank.Text))
+                            {
+                                MessageBox.Show("Invalid check details. Please check and try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            using (SqlCommand com = con.CreateCommand())
+                            {
+                                com.Transaction = transaction;
+                                com.CommandText = "INSERT INTO tblCustomerPayment (CustomerId, CustomerCode, ProcessTimestamp, Amount, PaymentDate, Type, CheckNo, CheckDate, CheckStatus, CheckBank, BankBranch, RunningBalance) " +
+                                    "VALUES (@customerid, @customercode, @processtimestamp, @amount, @paymentdate, @type, @checkno, @checkdate, @checkstatus, @checkbank, @bankbranch, @runningbalance)";
+                                com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
+                                com.Parameters.AddWithValue("@customercode", cboCustomer.SelectedValue);
+                                com.Parameters.AddWithValue("@processtimestamp", DateTime.Now);
+                                com.Parameters.AddWithValue("@amount", amount);
+                                com.Parameters.AddWithValue("@paymentdate", dtpPaymentDate.Value.ToString("yyyy-MM-dd"));
+                                com.Parameters.AddWithValue("@type", cboPaymentMethod.Text.ToUpper());
+                                com.Parameters.AddWithValue("@runningbalance", runningbalance);
+                                com.Parameters.AddWithValue("@checkno", checkno);
+                                com.Parameters.AddWithValue("@checkdate", checkDate);
+                                com.Parameters.AddWithValue("@checkstatus", checkStatus);
+                                com.Parameters.AddWithValue("@checkbank", cboBank.SelectedValue.ToString());
+                                com.Parameters.AddWithValue("@bankbranch", txtBankBranch.Text);
+                                com.ExecuteNonQuery();
+                            }
+
+                            using (SqlCommand com = con.CreateCommand())
+                            {
+                                com.Transaction = transaction;
+                                com.CommandText = "UPDATE tblCustomerCollection SET OpenBalance -= @openbalance WHERE CustomerId = @customerid";
+                                com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
+                                com.Parameters.AddWithValue("@openbalance", amount);
+                                com.ExecuteNonQuery();
+                            }
+                        }
+                        transaction.Commit();
                     }
-                    com.ExecuteNonQuery();
 
-                    com = new SqlCommand("UPDATE tblCustomerCollection SET OpenBalance -= @openbalance WHERE CustomerId = @customerid", con, transaction);
-                    com.Parameters.AddWithValue("@customerid", lblCustomerId.Text);
-                    com.Parameters.AddWithValue("@openbalance", amount);
-                    com.ExecuteNonQuery();
-
-
-                    transaction.Commit();
-                    con.Close();
                     MessageBox.Show("Payment successfully recorded.", "Customer Payment", MessageBoxButtons.OK
                         , MessageBoxIcon.Information);
                     ClearForm();
                 }
                 catch (Exception ex)
                 {
-                    con.Close();
+                    //con.Close();
                     //dr.Close();
                     MessageBox.Show(ex.Message, "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -273,31 +324,34 @@ namespace SosesPOS
                 ComboBoxDTO cbo = (ComboBoxDTO) cboCustomer.SelectedItem;
                 cboCustomer.Text = cbo.Name;
             }
-            con.Open();
-            com = new SqlCommand("select CustomerId, OpenBalance from tblCustomerCollection " +
-                "where CustomerCode = @ccode", con);
-            com.Parameters.AddWithValue("@ccode", ccode);
-            dr = com.ExecuteReader();
-            if (dr.HasRows)
+            using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
             {
-                if (dr.Read())
+                con.Open();
+                using (SqlCommand com = con.CreateCommand())
                 {
-                    this.lblOpenBalance.Text = String.Format("{0:n}", dr["OpenBalance"]);
-                    this.lblCustomerId.Text = dr["CustomerId"].ToString();
+                    com.CommandText = "select CustomerId, OpenBalance from tblCustomerCollection " +
+                        "where CustomerCode = @ccode";
+                    com.Parameters.AddWithValue("@ccode", ccode);
+                    using (SqlDataReader dr = com.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            if (dr.Read())
+                            {
+                                this.lblOpenBalance.Text = String.Format("{0:n}", dr["OpenBalance"]);
+                                this.lblCustomerId.Text = dr["CustomerId"].ToString();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid Customer Code. Please try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cboCustomer.Focus();
+                            cboCustomer.SelectAll();
+                            return;
+                        }
+                    }
                 }
             }
-            else
-            {
-                dr.Close();
-                con.Close();
-                MessageBox.Show("Invalid Customer Code. Please try again", "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cboCustomer.Focus();
-                cboCustomer.SelectAll();
-                return;
-            }
-            dr.Close();
-            con.Close();
-
             this.txtAmount.Focus();
         }
 
@@ -325,6 +379,11 @@ namespace SosesPOS
             {
                 dtpCheckDate.Focus();
             }
+        }
+
+        private void cboCustomer_Leave(object sender, EventArgs e)
+        {
+            SelectCustomer();
         }
     }
 }

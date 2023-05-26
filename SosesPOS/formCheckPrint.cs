@@ -34,11 +34,6 @@ namespace SosesPOS
                 string strAmount = " ";
                 payee = "**" + payee.ToUpper() + "**";
 
-                string month = checkDate.Split('/')[0].ToString();
-                string day = checkDate.Split('/')[1].ToString();
-                string year = checkDate.Split('/')[2].ToString();
-                Console.WriteLine(month + "-" + day + "-" + year);
-
                 ReportParameter pCheckDate = new ReportParameter("pCheckDate", checkDate);
                 ReportParameter pPayee = new ReportParameter("pPayee", payee);
                 if (!amount.Equals(decimal.Zero))
@@ -48,7 +43,7 @@ namespace SosesPOS
                     {
                         writtenFigures = "**" + writtenFigures + "**";
                     }
-                    strAmount = "***" + checkAmount + "***";
+                    strAmount = "**" + checkAmount + "**";
                     //strAmount = checkAmount;
                 }
                 ReportParameter pCheckAmount = new ReportParameter("pCheckAmount", strAmount);
