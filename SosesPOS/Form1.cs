@@ -65,6 +65,7 @@ namespace SosesPOS
                 this.btnTransferRequest.Visible = true;
                 this.btnTransferDispatch.Visible = true;
                 this.btnTransferAccept.Visible = true;
+                this.btnLiteCheckWriter.Visible = true;
             }
         }
 
@@ -303,6 +304,12 @@ namespace SosesPOS
             form.BringToFront();
             form.LoadVendorList();
             form.Show();
+        }
+
+        private void btnLiteCheckWriter_Click(object sender, EventArgs e)
+        {
+            formLiteCheckWriter form = new formLiteCheckWriter();
+            form.ShowDialog();
         }
     }
 }

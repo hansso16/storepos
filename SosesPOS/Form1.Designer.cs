@@ -58,6 +58,7 @@
             this.lblUserCode = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnLiteCheckWriter = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.StockTransferPanel.SuspendLayout();
             this.SuspendLayout();
@@ -78,6 +79,7 @@
             this.panel2.Controls.Add(this.button8);
             this.panel2.Controls.Add(this.btnPassword);
             this.panel2.Controls.Add(this.btnUser);
+            this.panel2.Controls.Add(this.btnLiteCheckWriter);
             this.panel2.Controls.Add(this.btnWriteCheck);
             this.panel2.Controls.Add(this.StockTransferPanel);
             this.panel2.Controls.Add(this.btnStockReplenishment);
@@ -109,7 +111,7 @@
             this.button8.ForeColor = System.Drawing.SystemColors.Control;
             this.button8.Image = global::SosesPOS.Properties.Resources.logout;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 672);
+            this.button8.Location = new System.Drawing.Point(0, 709);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(284, 37);
             this.button8.TabIndex = 20;
@@ -126,7 +128,7 @@
             this.btnPassword.ForeColor = System.Drawing.SystemColors.Control;
             this.btnPassword.Image = global::SosesPOS.Properties.Resources.change_password;
             this.btnPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPassword.Location = new System.Drawing.Point(0, 635);
+            this.btnPassword.Location = new System.Drawing.Point(0, 672);
             this.btnPassword.Name = "btnPassword";
             this.btnPassword.Size = new System.Drawing.Size(284, 37);
             this.btnPassword.TabIndex = 17;
@@ -143,7 +145,7 @@
             this.btnUser.ForeColor = System.Drawing.SystemColors.Control;
             this.btnUser.Image = global::SosesPOS.Properties.Resources.user_group;
             this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUser.Location = new System.Drawing.Point(0, 598);
+            this.btnUser.Location = new System.Drawing.Point(0, 635);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(284, 37);
             this.btnUser.TabIndex = 16;
@@ -525,6 +527,24 @@
             this.timer1.Interval = 15;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // btnLiteCheckWriter
+            // 
+            this.btnLiteCheckWriter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLiteCheckWriter.FlatAppearance.BorderSize = 0;
+            this.btnLiteCheckWriter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLiteCheckWriter.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnLiteCheckWriter.Image = global::SosesPOS.Properties.Resources.cheque;
+            this.btnLiteCheckWriter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLiteCheckWriter.Location = new System.Drawing.Point(0, 598);
+            this.btnLiteCheckWriter.Name = "btnLiteCheckWriter";
+            this.btnLiteCheckWriter.Size = new System.Drawing.Size(284, 37);
+            this.btnLiteCheckWriter.TabIndex = 49;
+            this.btnLiteCheckWriter.Text = "Lite Check Writer";
+            this.btnLiteCheckWriter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLiteCheckWriter.UseVisualStyleBackColor = true;
+            this.btnLiteCheckWriter.Visible = false;
+            this.btnLiteCheckWriter.Click += new System.EventHandler(this.btnLiteCheckWriter_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -577,6 +597,7 @@
         private System.Windows.Forms.Button btnStockTransfer;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnWriteCheck;
+        private System.Windows.Forms.Button btnLiteCheckWriter;
     }
 }
 

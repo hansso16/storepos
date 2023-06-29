@@ -163,4 +163,5 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.application
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.csproj.CopyComplete
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.exe
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.pdb
-D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCheckMonitor.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLiteCheckWriter.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLiteCheckPrint.resources
