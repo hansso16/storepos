@@ -40,7 +40,7 @@ namespace SosesPOS
                     {
                         com.CommandText = "SELECT PayeeCode, PayeeShortName, PayeeName, Term, CategoryID " +
                             "FROM tblPayee " +
-                            "WHERE PayeeCode LIKE '%'+@search+'%' " +
+                            "WHERE PayeeShortName LIKE '%'+@search+'%' " +
                             "OR PayeeName LIKE '%'+@search+'%' ORDER BY PayeeShortName, PayeeName";
                         com.Parameters.AddWithValue("@search", this.txtSearch.Text);
                         Console.Write(com.CommandText);

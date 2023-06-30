@@ -16,14 +16,16 @@
                     <Style />
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>pCheckDate</rd:DefaultName>
-            <Top>0.07056cm</Top>
-            <Left>16.85488cm</Left>
+            <Top>0cm</Top>
+            <Left>15.87592cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <Width>3.74354cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

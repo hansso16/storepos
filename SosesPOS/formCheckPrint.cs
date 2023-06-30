@@ -33,6 +33,8 @@ namespace SosesPOS
                 string writtenFigures = " ";
                 string strAmount = " ";
                 payee = "**" + payee.ToUpper() + "**";
+                char[] cArray = checkDate.ToCharArray();
+                checkDate = String.Join(" ", cArray);
 
                 ReportParameter pCheckDate = new ReportParameter("pCheckDate", checkDate);
                 ReportParameter pPayee = new ReportParameter("pPayee", payee);
