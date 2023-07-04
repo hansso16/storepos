@@ -150,7 +150,7 @@ namespace SosesPOS
                 {
                     return;
                 }
-                if (MessageBox.Show("Save and Print? Changes are irreversible", module
+                if (MessageBox.Show("Is the Check Date correct?", module
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
@@ -258,8 +258,8 @@ namespace SosesPOS
                             // PRINT
                             PrintCheck(dtpCheckDate.Value.ToString("MM-dd-yyyy"), txtAmount.Text, txtPayee.Text);
 
-                            MessageBox.Show("The data has been successfully saved.", "Check Writer"
-                                , MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //MessageBox.Show("The data has been successfully saved.", "Check Writer"
+                            //   , MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             transaction.Commit();
                             this.Dispose();
@@ -270,6 +270,9 @@ namespace SosesPOS
                         MessageBox.Show("Write Check: btnSubmit_Click(): " + ex.Message, "Write Check", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
+                } else
+                {
+                    this.dtpCheckDate.Focus();
                 }
             } 
             catch (Exception ex)

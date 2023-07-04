@@ -31,13 +31,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnBlankCheck = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.txtSearch = new MetroFramework.Controls.MetroTextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvVendorList = new System.Windows.Forms.DataGridView();
-            this.btnBlankCheck = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.vendorCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,6 +68,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(883, 40);
             this.panel1.TabIndex = 4;
+            // 
+            // btnBlankCheck
+            // 
+            this.btnBlankCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.btnBlankCheck.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnBlankCheck.Location = new System.Drawing.Point(203, 6);
+            this.btnBlankCheck.Name = "btnBlankCheck";
+            this.btnBlankCheck.Size = new System.Drawing.Size(145, 28);
+            this.btnBlankCheck.TabIndex = 10;
+            this.btnBlankCheck.Text = "Blank Check";
+            this.btnBlankCheck.UseVisualStyleBackColor = false;
+            this.btnBlankCheck.Click += new System.EventHandler(this.btnBlankCheck_Click);
             // 
             // panel2
             // 
@@ -191,24 +203,13 @@
             this.dgvVendorList.TabIndex = 5;
             this.dgvVendorList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendorList_CellContentClick);
             // 
-            // btnBlankCheck
-            // 
-            this.btnBlankCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
-            this.btnBlankCheck.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnBlankCheck.Location = new System.Drawing.Point(203, 6);
-            this.btnBlankCheck.Name = "btnBlankCheck";
-            this.btnBlankCheck.Size = new System.Drawing.Size(145, 28);
-            this.btnBlankCheck.TabIndex = 10;
-            this.btnBlankCheck.Text = "Blank Check";
-            this.btnBlankCheck.UseVisualStyleBackColor = false;
-            this.btnBlankCheck.Click += new System.EventHandler(this.btnBlankCheck_Click);
-            // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Column1.HeaderText = "#";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
+            this.Column1.Visible = false;
             this.Column1.Width = 42;
             // 
             // Column2
@@ -289,7 +290,6 @@
             this.Delete.ReadOnly = true;
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Delete.Visible = false;
             this.Delete.Width = 17;
             // 
             // formWriteCheckList

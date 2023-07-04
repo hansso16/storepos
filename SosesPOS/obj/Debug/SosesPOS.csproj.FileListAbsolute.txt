@@ -118,6 +118,8 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCheckPrint.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCustomerModule.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCustomerPayment.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formInvoiceReceipt.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLiteCheckPrint.resources
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLiteCheckWriter.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLogin.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPayee.resources
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPOSWithdrawal.resources
@@ -163,5 +165,3 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.application
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.csproj.CopyComplete
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.exe
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.pdb
-D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLiteCheckWriter.resources
-D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formLiteCheckPrint.resources
