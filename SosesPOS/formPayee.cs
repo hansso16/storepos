@@ -121,7 +121,7 @@ namespace SosesPOS
                         com.ExecuteNonQuery();
                     }
                 }
-                MessageBox.Show("Successfully saved new payee record.", "Payee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Successfully saved new payee record.", "Payee", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 formWriteCheckList.LoadVendorList();
                 this.Dispose();
             }
@@ -169,7 +169,7 @@ namespace SosesPOS
                         com.ExecuteNonQuery();
                     }
                 }
-                MessageBox.Show("Successfully updated payee record.", "Payee", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Successfully updated payee record.", "Payee", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 formWriteCheckList.LoadVendorList();
                 this.Dispose();
             }

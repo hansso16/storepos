@@ -47,6 +47,7 @@
             this.txtVendorShortName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cboCategory = new System.Windows.Forms.ComboBox();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +70,7 @@
             this.dtpCheckDate.Name = "dtpCheckDate";
             this.dtpCheckDate.Size = new System.Drawing.Size(139, 29);
             this.dtpCheckDate.TabIndex = 30;
+            this.dtpCheckDate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dtpCheckDate_KeyDown);
             // 
             // txtAmount
             // 
@@ -122,6 +124,7 @@
             this.txtCheckNo.Name = "txtCheckNo";
             this.txtCheckNo.Size = new System.Drawing.Size(133, 29);
             this.txtCheckNo.TabIndex = 25;
+            this.txtCheckNo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCheckNo_KeyDown);
             this.txtCheckNo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheckNo_KeyPress);
             // 
             // rbBDO
@@ -239,6 +242,17 @@
             this.cboCategory.Size = new System.Drawing.Size(225, 29);
             this.cboCategory.TabIndex = 20;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(678, 330);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(83, 39);
+            this.btnCancel.TabIndex = 51;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // formWriteCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -246,6 +260,7 @@
             this.BackgroundImage = global::SosesPOS.Properties.Resources.blank_cheque1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(782, 398);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.cboCategory);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtVendorShortName);
@@ -268,6 +283,7 @@
             this.Name = "formWriteCheck";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Check Issue Form";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formWriteCheck_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -294,5 +310,6 @@
         public System.Windows.Forms.Label hlblPayeeCode;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cboCategory;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

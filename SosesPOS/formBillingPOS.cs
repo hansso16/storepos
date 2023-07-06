@@ -17,18 +17,13 @@ namespace SosesPOS
         DbConnection dbcon = new DbConnection();
         public formBillingPOS()
         {
-            InitializeComponent();
+            //InitializeComponent();
             this.KeyPreview = true;
-            LoadSuggestedProducts();
-            GenerateNewTrans();
-            LoadLocation();
             this.btnGenerateReport.Visible = true;
         }
 
         protected override void btnSaveAndPrint_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("OVERRIDDEN");
-            //return;
             string refno = txtTransNo.Text;
             string invoiceId = hlblInvoiceId.Text;
             bool isSuccessTrans = false;

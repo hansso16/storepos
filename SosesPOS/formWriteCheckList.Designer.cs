@@ -124,6 +124,7 @@
             this.txtSearch.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtSearch.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // pictureBox2
             // 
@@ -195,6 +196,7 @@
             this.dgvVendorList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVendorList.EnableHeadersVisualStyles = false;
             this.dgvVendorList.Location = new System.Drawing.Point(0, 40);
+            this.dgvVendorList.MultiSelect = false;
             this.dgvVendorList.Name = "dgvVendorList";
             this.dgvVendorList.ReadOnly = true;
             this.dgvVendorList.RowHeadersVisible = false;
@@ -202,6 +204,7 @@
             this.dgvVendorList.Size = new System.Drawing.Size(883, 481);
             this.dgvVendorList.TabIndex = 5;
             this.dgvVendorList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVendorList_CellContentClick);
+            this.dgvVendorList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvVendorList_KeyDown);
             // 
             // Column1
             // 
@@ -210,7 +213,7 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Visible = false;
-            this.Column1.Width = 42;
+            this.Column1.Width = 44;
             // 
             // Column2
             // 

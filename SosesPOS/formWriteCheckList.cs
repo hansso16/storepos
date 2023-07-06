@@ -42,7 +42,7 @@ namespace SosesPOS
                             "FROM tblPayee " +
                             "WHERE PayeeShortName LIKE '%'+@search+'%' " +
                             "OR PayeeName LIKE '%'+@search+'%' " +
-                            "OR PayeeCode LIKE '%'+@search+'%' ORDER BY PayeeCode, PayeeShortName, PayeeName";
+                            "OR PayeeCode = @search ORDER BY PayeeCode, PayeeShortName, PayeeName";
                         com.Parameters.AddWithValue("@search", this.txtSearch.Text);
                         Console.Write(com.CommandText);
                         using (SqlDataReader reader = com.ExecuteReader())
@@ -71,21 +71,27 @@ namespace SosesPOS
             LoadVendorList();
         }
 
+        private void SelectPayee(int rowIndex)
+        {
+            formWriteCheck form = new formWriteCheck(user);
+            form.txtPayee.Text = dgvVendorList[4, rowIndex].Value.ToString();
+            int term = Convert.ToInt32(dgvVendorList[5, rowIndex].Value);
+            form.dtpCheckDate.Value = DateTime.Now.AddDays(term);
+            form.txtVendorShortName.Text = dgvVendorList[3, rowIndex].Value.ToString();
+            form.hlblPayeeCode.Text = dgvVendorList[2, rowIndex].Value.ToString();
+            string categoryId = dgvVendorList[6, rowIndex].Value.ToString();
+            form.LoadCategory(categoryId);
+            form.Show();
+            form.txtCheckNo.Focus();
+            form.txtCheckNo.SelectAll();
+        }
+
         private void dgvVendorList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             String colName = dgvVendorList.Columns[e.ColumnIndex].Name;
             if (colName == "WriteCheck")
             {
-                formWriteCheck form = new formWriteCheck(user);
-                form.txtPayee.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
-                int term = Convert.ToInt32(dgvVendorList[5, e.RowIndex].Value);
-                form.dtpCheckDate.Value = DateTime.Now.AddDays(term);
-                form.txtVendorShortName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
-                form.hlblPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
-                string categoryId = dgvVendorList[6, e.RowIndex].Value.ToString();
-                form.LoadCategory(categoryId);
-                form.txtAmount.Focus();
-                form.ShowDialog();
+                SelectPayee(e.RowIndex);
             }
             else if (colName == "Edit")
             {
@@ -114,8 +120,15 @@ namespace SosesPOS
                         con.Open();
                         using (SqlCommand com = con.CreateCommand())
                         {
-                            com.CommandText = "DELETE FROM tblPayee WHERE PayeeCode = @payeecode";
+                            //com.CommandText = "DELETE FROM tblPayee WHERE PayeeCode = @payeecode";
+                            //com.Parameters.AddWithValue("@payeecode", payeeCode);
+                            //com.ExecuteNonQuery();
+
+                            com.CommandText = "UPDATE tblPayee SET PayeeShortName = '', PayeeName = ''" +
+                                ", LastChangedTimestamp = CURRENT_TIMESTAMP, LastChangedUser = @user " +
+                                "WHERE PayeeCode = @payeecode";
                             com.Parameters.AddWithValue("@payeecode", payeeCode);
+                            com.Parameters.AddWithValue("@user", user.username);
                             com.ExecuteNonQuery();
                         }
                     }
@@ -139,6 +152,49 @@ namespace SosesPOS
             form.LoadCategory("101");
             form.txtAmount.Focus();
             form.ShowDialog();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                int noOfRows = dgvVendorList.RowCount;
+                if (noOfRows == 1)
+                {
+                    noOfRows -= 1;
+                    SelectPayee(noOfRows);
+                }
+                else
+                {
+                    dgvVendorList.Focus();
+                }
+            }
+            else if (e.KeyCode == Keys.Down)
+            {
+                try
+                {
+                    e.Handled = true;
+                    if (1 < dgvVendorList.RowCount)
+                    {
+                        dgvVendorList.ClearSelection();
+                        dgvVendorList.CurrentCell = dgvVendorList[2,1];
+                    }
+                    dgvVendorList.Focus();
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void dgvVendorList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                int rowIndex = dgvVendorList.CurrentCell.RowIndex;
+                SelectPayee(rowIndex);
+            } 
         }
     }
 }

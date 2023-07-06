@@ -19,11 +19,12 @@ namespace SosesPOS
     {
         DbConnection dbcon = new DbConnection();
         UserDTO user = null;
-        string module = "Check Issue";
+        string module = "Check Writer";
         public formWriteCheck(UserDTO user)
         {
             InitializeComponent();
             this.user = user;
+            this.KeyPreview = true;
 
             try
             {
@@ -72,7 +73,7 @@ namespace SosesPOS
             {
                 try
                 {
-                    this.btnSubmit.Focus();
+                    btnSubmit_Click(sender, e);
                 }
                 catch (Exception ex)
                 {
@@ -150,7 +151,8 @@ namespace SosesPOS
                 {
                     return;
                 }
-                if (MessageBox.Show("Is the Check Date correct?", module
+
+                if (MessageBox.Show("Yes - Save and Print\nNo - Cancel", module
                     , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
@@ -272,7 +274,7 @@ namespace SosesPOS
 
                 } else
                 {
-                    this.dtpCheckDate.Focus();
+                    btnCancel_Click(sender, e);
                 }
             } 
             catch (Exception ex)
@@ -455,6 +457,48 @@ namespace SosesPOS
             formCheckPrint form = new formCheckPrint();
             form.PrintCheck(checkDate, checkAmount, payee);
             this.Focus();
+        }
+
+        private void txtCheckNo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if ((rbBDO.Checked || rbSS.Checked) && string.IsNullOrEmpty(txtCheckNo.Text.Trim()))
+                {
+                    MessageBox.Show("Invalid Check No", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCheckNo.Focus();
+                    txtCheckNo.SelectAll();
+                    return;
+                }
+                this.dtpCheckDate.Focus();
+                //this.dtpCheckDate.SelectAll();
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.txtCheckNo.Focus();
+            this.txtCheckNo.SelectAll();
+            //this.txtPayee.Clear();
+            this.txtAmount.Clear();
+            this.lblWrittenInteger.Text = "";
+        }
+
+        private void formWriteCheck_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Dispose();
+            }
+        }
+
+        private void dtpCheckDate_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtAmount.Focus();
+                txtAmount.SelectAll();
+            }
         }
     }
 }
