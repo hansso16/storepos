@@ -75,7 +75,7 @@ namespace SosesPOS
             con.Open();
             com = new SqlCommand("SELECT u.id, u.type, u.description, pd.price, pd.startdate, pd.enddate FROM tblProductDetails pd " +
                 "INNER JOIN tblUOM u ON u.id = pd.uom " +
-                "WHERE pd.pcode = @pcode", con);
+                "WHERE pd.pcode = @pcode order by u.type, pd.startdate, pd.enddate asc", con);
             com.Parameters.AddWithValue("@pcode", pcode);
             dr = com.ExecuteReader();
             //int i = 0;

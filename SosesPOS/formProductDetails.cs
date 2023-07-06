@@ -81,7 +81,7 @@ namespace SosesPOS
                     com.Parameters.AddWithValue("@newenddate", DateTime.Today);
                     com.Parameters.AddWithValue("@pcode", lblPCode.Text);
                     com.Parameters.AddWithValue("@uom", lblUOMID.Text);
-                    com.Parameters.AddWithValue("@enddate", txtEndDate.Text);
+                    com.Parameters.AddWithValue("@enddate", new DateTime(9999, 12, 31));
                     com.ExecuteNonQuery();
 
                     decimal price = Convert.ToDecimal(txtPrice.Text);
