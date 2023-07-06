@@ -169,9 +169,14 @@ namespace SosesPOS
         {
             // Logout
             panel3.Controls.Clear();
-            this.Hide();
-            formLogin form = new formLogin();
-            form.ShowDialog();
+            formLogin.ClearForm();
+            formLogin.Show();
+            formLogin.txtUsername.Focus();
+            formLogin.txtUsername.SelectAll();
+
+            this.FormClosing -= Form1_FormClosing;
+            this.Close();
+            this.FormClosing += Form1_FormClosing;
         }
 
         private void btnReceivePayments_Click(object sender, EventArgs e)
@@ -214,8 +219,11 @@ namespace SosesPOS
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
-            System.Environment.Exit(1);
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Application.Exit();
+                System.Environment.Exit(1);
+            }
         }
 
         private void btnUnits_Click(object sender, EventArgs e)
@@ -297,6 +305,17 @@ namespace SosesPOS
 
         private void btnWriteCheck_Click(object sender, EventArgs e)
         {
+            InitiateWriteCheck();
+        }
+
+        private void btnLiteCheckWriter_Click(object sender, EventArgs e)
+        {
+            formLiteCheckWriter form = new formLiteCheckWriter();
+            form.ShowDialog();
+        }
+
+        public void InitiateWriteCheck()
+        {
             panel3.Controls.Clear();
             formWriteCheckList form = new formWriteCheckList(user);
             form.TopLevel = false;
@@ -304,12 +323,6 @@ namespace SosesPOS
             form.BringToFront();
             form.LoadVendorList();
             form.Show();
-        }
-
-        private void btnLiteCheckWriter_Click(object sender, EventArgs e)
-        {
-            formLiteCheckWriter form = new formLiteCheckWriter();
-            form.ShowDialog();
         }
     }
 }

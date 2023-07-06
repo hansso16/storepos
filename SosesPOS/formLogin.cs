@@ -61,12 +61,17 @@ namespace SosesPOS
                     this.Hide();
                     Form1 form = new Form1(this, userDTO);
                     form.SetAccessLevel();
-                    form.ShowDialog();
+                    form.Show();
                 }
             } catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Form_Shown(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void ClearForm()
