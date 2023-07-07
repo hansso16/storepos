@@ -38,11 +38,22 @@ namespace SosesPOS
                     con.Open();
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "SELECT PayeeCode, PayeeShortName, PayeeName, Term, CategoryID " +
-                            "FROM tblPayee " +
-                            "WHERE PayeeShortName LIKE '%'+@search+'%' " +
-                            "OR PayeeName LIKE '%'+@search+'%' " +
-                            "OR PayeeCode = @search ORDER BY PayeeCode, PayeeShortName, PayeeName";
+                        string search = txtSearch.Text;
+                        if (int.TryParse(search, out _))
+                        {
+                            com.CommandText = "SELECT PayeeCode, PayeeShortName, PayeeName, Term, CategoryID " +
+                                "FROM tblPayee " +
+                                "WHERE PayeeShortName LIKE '%'+@search+'%' " +
+                                "OR PayeeName LIKE '%'+@search+'%' " +
+                                "OR PayeeCode = @search ORDER BY PayeeCode, PayeeShortName, PayeeName";
+                        } else
+                        {
+                            com.CommandText = "SELECT PayeeCode, PayeeShortName, PayeeName, Term, CategoryID " +
+                                "FROM tblPayee " +
+                                "WHERE PayeeShortName LIKE '%'+@search+'%' " +
+                                "OR PayeeName LIKE '%'+@search+'%' " +
+                                "ORDER BY PayeeCode, PayeeShortName, PayeeName";
+                        }
                         com.Parameters.AddWithValue("@search", this.txtSearch.Text);
                         Console.Write(com.CommandText);
                         using (SqlDataReader reader = com.ExecuteReader())
