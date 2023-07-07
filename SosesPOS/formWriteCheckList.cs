@@ -89,51 +89,54 @@ namespace SosesPOS
         private void dgvVendorList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             String colName = dgvVendorList.Columns[e.ColumnIndex].Name;
-            if (colName == "WriteCheck")
+            if (e.RowIndex >= 0)
             {
-                SelectPayee(e.RowIndex);
-            }
-            else if (colName == "Edit")
-            {
-                formPayee form = new formPayee(user, this);
-                form.btnSave.Enabled = false;
-
-                form.txtPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
-                form.txtVendorName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
-                form.txtPayeeName.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
-                form.txtTerm.Text = dgvVendorList[5, e.RowIndex].Value.ToString();
-                form.cboCategory.SelectedValue = dgvVendorList[6, e.RowIndex].Value.ToString();
-                form.ShowDialog();
-                form.cboCategory.Focus();
-            }
-            else if (colName == "Delete")
-            {
-                String payeeCode = dgvVendorList[2, e.RowIndex].Value.ToString();
-                if (String.IsNullOrEmpty(payeeCode))
+                if (colName == "WriteCheck")
                 {
-                    return;
+                    SelectPayee(e.RowIndex);
                 }
-                if (MessageBox.Show("Are you sure you want to delete this payee?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                else if (colName == "Edit")
                 {
-                    using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
-                    {
-                        con.Open();
-                        using (SqlCommand com = con.CreateCommand())
-                        {
-                            //com.CommandText = "DELETE FROM tblPayee WHERE PayeeCode = @payeecode";
-                            //com.Parameters.AddWithValue("@payeecode", payeeCode);
-                            //com.ExecuteNonQuery();
+                    formPayee form = new formPayee(user, this);
+                    form.btnSave.Enabled = false;
 
-                            com.CommandText = "UPDATE tblPayee SET PayeeShortName = '', PayeeName = ''" +
-                                ", LastChangedTimestamp = CURRENT_TIMESTAMP, LastChangedUser = @user " +
-                                "WHERE PayeeCode = @payeecode";
-                            com.Parameters.AddWithValue("@payeecode", payeeCode);
-                            com.Parameters.AddWithValue("@user", user.username);
-                            com.ExecuteNonQuery();
-                        }
+                    form.txtPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
+                    form.txtVendorName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
+                    form.txtPayeeName.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
+                    form.txtTerm.Text = dgvVendorList[5, e.RowIndex].Value.ToString();
+                    form.cboCategory.SelectedValue = dgvVendorList[6, e.RowIndex].Value.ToString();
+                    form.ShowDialog();
+                    form.cboCategory.Focus();
+                }
+                else if (colName == "Delete")
+                {
+                    String payeeCode = dgvVendorList[2, e.RowIndex].Value.ToString();
+                    if (String.IsNullOrEmpty(payeeCode))
+                    {
+                        return;
                     }
-                    //MessageBox.Show("Payee has been successfully deleted.", "POS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadVendorList();
+                    if (MessageBox.Show("Are you sure you want to delete this payee?", "Delete Record", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                        {
+                            con.Open();
+                            using (SqlCommand com = con.CreateCommand())
+                            {
+                                //com.CommandText = "DELETE FROM tblPayee WHERE PayeeCode = @payeecode";
+                                //com.Parameters.AddWithValue("@payeecode", payeeCode);
+                                //com.ExecuteNonQuery();
+
+                                com.CommandText = "UPDATE tblPayee SET PayeeShortName = '', PayeeName = ''" +
+                                    ", LastChangedTimestamp = CURRENT_TIMESTAMP, LastChangedUser = @user " +
+                                    "WHERE PayeeCode = @payeecode";
+                                com.Parameters.AddWithValue("@payeecode", payeeCode);
+                                com.Parameters.AddWithValue("@user", user.username);
+                                com.ExecuteNonQuery();
+                            }
+                        }
+                        //MessageBox.Show("Payee has been successfully deleted.", "POS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadVendorList();
+                    }
                 }
             }
         }
