@@ -20,11 +20,13 @@ namespace SosesPOS
         DbConnection dbcon = new DbConnection();
         UserDTO user = null;
         string module = "Check Writer";
-        public formWriteCheck(UserDTO user)
+        formWriteCheckList formWriteCheckList = null;
+        public formWriteCheck(UserDTO user, formWriteCheckList formWriteCheckList)
         {
             InitializeComponent();
             this.user = user;
             this.KeyPreview = true;
+            this.formWriteCheckList = formWriteCheckList;
 
             try
             {
@@ -265,6 +267,8 @@ namespace SosesPOS
 
                             transaction.Commit();
                             this.Dispose();
+                            formWriteCheckList.txtSearch.Clear();
+                            formWriteCheckList.txtSearch.Focus();
                         }
                     }
                     catch (Exception ex)

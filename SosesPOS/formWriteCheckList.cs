@@ -84,7 +84,7 @@ namespace SosesPOS
 
         private void SelectPayee(int rowIndex)
         {
-            formWriteCheck form = new formWriteCheck(user);
+            formWriteCheck form = new formWriteCheck(user, this);
             form.txtPayee.Text = dgvVendorList[4, rowIndex].Value.ToString();
             int term = Convert.ToInt32(dgvVendorList[5, rowIndex].Value);
             form.dtpCheckDate.Value = DateTime.Now.AddDays(term);
@@ -117,7 +117,6 @@ namespace SosesPOS
                     form.txtTerm.Text = dgvVendorList[5, e.RowIndex].Value.ToString();
                     form.cboCategory.SelectedValue = dgvVendorList[6, e.RowIndex].Value.ToString();
                     form.ShowDialog();
-                    form.cboCategory.Focus();
                 }
                 else if (colName == "Delete")
                 {
@@ -161,7 +160,7 @@ namespace SosesPOS
 
         private void btnBlankCheck_Click(object sender, EventArgs e)
         {
-            formWriteCheck form = new formWriteCheck(user);
+            formWriteCheck form = new formWriteCheck(user, this);
             form.dtpCheckDate.Value = DateTime.Now;
             form.LoadCategory("101");
             form.txtAmount.Focus();
