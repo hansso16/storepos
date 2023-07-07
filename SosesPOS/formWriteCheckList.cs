@@ -87,7 +87,7 @@ namespace SosesPOS
             formWriteCheck form = new formWriteCheck(user, this);
             form.txtPayee.Text = dgvVendorList[4, rowIndex].Value.ToString();
             int term = Convert.ToInt32(dgvVendorList[5, rowIndex].Value);
-            form.dtpCheckDate.Value = DateTime.Now.AddDays(term);
+            form.dtpCheckDate.Value = DateTime.Now;
             form.txtVendorShortName.Text = dgvVendorList[3, rowIndex].Value.ToString();
             form.hlblPayeeCode.Text = dgvVendorList[2, rowIndex].Value.ToString();
             string categoryId = dgvVendorList[6, rowIndex].Value.ToString();
