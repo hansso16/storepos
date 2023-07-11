@@ -260,7 +260,10 @@ namespace SosesPOS
                             ProcessCSVFile(fileName, csvDTO);
 
                             // PRINT
-                            PrintCheck(dtpCheckDate.Value.ToString("MM-dd-yyyy"), txtAmount.Text, txtPayee.Text);
+                            if (!rbSS.Checked)
+                            {
+                                PrintCheck(dtpCheckDate.Value.ToString("MM-dd-yyyy"), txtAmount.Text, txtPayee.Text);
+                            }
 
                             //MessageBox.Show("The data has been successfully saved.", "Check Writer"
                             //   , MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -418,6 +421,11 @@ namespace SosesPOS
         private void ProcessCSVFile(string fileName, CheckCSVDTO csv)
         {
             StringBuilder output = new StringBuilder();
+
+            if ("SuySing".Equals(csv.Bank))
+            {
+                csv.Bank = "BDO";
+            }
 
             //string newLine = string.Format("{0}, {1}, {2}, {3}", "", "", "", 01);
             String[] newLine = { csv.Bank.ToString(), csv.CheckNo, csv.CheckDate, csv.CheckAmount, csv.VendorCode
