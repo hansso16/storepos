@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Reporting.WinForms;
 
 namespace SosesPOS
 {
@@ -160,11 +161,20 @@ namespace SosesPOS
 
         private void btnBlankCheck_Click(object sender, EventArgs e)
         {
-            formWriteCheck form = new formWriteCheck(user, this);
-            form.dtpCheckDate.Value = DateTime.Now;
-            form.LoadCategory("101");
-            form.txtAmount.Focus();
-            form.ShowDialog();
+            try
+            {
+                PrintCheck();
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Check Writer: formWriteCheckList(): " + ex.Message, "Check Writer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PrintCheck()
+        {
+            formPrintCheckReport form = new formPrintCheckReport();
+            form.PrintCheck();
+            this.Focus();
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)

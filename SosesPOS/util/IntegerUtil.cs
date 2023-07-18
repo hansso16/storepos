@@ -33,7 +33,7 @@ namespace SosesPOS.util
             // just add 'No Cents' to the end
             if (arrNumber.Length > 1)
             {
-                // If the length of the fractional element is only 1, add a 0 so that the text returned isn't,
+                // If the lengthPixel of the fractional element is only 1, add a 0 so that the text returned isn't,
                 // 'One', 'Two', etc but 'Ten', 'Twenty', etc.
                 long fractionPart = long.Parse((arrNumber[1].Length == 1 ? arrNumber[1] + "0" : arrNumber[1]));
                 string strFarctionPart = NumberToText(fractionPart);

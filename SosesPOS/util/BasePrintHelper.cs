@@ -15,13 +15,13 @@ namespace SosesPOS.util
     {
         private int m_currentPageIndex;
         private IList<Stream> m_streams;
-        private int length;
+        private int lengthPixel;
         private int width;
 
-        public BasePrintHelper(int width, int length)
+        public BasePrintHelper(int widthPixel, int lengthPixel)
         {
-            this.length = length;
-            this.width = width; 
+            this.lengthPixel = lengthPixel;
+            this.width = widthPixel; 
         }
 
         // Routine to provide to the report renderer, in order to save an image for each page of the report.
@@ -75,7 +75,7 @@ namespace SosesPOS.util
                 ev.PageBounds.Left - (int)ev.PageSettings.HardMarginX,
                 ev.PageBounds.Top - (int)ev.PageSettings.HardMarginY,
                 width,
-                length);
+                lengthPixel);
             //ev.PageBounds.Width,
             //ev.PageBounds.Height);
 

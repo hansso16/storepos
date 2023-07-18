@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>25</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -234,6 +234,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCheckPrint.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dataset\dsCheckReport.cs">
+      <DependentUpon>dsCheckReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dataset\dsCheckReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsCheckReport.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dataset\dsInvoiceReceipt.cs">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
     </Compile>
@@ -255,6 +263,7 @@
     <Compile Include="DbConnection.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
     <Compile Include="DTO\CheckCSVDTO.cs" />
+    <Compile Include="DTO\CheckIssueDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
     <Compile Include="DTO\InventoryDTO.cs" />
     <Compile Include="DTO\POSInventoryDTO.cs" />
@@ -352,6 +361,12 @@
     </Compile>
     <Compile Include="formPOSWithdrawal.Designer.cs">
       <DependentUpon>formPOSWithdrawal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formPrintCheckReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPrintCheckReport.Designer.cs">
+      <DependentUpon>formPrintCheckReport.cs</DependentUpon>
     </Compile>
     <Compile Include="formProductDetails.cs">
       <SubType>Form</SubType>
@@ -614,6 +629,9 @@
     <EmbeddedResource Include="formPOSWithdrawal.resx">
       <DependentUpon>formPOSWithdrawal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formPrintCheckReport.resx">
+      <DependentUpon>formPrintCheckReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formProductDetails.resx">
       <DependentUpon>formProductDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -732,6 +750,7 @@
     <EmbeddedResource Include="report\rptCheckPrint.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="report\rptCheckReport.rdlc" />
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -762,6 +781,17 @@
     </None>
     <None Include="dataset\dsCheckPrint.xss">
       <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsCheckReport.xsc">
+      <DependentUpon>dsCheckReport.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsCheckReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsCheckReport.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\dsCheckReport.xss">
+      <DependentUpon>dsCheckReport.xsd</DependentUpon>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xsc">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
