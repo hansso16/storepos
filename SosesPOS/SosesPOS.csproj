@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>25</ApplicationRevision>
+    <ApplicationRevision>26</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -313,6 +313,12 @@
     </Compile>
     <Compile Include="formCheckPrint.Designer.cs">
       <DependentUpon>formCheckPrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formCheckReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCheckReport.Designer.cs">
+      <DependentUpon>formCheckReport.cs</DependentUpon>
     </Compile>
     <Compile Include="formCustomerModule.cs">
       <SubType>Form</SubType>
@@ -605,6 +611,9 @@
     <EmbeddedResource Include="formCheckPrint.resx">
       <DependentUpon>formCheckPrint.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formCheckReport.resx">
+      <DependentUpon>formCheckReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formCustomerModule.resx">
       <DependentUpon>formCustomerModule.cs</DependentUpon>
     </EmbeddedResource>
@@ -750,7 +759,9 @@
     <EmbeddedResource Include="report\rptCheckPrint.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="report\rptCheckReport.rdlc" />
+    <EmbeddedResource Include="report\rptCheckReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>

@@ -73,11 +73,11 @@
             // 
             this.btnBlankCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
             this.btnBlankCheck.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnBlankCheck.Location = new System.Drawing.Point(165, 6);
+            this.btnBlankCheck.Location = new System.Drawing.Point(196, 6);
             this.btnBlankCheck.Name = "btnBlankCheck";
-            this.btnBlankCheck.Size = new System.Drawing.Size(183, 28);
+            this.btnBlankCheck.Size = new System.Drawing.Size(152, 28);
             this.btnBlankCheck.TabIndex = 10;
-            this.btnBlankCheck.Text = "Print Today\'s Report";
+            this.btnBlankCheck.Text = "View Report";
             this.btnBlankCheck.UseVisualStyleBackColor = false;
             this.btnBlankCheck.Click += new System.EventHandler(this.btnBlankCheck_Click);
             // 

@@ -163,18 +163,13 @@ namespace SosesPOS
         {
             try
             {
-                PrintCheck();
+                //PrintCheck();
+                formCheckReport form = new formCheckReport();
+                form.ShowDialog();
             } catch (Exception ex)
             {
                 MessageBox.Show("Check Writer: formWriteCheckList(): " + ex.Message, "Check Writer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void PrintCheck()
-        {
-            formPrintCheckReport form = new formPrintCheckReport();
-            form.PrintCheck();
-            this.Focus();
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)

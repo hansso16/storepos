@@ -166,3 +166,5 @@ D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.csproj.CopyComplete
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.exe
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.pdb
 D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPrintCheckReport.resources
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptCheckReport.rdlc
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formCheckReport.resources
