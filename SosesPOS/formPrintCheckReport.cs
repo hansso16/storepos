@@ -25,7 +25,7 @@ namespace SosesPOS
             InitializeComponent();
         }
         //List<CheckIssueDTO> list
-        public void PrintCheck()
+        public void PrintCheck(List<CheckReportDTO> list)
         {
             try
             {
@@ -35,18 +35,12 @@ namespace SosesPOS
 
                 dsCheckReport ds = new dsCheckReport();
                 DataTable dt = ds.Tables["dtCheckReport"];
-                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+
+                if (list.Count > 0)
                 {
-                    con.Open();
-                    using (SqlDataAdapter sda = new SqlDataAdapter())
+                    foreach (CheckReportDTO dto in list)
                     {
-                        using (SqlCommand com = con.CreateCommand())
-                        {
-                            com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp " +
-                                "FROM tblCheckIssue WHERE CAST(EntryTimestamp AS DATE) = CAST(GETDATE() AS DATE)";
-                            sda.SelectCommand = com;
-                            sda.Fill(dt);
-                        }
+                        dt.Rows.Add(dto.CheckDate, dto.CheckNo, dto.Payee, dto.Amount, dto.CheckId);
                     }
                 }
 
@@ -62,7 +56,7 @@ namespace SosesPOS
 
                 // Paper Settings
                 PageSettings page = new PageSettings();
-                PaperSize size = new PaperSize("Check Print", 550, 850); // name, width, height
+                PaperSize size = new PaperSize("LETTER", 850, 1100); // name, width, height
                 size.RawKind = (int)PaperKind.Custom;
                 page.PaperSize = size;
 
@@ -75,12 +69,12 @@ namespace SosesPOS
                 reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
 
                 // PRINT
-                BasePrintHelper print = new BasePrintHelper(528, 816);
+                BasePrintHelper print = new BasePrintHelper(816, 1056);
                 string deviceInfo =
                   @"<DeviceInfo>
                         <OutputFormat>EMF</OutputFormat>
-                        <PageWidth>5.5in</PageWidth>
-                        <PageHeight>8.5in</PageHeight>
+                        <PageWidth>8.5in</PageWidth>
+                        <PageHeight>11in</PageHeight>
                         <MarginTop>0in</MarginTop>
                         <MarginLeft>0in</MarginLeft>
                         <MarginRight>0in</MarginRight>
@@ -93,6 +87,7 @@ namespace SosesPOS
             }
             catch (Exception ex)
             {
+                Console.WriteLine("PrintCheckReport->PrintCheck(list)->"+ex.Message);
                 throw new Exception("Print Check Report error:" + ex.Message);
             }
         }

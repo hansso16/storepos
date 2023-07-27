@@ -19,7 +19,7 @@
               <xs:element name="CheckNo" msprop:Generator_ColumnPropNameInTable="CheckNoColumn" msprop:Generator_ColumnPropNameInRow="CheckNo" msprop:Generator_UserColumnName="CheckNo" msprop:Generator_ColumnVarNameInTable="columnCheckNo" type="xs:int" minOccurs="0" />
               <xs:element name="PayeeName" msprop:Generator_ColumnPropNameInTable="PayeeNameColumn" msprop:Generator_ColumnPropNameInRow="PayeeName" msprop:Generator_UserColumnName="PayeeName" msprop:Generator_ColumnVarNameInTable="columnPayeeName" type="xs:string" minOccurs="0" />
               <xs:element name="CheckAmount" msprop:Generator_ColumnPropNameInTable="CheckAmountColumn" msprop:Generator_ColumnPropNameInRow="CheckAmount" msprop:Generator_UserColumnName="CheckAmount" msprop:Generator_ColumnVarNameInTable="columnCheckAmount" type="xs:decimal" minOccurs="0" />
-              <xs:element name="EntryTimestamp" msprop:Generator_UserColumnName="EntryTimestamp" msprop:Generator_ColumnPropNameInTable="EntryTimestampColumn" msprop:Generator_ColumnPropNameInRow="EntryTimestamp" msprop:Generator_ColumnVarNameInTable="columnEntryTimestamp" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CheckId" msprop:Generator_ColumnPropNameInTable="CheckIdColumn" msprop:Generator_ColumnPropNameInRow="CheckId" msprop:Generator_UserColumnName="CheckId" msprop:Generator_ColumnVarNameInTable="columnCheckId" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

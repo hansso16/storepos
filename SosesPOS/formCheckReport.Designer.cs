@@ -28,18 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvCheckList = new System.Windows.Forms.DataGridView();
             this.btnBlankCheck = new System.Windows.Forms.Button();
+            this.btnSelectAll = new System.Windows.Forms.Button();
+            this.btnUnselectAll = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SELECT = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CheckDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Payee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CheckId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheckList)).BeginInit();
@@ -48,6 +52,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnUnselectAll);
+            this.panel1.Controls.Add(this.btnSelectAll);
             this.panel1.Controls.Add(this.btnBlankCheck);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label1);
@@ -87,30 +93,32 @@
             this.dgvCheckList.AllowUserToAddRows = false;
             this.dgvCheckList.BackgroundColor = System.Drawing.Color.White;
             this.dgvCheckList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCheckList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCheckList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCheckList.ColumnHeadersHeight = 30;
             this.dgvCheckList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCheckList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCheckList.DefaultCellStyle = dataGridViewCellStyle8;
+            this.SELECT,
+            this.CheckDate,
+            this.CheckNo,
+            this.Payee,
+            this.Amount,
+            this.CheckId});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCheckList.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCheckList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCheckList.EnableHeadersVisualStyles = false;
             this.dgvCheckList.Location = new System.Drawing.Point(0, 49);
@@ -120,6 +128,9 @@
             this.dgvCheckList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCheckList.Size = new System.Drawing.Size(799, 429);
             this.dgvCheckList.TabIndex = 4;
+            this.dgvCheckList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCheckList_CellContentClick);
+            this.dgvCheckList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvCheckList_KeyDown);
+            this.dgvCheckList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgvCheckList_KeyUp);
             // 
             // btnBlankCheck
             // 
@@ -134,6 +145,32 @@
             this.btnBlankCheck.UseVisualStyleBackColor = false;
             this.btnBlankCheck.Click += new System.EventHandler(this.btnBlankCheck_Click);
             // 
+            // btnSelectAll
+            // 
+            this.btnSelectAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.btnSelectAll.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnSelectAll.Location = new System.Drawing.Point(185, 7);
+            this.btnSelectAll.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(105, 35);
+            this.btnSelectAll.TabIndex = 12;
+            this.btnSelectAll.Text = "Select All";
+            this.btnSelectAll.UseVisualStyleBackColor = false;
+            this.btnSelectAll.Click += new System.EventHandler(this.btnSelectAll_Click);
+            // 
+            // btnUnselectAll
+            // 
+            this.btnUnselectAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.btnUnselectAll.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnUnselectAll.Location = new System.Drawing.Point(298, 7);
+            this.btnUnselectAll.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUnselectAll.Name = "btnUnselectAll";
+            this.btnUnselectAll.Size = new System.Drawing.Size(112, 35);
+            this.btnUnselectAll.TabIndex = 13;
+            this.btnUnselectAll.Text = "Unselect All";
+            this.btnUnselectAll.UseVisualStyleBackColor = false;
+            this.btnUnselectAll.Click += new System.EventHandler(this.btnUnselectAll_Click);
+            // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -142,35 +179,47 @@
             this.Column1.ReadOnly = true;
             this.Column1.Width = 42;
             // 
-            // Column2
+            // SELECT
             // 
-            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column2.HeaderText = "Check Date";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 111;
+            this.SELECT.HeaderText = "SELECT";
+            this.SELECT.Name = "SELECT";
             // 
-            // Column3
+            // CheckDate
             // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column3.HeaderText = "Check No";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
+            this.CheckDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CheckDate.HeaderText = "Check Date";
+            this.CheckDate.Name = "CheckDate";
+            this.CheckDate.ReadOnly = true;
+            this.CheckDate.Width = 111;
             // 
-            // Column4
+            // CheckNo
             // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column4.HeaderText = "Payee";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
+            this.CheckNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CheckNo.HeaderText = "Check No";
+            this.CheckNo.Name = "CheckNo";
+            this.CheckNo.ReadOnly = true;
             // 
-            // Column5
+            // Payee
             // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Column5.HeaderText = "Amount";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Width = 89;
+            this.Payee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Payee.HeaderText = "Payee";
+            this.Payee.Name = "Payee";
+            this.Payee.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            this.Amount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Amount.HeaderText = "Amount";
+            this.Amount.Name = "Amount";
+            this.Amount.ReadOnly = true;
+            this.Amount.Width = 89;
+            // 
+            // CheckId
+            // 
+            this.CheckId.HeaderText = "CheckId";
+            this.CheckId.Name = "CheckId";
+            this.CheckId.ReadOnly = true;
+            this.CheckId.Visible = false;
             // 
             // formCheckReport
             // 
@@ -200,10 +249,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvCheckList;
         private System.Windows.Forms.Button btnBlankCheck;
+        private System.Windows.Forms.Button btnUnselectAll;
+        private System.Windows.Forms.Button btnSelectAll;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn SELECT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Payee;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CheckId;
     }
 }

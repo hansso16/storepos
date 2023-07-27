@@ -220,50 +220,61 @@
     <Compile Include="DAO\ProductCostDAO.cs" />
     <Compile Include="dataset\dsBillingSummary.cs">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsBillingSummary.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsCheckPrint.cs">
       <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsCheckPrint.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsCheckReport.cs">
       <DependentUpon>dsCheckReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsCheckReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCheckReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsInvoiceReceipt.cs">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsInvoiceReceipt.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsInvoiceWithdrawal.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsStockTransferRequest.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="DbConnection.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
     <Compile Include="DTO\CheckCSVDTO.cs" />
     <Compile Include="DTO\CheckIssueDTO.cs" />
+    <Compile Include="DTO\CheckReportDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
     <Compile Include="DTO\InventoryDTO.cs" />
     <Compile Include="DTO\POSInventoryDTO.cs" />
@@ -773,69 +784,87 @@
     </EmbeddedResource>
     <None Include="dataset\dsBillingSummary.xsc">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsBillingSummary.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsBillingSummary.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsBillingSummary.xss">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCheckPrint.xsc">
       <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCheckPrint.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsCheckPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCheckPrint.xss">
       <DependentUpon>dsCheckPrint.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCheckReport.xsc">
       <DependentUpon>dsCheckReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCheckReport.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsCheckReport.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCheckReport.xss">
       <DependentUpon>dsCheckReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xsc">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsInvoiceReceipt.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xss">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceWithdrawal.xsc">
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceWithdrawal.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsInvoiceWithdrawal.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceWithdrawal.xss">
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsStockTransferRequest.xsc">
       <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsStockTransferRequest.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsStockTransferRequest.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsStockTransferRequest.xss">
       <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\SosesPOS.DTO.UserDTO.datasource" />

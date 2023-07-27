@@ -287,7 +287,7 @@ namespace SosesPOS.dataset {
             
             private global::System.Data.DataColumn columnCheckAmount;
             
-            private global::System.Data.DataColumn columnEntryTimestamp;
+            private global::System.Data.DataColumn columnCheckId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
@@ -356,9 +356,9 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn EntryTimestampColumn {
+            public global::System.Data.DataColumn CheckIdColumn {
                 get {
-                    return this.columnEntryTimestamp;
+                    return this.columnCheckId;
                 }
             }
             
@@ -399,14 +399,14 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public dtCheckReportRow AdddtCheckReportRow(System.DateTime CheckDate, int CheckNo, string PayeeName, decimal CheckAmount, System.DateTime EntryTimestamp) {
+            public dtCheckReportRow AdddtCheckReportRow(System.DateTime CheckDate, int CheckNo, string PayeeName, decimal CheckAmount, string CheckId) {
                 dtCheckReportRow rowdtCheckReportRow = ((dtCheckReportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CheckDate,
                         CheckNo,
                         PayeeName,
                         CheckAmount,
-                        EntryTimestamp};
+                        CheckId};
                 rowdtCheckReportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtCheckReportRow);
                 return rowdtCheckReportRow;
@@ -433,7 +433,7 @@ namespace SosesPOS.dataset {
                 this.columnCheckNo = base.Columns["CheckNo"];
                 this.columnPayeeName = base.Columns["PayeeName"];
                 this.columnCheckAmount = base.Columns["CheckAmount"];
-                this.columnEntryTimestamp = base.Columns["EntryTimestamp"];
+                this.columnCheckId = base.Columns["CheckId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -447,8 +447,8 @@ namespace SosesPOS.dataset {
                 base.Columns.Add(this.columnPayeeName);
                 this.columnCheckAmount = new global::System.Data.DataColumn("CheckAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCheckAmount);
-                this.columnEntryTimestamp = new global::System.Data.DataColumn("EntryTimestamp", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEntryTimestamp);
+                this.columnCheckId = new global::System.Data.DataColumn("CheckId", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCheckId);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -655,17 +655,17 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public System.DateTime EntryTimestamp {
+            public string CheckId {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tabledtCheckReport.EntryTimestampColumn]));
+                        return ((string)(this[this.tabledtCheckReport.CheckIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'EntryTimestamp\' in table \'dtCheckReport\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'CheckId\' in table \'dtCheckReport\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tabledtCheckReport.EntryTimestampColumn] = value;
+                    this[this.tabledtCheckReport.CheckIdColumn] = value;
                 }
             }
             
@@ -719,14 +719,14 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsEntryTimestampNull() {
-                return this.IsNull(this.tabledtCheckReport.EntryTimestampColumn);
+            public bool IsCheckIdNull() {
+                return this.IsNull(this.tabledtCheckReport.CheckIdColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetEntryTimestampNull() {
-                this[this.tabledtCheckReport.EntryTimestampColumn] = global::System.Convert.DBNull;
+            public void SetCheckIdNull() {
+                this[this.tabledtCheckReport.CheckIdColumn] = global::System.Convert.DBNull;
             }
         }
         
