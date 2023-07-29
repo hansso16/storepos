@@ -34,7 +34,7 @@ namespace SosesPOS
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId " +
-                                "FROM tblCheckIssue WHERE IsPrinted = '0'";
+                                "FROM tblCheckIssue WHERE IsPrinted = '0' OR IsPrinted IS NULL";
                         using (SqlDataReader reader = com.ExecuteReader())
                         {
                             int i = 1;
