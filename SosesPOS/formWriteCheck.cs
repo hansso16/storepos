@@ -230,9 +230,9 @@ namespace SosesPOS
                             {
                                 com.Transaction = transaction;
                                 com.CommandText = "INSERT INTO tblCheckIssue (CheckNo, CheckDate, CheckAmount, CheckBankID" +
-                                    ", PayeeCode, PayeeName, Computer, Retain, EntryTimestamp, LastChangedUser) " +
+                                    ", PayeeCode, PayeeName, Computer, Retain, EntryTimestamp, LastChangedUser, IsPrinted) " +
                                     "VALUES (@checkno, @checkdate, @checkamount, @checkbankid, @payeecode, @payeename" +
-                                    ", @computer, @retain, @entrytimestamp, @lastchangeduser)";
+                                    ", @computer, @retain, @entrytimestamp, @lastchangeduser, @isprinted)";
                                 com.Parameters.AddWithValue("@checkno", csvDTO.CheckNo);
                                 com.Parameters.AddWithValue("@checkdate", csvDTO.CheckDate);
                                 com.Parameters.AddWithValue("@checkamount", decAmount);
@@ -243,6 +243,7 @@ namespace SosesPOS
                                 com.Parameters.AddWithValue("@retain", csvDTO.Retain);
                                 com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
                                 com.Parameters.AddWithValue("@lastchangeduser", this.user.userCode);
+                                com.Parameters.AddWithValue("@isprinted", "0");
                                 com.ExecuteNonQuery();
                             }
 

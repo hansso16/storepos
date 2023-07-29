@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCheckReport" targetNamespace="http://tempuri.org/dsCheckReport.xsd" xmlns:mstns="http://tempuri.org/dsCheckReport.xsd" xmlns="http://tempuri.org/dsCheckReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCheckReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsCheckReport" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCheckReport">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtCheckReport" msprop:Generator_RowEvHandlerName="dtCheckReportRowChangeEventHandler" msprop:Generator_RowDeletedName="dtCheckReportRowDeleted" msprop:Generator_RowDeletingName="dtCheckReportRowDeleting" msprop:Generator_RowEvArgName="dtCheckReportRowChangeEvent" msprop:Generator_TablePropName="dtCheckReport" msprop:Generator_RowChangedName="dtCheckReportRowChanged" msprop:Generator_UserTableName="dtCheckReport" msprop:Generator_RowChangingName="dtCheckReportRowChanging" msprop:Generator_RowClassName="dtCheckReportRow" msprop:Generator_TableClassName="dtCheckReportDataTable" msprop:Generator_TableVarName="tabledtCheckReport">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CheckDate" msprop:Generator_ColumnPropNameInTable="CheckDateColumn" msprop:Generator_ColumnPropNameInRow="CheckDate" msprop:Generator_UserColumnName="CheckDate" msprop:Generator_ColumnVarNameInTable="columnCheckDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CheckNo" msprop:Generator_ColumnPropNameInTable="CheckNoColumn" msprop:Generator_ColumnPropNameInRow="CheckNo" msprop:Generator_UserColumnName="CheckNo" msprop:Generator_ColumnVarNameInTable="columnCheckNo" type="xs:int" minOccurs="0" />
+              <xs:element name="PayeeName" msprop:Generator_ColumnPropNameInTable="PayeeNameColumn" msprop:Generator_ColumnPropNameInRow="PayeeName" msprop:Generator_UserColumnName="PayeeName" msprop:Generator_ColumnVarNameInTable="columnPayeeName" type="xs:string" minOccurs="0" />
+              <xs:element name="CheckAmount" msprop:Generator_ColumnPropNameInTable="CheckAmountColumn" msprop:Generator_ColumnPropNameInRow="CheckAmount" msprop:Generator_UserColumnName="CheckAmount" msprop:Generator_ColumnVarNameInTable="columnCheckAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CheckId" msprop:Generator_ColumnPropNameInTable="CheckIdColumn" msprop:Generator_ColumnPropNameInRow="CheckId" msprop:Generator_UserColumnName="CheckId" msprop:Generator_ColumnVarNameInTable="columnCheckId" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
