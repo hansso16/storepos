@@ -6,21 +6,21 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3.47045cm</Width>
+              <Width>3.10003cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.44399cm</Width>
+              <Width>3.04712cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>10.86115cm</Width>
+              <Width>11.12573cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.17941cm</Width>
+              <Width>3.68212cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.68792cm</Height>
+              <Height>0.51153cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -34,6 +34,7 @@
                               <Value>Check Date</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -72,6 +73,7 @@
                               <Value>Check No</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -110,6 +112,7 @@
                               <Value>Payee</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -148,6 +151,7 @@
                               <Value>Amount</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -177,7 +181,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.67469cm</Height>
+              <Height>0.48948cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -191,6 +195,7 @@
                               <Value>=CDate(Fields!CheckDate.Value).ToString("MM/dd/yyyy")</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -226,6 +231,7 @@
                               <Value>=Fields!CheckNo.Value</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -261,6 +267,7 @@
                               <Value>=Fields!PayeeName.Value</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -296,6 +303,7 @@
                               <Value>=FormatNumber(Fields!CheckAmount.Value, 2)</Value>
                               <Style>
                                 <FontFamily>Verdana</FontFamily>
+                                <FontSize>9pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -336,7 +344,7 @@
             <TablixMember>
               <Group Name="ParentHeader">
                 <GroupExpressions>
-                  <GroupExpression>=Ceiling(RowNumber(Nothing)/35)</GroupExpression>
+                  <GroupExpression>=Ceiling(RowNumber(Nothing)/50)</GroupExpression>
                 </GroupExpressions>
                 <PageBreak>
                   <BreakLocation>Between</BreakLocation>
@@ -358,18 +366,19 @@
         </TablixRowHierarchy>
         <DataSetName>dsCheckReport</DataSetName>
         <Left>0.3175cm</Left>
-        <Height>1.36261cm</Height>
+        <Height>1.00101cm</Height>
         <Width>20.955cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <FontFamily>Verdana</FontFamily>
+          <FontFamily>Cambria</FontFamily>
+          <FontSize>8pt</FontSize>
         </Style>
       </Tablix>
       <Line Name="Line2">
-        <Top>0.6059in</Top>
-        <Left>0.11285in</Left>
+        <Top>0.42188in</Top>
+        <Left>0.125in</Left>
         <Height>0in</Height>
         <Width>8.26215in</Width>
         <ZIndex>1</ZIndex>
@@ -388,6 +397,7 @@
               <TextRun>
                 <Value>END</Value>
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -396,9 +406,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox2</rd:DefaultName>
-        <Top>0.67535in</Top>
-        <Left>0.11285in</Left>
-        <Height>0.25in</Height>
+        <Top>0.42188in</Top>
+        <Left>0.125in</Left>
+        <Height>0.18056in</Height>
         <Width>8.26215in</Width>
         <ZIndex>2</ZIndex>
         <Style>
@@ -412,13 +422,13 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>0.92535in</Height>
+    <Height>0.60243in</Height>
     <Style />
   </Body>
   <Width>8.5in</Width>
   <Page>
     <PageHeader>
-      <Height>0.32292in</Height>
+      <Height>0.10417in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <Style>
@@ -428,7 +438,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>0.32292in</Height>
+      <Height>0.05209in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <Style>

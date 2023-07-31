@@ -56,7 +56,7 @@ namespace SosesPOS
 
                 // Paper Settings
                 PageSettings page = new PageSettings();
-                PaperSize size = new PaperSize("LETTER", 850, 1100); // name, width, height
+                PaperSize size = new PaperSize("LONG", 850, 1100); // name, width, height
                 size.RawKind = (int)PaperKind.Custom;
                 page.PaperSize = size;
 
