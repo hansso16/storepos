@@ -12,7 +12,7 @@
               <Width>3.04712cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>11.12573cm</Width>
+              <Width>9.82927cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>3.68212cm</Width>
@@ -344,7 +344,7 @@
             <TablixMember>
               <Group Name="ParentHeader">
                 <GroupExpressions>
-                  <GroupExpression>=Ceiling(RowNumber(Nothing)/50)</GroupExpression>
+                  <GroupExpression>=Ceiling(RowNumber(Nothing)/55)</GroupExpression>
                 </GroupExpressions>
                 <PageBreak>
                   <BreakLocation>Between</BreakLocation>
@@ -367,7 +367,7 @@
         <DataSetName>dsCheckReport</DataSetName>
         <Left>0.3175cm</Left>
         <Height>1.00101cm</Height>
-        <Width>20.955cm</Width>
+        <Width>19.65854cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -380,7 +380,7 @@
         <Top>0.42188in</Top>
         <Left>0.125in</Left>
         <Height>0in</Height>
-        <Width>8.26215in</Width>
+        <Width>7.73958in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -409,7 +409,7 @@
         <Top>0.42188in</Top>
         <Left>0.125in</Left>
         <Height>0.18056in</Height>
-        <Width>8.26215in</Width>
+        <Width>7.73958in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -422,10 +422,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>0.60243in</Height>
+    <Height>0.60244in</Height>
     <Style />
   </Body>
-  <Width>8.5in</Width>
+  <Width>8in</Width>
   <Page>
     <PageHeader>
       <Height>0.10417in</Height>

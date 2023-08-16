@@ -56,7 +56,7 @@ namespace SosesPOS
 
                 // Paper Settings
                 PageSettings page = new PageSettings();
-                PaperSize size = new PaperSize("LONG", 850, 1100); // name, width, height
+                PaperSize size = new PaperSize("LONG", 800, 1100); // name, width, height
                 size.RawKind = (int)PaperKind.Custom;
                 page.PaperSize = size;
 
@@ -69,11 +69,11 @@ namespace SosesPOS
                 reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
 
                 // PRINT
-                BasePrintHelper print = new BasePrintHelper(816, 1056);
+                BasePrintHelper print = new BasePrintHelper(768, 1056);
                 string deviceInfo =
                   @"<DeviceInfo>
                         <OutputFormat>EMF</OutputFormat>
-                        <PageWidth>8.5in</PageWidth>
+                        <PageWidth>8in</PageWidth>
                         <PageHeight>11in</PageHeight>
                         <MarginTop>0in</MarginTop>
                         <MarginLeft>0in</MarginLeft>

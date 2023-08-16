@@ -1395,6 +1395,7 @@
                   <Group Name="PageBreakGroup">
                     <GroupExpressions>
                       <GroupExpression>=Ceiling(RowNumber(Nothing)/15)</GroupExpression>
+                      <GroupExpression>="COD".Equals(Fields!uom.Value)</GroupExpression>
                     </GroupExpressions>
                     <PageBreak>
                       <BreakLocation>Between</BreakLocation>

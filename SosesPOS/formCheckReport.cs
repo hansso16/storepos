@@ -33,8 +33,8 @@ namespace SosesPOS
                     con.Open();
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId " +
-                                "FROM tblCheckIssue WHERE IsPrinted = '0' OR IsPrinted IS NULL";
+                        com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId, Remarks " +
+                                "FROM tblCheckIssue WHERE (IsPrinted = '0' OR IsPrinted IS NULL) AND CheckBankID = 1";
                         using (SqlDataReader reader = com.ExecuteReader())
                         {
                             int i = 1;
@@ -42,9 +42,12 @@ namespace SosesPOS
                             {
                                 decimal amount = Convert.ToDecimal(reader["CheckAmount"]);
                                 string formattedAmount = amount.ToString("C", System.Globalization.CultureInfo.CurrentCulture).Substring(1);
+                                string payee = reader["PayeeName"].ToString().Trim();
+                                string remarks = reader["Remarks"].ToString().Trim();
+                                string formattedPayee = remarks.Equals(payee) ? payee : payee + " - " + remarks;
                                 dgvCheckList.Rows.Add(i++, 0, Convert.ToDateTime(reader["CheckDate"]).ToString("MM/dd/yyyy")
-                                    , reader["CheckNo"].ToString(), reader["PayeeName"].ToString()
-                                    , formattedAmount, reader["CheckId"].ToString());
+                                    , reader["CheckNo"].ToString(), formattedPayee
+                                    , formattedAmount, 0, reader["CheckId"].ToString());
                             }
                         }
                     }
@@ -96,12 +99,16 @@ namespace SosesPOS
                             dto.CheckId = dgvCheckList.Rows[i].Cells["CheckId"].Value.ToString();
                             selectedRows.Add(dto);
 
-                            using (SqlCommand com = con.CreateCommand())
+                            DataGridViewCheckBoxCell retainCell = dgvCheckList.Rows[i].Cells["RETAIN"] as DataGridViewCheckBoxCell;
+                            if (false == Convert.ToBoolean(retainCell.Value))
                             {
-                                com.Transaction = transaction;
-                                com.CommandText = "UPDATE tblCheckIssue SET IsPrinted = '1' WHERE CheckId = @checkid";
-                                com.Parameters.AddWithValue("@checkid", dto.CheckId);
-                                com.ExecuteNonQuery();
+                                using (SqlCommand com = con.CreateCommand())
+                                {
+                                    com.Transaction = transaction;
+                                    com.CommandText = "UPDATE tblCheckIssue SET IsPrinted = '1' WHERE CheckId = @checkid";
+                                    com.Parameters.AddWithValue("@checkid", dto.CheckId);
+                                    com.ExecuteNonQuery();
+                                }
                             }
                         }
                     }
