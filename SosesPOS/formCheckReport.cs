@@ -42,11 +42,11 @@ namespace SosesPOS
                             {
                                 decimal amount = Convert.ToDecimal(reader["CheckAmount"]);
                                 string formattedAmount = amount.ToString("C", System.Globalization.CultureInfo.CurrentCulture).Substring(1);
-                                string payee = reader["PayeeName"].ToString().Trim();
-                                string remarks = reader["Remarks"].ToString().Trim();
-                                string formattedPayee = remarks.Equals(payee) ? payee : payee + " - " + remarks;
+                                //string payee = reader["PayeeName"].ToString().Trim();
+                                //string remarks = reader["Remarks"].ToString().Trim();
+                                //string formattedPayee = remarks;
                                 dgvCheckList.Rows.Add(i++, 0, Convert.ToDateTime(reader["CheckDate"]).ToString("MM/dd/yyyy")
-                                    , reader["CheckNo"].ToString(), formattedPayee
+                                    , reader["CheckNo"].ToString(), reader["Remarks"].ToString().Trim()
                                     , formattedAmount, 0, reader["CheckId"].ToString());
                             }
                         }
@@ -102,12 +102,17 @@ namespace SosesPOS
                             DataGridViewCheckBoxCell retainCell = dgvCheckList.Rows[i].Cells["RETAIN"] as DataGridViewCheckBoxCell;
                             if (false == Convert.ToBoolean(retainCell.Value))
                             {
-                                using (SqlCommand com = con.CreateCommand())
+                                // prompt here
+                                if (MessageBox.Show("Remove from List?", "Check Printer"
+                                    , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                 {
-                                    com.Transaction = transaction;
-                                    com.CommandText = "UPDATE tblCheckIssue SET IsPrinted = '1' WHERE CheckId = @checkid";
-                                    com.Parameters.AddWithValue("@checkid", dto.CheckId);
-                                    com.ExecuteNonQuery();
+                                    using (SqlCommand com = con.CreateCommand())
+                                    {
+                                        com.Transaction = transaction;
+                                        com.CommandText = "UPDATE tblCheckIssue SET IsPrinted = '1' WHERE CheckId = @checkid";
+                                        com.Parameters.AddWithValue("@checkid", dto.CheckId);
+                                        com.ExecuteNonQuery();
+                                    }
                                 }
                             }
                         }

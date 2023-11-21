@@ -62,6 +62,11 @@ namespace SosesPOS
                     Form1 form = new Form1(this, userDTO);
                     form.SetAccessLevel();
                     form.Show();
+
+                    if ("CH".Equals(roleDTO.roleCode))
+                    {
+                        form.InitiateWriteCheck();
+                    }
                 }
             } catch(Exception ex)
             {

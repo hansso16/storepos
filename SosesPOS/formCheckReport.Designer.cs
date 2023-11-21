@@ -191,7 +191,6 @@
             this.CheckDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.CheckDate.HeaderText = "Check Date";
             this.CheckDate.Name = "CheckDate";
-            this.CheckDate.ReadOnly = true;
             this.CheckDate.Width = 111;
             // 
             // CheckNo
@@ -199,14 +198,12 @@
             this.CheckNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.CheckNo.HeaderText = "Check No";
             this.CheckNo.Name = "CheckNo";
-            this.CheckNo.ReadOnly = true;
             // 
             // Payee
             // 
             this.Payee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Payee.HeaderText = "Payee";
             this.Payee.Name = "Payee";
-            this.Payee.ReadOnly = true;
             // 
             // Amount
             // 
