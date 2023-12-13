@@ -344,7 +344,7 @@
             <TablixMember>
               <Group Name="ParentHeader">
                 <GroupExpressions>
-                  <GroupExpression>=Ceiling(RowNumber(Nothing)/55)</GroupExpression>
+                  <GroupExpression>=Ceiling(RowNumber(Nothing)/52)</GroupExpression>
                 </GroupExpressions>
                 <PageBreak>
                   <BreakLocation>Between</BreakLocation>
@@ -428,7 +428,7 @@
   <Width>8in</Width>
   <Page>
     <PageHeader>
-      <Height>0.4375in</Height>
+      <Height>0.60417in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <Style>

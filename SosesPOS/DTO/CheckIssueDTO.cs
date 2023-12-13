@@ -15,6 +15,7 @@ namespace SosesPOS.DTO
         public int CheckBankID { get; set; }
         public string PayeeCode { get; set; }
         public string PayeeName { get; set; }
+        public string Remarks { get; set; }
         public int Computer { get; set; }
         public int Retain { get; set; }
         public DateTime EntryTimestamp { get; set; }

@@ -43,7 +43,7 @@
             this.CheckNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Retain = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Retain = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CheckId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -215,8 +215,9 @@
             // 
             // Retain
             // 
-            this.Retain.HeaderText = "RETAIN";
+            this.Retain.HeaderText = "CANCEL";
             this.Retain.Name = "Retain";
+            this.Retain.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // CheckId
             // 
@@ -261,7 +262,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Payee;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Retain;
+        private System.Windows.Forms.DataGridViewButtonColumn Retain;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckId;
     }
 }

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using SosesPOS.DTO;
+using SosesPOS.util;
+using System.IO;
 
 namespace SosesPOS
 {
@@ -47,7 +49,7 @@ namespace SosesPOS
                                 //string formattedPayee = remarks;
                                 dgvCheckList.Rows.Add(i++, 0, Convert.ToDateTime(reader["CheckDate"]).ToString("MM/dd/yyyy")
                                     , reader["CheckNo"].ToString(), reader["Remarks"].ToString().Trim()
-                                    , formattedAmount, 0, reader["CheckId"].ToString());
+                                    , formattedAmount, "CANCEL", reader["CheckId"].ToString());
                             }
                         }
                     }
@@ -98,23 +100,6 @@ namespace SosesPOS
                             dto.Amount = dgvCheckList.Rows[i].Cells["Amount"].Value.ToString();
                             dto.CheckId = dgvCheckList.Rows[i].Cells["CheckId"].Value.ToString();
                             selectedRows.Add(dto);
-
-                            DataGridViewCheckBoxCell retainCell = dgvCheckList.Rows[i].Cells["RETAIN"] as DataGridViewCheckBoxCell;
-                            if (false == Convert.ToBoolean(retainCell.Value))
-                            {
-                                // prompt here
-                                if (MessageBox.Show("Remove from List?", "Check Printer"
-                                    , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                                {
-                                    using (SqlCommand com = con.CreateCommand())
-                                    {
-                                        com.Transaction = transaction;
-                                        com.CommandText = "UPDATE tblCheckIssue SET IsPrinted = '1' WHERE CheckId = @checkid";
-                                        com.Parameters.AddWithValue("@checkid", dto.CheckId);
-                                        com.ExecuteNonQuery();
-                                    }
-                                }
-                            }
                         }
                     }
 
@@ -122,6 +107,32 @@ namespace SosesPOS
                     if (selectedRows.Count > 0)
                     {
                         PrintCheck(selectedRows);
+
+                        if (MessageBox.Show("Remove from List?", "Check Printer"
+                                    , MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            for (int i = 0; i < dgvCheckList.Rows.Count; i++)
+                            {
+                                // Find the checkbox cell in each row
+                                DataGridViewCheckBoxCell checkBoxCell = dgvCheckList.Rows[i].Cells["SELECT"] as DataGridViewCheckBoxCell;
+
+                                // Check if the checkbox is checked (true) or not (false)
+                                bool isChecked = (checkBoxCell.Value == null) ? false : Convert.ToBoolean(checkBoxCell.Value);
+                                string checkId = dgvCheckList.Rows[i].Cells["CheckId"].Value.ToString();
+
+                                if (isChecked)
+                                {
+                                    // prompt here
+                                    using (SqlCommand com = con.CreateCommand())
+                                    {
+                                        com.Transaction = transaction;
+                                        com.CommandText = "UPDATE tblCheckIssue SET IsPrinted = '1' WHERE CheckId = @checkid";
+                                        com.Parameters.AddWithValue("@checkid", checkId);
+                                        com.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -188,6 +199,107 @@ namespace SosesPOS
                     lastClickedRowIndex = e.RowIndex;
                 }
 
+            }
+
+            var senderGrid = (DataGridView)sender;
+            string fileName = null;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                //TODO - Button Clicked - Execute Code Here
+                string checkId = dgvCheckList.Rows[e.RowIndex].Cells["CheckId"].Value.ToString();
+                CheckIssueDTO checkIssueDTO = null;
+
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                    {
+                        con.Open();
+                        SqlTransaction transaction = con.BeginTransaction();
+                        using (SqlCommand com = con.CreateCommand())
+                        {
+                            com.Transaction = transaction;
+                            com.CommandText = "SELECT * FROM tblCheckIssue WHERE CheckId = @checkid";
+                            com.Parameters.AddWithValue("@checkid", checkId);
+                            using (SqlDataReader reader = com.ExecuteReader())
+                            {
+                                if (reader.HasRows && reader.Read())
+                                {
+                                    checkIssueDTO = new CheckIssueDTO();
+                                    checkIssueDTO.PayeeName = reader["PayeeName"].ToString();
+                                    checkIssueDTO.CheckNo = Convert.ToInt32(reader["CheckNo"]);
+                                    checkIssueDTO.Remarks = reader["Remarks"].ToString();
+                                    checkIssueDTO.CheckAmount = Convert.ToDecimal(reader["CheckAmount"]);
+                                }
+                            }
+                        }
+
+                        using (SqlCommand com = con.CreateCommand())
+                        {
+                            com.Transaction = transaction;
+                            com.CommandText = "SELECT ParameterValue FROM tblParameter WHERE ParameterID = @parameterid";
+                            com.Parameters.AddWithValue("@parameterid", GlobalConstant.CHECK_CSV_FILE_PARAMETER_ID);
+                            using (SqlDataReader reader = com.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    fileName = reader["ParameterValue"].ToString();
+                                }
+                            }
+                        }
+
+                        if (checkIssueDTO != null && !string.IsNullOrEmpty(fileName) && checkIssueDTO.CheckAmount > 0)
+                        {
+                            string cancelledPayeeName = "CANCELLED - " + checkIssueDTO.PayeeName;
+                            using (SqlCommand com = con.CreateCommand())
+                            {
+                                com.Transaction = transaction;
+                                com.CommandText = "UPDATE tblCheckIssue SET Remarks = @payeename, CheckAmount = @checkamount WHERE CheckId = @checkid";
+                                com.Parameters.AddWithValue("@payeename", cancelledPayeeName);
+                                com.Parameters.AddWithValue("@checkid", checkId);
+                                com.Parameters.AddWithValue("@checkamount", 0.00);
+                                com.ExecuteNonQuery();
+                            }
+
+                            List<String> lines = new List<String>();
+                            if (File.Exists(fileName))
+                            {
+                                using (StreamReader reader = new StreamReader(fileName))
+                                {
+                                    String line = null;
+
+                                    while ((line = reader.ReadLine()) != null)
+                                    {
+                                        if (line.Contains(","))
+                                        {
+                                            String[] split = line.Split(',');
+                                            int fileCheckNo = Convert.ToInt32(split[1].ToString());
+                                            if (checkIssueDTO.CheckNo == fileCheckNo)
+                                            {
+                                                split[3] = "0";
+                                                split[6] = cancelledPayeeName;
+                                                line = String.Join(",", split);
+                                            }
+                                        }
+                                        lines.Add(line);
+                                    }
+                                }
+
+                                using (StreamWriter writer = new StreamWriter(fileName))
+                                {
+                                    foreach (String line in lines)
+                                        writer.WriteLine(line);
+                                }
+                            }
+                        }
+                        transaction.Commit();
+                        MessageBox.Show("Check is already Cancelled");
+                        LoadCheckList();
+                    }
+                } catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
