@@ -19,13 +19,48 @@ namespace SosesPOS
         DbConnection dbcon = new DbConnection();
         private bool isShiftKeyPressed = false;
         private int lastClickedRowIndex = -1;
+        private string bankid = "1";
         public formCheckReport()
         {
             InitializeComponent();
-            LoadCheckList();
+            LoadBankList();
+            LoadCheckList(bankid);
         }
 
-        private void LoadCheckList()
+        private void LoadBankList()
+        {
+            List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+            try
+            {
+                cboBank.Items.Clear();
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.CommandText = "SELECT CheckBankID, BankName, BankShortName " +
+                                "FROM tblCheckBank";
+                        using (SqlDataReader reader = com.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                dataSource.Add(new ComboBoxDTO() { Name = reader["BankShortName"].ToString(), Value = reader["CheckBankID"].ToString() });
+                            }
+                        }
+                    }
+                }
+                dataSource.Add(new ComboBoxDTO() { Name = "Other", Value = "0" });
+                cboBank.DataSource = dataSource;
+                cboBank.DisplayMember = "Name";
+                cboBank.ValueMember = "Value";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Check Report: LoadCheckList(): " + ex.Message, "Check Report", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadCheckList(string bankId)
         {
             try
             {
@@ -36,7 +71,8 @@ namespace SosesPOS
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId, Remarks " +
-                                "FROM tblCheckIssue WHERE (IsPrinted = '0' OR IsPrinted IS NULL) AND CheckBankID = 1";
+                                "FROM tblCheckIssue WHERE (IsPrinted = '0' OR IsPrinted IS NULL) AND CheckBankID = @checkbankid";
+                        com.Parameters.AddWithValue("@checkbankid", bankId);
                         using (SqlDataReader reader = com.ExecuteReader())
                         {
                             int i = 1;
@@ -44,9 +80,6 @@ namespace SosesPOS
                             {
                                 decimal amount = Convert.ToDecimal(reader["CheckAmount"]);
                                 string formattedAmount = amount.ToString("C", System.Globalization.CultureInfo.CurrentCulture).Substring(1);
-                                //string payee = reader["PayeeName"].ToString().Trim();
-                                //string remarks = reader["Remarks"].ToString().Trim();
-                                //string formattedPayee = remarks;
                                 dgvCheckList.Rows.Add(i++, 0, Convert.ToDateTime(reader["CheckDate"]).ToString("MM/dd/yyyy")
                                     , reader["CheckNo"].ToString(), reader["Remarks"].ToString().Trim()
                                     , formattedAmount, "CANCEL", reader["CheckId"].ToString());
@@ -142,7 +175,7 @@ namespace SosesPOS
                     transaction.Commit();
                 }
 
-                LoadCheckList();
+                LoadCheckList(bankid);
             }
             catch (Exception ex)
             {
@@ -294,7 +327,7 @@ namespace SosesPOS
                         }
                         transaction.Commit();
                         MessageBox.Show("Check is already Cancelled");
-                        LoadCheckList();
+                        LoadCheckList(bankid);
                     }
                 } catch (Exception ex)
                 {
@@ -327,6 +360,14 @@ namespace SosesPOS
                 // Set the checkbox value to true (checked)
                 checkBoxCell.Value = false;
             }
+        }
+
+        private void cboBank_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            ComboBoxDTO dto = (ComboBoxDTO) cb.SelectedItem;
+            bankid = dto.Value;
+            LoadCheckList(bankid);
         }
     }
 }

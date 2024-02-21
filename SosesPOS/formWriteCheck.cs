@@ -162,18 +162,19 @@ namespace SosesPOS
                         // if other, we only need to print
                         if (rbOther.Checked)
                         {
-                            PrintCheck(dtpCheckDate.Value.ToString("MM/dd/yyyy"), txtAmount.Text, txtPayee.Text);
-                            this.Dispose();
-                            return;
+                            hlblCheckBankID.Text = "0";
+                            //PrintCheck(dtpCheckDate.Value.ToString("MM/dd/yyyy"), txtAmount.Text, txtPayee.Text);
+                            //this.Dispose();
+                            //return;
                         }
 
-                        if (String.IsNullOrEmpty(cboCategory.Text) || cboCategory.SelectedIndex < 0)
+                        if ((String.IsNullOrEmpty(cboCategory.Text) || cboCategory.SelectedIndex < 0) && !rbOther.Checked)
                         {
                             MessageBox.Show("Invalid Category.", "Check Writer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             cboCategory.Focus();
                             return;
                         }
-                        if (String.IsNullOrEmpty(txtVendorShortName.Text))
+                        if ((String.IsNullOrEmpty(txtVendorShortName.Text)) && !rbOther.Checked)
                         {
                             MessageBox.Show("Invalid Vendor.", "Check Writer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             txtVendorShortName.Focus();
@@ -258,8 +259,12 @@ namespace SosesPOS
                                 com.ExecuteNonQuery();
                             }
 
-                            // Save to file
-                            ProcessCSVFile(fileName, csvDTO);
+                            // if other, no need to put into csv file
+                            if (!rbOther.Checked)
+                            {
+                                // Save to file
+                                ProcessCSVFile(fileName, csvDTO);
+                            }
 
                             // PRINT
                             if (!rbSS.Checked)

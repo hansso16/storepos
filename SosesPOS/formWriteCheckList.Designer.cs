@@ -73,7 +73,7 @@
             // 
             this.btnBlankCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
             this.btnBlankCheck.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnBlankCheck.Location = new System.Drawing.Point(196, 6);
+            this.btnBlankCheck.Location = new System.Drawing.Point(460, 6);
             this.btnBlankCheck.Name = "btnBlankCheck";
             this.btnBlankCheck.Size = new System.Drawing.Size(152, 28);
             this.btnBlankCheck.TabIndex = 10;
@@ -85,9 +85,9 @@
             // 
             this.panel2.Controls.Add(this.txtSearch);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(354, 0);
+            this.panel2.Location = new System.Drawing.Point(618, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(479, 40);
+            this.panel2.Size = new System.Drawing.Size(215, 40);
             this.panel2.TabIndex = 9;
             // 
             // txtSearch
@@ -96,7 +96,7 @@
             // 
             // 
             this.txtSearch.CustomButton.Image = null;
-            this.txtSearch.CustomButton.Location = new System.Drawing.Point(446, 1);
+            this.txtSearch.CustomButton.Location = new System.Drawing.Point(182, 1);
             this.txtSearch.CustomButton.Name = "";
             this.txtSearch.CustomButton.Size = new System.Drawing.Size(23, 23);
             this.txtSearch.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -117,7 +117,7 @@
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
             this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(470, 25);
+            this.txtSearch.Size = new System.Drawing.Size(206, 25);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.UseSelectable = true;
             this.txtSearch.WaterMark = "Search here...";
