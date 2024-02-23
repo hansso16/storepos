@@ -196,3 +196,5 @@ D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsInvoiceWithdrawal.xss
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsStockTransferRequest.xsc
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsStockTransferRequest.xsd
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsStockTransferRequest.xss
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPurchaseReportPrint.resources
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptPurchaseReport.rdlc

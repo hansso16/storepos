@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsPurchaseReport" targetNamespace="http://tempuri.org/dsPurchaseReport.xsd" xmlns:mstns="http://tempuri.org/dsPurchaseReport.xsd" xmlns="http://tempuri.org/dsPurchaseReport.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsPurchaseReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsPurchaseReport" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsPurchaseReport">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtPurchaseItem" msprop:Generator_RowClassName="dtPurchaseItemRow" msprop:Generator_RowEvHandlerName="dtPurchaseItemRowChangeEventHandler" msprop:Generator_RowDeletedName="dtPurchaseItemRowDeleted" msprop:Generator_RowDeletingName="dtPurchaseItemRowDeleting" msprop:Generator_RowEvArgName="dtPurchaseItemRowChangeEvent" msprop:Generator_TablePropName="dtPurchaseItem" msprop:Generator_RowChangedName="dtPurchaseItemRowChanged" msprop:Generator_UserTableName="dtPurchaseItem" msprop:Generator_RowChangingName="dtPurchaseItemRowChanging" msprop:Generator_TableClassName="dtPurchaseItemDataTable" msprop:Generator_TableVarName="tabledtPurchaseItem">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="productCode" msprop:Generator_UserColumnName="productCode" msprop:Generator_ColumnPropNameInTable="productCodeColumn" msprop:Generator_ColumnPropNameInRow="productCode" msprop:Generator_ColumnVarNameInTable="columnproductCode" type="xs:string" minOccurs="0" />
+              <xs:element name="productDescription" msprop:Generator_UserColumnName="productDescription" msprop:Generator_ColumnPropNameInTable="productDescriptionColumn" msprop:Generator_ColumnPropNameInRow="productDescription" msprop:Generator_ColumnVarNameInTable="columnproductDescription" type="xs:string" minOccurs="0" />
+              <xs:element name="count" msprop:Generator_UserColumnName="count" msprop:Generator_ColumnPropNameInTable="countColumn" msprop:Generator_ColumnPropNameInRow="count" msprop:Generator_ColumnVarNameInTable="columncount" type="xs:string" minOccurs="0" />
+              <xs:element name="qty" msprop:Generator_UserColumnName="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_ColumnVarNameInTable="columnqty" type="xs:int" minOccurs="0" />
+              <xs:element name="bal" msprop:Generator_UserColumnName="bal" msprop:Generator_ColumnPropNameInTable="balColumn" msprop:Generator_ColumnPropNameInRow="bal" msprop:Generator_ColumnVarNameInTable="columnbal" type="xs:int" minOccurs="0" />
+              <xs:element name="cost" msprop:Generator_UserColumnName="cost" msprop:Generator_ColumnPropNameInTable="costColumn" msprop:Generator_ColumnPropNameInRow="cost" msprop:Generator_ColumnVarNameInTable="columncost" type="xs:decimal" minOccurs="0" />
+              <xs:element name="freight" msprop:Generator_UserColumnName="freight" msprop:Generator_ColumnPropNameInTable="freightColumn" msprop:Generator_ColumnPropNameInRow="freight" msprop:Generator_ColumnVarNameInTable="columnfreight" type="xs:decimal" minOccurs="0" />
+              <xs:element name="totalCost" msprop:Generator_UserColumnName="totalCost" msprop:Generator_ColumnPropNameInTable="totalCostColumn" msprop:Generator_ColumnPropNameInRow="totalCost" msprop:Generator_ColumnVarNameInTable="columntotalCost" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

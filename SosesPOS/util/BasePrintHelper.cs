@@ -56,10 +56,10 @@ namespace SosesPOS.util
         }
         
         internal void Export(LocalReport report, string deviceInfo)
-        {            Warning[] warnings;
+        {            
+            Warning[] warnings;
             m_streams = new List<Stream>();
-            report.Render("Image", deviceInfo, CreateStream,
-               out warnings);
+            report.Render("Image", deviceInfo, CreateStream, out warnings);
             foreach (Stream stream in m_streams)
                 stream.Position = 0;
         }

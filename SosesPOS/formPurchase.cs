@@ -544,12 +544,19 @@ namespace SosesPOS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            PurchaseReportDTO purchaseReportDTO = new PurchaseReportDTO();
             con.Open();
             SqlTransaction transaction = con.BeginTransaction();
             com.Transaction = transaction;
             try
             {
                 string vendorRefNo = String.IsNullOrWhiteSpace(txtVendorRefNo.Text)? null : txtVendorRefNo.Text;
+                purchaseReportDTO.vendorCode = txtVName.Text;
+                purchaseReportDTO.vendorRefNo = vendorRefNo;
+                purchaseReportDTO.freight = "0.00";
+                purchaseReportDTO.site = cartGridView.Rows[0].Cells[8].Value.ToString();
+                purchaseReportDTO.entryTimestamp = DateTime.Now;
+                purchaseReportDTO.totalCost = Convert.ToDecimal(lblSubTotal.Text);
                 com = new SqlCommand("INSERT INTO tblPurchasing (ReferenceNo, VendorID, VendorReferenceNo, DateIn, Status) " +
                     "OUTPUT inserted.PurchaseID " +
                     "VALUES (@refno, @vendorid, @vendorrefno, @datein, @status)", con, transaction);
@@ -567,6 +574,8 @@ namespace SosesPOS
                 int purchaseId = Convert.ToInt32(com.ExecuteScalar());
                 com.Dispose();
 
+                int qtyCounter = 0;
+                List<PurchaseItemDTO> list = new List<PurchaseItemDTO>();
                 foreach (DataGridViewRow row in cartGridView.Rows)
                 {
                     string pcode = row.Cells["pcode"].Value.ToString();
@@ -575,6 +584,16 @@ namespace SosesPOS
                     decimal costPerU = cost;
                     int count = Convert.ToInt32(row.Cells["count"].Value);
                     int purchaseQty = Convert.ToInt32(row.Cells["qty"].Value);
+                    decimal totalCost = purchaseQty * cost;
+                    qtyCounter += purchaseQty;
+                    PurchaseItemDTO item = new PurchaseItemDTO();
+                    item.productCode = pcode;
+                    item.productDescription = row.Cells["pdesc"].Value.ToString();
+                    item.count = count.ToString();
+                    item.freight = 0;
+                    item.qty = purchaseQty;
+                    item.cost = cost;
+                    item.totalCost = totalCost;
 
                     // insert into purchase detail.
                     com = new SqlCommand("INSERT INTO tblPurchaseDetails (PurchaseID, PCode, UOM, SLID, Qty, Cost, Total) " +
@@ -585,7 +604,7 @@ namespace SosesPOS
                     com.Parameters.AddWithValue("@slid", row.Cells["slid"].Value);
                     com.Parameters.AddWithValue("@qty", purchaseQty);
                     com.Parameters.AddWithValue("@cost", cost);
-                    com.Parameters.AddWithValue("@total", purchaseQty * cost);
+                    com.Parameters.AddWithValue("@total", totalCost);
                     com.ExecuteNonQuery();
 
 
@@ -616,8 +635,10 @@ namespace SosesPOS
                         InsertNewProductCost(transaction, row, costPerU);
                     }
 
-
                     InventoryDAO inventoryDAO = new InventoryDAO(con, transaction);
+                    int invCounter = inventoryDAO.retrieveTotalQtyByPCode(pcode); // get stock balance of item
+                    item.bal = invCounter / count;
+
                     List<InventoryDTO> inventoryList = inventoryDAO.retrieveNegativeInventoryByPCode(pcode);
                     if (inventoryList != null && inventoryList.Count > 0)
                     {
@@ -707,10 +728,16 @@ namespace SosesPOS
                     {
                         SaveNewInventory(transaction, purchaseId, row, purchaseQty);
                     }
-                        
+                    list.Add(item);
                 }
 
+                purchaseReportDTO.totalQty = qtyCounter;
+                purchaseReportDTO.purchaseItemDTO = list;
                 transaction.Commit();
+
+                // Print Transaction
+                PrintPurchaseReport(purchaseReportDTO);
+
                 MessageBox.Show("Purchase Order saved successfully.  Vendor Ref No: " + txtVendorRefNo.Text, "Purchasing", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnNewTrans_Click(sender, e);
             } catch (Exception ex)
@@ -800,6 +827,13 @@ namespace SosesPOS
             {
                 cboSearch.Focus();
             }
+        }
+
+        private void PrintPurchaseReport(PurchaseReportDTO dto)
+        {
+            formPurchaseReportPrint form = new formPurchaseReportPrint();
+            form.LoadReport(dto);
+            this.Focus();
         }
     }
 }

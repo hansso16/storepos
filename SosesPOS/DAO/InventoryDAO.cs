@@ -53,5 +53,32 @@ namespace SosesPOS.DAO
             }
             return inventoryList;
         }
+
+        public int retrieveTotalQtyByPCode(string pcode)
+        {
+            int totalQty = 0;
+            try
+            {
+                using (SqlCommand tempCom = new SqlCommand("SELECT SUM(Qty) TOTAL_QTY " +
+                            "FROM tblInventory " +
+                            "WHERE PCode = @pcode AND Qty > 0", con, transaction))
+                {
+                    tempCom.Parameters.AddWithValue("@pcode", pcode);
+                    using (SqlDataReader reader = tempCom.ExecuteReader())
+                    {
+                        if (reader.HasRows && reader.Read())
+                        {
+                            totalQty = Convert.ToInt32(reader["TOTAL_QTY"]);
+                        }
+                        reader.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("InventoryDAO - retrieveTotalQtyByPCode(pcode): " + ex.Message);
+            }
+            return totalQty;
+        }
     }
 }
