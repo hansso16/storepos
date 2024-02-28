@@ -163,6 +163,10 @@ namespace SosesPOS
                         if (rbOther.Checked)
                         {
                             hlblCheckBankID.Text = "0";
+                            if (String.IsNullOrEmpty(cboCategory.Text) || cboCategory.SelectedIndex < 0)
+                            {
+                                cboCategory.SelectedValue = "PERSONAL";
+                            }
                             //PrintCheck(dtpCheckDate.Value.ToString("MM/dd/yyyy"), txtAmount.Text, txtPayee.Text);
                             //this.Dispose();
                             //return;
@@ -188,7 +192,7 @@ namespace SosesPOS
                             SqlTransaction transaction = con.BeginTransaction();
                             string fileName = null;
                             int checkBankID = Convert.ToInt32(hlblCheckBankID.Text);
-                            int checkNo = Convert.ToInt32(txtCheckNo.Text) + 1;
+                            int checkNo = String.IsNullOrEmpty(txtCheckNo.Text) ? 0 : Convert.ToInt32(txtCheckNo.Text) + 1;
                             decimal decAmount = Convert.ToDecimal(txtAmount.Text);
 
                             // retrieve file path and name
@@ -222,9 +226,12 @@ namespace SosesPOS
                             csvDTO.VendorCode = hlblPayeeCode.Text;
                             csvDTO.VendorShortName = txtVendorShortName.Text;
                             csvDTO.VendorFullName = txtPayee.Text;
-                            csvDTO.Category = cboCategory.SelectedValue.ToString();
                             csvDTO.Computer = "1";
                             csvDTO.Retain = decAmount.Equals(decimal.Zero) ? "1" : "0";
+                            if (rbOther.Checked)
+                            {
+                                csvDTO.Category = "PERSONAL";
+                            }
 
                             // Save to CheckIssue table
                             using (SqlCommand com = con.CreateCommand())
@@ -259,7 +266,7 @@ namespace SosesPOS
                                 com.ExecuteNonQuery();
                             }
 
-                            // if other, no need to put into csv file
+                            // if 'other'/personal check, no need to put into csv file
                             if (!rbOther.Checked)
                             {
                                 // Save to file

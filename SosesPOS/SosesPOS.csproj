@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>39</ApplicationRevision>
+    <ApplicationRevision>42</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -267,11 +267,13 @@
     </Compile>
     <Compile Include="dataset\dsPurchaseReport.cs">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsPurchaseReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsStockTransferRequest.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -877,14 +879,17 @@
     </None>
     <None Include="dataset\dsPurchaseReport.xsc">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsPurchaseReport.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsPurchaseReport.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsPurchaseReport.xss">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsStockTransferRequest.xsc">
       <DependentUpon>dsStockTransferRequest.xsd</DependentUpon>
