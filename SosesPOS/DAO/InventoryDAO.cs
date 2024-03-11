@@ -59,7 +59,7 @@ namespace SosesPOS.DAO
             int totalQty = 0;
             try
             {
-                using (SqlCommand tempCom = new SqlCommand("SELECT SUM(Qty) TOTAL_QTY " +
+                using (SqlCommand tempCom = new SqlCommand("SELECT ISNULL(SUM(Qty),0) TOTAL_QTY " +
                             "FROM tblInventory " +
                             "WHERE PCode = @pcode AND Qty > 0", con, transaction))
                 {

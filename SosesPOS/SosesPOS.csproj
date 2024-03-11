@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>42</ApplicationRevision>
+    <ApplicationRevision>45</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -219,6 +219,7 @@
     <Compile Include="Auth\UserService.cs" />
     <Compile Include="DAO\InventoryDAO.cs" />
     <Compile Include="DAO\ProductCostDAO.cs" />
+    <Compile Include="DAO\ProductDetailsDAO.cs" />
     <Compile Include="dataset\dsBillingSummary.cs">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -265,6 +266,11 @@
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="dataset\dsNewCost.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsNewCost.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dataset\dsPurchaseReport.cs">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -288,9 +294,11 @@
     <Compile Include="DTO\CheckReportDTO.cs" />
     <Compile Include="DTO\InventoryDetailsDTO.cs" />
     <Compile Include="DTO\InventoryDTO.cs" />
+    <Compile Include="DTO\NewPurchaseCostDTO.cs" />
     <Compile Include="DTO\POSInventoryDTO.cs" />
     <Compile Include="DTO\POSWithdrawalCustomerDTO.cs" />
     <Compile Include="DTO\ProductCostDTO.cs" />
+    <Compile Include="DTO\ProductDetailsDTO.cs" />
     <Compile Include="DTO\PurchaseItemDTO.cs" />
     <Compile Include="DTO\PurchaseReportDTO.cs" />
     <Compile Include="DTO\RoleDTO.cs" />
@@ -876,6 +884,17 @@
     <None Include="dataset\dsInvoiceWithdrawal.xss">
       <DependentUpon>dsInvoiceWithdrawal.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsNewCost.xsc">
+      <DependentUpon>dsNewCost.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsNewCost.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsNewCost.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\dsNewCost.xss">
+      <DependentUpon>dsNewCost.xsd</DependentUpon>
     </None>
     <None Include="dataset\dsPurchaseReport.xsc">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>

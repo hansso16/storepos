@@ -13,5 +13,6 @@ namespace SosesPOS.DTO
         public decimal cost { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
+        public decimal wholeCost { get; set; }
     }
 }

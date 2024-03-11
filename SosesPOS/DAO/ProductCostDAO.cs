@@ -25,7 +25,7 @@ namespace SosesPOS.DAO
             ProductCostDTO dto = null;
             try
             {
-                using (SqlCommand tmpCom = new SqlCommand("SELECT PCode, VendorID, Cost, StartDate, EndDate " +
+                using (SqlCommand tmpCom = new SqlCommand("SELECT PCode, VendorID, Cost, StartDate, EndDate, WholeCost " +
                     "FROM tblProductCost " +
                     "WHERE PCode = @pcode AND VendorID = @vendorid AND EndDate = '9999-12-31'", con, transaction))
                 {
@@ -43,6 +43,7 @@ namespace SosesPOS.DAO
                                 dto.cost = Convert.ToDecimal(reader["Cost"].ToString());
                                 dto.startDate = Convert.ToDateTime(reader["StartDate"]);
                                 dto.endDate = Convert.ToDateTime(reader["EndDate"]);
+                                dto.wholeCost = reader["WholeCost"] == DBNull.Value? 0 : Convert.ToDecimal(reader["WholeCost"]);
                             }
                         }
                         reader.Close();

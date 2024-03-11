@@ -64,9 +64,22 @@ namespace SosesPOS
                     dt.Rows.Add(item.productCode, item.productDescription, item.count, item.qty, item.bal, item.cost, item.freight, item.totalCost);
                 }
 
+                DataTable costDT = new DataTable("dtNewCost");
+                costDT.Columns.Add("productCode", typeof(string));
+                costDT.Columns.Add("productDescription", typeof(string));
+                costDT.Columns.Add("oldCost", typeof(decimal));
+                costDT.Columns.Add("newCost", typeof(decimal));
+                costDT.Columns.Add("oldPrice", typeof(decimal));
+                foreach (NewPurchaseCostDTO item in dto.newPurchaseCostDTO)
+                {
+                    costDT.Rows.Add(item.productCode, item.productDescription, item.oldCost, item.newCost, item.oldPrice);
+                }
+
                 ReportDataSource rptDataSourcePurchaseReport = new ReportDataSource("dsPurchaseReport", dt);
+                ReportDataSource rptDataSourceNewCost = new ReportDataSource("dsNewCost", costDT);
                 reportViewer1.LocalReport.DataSources.Clear();
                 reportViewer1.LocalReport.DataSources.Add(rptDataSourcePurchaseReport);
+                reportViewer1.LocalReport.DataSources.Add(rptDataSourceNewCost);
 
                 // Paper Settings
                 PageSettings page = new PageSettings();

@@ -576,6 +576,7 @@ namespace SosesPOS
 
                 int qtyCounter = 0;
                 List<PurchaseItemDTO> list = new List<PurchaseItemDTO>();
+                List<NewPurchaseCostDTO> newPurchaseCostList = new List<NewPurchaseCostDTO>();
                 foreach (DataGridViewRow row in cartGridView.Rows)
                 {
                     string pcode = row.Cells["pcode"].Value.ToString();
@@ -628,11 +629,28 @@ namespace SosesPOS
                             UpdateExistingProductCost(transaction, row, productCostDTO);
 
                             // Insert New Cost with Active EndDate
-                            InsertNewProductCost(transaction, row, costPerU);
+                            InsertNewProductCost(transaction, row, costPerU, cost);
+
+                            // Add to List
+                            NewPurchaseCostDTO newPurchaseCostDTO = new NewPurchaseCostDTO();
+                            newPurchaseCostDTO.productCode = pcode;
+                            newPurchaseCostDTO.productDescription = item.productDescription;
+                            newPurchaseCostDTO.oldCost = productCostDTO.wholeCost;
+                            newPurchaseCostDTO.oldPrice = 0;
+                            newPurchaseCostDTO.newCost = cost;
+
+                            // Get Price of product
+                            ProductDetailsDAO productDetailsDAO = new ProductDetailsDAO(con, transaction);
+                            ProductDetailsDTO productDetailsdto = productDetailsDAO.getProductDetailsByPcode(pcode);
+                            if (productDetailsdto != null)
+                            {
+                            newPurchaseCostDTO.oldPrice = productDetailsdto.price;
+                            }
+                            newPurchaseCostList.Add(newPurchaseCostDTO);
                         }
                     } else
                     {
-                        InsertNewProductCost(transaction, row, costPerU);
+                        InsertNewProductCost(transaction, row, costPerU, cost);
                     }
 
                     InventoryDAO inventoryDAO = new InventoryDAO(con, transaction);
@@ -733,6 +751,7 @@ namespace SosesPOS
 
                 purchaseReportDTO.totalQty = qtyCounter;
                 purchaseReportDTO.purchaseItemDTO = list;
+                purchaseReportDTO.newPurchaseCostDTO = newPurchaseCostList;
                 transaction.Commit();
 
                 // Print Transaction
@@ -800,18 +819,19 @@ namespace SosesPOS
             }
         }
 
-        private void InsertNewProductCost(SqlTransaction transaction, DataGridViewRow row, decimal cost)
+        private void InsertNewProductCost(SqlTransaction transaction, DataGridViewRow row, decimal cost, decimal wholeCost)
         {
             try
             {
-                using (SqlCommand tmpCommand = new SqlCommand("INSERT INTO tblProductCost (PCode, VendorID, Cost, StartDate, EndDate) " +
-                    "VALUES (@pcode, @vendorid, @cost, @startdate, @enddate)", con, transaction))
+                using (SqlCommand tmpCommand = new SqlCommand("INSERT INTO tblProductCost (PCode, VendorID, Cost, StartDate, EndDate, WholeCost) " +
+                    "VALUES (@pcode, @vendorid, @cost, @startdate, @enddate, @wholecost)", con, transaction))
                 {
                     tmpCommand.Parameters.AddWithValue("@pcode", row.Cells["pcode"].Value.ToString());
                     tmpCommand.Parameters.AddWithValue("@vendorid", hlblVendorID.Text);
                     tmpCommand.Parameters.AddWithValue("@cost", cost);
                     tmpCommand.Parameters.AddWithValue("@startdate", DateTime.Today);
                     tmpCommand.Parameters.AddWithValue("@enddate", new DateTime(9999, 12, 31));
+                    tmpCommand.Parameters.AddWithValue("@wholecost", wholeCost);
                     tmpCommand.ExecuteNonQuery();
                 }
 

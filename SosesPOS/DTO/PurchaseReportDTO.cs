@@ -16,5 +16,7 @@ namespace SosesPOS.DTO
         public string site { get; set; }
         public string freight { get; set; }
         public List<PurchaseItemDTO> purchaseItemDTO { get; set; }
+
+        public List<NewPurchaseCostDTO> newPurchaseCostDTO { get; set; }
     }
 }
