@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SosesPOS.DTO
 {
-    internal class AreaDTO
+    public class AreaDTO
     {
         public int areaCode { get; set; }
         public string areaName { get; set; }

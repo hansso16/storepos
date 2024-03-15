@@ -54,6 +54,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lblCustomerId = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.btnPrintReport = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -233,6 +234,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnPrintReport);
             this.panel2.Controls.Add(this.cboBank);
             this.panel2.Controls.Add(this.txtBankBranch);
             this.panel2.Controls.Add(this.lblBankBranch);
@@ -335,6 +337,18 @@
             this.btnSubmit.UseVisualStyleBackColor = false;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
+            // btnPrintReport
+            // 
+            this.btnPrintReport.BackColor = System.Drawing.Color.Black;
+            this.btnPrintReport.ForeColor = System.Drawing.Color.White;
+            this.btnPrintReport.Location = new System.Drawing.Point(296, 193);
+            this.btnPrintReport.Name = "btnPrintReport";
+            this.btnPrintReport.Size = new System.Drawing.Size(99, 32);
+            this.btnPrintReport.TabIndex = 44;
+            this.btnPrintReport.Text = "Print Report";
+            this.btnPrintReport.UseVisualStyleBackColor = false;
+            this.btnPrintReport.Click += new System.EventHandler(this.btnPrintReport_Click);
+            // 
             // formCustomerPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -385,5 +399,6 @@
         public System.Windows.Forms.ComboBox cboBank;
         private System.Windows.Forms.TextBox txtBankBranch;
         private System.Windows.Forms.Label lblBankBranch;
+        public System.Windows.Forms.Button btnPrintReport;
     }
 }

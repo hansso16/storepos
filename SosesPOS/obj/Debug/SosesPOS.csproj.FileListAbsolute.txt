@@ -203,3 +203,5 @@ D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsPurchaseReport.Designer.cs
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsPurchaseReport.xsc
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsPurchaseReport.xsd
 D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\dataset\dsPurchaseReport.xss
+D:\VS Workspace\SosesPOS\SosesPOS\bin\Debug\report\rptCustomerPayment.rdlc
+D:\VS Workspace\SosesPOS\SosesPOS\obj\Debug\SosesPOS.formPrintCustomerPayment.resources

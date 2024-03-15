@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using SosesPOS.util;
 using System.Text.RegularExpressions;
+using SosesPOS.DTO;
 
 namespace SosesPOS
 {
@@ -384,6 +385,62 @@ namespace SosesPOS
         private void cboCustomer_Leave(object sender, EventArgs e)
         {
             SelectCustomer();
+        }
+
+        private void btnPrintReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<AreaDTO> areaList = null;
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.CommandText = "select a.AreaCode, a.AreaName " +
+                            "From tblCustomerPayment cp " +
+                            "INNER JOIN tblCustomer c on cp.CustomerId = c.CustomerId " +
+                            "INNER JOIN tblArea a ON a.AreaCode = c.AreaCode " +
+                            "WHERE cp.IsPrinted = @isprinted AND cp.Amount > 0" +
+                            "GROUP BY a.AreaCode, a.AreaName";
+                        com.Parameters.AddWithValue("@isprinted", 0);
+                        using (SqlDataReader dr = com.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                areaList = new List<AreaDTO>();
+                                while (dr.Read())
+                                {
+                                    AreaDTO areaDTO = new AreaDTO();
+                                    areaDTO.areaCode = Convert.ToInt32(dr["AreaCode"]);
+                                    areaDTO.areaName = dr["AreaName"].ToString();
+                                    areaList.Add(areaDTO);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("No Payment to print", "Customer Payment Print Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                cboCustomer.Focus();
+                                cboCustomer.SelectAll();
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                if (areaList != null && areaList.Count > 0)
+                {
+                    formPrintCustomerPayment formPrint = new formPrintCustomerPayment();
+                    formPrint.PrintCustomerPayment(areaList);
+                } else
+                {
+                    MessageBox.Show("No payment to report", "Customer Payment Print Out", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show("btnPrintReport_Click: " + ex.Message, "Customer Payment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

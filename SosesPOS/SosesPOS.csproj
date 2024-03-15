@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>45</ApplicationRevision>
+    <ApplicationRevision>46</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -250,6 +250,14 @@
       <DependentUpon>dsCheckReport.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="dataset\dsCustomerPayment.cs">
+      <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dataset\dsCustomerPayment.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dataset\dsInvoiceReceipt.cs">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -405,6 +413,12 @@
     </Compile>
     <Compile Include="formPrintCheckReport.Designer.cs">
       <DependentUpon>formPrintCheckReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formPrintCustomerPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPrintCustomerPayment.Designer.cs">
+      <DependentUpon>formPrintCustomerPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="formProductDetails.cs">
       <SubType>Form</SubType>
@@ -679,6 +693,9 @@
     <EmbeddedResource Include="formPrintCheckReport.resx">
       <DependentUpon>formPrintCheckReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formPrintCustomerPayment.resx">
+      <DependentUpon>formPrintCustomerPayment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formProductDetails.resx">
       <DependentUpon>formProductDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -803,6 +820,9 @@
     <EmbeddedResource Include="report\rptCheckReport.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="report\rptCustomerPayment.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -856,6 +876,17 @@
     <None Include="dataset\dsCheckReport.xss">
       <DependentUpon>dsCheckReport.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsCustomerPayment.xsc">
+      <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+    </None>
+    <None Include="dataset\dsCustomerPayment.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsCustomerPayment.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dataset\dsCustomerPayment.xss">
+      <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xsc">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
