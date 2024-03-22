@@ -80,7 +80,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Today()</Value>
+                    <Value>=FormatDateTime(Today(), DateFormat.ShortDate)</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -169,7 +169,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Stock Description</Value>
+                                  <Value>Customer Name</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                     <FontSize>9pt</FontSize>
