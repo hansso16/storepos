@@ -312,6 +312,7 @@
             this.btnCustomerMemo.Text = "Customer Memo";
             this.btnCustomerMemo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCustomerMemo.UseVisualStyleBackColor = true;
+            this.btnCustomerMemo.Visible = false;
             this.btnCustomerMemo.Click += new System.EventHandler(this.btnCustomerMemo_Click);
             // 
             // btnReceivePayments

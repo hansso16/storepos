@@ -66,6 +66,7 @@ namespace SosesPOS
                 this.btnTransferDispatch.Visible = true;
                 this.btnTransferAccept.Visible = true;
                 this.btnLiteCheckWriter.Visible = true;
+                this.btnCustomerMemo.Visible = true;
             }
         }
 
