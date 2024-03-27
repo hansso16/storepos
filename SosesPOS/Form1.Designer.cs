@@ -35,6 +35,7 @@
             this.button8 = new System.Windows.Forms.Button();
             this.btnPassword = new System.Windows.Forms.Button();
             this.btnUser = new System.Windows.Forms.Button();
+            this.btnLiteCheckWriter = new System.Windows.Forms.Button();
             this.btnWriteCheck = new System.Windows.Forms.Button();
             this.StockTransferPanel = new System.Windows.Forms.Panel();
             this.btnTransferAccept = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.btnTransferRequest = new System.Windows.Forms.Button();
             this.btnStockTransfer = new System.Windows.Forms.Button();
             this.btnStockReplenishment = new System.Windows.Forms.Button();
+            this.btnCustomerMemo = new System.Windows.Forms.Button();
             this.btnReceivePayments = new System.Windows.Forms.Button();
             this.btnStockLocation = new System.Windows.Forms.Button();
             this.btnCategory = new System.Windows.Forms.Button();
@@ -58,7 +60,6 @@
             this.lblUserCode = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnLiteCheckWriter = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.StockTransferPanel.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +84,7 @@
             this.panel2.Controls.Add(this.btnWriteCheck);
             this.panel2.Controls.Add(this.StockTransferPanel);
             this.panel2.Controls.Add(this.btnStockReplenishment);
+            this.panel2.Controls.Add(this.btnCustomerMemo);
             this.panel2.Controls.Add(this.btnReceivePayments);
             this.panel2.Controls.Add(this.btnStockLocation);
             this.panel2.Controls.Add(this.btnCategory);
@@ -111,7 +113,7 @@
             this.button8.ForeColor = System.Drawing.SystemColors.Control;
             this.button8.Image = global::SosesPOS.Properties.Resources.logout;
             this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(0, 709);
+            this.button8.Location = new System.Drawing.Point(0, 746);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(284, 37);
             this.button8.TabIndex = 20;
@@ -128,7 +130,7 @@
             this.btnPassword.ForeColor = System.Drawing.SystemColors.Control;
             this.btnPassword.Image = global::SosesPOS.Properties.Resources.change_password;
             this.btnPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPassword.Location = new System.Drawing.Point(0, 672);
+            this.btnPassword.Location = new System.Drawing.Point(0, 709);
             this.btnPassword.Name = "btnPassword";
             this.btnPassword.Size = new System.Drawing.Size(284, 37);
             this.btnPassword.TabIndex = 17;
@@ -145,7 +147,7 @@
             this.btnUser.ForeColor = System.Drawing.SystemColors.Control;
             this.btnUser.Image = global::SosesPOS.Properties.Resources.user_group;
             this.btnUser.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUser.Location = new System.Drawing.Point(0, 635);
+            this.btnUser.Location = new System.Drawing.Point(0, 672);
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(284, 37);
             this.btnUser.TabIndex = 16;
@@ -155,6 +157,24 @@
             this.btnUser.Visible = false;
             this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
             // 
+            // btnLiteCheckWriter
+            // 
+            this.btnLiteCheckWriter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnLiteCheckWriter.FlatAppearance.BorderSize = 0;
+            this.btnLiteCheckWriter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLiteCheckWriter.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnLiteCheckWriter.Image = global::SosesPOS.Properties.Resources.cheque;
+            this.btnLiteCheckWriter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLiteCheckWriter.Location = new System.Drawing.Point(0, 635);
+            this.btnLiteCheckWriter.Name = "btnLiteCheckWriter";
+            this.btnLiteCheckWriter.Size = new System.Drawing.Size(284, 37);
+            this.btnLiteCheckWriter.TabIndex = 49;
+            this.btnLiteCheckWriter.Text = "Lite Check Writer";
+            this.btnLiteCheckWriter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLiteCheckWriter.UseVisualStyleBackColor = true;
+            this.btnLiteCheckWriter.Visible = false;
+            this.btnLiteCheckWriter.Click += new System.EventHandler(this.btnLiteCheckWriter_Click);
+            // 
             // btnWriteCheck
             // 
             this.btnWriteCheck.Dock = System.Windows.Forms.DockStyle.Top;
@@ -163,7 +183,7 @@
             this.btnWriteCheck.ForeColor = System.Drawing.SystemColors.Control;
             this.btnWriteCheck.Image = global::SosesPOS.Properties.Resources.cheque;
             this.btnWriteCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWriteCheck.Location = new System.Drawing.Point(0, 561);
+            this.btnWriteCheck.Location = new System.Drawing.Point(0, 598);
             this.btnWriteCheck.Name = "btnWriteCheck";
             this.btnWriteCheck.Size = new System.Drawing.Size(284, 37);
             this.btnWriteCheck.TabIndex = 48;
@@ -180,7 +200,7 @@
             this.StockTransferPanel.Controls.Add(this.btnTransferRequest);
             this.StockTransferPanel.Controls.Add(this.btnStockTransfer);
             this.StockTransferPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.StockTransferPanel.Location = new System.Drawing.Point(0, 524);
+            this.StockTransferPanel.Location = new System.Drawing.Point(0, 561);
             this.StockTransferPanel.MaximumSize = new System.Drawing.Size(284, 144);
             this.StockTransferPanel.MinimumSize = new System.Drawing.Size(284, 37);
             this.StockTransferPanel.Name = "StockTransferPanel";
@@ -267,7 +287,7 @@
             this.btnStockReplenishment.ForeColor = System.Drawing.SystemColors.Control;
             this.btnStockReplenishment.Image = global::SosesPOS.Properties.Resources.stock_replenishment;
             this.btnStockReplenishment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnStockReplenishment.Location = new System.Drawing.Point(0, 487);
+            this.btnStockReplenishment.Location = new System.Drawing.Point(0, 524);
             this.btnStockReplenishment.Name = "btnStockReplenishment";
             this.btnStockReplenishment.Size = new System.Drawing.Size(284, 37);
             this.btnStockReplenishment.TabIndex = 14;
@@ -276,6 +296,23 @@
             this.btnStockReplenishment.UseVisualStyleBackColor = true;
             this.btnStockReplenishment.Visible = false;
             this.btnStockReplenishment.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnCustomerMemo
+            // 
+            this.btnCustomerMemo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCustomerMemo.FlatAppearance.BorderSize = 0;
+            this.btnCustomerMemo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCustomerMemo.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnCustomerMemo.Image = global::SosesPOS.Properties.Resources.payment;
+            this.btnCustomerMemo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCustomerMemo.Location = new System.Drawing.Point(0, 487);
+            this.btnCustomerMemo.Name = "btnCustomerMemo";
+            this.btnCustomerMemo.Size = new System.Drawing.Size(284, 37);
+            this.btnCustomerMemo.TabIndex = 50;
+            this.btnCustomerMemo.Text = "Customer Memo";
+            this.btnCustomerMemo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCustomerMemo.UseVisualStyleBackColor = true;
+            this.btnCustomerMemo.Click += new System.EventHandler(this.btnCustomerMemo_Click);
             // 
             // btnReceivePayments
             // 
@@ -527,24 +564,6 @@
             this.timer1.Interval = 15;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnLiteCheckWriter
-            // 
-            this.btnLiteCheckWriter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLiteCheckWriter.FlatAppearance.BorderSize = 0;
-            this.btnLiteCheckWriter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLiteCheckWriter.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnLiteCheckWriter.Image = global::SosesPOS.Properties.Resources.cheque;
-            this.btnLiteCheckWriter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLiteCheckWriter.Location = new System.Drawing.Point(0, 598);
-            this.btnLiteCheckWriter.Name = "btnLiteCheckWriter";
-            this.btnLiteCheckWriter.Size = new System.Drawing.Size(284, 37);
-            this.btnLiteCheckWriter.TabIndex = 49;
-            this.btnLiteCheckWriter.Text = "Lite Check Writer";
-            this.btnLiteCheckWriter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLiteCheckWriter.UseVisualStyleBackColor = true;
-            this.btnLiteCheckWriter.Visible = false;
-            this.btnLiteCheckWriter.Click += new System.EventHandler(this.btnLiteCheckWriter_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -598,6 +617,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnWriteCheck;
         private System.Windows.Forms.Button btnLiteCheckWriter;
+        private System.Windows.Forms.Button btnCustomerMemo;
     }
 }
 

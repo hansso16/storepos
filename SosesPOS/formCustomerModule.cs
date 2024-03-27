@@ -67,7 +67,12 @@ namespace SosesPOS
                             ", CASE WHEN cp.Amount >= 0 THEN cp.Amount ELSE 0 END as CREDIT, cp.RunningBalance " +
                         "FROM tblCustomerPayment cp " +
                         "LEFT JOIN tblBank b ON b.BankId = cp.CheckBank " +
-                        "WHERE cp.CustomerId = @customerid) as t " +
+                        "WHERE cp.CustomerId = @customerid " +
+                        "UNION ALL " +
+                        "SELECT CASE WHEN 'C' = m.MemoType THEN 'CREDIT MEMO' ELSE 'DEBIT MEMO' END as TYPE, m.ReferenceNo as RefNo, m.ProcessTimestamp," +
+                            " CASE WHEN 'D' = m.MemoType THEN m.Amount ELSE '0' END as DEBIT, CASE WHEN 'C' = m.MemoType THEN m.Amount ELSE '0' END as CREDIT," +
+                            " m.RunningBalance " +
+                        "FROM tblMemo m WHERE m.CustomerId = @customerid) as t " +
                     "WHERE t.ProcessTimestamp is not null " +
                     "ORDER BY t.ProcessTimestamp", con);
                 com.Parameters.AddWithValue("@customerid", customerId);

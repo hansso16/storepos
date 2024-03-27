@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>46</ApplicationRevision>
+    <ApplicationRevision>47</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -360,6 +360,12 @@
     <Compile Include="formCheckReport.Designer.cs">
       <DependentUpon>formCheckReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="formCustomerMemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formCustomerMemo.Designer.cs">
+      <DependentUpon>formCustomerMemo.cs</DependentUpon>
+    </Compile>
     <Compile Include="formCustomerModule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -665,6 +671,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formCheckReport.resx">
       <DependentUpon>formCheckReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formCustomerMemo.resx">
+      <DependentUpon>formCustomerMemo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formCustomerModule.resx">
       <DependentUpon>formCustomerModule.cs</DependentUpon>

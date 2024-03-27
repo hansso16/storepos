@@ -324,5 +324,16 @@ namespace SosesPOS
             form.LoadVendorList();
             form.Show();
         }
+
+        private void btnCustomerMemo_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formCustomerMemo form = new formCustomerMemo();
+            form.LoadCustomerList();
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.Show();
+        }
     }
 }
