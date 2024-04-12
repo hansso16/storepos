@@ -76,6 +76,7 @@ namespace SosesPOS
             {
                 this.button5.Visible = true; // Store Invoice
                 this.btnUser.Visible = true;
+                this.btnInvoiceList.Visible = true;
             }
         }
 
@@ -84,6 +85,7 @@ namespace SosesPOS
             if (role.accessLevel == 50 || role.accessLevel == 999)
             {
                 this.btnWriteCheck.Visible = true;
+                this.btnInvoiceList.Visible = true;
             }
         }
 
@@ -334,6 +336,17 @@ namespace SosesPOS
             form.TopLevel = false;
             panel3.Controls.Add(form);
             form.BringToFront();
+            form.Show();
+        }
+
+        private void btnInvoiceList_Click(object sender, EventArgs e)
+        {
+            panel3.Controls.Clear();
+            formInvoiceList form = new formInvoiceList(user);
+            form.TopLevel = false;
+            panel3.Controls.Add(form);
+            form.BringToFront();
+            form.LoadInvoiceList();
             form.Show();
         }
     }

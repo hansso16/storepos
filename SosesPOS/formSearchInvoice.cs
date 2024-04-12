@@ -51,7 +51,7 @@ namespace SosesPOS
             }
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void LoadInvoice(string refNo)
         {
             int invoiceId = 0;
             string orderStatus = null;
@@ -63,7 +63,7 @@ namespace SosesPOS
                     "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId " +
                     "INNER JOIN tblInvoice i ON o.OrderId = i.OrderId " +
                     "WHERE i.ReferenceNo = @refno", con);
-                com.Parameters.AddWithValue("@refno", this.txtRefNo.Text);
+                com.Parameters.AddWithValue("@refno", refNo);
                 dr = com.ExecuteReader();
                 if (dr.HasRows)
                 {
@@ -129,12 +129,14 @@ namespace SosesPOS
                         formPOS.btnSaveAndPrint.Enabled = false;
                         formPOS.btnSave.Enabled = false;
                         formPOS.btnPrint.Enabled = true;
-                    } else
+                    }
+                    else
                     {
                         if ("0".Equals(formPOS.txtCCode.Text))
                         {
                             formPOS.txtCName.ReadOnly = false;
-                        } else
+                        }
+                        else
                         {
                             formPOS.txtCName.ReadOnly = true;
                         }
@@ -143,7 +145,8 @@ namespace SosesPOS
 
                     // TODO Get Order Status Description and Display in UI
                     this.Dispose();
-                } else
+                }
+                else
                 {
                     MessageBox.Show("No record found. Please try again.", "Sales Invoice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.txtRefNo.Focus();
@@ -154,8 +157,31 @@ namespace SosesPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Load Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadInvoice(this.txtRefNo.Text);
+        }
+
+        public void ViewInvoiceDetails(string refNo)
+        {
+            LoadInvoice(refNo);
+            formPOS.txtCCode.Enabled = false;
+            formPOS.cboSearch.Enabled = false;
+            formPOS.cboUOM.Enabled = false;
+            formPOS.cboLocation.Enabled = false;
+            formPOS.txtQty.Enabled = false;
+
+            formPOS.btnNewTrans.Enabled = false;
+            formPOS.btnSaveAndPrint.Enabled = false;
+            formPOS.btnSave.Enabled = false;
+            formPOS.btnLoad.Enabled = false;
+            formPOS.btnPrint.Enabled = false;
+            formPOS.btnSearchCustomer.Enabled = false;
+            formPOS.btnGenerateReport.Enabled = false;
         }
     }
 }
