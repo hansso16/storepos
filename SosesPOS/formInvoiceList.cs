@@ -93,7 +93,6 @@ namespace SosesPOS
                 {
                     // open invoice details
                     string refNo = dgvInvoiceList[e.ColumnIndex, e.RowIndex].Value.ToString();
-                    MessageBox.Show(refNo);
                     formPOS formPOS = new formPOS();
                     formSearchInvoice formSearchInvoice = new formSearchInvoice(formPOS);
                     formSearchInvoice.ViewInvoiceDetails(refNo);

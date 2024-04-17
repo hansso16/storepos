@@ -82,9 +82,9 @@ namespace SosesPOS
                     }
                     dr.Close();
 
-                    com = new SqlCommand("SELECT id.Qty, id.TotalItemPrice, p.pcode, p.pdesc, pd.price, u.id, u.type, u.code, id.location FROM tblInvoiceDetails id " +
+                    com = new SqlCommand("SELECT id.Qty, id.TotalItemPrice, id.PCode, p.pdesc, id.PCode price, u.id, u.type, u.code, id.Location " +
+                        "FROM tblInvoiceDetails id " +
                         "INNER JOIN tblProduct p ON p.pcode = id.pcode " +
-                        "INNER JOIN tblProductDetails pd ON pd.pcode = id.pcode AND pd.uom = id.uom " +
                         "LEFT JOIN tblUOM u ON u.id = id.uom " +
                         "WHERE id.InvoiceId = @invoiceid", con);
                     com.Parameters.AddWithValue("@invoiceid", invoiceId);
