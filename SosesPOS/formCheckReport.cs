@@ -294,13 +294,11 @@ namespace SosesPOS
                                 com.ExecuteNonQuery();
                             }
 
-                            List<String> lines = new List<String>();
+                            String line = null;
                             if (File.Exists(fileName))
                             {
                                 using (StreamReader reader = new StreamReader(fileName))
                                 {
-                                    String line = null;
-
                                     while ((line = reader.ReadLine()) != null)
                                     {
                                         if (line.Contains(","))
@@ -309,20 +307,25 @@ namespace SosesPOS
                                             int fileCheckNo = Convert.ToInt32(split[1].ToString());
                                             if (checkIssueDTO.CheckNo == fileCheckNo)
                                             {
-                                                split[3] = "0";
-                                                split[6] = cancelledPayeeName;
+                                                split[3] = Decimal.Negate(checkIssueDTO.CheckAmount).ToString();
+                                                split[6] = "CANCELLED";
                                                 line = String.Join(",", split);
+                                                break;
                                             }
                                         }
-                                        lines.Add(line);
+                                        //lines.Add(line);
                                     }
                                 }
-
-                                using (StreamWriter writer = new StreamWriter(fileName))
+                                if (!string.IsNullOrEmpty(line))
                                 {
-                                    foreach (String line in lines)
-                                        writer.WriteLine(line);
+                                    File.AppendAllText(fileName, line.ToString());
                                 }
+
+                                //using (StreamWriter writer = new StreamWriter(fileName))
+                                //{
+                                //    foreach (String line in lines)
+                                //        writer.WriteLine(line);
+                                //}
                             }
                         }
                         transaction.Commit();

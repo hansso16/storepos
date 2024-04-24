@@ -231,6 +231,9 @@ namespace SosesPOS
                             if (rbOther.Checked)
                             {
                                 csvDTO.Category = "PERSONAL";
+                            } else
+                            {
+                                csvDTO.Category = cboCategory.SelectedValue.ToString();
                             }
 
                             // Save to CheckIssue table
