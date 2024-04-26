@@ -295,6 +295,7 @@ namespace SosesPOS
                             }
 
                             String line = null;
+                            StringBuilder output = new StringBuilder();
                             if (File.Exists(fileName))
                             {
                                 using (StreamReader reader = new StreamReader(fileName))
@@ -310,15 +311,16 @@ namespace SosesPOS
                                                 split[3] = Decimal.Negate(checkIssueDTO.CheckAmount).ToString();
                                                 split[6] = "CANCELLED";
                                                 line = String.Join(",", split);
+                                                output.AppendLine(string.Join(GlobalConstant.COMMA_SEPARATOR, split));
                                                 break;
                                             }
                                         }
                                         //lines.Add(line);
                                     }
                                 }
-                                if (!string.IsNullOrEmpty(line))
+                                if (output != null && output.Length >= 0)
                                 {
-                                    File.AppendAllText(fileName, line.ToString());
+                                    File.AppendAllText(fileName, output.ToString());
                                 }
 
                                 //using (StreamWriter writer = new StreamWriter(fileName))
