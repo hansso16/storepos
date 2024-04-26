@@ -310,7 +310,7 @@ namespace SosesPOS
                                             {
                                                 split[3] = Decimal.Negate(checkIssueDTO.CheckAmount).ToString();
                                                 split[6] = "CANCELLED";
-                                                line = String.Join(",", split);
+                                                //line = String.Join(",", split);
                                                 output.AppendLine(string.Join(GlobalConstant.COMMA_SEPARATOR, split));
                                                 break;
                                             }
