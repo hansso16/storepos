@@ -20,9 +20,10 @@ namespace SosesPOS
         SqlDataReader dr = null;
         DbConnection dbcon = new DbConnection();
         public int i = 0;
+        UserDTO user = null;
         //formStockIn formStockIn = null;
 
-        public formPOS()
+        public formPOS(UserDTO user)
         {
             InitializeComponent();
             this.KeyPreview = true;
@@ -32,6 +33,7 @@ namespace SosesPOS
             LoadSuggestedProducts();
             GenerateNewTrans();
             LoadLocation();
+            this.user = user;
         }
 
         protected void LoadLocation()
@@ -545,24 +547,26 @@ namespace SosesPOS
                 try
                 {
                     //Save to tblOrder
-                    com = new SqlCommand("INSERT INTO tblOrder (CustomerId, OrderStatus, EntryTimestamp, LastUpdatedTimestamp) " +
+                    com = new SqlCommand("INSERT INTO tblOrder (CustomerId, OrderStatus, EntryTimestamp, LastUpdatedTimestamp, UserCode) " +
                         "OUTPUT inserted.OrderId " +
-                        "VALUES (@customerid, @orderstatus, @entrytimestamp, @lastupdatedtimestamp)", con, transaction);
+                        "VALUES (@customerid, @orderstatus, @entrytimestamp, @lastupdatedtimestamp, @usercode)", con, transaction);
                     com.Parameters.AddWithValue("@customerid", hlblCustomerId.Text);
                     com.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_CREATED);
                     com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
                     com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
+                    com.Parameters.AddWithValue("@usercode", user.userCode);
                     orderId = Convert.ToInt32(com.ExecuteScalar());
                     //orderId = Int32.Parse(com.ExecuteScalar().ToString());
 
                     // Save to tblInvoice
-                    com = new SqlCommand("INSERT INTO tblInvoice (OrderId, ReferenceNo, TotalPrice, EntryTimestamp) " +
+                    com = new SqlCommand("INSERT INTO tblInvoice (OrderId, ReferenceNo, TotalPrice, EntryTimestamp, UserCode) " +
                         "OUTPUT inserted.InvoiceId " +
-                        "VALUES (@orderid, @refno, @totalprice, @entrytimestamp)", con, transaction);
+                        "VALUES (@orderid, @refno, @totalprice, @entrytimestamp, @usercode)", con, transaction);
                     com.Parameters.AddWithValue("@orderid", orderId);
                     com.Parameters.AddWithValue("@refno", txtTransNo.Text);
                     com.Parameters.AddWithValue("@totalprice", Convert.ToDecimal(lblSubTotal.Text));
                     com.Parameters.AddWithValue("@entrytimestamp", DateTime.Now);
+                    com.Parameters.AddWithValue("@usercode", user.userCode);
                     invoiceId = Convert.ToInt32(com.ExecuteScalar().ToString());
                     //invoiceId = Int32.Parse(com.ExecuteScalar().ToString());
 
@@ -893,7 +897,7 @@ namespace SosesPOS
         // F7 Search Product
         protected virtual void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            formPOSWithdrawal form = new formPOSWithdrawal();
+            formPOSWithdrawal form = new formPOSWithdrawal(user);
             form.LoadReport();
             this.Focus();
         }

@@ -9,17 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using SosesPOS.util;
+using SosesPOS.DTO;
 
 namespace SosesPOS
 {
     public partial class formBillingPOS : formPOS
     {
         DbConnection dbcon = new DbConnection();
-        public formBillingPOS()
+        UserDTO user = null;
+        public formBillingPOS(UserDTO user) : base(user)
         {
             //InitializeComponent();
             this.KeyPreview = true;
             this.btnGenerateReport.Visible = true;
+            this.user = user;
         }
 
         protected override void btnSaveAndPrint_Click(object sender, EventArgs e)
@@ -129,7 +132,7 @@ namespace SosesPOS
 
         protected override void btnGenerateReport_Click(object sender, EventArgs e)
         {
-            formBillingSummary form = new formBillingSummary();
+            formBillingSummary form = new formBillingSummary(user);
             form.LoadReport();
             this.Focus();
             //form.Show();

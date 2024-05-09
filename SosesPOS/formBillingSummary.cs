@@ -23,9 +23,11 @@ namespace SosesPOS
         DbConnection dbcon = new DbConnection();
         private int m_currentPageIndex;
         private IList<Stream> m_streams;
-        public formBillingSummary()
+        UserDTO user = null;
+        public formBillingSummary(UserDTO user)
         {
             InitializeComponent();
+            this.user = user;
         }
 
         private void formBillingSummary_Load(object sender, EventArgs e)
@@ -35,7 +37,7 @@ namespace SosesPOS
 
         public void LoadReport()
         {
-            ReportDataSource rptDataSource;
+            //ReportDataSource rptDataSource;
             try
             {
                 //this.reportViewer1.LocalReport.ReportPath = System.IO.Path.GetDirectoryName(Application.StartupPath) + @"\..\report\rptBillingSummary.rdlc";
@@ -44,7 +46,6 @@ namespace SosesPOS
                 this.reportViewer1.LocalReport.DataSources.Clear();
 
                 ReportParameter pDate = new ReportParameter("pDate", DateTime.Today.ToString("ddd, MM/dd/yyyy"));
-                ReportParameter pAreaName = null;
 
                 reportViewer1.LocalReport.SetParameters(pDate);
 
@@ -56,8 +57,9 @@ namespace SosesPOS
                     List<AreaDTO> areaList = null;
                     using (SqlCommand com = new SqlCommand("SELECT a.AreaCode, a.AreaName FROM tblOrder o " +
                         "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId INNER JOIN tblArea a ON a.AreaCode = c.AreaCode " +
-                        "WHERE o.OrderStatus = '15' GROUP BY a.AreaCode, a.AreaName", con))
+                        "WHERE o.OrderStatus = '15' AND o.UserCode = @usercode AND a.AreaCode NOT IN ('1', '2') GROUP BY a.AreaCode, a.AreaName", con))
                     {
+                        com.Parameters.AddWithValue("@usercode", user.userCode);
                         using (SqlDataReader dr = com.ExecuteReader())
                         {
                             if (dr.HasRows)
@@ -80,99 +82,202 @@ namespace SosesPOS
                         foreach (AreaDTO areaDTO in areaList) 
                         {
                             // populate SDA/report
-                            dsBillingSummary ds = new dsBillingSummary();
-                            SqlDataAdapter sda = new SqlDataAdapter();
-                            pAreaName = new ReportParameter("pAreaName", areaDTO.areaName);
-                            reportViewer1.LocalReport.SetParameters(pAreaName);
+                            //dsBillingSummary ds = new dsBillingSummary();
+                            //SqlDataAdapter sda = new SqlDataAdapter();
+                            //pAreaName = new ReportParameter("pAreaName", areaDTO.areaName);
+                            //reportViewer1.LocalReport.SetParameters(pAreaName);
 
-                            sda.SelectCommand = new SqlCommand("SELECT id.PCode, p.pdesc, '' AS PREV, SUM(id.Qty) AS OUT, '' AS CRNT , c.AreaCode, id.Location " +
-                                "FROM tblOrder o " +
-                                "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId " +
-                                "INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
-                                "INNER JOIN tblInvoiceDetails id ON id.InvoiceId = i.InvoiceId " +
-                                "INNER JOIN tblProduct p ON p.pcode = id.PCode " +
-                                "WHERE o.OrderStatus = '15' and c.AreaCode = @areacode " +
-                                "GROUP BY id.PCode, p.pdesc, c.AreaCode, id.location ORDER BY p.pdesc ", con);
-                            sda.SelectCommand.Parameters.AddWithValue("@areacode", areaDTO.areaCode);
-                            sda.Fill(ds.Tables["dtItems"]);
+                            //sda.SelectCommand = new SqlCommand("SELECT id.PCode, p.pdesc, '' AS PREV, SUM(id.Qty) AS OUT, '' AS CRNT , c.AreaCode, id.Location " +
+                            //    "FROM tblOrder o " +
+                            //    "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId " +
+                            //    "INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
+                            //    "INNER JOIN tblInvoiceDetails id ON id.InvoiceId = i.InvoiceId " +
+                            //    "INNER JOIN tblProduct p ON p.pcode = id.PCode " +
+                            //    "INNER JOIN tblUOM u ON u.id = id.UOM " +
+                            //    "WHERE o.OrderStatus = '15' and c.AreaCode IN (@areacode,  1) " + // INCLUDE AREA CODE: 1 - Bakery
+                            //    "AND u.code = @uomcode " + 
+                            //    "GROUP BY id.PCode, p.pdesc, c.AreaCode, id.location ORDER BY p.pdesc ", con);
+                            //sda.SelectCommand.Parameters.AddWithValue("@areacode", areaDTO.areaCode);
+                            //sda.SelectCommand.Parameters.AddWithValue("@uomcode", );
+                            //sda.Fill(ds.Tables["dtItems"]);
 
-                            DataTable table = ds.Tables["dtItems"];
-                            foreach (DataRow row in table.Rows)
-                            {
-                                if (row["Location"].Equals("1")) // 1 = Store Code
-                                {
-                                    row["prev"] = "";
-                                    row["current"] = "";
-                                    continue;
-                                }
-                                using (SqlCommand com = new SqlCommand("SELECT SUM(i.Qty) qty, p.pcode, p.count " +
-                                    "FROM tblInventory i INNER JOIN tblProduct p ON i.PCode = p.pcode " +
-                                    "WHERE i.pcode = @pcode and i.Qty > 0 " +
-                                    "GROUP BY p.pcode, p.count", con))
-                                {
-                                    com.Parameters.AddWithValue("@pcode", row["pcode"]);
-                                    using (SqlDataReader dr = com.ExecuteReader()) 
-                                    {
-                                        int currentInvt = 0;
-                                        int prevInvt = 0;
-                                        int outInvt = Convert.ToInt32(row["out"]);
-                                        if (dr.HasRows && dr.Read())
-                                        {
-                                            currentInvt = Convert.ToInt32(dr["qty"]);
-                                            prevInvt = currentInvt + outInvt;
-                                        }
-                                        row["prev"] = prevInvt;
-                                        row["current"] = currentInvt;
-                                    }
-                                }
-                            }
-                            table.DefaultView.Sort = "Location DESC";
-                            table = table.DefaultView.ToTable();
+                            //DataTable table = ds.Tables["dtItems"];
+                            //foreach (DataRow row in table.Rows)
+                            //{
+                            //    if (row["Location"].Equals("1")) // 1 = Store Code
+                            //    {
+                            //        row["prev"] = "";
+                            //        row["current"] = "";
+                            //        continue;
+                            //    }
+                            //    using (SqlCommand com = new SqlCommand("SELECT SUM(i.Qty) qty, p.pcode, p.count " +
+                            //        "FROM tblInventory i INNER JOIN tblProduct p ON i.PCode = p.pcode " +
+                            //        "WHERE i.pcode = @pcode and i.Qty > 0 " +
+                            //        "GROUP BY p.pcode, p.count", con))
+                            //    {
+                            //        com.Parameters.AddWithValue("@pcode", row["pcode"]);
+                            //        using (SqlDataReader dr = com.ExecuteReader()) 
+                            //        {
+                            //            int currentInvt = 0;
+                            //            int prevInvt = 0;
+                            //            int outInvt = Convert.ToInt32(row["out"]);
+                            //            if (dr.HasRows && dr.Read())
+                            //            {
+                            //                currentInvt = Convert.ToInt32(dr["qty"]);
+                            //                prevInvt = currentInvt + outInvt;
+                            //            }
+                            //            row["prev"] = prevInvt;
+                            //            row["current"] = currentInvt;
+                            //        }
+                            //    }
+                            //}
+                            //table.DefaultView.Sort = "Location DESC";
+                            //table = table.DefaultView.ToTable();
 
-                            ds.Tables.Clear();
-                            ds.Tables.Add(table);
+                            //ds.Tables.Clear();
+                            //ds.Tables.Add(table);
 
-                            rptDataSource = new ReportDataSource("DataSet1", ds.Tables["dtItems"]);
-                            reportViewer1.LocalReport.DataSources.Clear();
-                            reportViewer1.LocalReport.DataSources.Add(rptDataSource);
+                            //rptDataSource = new ReportDataSource("DataSet1", ds.Tables["dtItems"]);
+                            //reportViewer1.LocalReport.DataSources.Clear();
+                            //reportViewer1.LocalReport.DataSources.Add(rptDataSource);
+
+                            PopulateReport(con, areaDTO, "0"); // 0 - Whole; 1 - Broken
 
                             // Paper Settings
-                            PageSettings page = new PageSettings();
-                            PaperSize size = new PaperSize("Billing Summary", 528, 816); // name, width, height
-                            size.RawKind = (int)PaperKind.Custom;
-                            page.PaperSize = size;
+                            //PageSettings page = new PageSettings();
+                            //PaperSize size = new PaperSize("Billing Summary", 528, 816); // name, width, height
+                            //size.RawKind = (int)PaperKind.Custom;
+                            //page.PaperSize = size;
 
-                            page.Margins.Top = 0;
-                            page.Margins.Bottom = 0;
-                            page.Margins.Left = 0;
-                            page.Margins.Right = 0;
+                            //page.Margins.Top = 0;
+                            //page.Margins.Bottom = 0;
+                            //page.Margins.Left = 0;
+                            //page.Margins.Right = 0;
 
-                            reportViewer1.SetPageSettings(page);
-                            reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                            //reportViewer1.SetPageSettings(page);
+                            //reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
 
-                            //Print
-                            Export(reportViewer1.LocalReport);
-                            Print(areaDTO.areaName);
+                            ////Print
+                            //Export(reportViewer1.LocalReport);
+                            //Print(areaDTO.areaName);
+                            PrintReport(areaDTO);
+                            this.Focus();
+                            PopulateReport(con, areaDTO, "1"); // 0 - Whole; 1 - Broken
+                            PrintReport(areaDTO);
+
                             this.Focus();
                         }
                         
                         // Update Order status to issued after printing.
                         using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
-                            "WHERE OrderStatus = @oldorderstatus", con))
+                            "WHERE OrderStatus = @oldorderstatus AND UserCode = @usercode", con))
                         {
                             com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED);
                             com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
                             com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
+                            com.Parameters.AddWithValue("@usercode", user.userCode);
                             com.ExecuteNonQuery();
                         }
                     }
                     MessageBox.Show("Printing Completed");
+                    this.Focus();
                     this.Dispose();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Generate Billing Summary", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PrintReport(AreaDTO areaDTO)
+        {
+            PageSettings page = new PageSettings();
+            PaperSize size = new PaperSize("Billing Summary", 528, 816); // name, width, height
+            size.RawKind = (int)PaperKind.Custom;
+            page.PaperSize = size;
+
+            page.Margins.Top = 0;
+            page.Margins.Bottom = 0;
+            page.Margins.Left = 0;
+            page.Margins.Right = 0;
+
+            reportViewer1.SetPageSettings(page);
+            reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+
+            //Print
+            Export(reportViewer1.LocalReport);
+            Print(areaDTO.areaName);
+        }
+
+        private void PopulateReport(SqlConnection con, AreaDTO areaDTO, string uomCode)
+        {
+            try
+            {
+                dsBillingSummary ds = new dsBillingSummary();
+                SqlDataAdapter sda = new SqlDataAdapter();
+                ReportParameter pAreaName = new ReportParameter("pAreaName", areaDTO.areaName);
+                reportViewer1.LocalReport.SetParameters(pAreaName);
+
+                sda.SelectCommand = new SqlCommand("SELECT id.PCode, p.pdesc, '' AS PREV, SUM(id.Qty) AS OUT, '' AS CRNT , c.AreaCode, id.Location " +
+                    "FROM tblOrder o " +
+                    "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId " +
+                    "INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
+                    "INNER JOIN tblInvoiceDetails id ON id.InvoiceId = i.InvoiceId " +
+                    "INNER JOIN tblProduct p ON p.pcode = id.PCode " +
+                    "INNER JOIN tblUOM u ON u.id = id.UOM " +
+                    "WHERE o.OrderStatus = '15' and c.AreaCode IN (@areacode,  1) " + // INCLUDE AREA CODE: 1 - Bakery
+                    "AND u.code = @uomcode " +
+                    "GROUP BY id.PCode, p.pdesc, c.AreaCode, id.location ORDER BY p.pdesc ", con);
+                sda.SelectCommand.Parameters.AddWithValue("@areacode", areaDTO.areaCode);
+                sda.SelectCommand.Parameters.AddWithValue("@uomcode", uomCode);
+                sda.Fill(ds.Tables["dtItems"]);
+
+                DataTable table = ds.Tables["dtItems"];
+                foreach (DataRow row in table.Rows)
+                {
+                    if (row["Location"].Equals("1")) // 1 = Store Code
+                    {
+                        row["prev"] = "";
+                        row["current"] = "";
+                        continue;
+                    }
+                    using (SqlCommand com = new SqlCommand("SELECT SUM(i.Qty) qty, p.pcode, p.count " +
+                        "FROM tblInventory i INNER JOIN tblProduct p ON i.PCode = p.pcode " +
+                        "WHERE i.pcode = @pcode and i.Qty > 0 " +
+                        "GROUP BY p.pcode, p.count", con))
+                    {
+                        com.Parameters.AddWithValue("@pcode", row["pcode"]);
+                        using (SqlDataReader dr = com.ExecuteReader())
+                        {
+                            int currentInvt = 0;
+                            int prevInvt = 0;
+                            int outInvt = Convert.ToInt32(row["out"]);
+                            if (dr.HasRows && dr.Read())
+                            {
+                                currentInvt = Convert.ToInt32(dr["qty"]);
+                                prevInvt = currentInvt + outInvt;
+                            }
+                            row["prev"] = prevInvt;
+                            row["current"] = currentInvt;
+                        }
+                    }
+                }
+                table.DefaultView.Sort = "Location DESC";
+                table = table.DefaultView.ToTable();
+
+                ds.Tables.Clear();
+                ds.Tables.Add(table);
+
+                ReportDataSource rptDataSource = new ReportDataSource("DataSet1", ds.Tables["dtItems"]);
+                reportViewer1.LocalReport.DataSources.Clear();
+                reportViewer1.LocalReport.DataSources.Add(rptDataSource);
+
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw new Exception("PopulateReport: " + ex.Message);
             }
         }
 

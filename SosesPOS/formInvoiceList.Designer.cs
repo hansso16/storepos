@@ -32,6 +32,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cboUserList = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpTo = new System.Windows.Forms.DateTimePicker();
@@ -40,16 +42,17 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvInvoiceList = new System.Windows.Forms.DataGridView();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.lblTotalAmount = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.refno = new System.Windows.Forms.DataGridViewLinkColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.View = new System.Windows.Forms.DataGridViewImageColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblTotalAmount = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -71,22 +74,44 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.cboUserList);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.dtpTo);
             this.panel2.Controls.Add(this.dtpFrom);
             this.panel2.Controls.Add(this.txtSearch);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(203, 0);
+            this.panel2.Location = new System.Drawing.Point(123, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(656, 40);
+            this.panel2.Size = new System.Drawing.Size(736, 40);
             this.panel2.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(534, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 25);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "User";
+            // 
+            // cboUserList
+            // 
+            this.cboUserList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboUserList.FormattingEnabled = true;
+            this.cboUserList.Location = new System.Drawing.Point(590, 9);
+            this.cboUserList.Name = "cboUserList";
+            this.cboUserList.Size = new System.Drawing.Size(129, 25);
+            this.cboUserList.TabIndex = 5;
+            this.cboUserList.SelectionChangeCommitted += new System.EventHandler(this.cboUserList_SelectionChangeCommitted_1);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(268, 9);
+            this.label3.Location = new System.Drawing.Point(223, 9);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(51, 25);
             this.label3.TabIndex = 4;
@@ -96,7 +121,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(439, 9);
+            this.label2.Location = new System.Drawing.Point(394, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 25);
             this.label2.TabIndex = 3;
@@ -106,7 +131,7 @@
             // 
             this.dtpTo.CustomFormat = "MM/dd/yyyy";
             this.dtpTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpTo.Location = new System.Drawing.Point(465, 9);
+            this.dtpTo.Location = new System.Drawing.Point(420, 9);
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(108, 25);
             this.dtpTo.TabIndex = 2;
@@ -116,7 +141,7 @@
             // 
             this.dtpFrom.CustomFormat = "MM/dd/yyyy";
             this.dtpFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpFrom.Location = new System.Drawing.Point(325, 9);
+            this.dtpFrom.Location = new System.Drawing.Point(280, 9);
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(108, 25);
             this.dtpFrom.TabIndex = 1;
@@ -128,7 +153,7 @@
             // 
             // 
             this.txtSearch.CustomButton.Image = null;
-            this.txtSearch.CustomButton.Location = new System.Drawing.Point(212, 1);
+            this.txtSearch.CustomButton.Location = new System.Drawing.Point(190, 1);
             this.txtSearch.CustomButton.Name = "";
             this.txtSearch.CustomButton.Size = new System.Drawing.Size(23, 23);
             this.txtSearch.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -149,7 +174,7 @@
             this.txtSearch.SelectionLength = 0;
             this.txtSearch.SelectionStart = 0;
             this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(236, 25);
+            this.txtSearch.Size = new System.Drawing.Size(214, 25);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.UseSelectable = true;
             this.txtSearch.WaterMark = "Search here...";
@@ -198,6 +223,7 @@
             this.refno,
             this.Column5,
             this.Column3,
+            this.username,
             this.Column4,
             this.View,
             this.Edit,
@@ -220,26 +246,6 @@
             this.dgvInvoiceList.Size = new System.Drawing.Size(884, 379);
             this.dgvInvoiceList.TabIndex = 5;
             this.dgvInvoiceList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInvoiceList_CellContentClick);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.Controls.Add(this.lblTotalAmount);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 385);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(884, 34);
-            this.panel3.TabIndex = 6;
-            // 
-            // lblTotalAmount
-            // 
-            this.lblTotalAmount.AutoSize = true;
-            this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalAmount.Location = new System.Drawing.Point(574, 0);
-            this.lblTotalAmount.Name = "lblTotalAmount";
-            this.lblTotalAmount.Size = new System.Drawing.Size(133, 25);
-            this.lblTotalAmount.TabIndex = 0;
-            this.lblTotalAmount.Text = "Total Amount: ";
             // 
             // Column1
             // 
@@ -274,6 +280,12 @@
             this.Column3.ReadOnly = true;
             this.Column3.Width = 151;
             // 
+            // username
+            // 
+            this.username.HeaderText = "USERNAME";
+            this.username.Name = "username";
+            this.username.ReadOnly = true;
+            // 
             // Column4
             // 
             this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -302,7 +314,7 @@
             this.Edit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Edit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Edit.Visible = false;
-            this.Edit.Width = 17;
+            this.Edit.Width = 19;
             // 
             // Delete
             // 
@@ -314,7 +326,27 @@
             this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Delete.Visible = false;
-            this.Delete.Width = 17;
+            this.Delete.Width = 19;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.White;
+            this.panel3.Controls.Add(this.lblTotalAmount);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 385);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(884, 34);
+            this.panel3.TabIndex = 6;
+            // 
+            // lblTotalAmount
+            // 
+            this.lblTotalAmount.AutoSize = true;
+            this.lblTotalAmount.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalAmount.Location = new System.Drawing.Point(574, 0);
+            this.lblTotalAmount.Name = "lblTotalAmount";
+            this.lblTotalAmount.Size = new System.Drawing.Size(133, 25);
+            this.lblTotalAmount.TabIndex = 0;
+            this.lblTotalAmount.Text = "Total Amount: ";
             // 
             // formInvoiceList
             // 
@@ -360,9 +392,12 @@
         private System.Windows.Forms.DataGridViewLinkColumn refno;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn username;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewImageColumn View;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cboUserList;
     }
 }

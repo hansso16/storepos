@@ -138,7 +138,7 @@ namespace SosesPOS
         private void button5_Click(object sender, EventArgs e)
         {
             //panel3.Controls.Clear();
-            formPOS form = new formPOS();
+            formPOS form = new formPOS(user);
             form.ShowDialog();
         }
 
@@ -216,7 +216,7 @@ namespace SosesPOS
 
         private void btnBillingInvoice_Click(object sender, EventArgs e)
         {
-            formBillingPOS form = new formBillingPOS();
+            formBillingPOS form = new formBillingPOS(user);
             form.ShowDialog();
         }
 
@@ -346,6 +346,7 @@ namespace SosesPOS
             form.TopLevel = false;
             panel3.Controls.Add(form);
             form.BringToFront();
+            form.LoadUserList();
             form.LoadInvoiceList();
             form.Show();
         }

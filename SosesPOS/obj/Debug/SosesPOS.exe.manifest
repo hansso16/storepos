@@ -343,14 +343,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SosesPOS.exe" size="1039328">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SosesPOS.exe" size="1041888">
       <assemblyIdentity name="SosesPOS" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>gqyaj0bJq0xYqZsW6uZyBuhfXlFVGE94A//6VeN1ffg=</dsig:DigestValue>
+        <dsig:DigestValue>5XgjIYzMGJ7niB649ErKAtiRTVQTtgt9Int4B40ht/0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -23,9 +23,11 @@ namespace SosesPOS
         DbConnection dbcon = new DbConnection();
         private int m_currentPageIndex;
         private IList<Stream> m_streams;
-        public formPOSWithdrawal()
+        UserDTO user = null;
+        public formPOSWithdrawal(UserDTO user)
         {
             InitializeComponent();
+            this.user = user;
         }
 
         public void LoadReport()
@@ -48,8 +50,9 @@ namespace SosesPOS
                     SqlDataAdapter sda = new SqlDataAdapter();
                     sda.SelectCommand = new SqlCommand("SELECT i.InvoiceId invoiceId, c.CustomerName customerName FROM tblOrder o " +
                         "INNER JOIN tblCustomer c ON c.CustomerId = o.CustomerId INNER JOIN tblInvoice i ON i.OrderId = o.OrderId " +
-                        "WHERE o.OrderStatus = @orderstatus", con);
+                        "WHERE o.OrderStatus = @orderstatus AND o.UserCode = @usercode", con);
                     sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
+                    sda.SelectCommand.Parameters.AddWithValue("@usercode", user.userCode);
                     //sda.SelectCommand.Parameters.AddWithValue("@orderstatus", OrderStatusConstant.INV_PRINTED);
                     sda.Fill(ds.Tables["dtCustomer"]);
 
@@ -97,11 +100,12 @@ namespace SosesPOS
 
                     // Update Order status to issued after printing.
                     using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
-                        "WHERE OrderStatus = @oldorderstatus", con))
+                        "WHERE OrderStatus = @oldorderstatus AND UserCode = @usercode", con))
                     {
                         com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED_BODEGA_OUT);
                         com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
                         com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
+                        com.Parameters.AddWithValue("@usercode", user.userCode);
                         com.ExecuteNonQuery();
                     }
                     this.Focus();
