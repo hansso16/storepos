@@ -33,20 +33,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formUserList));
             this.dgvUserList = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtSearch = new MetroFramework.Controls.MetroTextBox();
+            this.pbAddUser = new System.Windows.Forms.PictureBox();
+            this.pbClose = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccessCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AccessLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Edit = new System.Windows.Forms.DataGridViewImageColumn();
             this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
-            this.pbAddUser = new System.Windows.Forms.PictureBox();
-            this.pbClose = new System.Windows.Forms.PictureBox();
-            this.txtSearch = new MetroFramework.Controls.MetroTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserList)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbAddUser)).BeginInit();
@@ -76,6 +77,7 @@
             this.Username,
             this.AccessCode,
             this.AccessLevel,
+            this.Column2,
             this.Status,
             this.Edit,
             this.Delete});
@@ -110,6 +112,65 @@
             this.panel1.Size = new System.Drawing.Size(807, 40);
             this.panel1.TabIndex = 5;
             // 
+            // txtSearch
+            // 
+            // 
+            // 
+            // 
+            this.txtSearch.CustomButton.Image = null;
+            this.txtSearch.CustomButton.Location = new System.Drawing.Point(446, 1);
+            this.txtSearch.CustomButton.Name = "";
+            this.txtSearch.CustomButton.Size = new System.Drawing.Size(23, 23);
+            this.txtSearch.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtSearch.CustomButton.TabIndex = 1;
+            this.txtSearch.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtSearch.CustomButton.UseSelectable = true;
+            this.txtSearch.CustomButton.Visible = false;
+            this.txtSearch.DisplayIcon = true;
+            this.txtSearch.Icon = ((System.Drawing.Image)(resources.GetObject("txtSearch.Icon")));
+            this.txtSearch.Lines = new string[0];
+            this.txtSearch.Location = new System.Drawing.Point(281, 9);
+            this.txtSearch.MaxLength = 32767;
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.PasswordChar = '\0';
+            this.txtSearch.PromptText = "Search here...";
+            this.txtSearch.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtSearch.SelectedText = "";
+            this.txtSearch.SelectionLength = 0;
+            this.txtSearch.SelectionStart = 0;
+            this.txtSearch.ShortcutsEnabled = true;
+            this.txtSearch.Size = new System.Drawing.Size(470, 25);
+            this.txtSearch.TabIndex = 5;
+            this.txtSearch.UseSelectable = true;
+            this.txtSearch.WaterMark = "Search here...";
+            this.txtSearch.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtSearch.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // pbAddUser
+            // 
+            this.pbAddUser.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pbAddUser.Image = global::SosesPOS.Properties.Resources.plus;
+            this.pbAddUser.Location = new System.Drawing.Point(757, 0);
+            this.pbAddUser.Name = "pbAddUser";
+            this.pbAddUser.Size = new System.Drawing.Size(25, 40);
+            this.pbAddUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbAddUser.TabIndex = 4;
+            this.pbAddUser.TabStop = false;
+            this.pbAddUser.Click += new System.EventHandler(this.pbAddUser_Click);
+            // 
+            // pbClose
+            // 
+            this.pbClose.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pbClose.Image = global::SosesPOS.Properties.Resources.cross__1_;
+            this.pbClose.Location = new System.Drawing.Point(782, 0);
+            this.pbClose.Name = "pbClose";
+            this.pbClose.Size = new System.Drawing.Size(25, 40);
+            this.pbClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbClose.TabIndex = 3;
+            this.pbClose.TabStop = false;
+            this.pbClose.Click += new System.EventHandler(this.pbClose_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -119,6 +180,25 @@
             this.label1.Size = new System.Drawing.Size(83, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "User List";
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::SosesPOS.Properties.Resources.pencil;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewImageColumn2
+            // 
+            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Image = global::SosesPOS.Properties.Resources.trash;
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn2.Visible = false;
             // 
             // Column1
             // 
@@ -157,6 +237,14 @@
             this.AccessLevel.ReadOnly = true;
             this.AccessLevel.Width = 135;
             // 
+            // Column2
+            // 
+            this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.Column2.HeaderText = "INVOICE TYPE";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 131;
+            // 
             // Status
             // 
             this.Status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -164,27 +252,6 @@
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             this.Status.Width = 86;
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = global::SosesPOS.Properties.Resources.pencil;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewImageColumn1.Width = 17;
-            // 
-            // dataGridViewImageColumn2
-            // 
-            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn2.HeaderText = "";
-            this.dataGridViewImageColumn2.Image = global::SosesPOS.Properties.Resources.trash;
-            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
-            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewImageColumn2.Visible = false;
-            this.dataGridViewImageColumn2.Width = 17;
             // 
             // Edit
             // 
@@ -206,65 +273,6 @@
             this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Delete.Visible = false;
             this.Delete.Width = 17;
-            // 
-            // pbAddUser
-            // 
-            this.pbAddUser.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pbAddUser.Image = global::SosesPOS.Properties.Resources.plus;
-            this.pbAddUser.Location = new System.Drawing.Point(757, 0);
-            this.pbAddUser.Name = "pbAddUser";
-            this.pbAddUser.Size = new System.Drawing.Size(25, 40);
-            this.pbAddUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbAddUser.TabIndex = 4;
-            this.pbAddUser.TabStop = false;
-            this.pbAddUser.Click += new System.EventHandler(this.pbAddUser_Click);
-            // 
-            // pbClose
-            // 
-            this.pbClose.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pbClose.Image = global::SosesPOS.Properties.Resources.cross__1_;
-            this.pbClose.Location = new System.Drawing.Point(782, 0);
-            this.pbClose.Name = "pbClose";
-            this.pbClose.Size = new System.Drawing.Size(25, 40);
-            this.pbClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbClose.TabIndex = 3;
-            this.pbClose.TabStop = false;
-            this.pbClose.Click += new System.EventHandler(this.pbClose_Click);
-            // 
-            // txtSearch
-            // 
-            // 
-            // 
-            // 
-            this.txtSearch.CustomButton.Image = null;
-            this.txtSearch.CustomButton.Location = new System.Drawing.Point(446, 1);
-            this.txtSearch.CustomButton.Name = "";
-            this.txtSearch.CustomButton.Size = new System.Drawing.Size(23, 23);
-            this.txtSearch.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtSearch.CustomButton.TabIndex = 1;
-            this.txtSearch.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtSearch.CustomButton.UseSelectable = true;
-            this.txtSearch.CustomButton.Visible = false;
-            this.txtSearch.DisplayIcon = true;
-            this.txtSearch.Icon = ((System.Drawing.Image)(resources.GetObject("txtSearch.Icon")));
-            this.txtSearch.Lines = new string[0];
-            this.txtSearch.Location = new System.Drawing.Point(281, 9);
-            this.txtSearch.MaxLength = 32767;
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.PasswordChar = '\0';
-            this.txtSearch.PromptText = "Search here...";
-            this.txtSearch.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtSearch.SelectedText = "";
-            this.txtSearch.SelectionLength = 0;
-            this.txtSearch.SelectionStart = 0;
-            this.txtSearch.ShortcutsEnabled = true;
-            this.txtSearch.Size = new System.Drawing.Size(470, 25);
-            this.txtSearch.TabIndex = 5;
-            this.txtSearch.UseSelectable = true;
-            this.txtSearch.WaterMark = "Search here...";
-            this.txtSearch.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtSearch.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // formUserList
             // 
@@ -296,14 +304,15 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private MetroFramework.Controls.MetroTextBox txtSearch;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn Username;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccessCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn AccessLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewImageColumn Edit;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
-        private MetroFramework.Controls.MetroTextBox txtSearch;
     }
 }

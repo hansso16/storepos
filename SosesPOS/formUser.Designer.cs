@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.cboRole = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,6 +43,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblMessage = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cboInvoiceType = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +59,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(478, 40);
             this.panel1.TabIndex = 20;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Image = global::SosesPOS.Properties.Resources.cross__1_;
+            this.pictureBox1.Location = new System.Drawing.Point(453, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(25, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
             // 
@@ -73,7 +87,7 @@
             // 
             this.btnClear.BackColor = System.Drawing.Color.Gray;
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(325, 223);
+            this.btnClear.Location = new System.Drawing.Point(325, 254);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(75, 32);
             this.btnClear.TabIndex = 28;
@@ -85,25 +99,13 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.Black;
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(244, 223);
+            this.btnSave.Location = new System.Drawing.Point(244, 254);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 32);
             this.btnSave.TabIndex = 25;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = global::SosesPOS.Properties.Resources.cross__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(453, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // txtUsername
             // 
@@ -185,19 +187,39 @@
             // lblMessage
             // 
             this.lblMessage.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage.Location = new System.Drawing.Point(109, 199);
+            this.lblMessage.Location = new System.Drawing.Point(109, 230);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(291, 21);
             this.lblMessage.TabIndex = 44;
             this.lblMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(77, 205);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 17);
+            this.label5.TabIndex = 46;
+            this.label5.Text = "Invoice Type";
+            // 
+            // cboInvoiceType
+            // 
+            this.cboInvoiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboInvoiceType.FormattingEnabled = true;
+            this.cboInvoiceType.Location = new System.Drawing.Point(163, 202);
+            this.cboInvoiceType.Name = "cboInvoiceType";
+            this.cboInvoiceType.Size = new System.Drawing.Size(237, 25);
+            this.cboInvoiceType.TabIndex = 45;
             // 
             // formUser
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 297);
+            this.ClientSize = new System.Drawing.Size(478, 303);
             this.ControlBox = false;
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cboInvoiceType);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -213,7 +235,7 @@
             this.Controls.Add(this.btnSave);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "formUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panel1.ResumeLayout(false);
@@ -241,5 +263,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cboInvoiceType;
     }
 }

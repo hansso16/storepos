@@ -23,6 +23,10 @@ namespace SosesPOS
         UserDTO user = null;
         //formStockIn formStockIn = null;
 
+        public formPOS ()
+        {
+            InitializeComponent();
+        }
         public formPOS(UserDTO user)
         {
             InitializeComponent();
@@ -353,6 +357,10 @@ namespace SosesPOS
             else if (e.KeyCode == Keys.F7)
             {
                 btnGenerateReport_Click(sender, e);
+            }
+            else if (e.KeyCode == Keys.F8)
+            {
+                btnEndOfDayreport_Click(sender, e);
             }
             else if (e.KeyCode == Keys.F10) // Close
             {
@@ -1394,6 +1402,21 @@ namespace SosesPOS
                 cboSearch.Focus();
                 cboSearch.SelectAll();
             }
+        }
+
+        private void btnEndOfDayreport_Click(object sender, EventArgs e)
+        {
+            //Invoice
+            formInvoiceSummaryReport formInv = new formInvoiceSummaryReport(user);
+            formInv.LoadReport();
+            this.Activate();
+            this.Focus();
+            //Payment
+            formPaymentSummaryReport formPayment = new formPaymentSummaryReport(user);
+            formPayment.LoadReport();
+            this.Activate();
+            this.Focus();
+
         }
     }
 }

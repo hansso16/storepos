@@ -28,6 +28,7 @@ namespace SosesPOS
             this.userDTO = userDTO;
             this.roleDTO = userDTO.role;
             LoadRoleRecords();
+            LoadInvoiceTypeRecords();
         }
 
         private void LoadRoleRecords()
@@ -52,6 +53,21 @@ namespace SosesPOS
                 cboRole.DataSource = dataSource;
                 cboRole.DisplayMember = "Name";
                 cboRole.ValueMember = "Value";
+            }
+        }
+
+        private void LoadInvoiceTypeRecords()
+        {
+            using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+            {
+                con.Open();
+
+                List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+                dataSource.Add(new ComboBoxDTO() { Name = "Walk-In", Value = GlobalConstant.INV_TYPE_WIN });
+                dataSource.Add(new ComboBoxDTO() { Name = "Wholesale Delivery", Value = GlobalConstant.INV_TYPE_DEL });
+                cboInvoiceType.DataSource = dataSource;
+                cboInvoiceType.DisplayMember = "Name";
+                cboInvoiceType.ValueMember = "Value";
             }
         }
 
@@ -145,14 +161,15 @@ namespace SosesPOS
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.CommandText = "INSERT INTO tblUser (Username, Password, TerminationDate" +
-                            ", LastChangedTimestamp, LastChangedUserCode, RoleId) " +
-                            "VALUES (@username, @password, @terminationdate, @lastchangedtimestamp, @lastchangedusercode, @roleid)";
+                            ", LastChangedTimestamp, LastChangedUserCode, RoleId, InvoiceType) " +
+                            "VALUES (@username, @password, @terminationdate, @lastchangedtimestamp, @lastchangedusercode, @roleid, @invoicetype)";
                         com.Parameters.AddWithValue("@username", username);
                         com.Parameters.AddWithValue("@password", BCryptNet.HashPassword(password));
                         com.Parameters.AddWithValue("@terminationdate", new DateTime(9999,12,31));
                         com.Parameters.AddWithValue("@lastchangedtimestamp", DateTime.Now);
                         com.Parameters.AddWithValue("@lastchangedusercode", userDTO.userCode);
                         com.Parameters.AddWithValue("@roleid", cboRole.SelectedValue.ToString());
+                        com.Parameters.AddWithValue("@invoicetype", cboInvoiceType.SelectedValue.ToString());
                         com.ExecuteNonQuery();
                     }
                     this.lblMessage.Text = "Successfully added new user: " + username;

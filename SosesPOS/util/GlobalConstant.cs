@@ -26,5 +26,8 @@ namespace SosesPOS.util
         public static readonly string CHECK_STATUS_CNCLLD = "70"; // CANCELLED
         public static readonly string CHECK_STATUS_BNCE = "30"; // BOUNCED
         public static readonly string CHECK_STATUS_RTN = "20"; // RETURN
+
+        public static readonly string INV_TYPE_WIN = "1"; // WALK-IN (INV SA BABA)
+        public static readonly string INV_TYPE_DEL = "0"; // WHOLESALE DELIVERY (INV SA TAAS - ivy)
     }
 }

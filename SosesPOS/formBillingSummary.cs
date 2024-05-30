@@ -141,43 +141,31 @@ namespace SosesPOS
                             //reportViewer1.LocalReport.DataSources.Clear();
                             //reportViewer1.LocalReport.DataSources.Add(rptDataSource);
 
+                            ReportParameter pStockWithdrawal = new ReportParameter("pStockWithdrawal", "Stock Withdrawal - Whole");
+                            reportViewer1.LocalReport.SetParameters(pStockWithdrawal);
                             PopulateReport(con, areaDTO, "0"); // 0 - Whole; 1 - Broken
-
-                            // Paper Settings
-                            //PageSettings page = new PageSettings();
-                            //PaperSize size = new PaperSize("Billing Summary", 528, 816); // name, width, height
-                            //size.RawKind = (int)PaperKind.Custom;
-                            //page.PaperSize = size;
-
-                            //page.Margins.Top = 0;
-                            //page.Margins.Bottom = 0;
-                            //page.Margins.Left = 0;
-                            //page.Margins.Right = 0;
-
-                            //reportViewer1.SetPageSettings(page);
-                            //reportViewer1.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-
-                            ////Print
-                            //Export(reportViewer1.LocalReport);
-                            //Print(areaDTO.areaName);
                             PrintReport(areaDTO);
+
                             this.Focus();
+
+                            pStockWithdrawal = new ReportParameter("pStockWithdrawal", "Stock Withdrawal - Broken");
+                            reportViewer1.LocalReport.SetParameters(pStockWithdrawal);
                             PopulateReport(con, areaDTO, "1"); // 0 - Whole; 1 - Broken
                             PrintReport(areaDTO);
 
                             this.Focus();
                         }
                         
-                        // Update Order status to issued after printing.
-                        using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
-                            "WHERE OrderStatus = @oldorderstatus AND UserCode = @usercode", con))
-                        {
-                            com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED);
-                            com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
-                            com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
-                            com.Parameters.AddWithValue("@usercode", user.userCode);
-                            com.ExecuteNonQuery();
-                        }
+                        //// Update Order status to issued after printing.
+                        //using (SqlCommand com = new SqlCommand("Update tblOrder SET OrderStatus = @neworderstatus, LastUpdatedTimestamp = @lastupdatedtimestamp " +
+                        //    "WHERE OrderStatus = @oldorderstatus AND UserCode = @usercode", con))
+                        //{
+                        //    com.Parameters.AddWithValue("@oldorderstatus", OrderStatusConstant.INV_PRINTED);
+                        //    com.Parameters.AddWithValue("@neworderstatus", OrderStatusConstant.INV_ISSUED);
+                        //    com.Parameters.AddWithValue("@lastupdatedtimestamp", DateTime.Now);
+                        //    com.Parameters.AddWithValue("@usercode", user.userCode);
+                        //    com.ExecuteNonQuery();
+                        //}
                     }
                     MessageBox.Show("Printing Completed");
                     this.Focus();

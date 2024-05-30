@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsPaymentSummary" targetNamespace="http://tempuri.org/dsPaymentSummary.xsd" xmlns:mstns="http://tempuri.org/dsPaymentSummary.xsd" xmlns="http://tempuri.org/dsPaymentSummary.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsPaymentSummary" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="dsPaymentSummary" msprop:Generator_DataSetName="dsPaymentSummary">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtPaymentSummary" msprop:Generator_RowEvHandlerName="dtPaymentSummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="dtPaymentSummaryRowDeleted" msprop:Generator_RowDeletingName="dtPaymentSummaryRowDeleting" msprop:Generator_RowEvArgName="dtPaymentSummaryRowChangeEvent" msprop:Generator_TablePropName="dtPaymentSummary" msprop:Generator_RowChangedName="dtPaymentSummaryRowChanged" msprop:Generator_RowChangingName="dtPaymentSummaryRowChanging" msprop:Generator_TableClassName="dtPaymentSummaryDataTable" msprop:Generator_RowClassName="dtPaymentSummaryRow" msprop:Generator_TableVarName="tabledtPaymentSummary" msprop:Generator_UserTableName="dtPaymentSummary">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_UserColumnName="CustomerName" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalAmount" msprop:Generator_ColumnPropNameInRow="TotalAmount" msprop:Generator_ColumnPropNameInTable="TotalAmountColumn" msprop:Generator_ColumnVarNameInTable="columnTotalAmount" msprop:Generator_UserColumnName="TotalAmount" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

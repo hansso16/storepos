@@ -17,7 +17,7 @@ namespace SosesPOS.util
             }
             //Regex hasNumber = new Regex(@"[0-9]+");
             //Regex hasUpperChar = new Regex(@"[A-Z]+");
-            Regex hasMinimum6Chars = new Regex(@"^.{6,20}$", RegexOptions.Compiled);
+            Regex hasMinimum6Chars = new Regex(@"^.{3,20}$", RegexOptions.Compiled);
             return hasMinimum6Chars.IsMatch(password);
         }
 

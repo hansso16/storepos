@@ -27,7 +27,7 @@
     <ProductName>SosesPOS</ProductName>
     <PublisherName>SOSE%27S MARKETING ENTERPRISES INC.</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>50</ApplicationRevision>
+    <ApplicationRevision>51</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -220,6 +220,16 @@
     <Compile Include="DAO\InventoryDAO.cs" />
     <Compile Include="DAO\ProductCostDAO.cs" />
     <Compile Include="DAO\ProductDetailsDAO.cs" />
+    <Compile Include="dataset\dsBillingCustomerSummary.cs">
+      <DependentUpon>dsBillingCustomerSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="dataset\dsBillingCustomerSummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBillingCustomerSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="dataset\dsBillingSummary.cs">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -252,11 +262,13 @@
     </Compile>
     <Compile Include="dataset\dsCustomerPayment.cs">
       <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsCustomerPayment.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsInvoiceReceipt.cs">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
@@ -266,6 +278,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="dataset\dsInvoiceSumary.cs">
+      <DependentUpon>dsInvoiceSumary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="dataset\dsInvoiceSumary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsInvoiceSumary.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsInvoiceWithdrawal.Designer.cs">
@@ -278,6 +300,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsNewCost.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="dataset\dsPaymentSummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPaymentSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="dataset\dsPurchaseReport.cs">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>
@@ -329,6 +358,12 @@
     </Compile>
     <Compile Include="formBankList.Designer.cs">
       <DependentUpon>formBankList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formBillingCustomerSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formBillingCustomerSummary.Designer.cs">
+      <DependentUpon>formBillingCustomerSummary.cs</DependentUpon>
     </Compile>
     <Compile Include="formBillingPOS.cs">
       <SubType>Form</SubType>
@@ -390,6 +425,12 @@
     <Compile Include="formInvoiceReceipt.Designer.cs">
       <DependentUpon>formInvoiceReceipt.cs</DependentUpon>
     </Compile>
+    <Compile Include="formInvoiceSummaryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formInvoiceSummaryReport.Designer.cs">
+      <DependentUpon>formInvoiceSummaryReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="formLiteCheckPrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -413,6 +454,12 @@
     </Compile>
     <Compile Include="formPayee.Designer.cs">
       <DependentUpon>formPayee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formPaymentSummaryReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formPaymentSummaryReport.Designer.cs">
+      <DependentUpon>formPaymentSummaryReport.cs</DependentUpon>
     </Compile>
     <Compile Include="formPOSWithdrawal.cs">
       <SubType>Form</SubType>
@@ -663,6 +710,9 @@
     <EmbeddedResource Include="formBankList.resx">
       <DependentUpon>formBankList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formBillingCustomerSummary.resx">
+      <DependentUpon>formBillingCustomerSummary.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formBillingPOS.resx">
       <DependentUpon>formBillingPOS.cs</DependentUpon>
     </EmbeddedResource>
@@ -693,6 +743,9 @@
     <EmbeddedResource Include="formInvoiceReceipt.resx">
       <DependentUpon>formInvoiceReceipt.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formInvoiceSummaryReport.resx">
+      <DependentUpon>formInvoiceSummaryReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="formLiteCheckPrint.resx">
       <DependentUpon>formLiteCheckPrint.cs</DependentUpon>
     </EmbeddedResource>
@@ -704,6 +757,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formPayee.resx">
       <DependentUpon>formPayee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formPaymentSummaryReport.resx">
+      <DependentUpon>formPaymentSummaryReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formPOSWithdrawal.resx">
       <DependentUpon>formPOSWithdrawal.cs</DependentUpon>
@@ -829,6 +885,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="report\rptBillingCustomerSummary.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="report\rptBillingSummary.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -844,15 +903,33 @@
     <EmbeddedResource Include="report\rptInvoiceReceipt.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="report\rptInvoiceSummary.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="report\rptInvoiceWithdrawal.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="report\rptPaymentSummary.rdlc" />
     <EmbeddedResource Include="report\rptPurchaseReport.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="report\rptStockTransferRequest.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="dataset\dsBillingCustomerSummary.xsc">
+      <DependentUpon>dsBillingCustomerSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsBillingCustomerSummary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBillingCustomerSummary.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsBillingCustomerSummary.xss">
+      <DependentUpon>dsBillingCustomerSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="dataset\dsBillingSummary.xsc">
       <DependentUpon>dsBillingSummary.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -897,14 +974,17 @@
     </None>
     <None Include="dataset\dsCustomerPayment.xsc">
       <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCustomerPayment.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsCustomerPayment.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsCustomerPayment.xss">
       <DependentUpon>dsCustomerPayment.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceReceipt.xsc">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
@@ -918,6 +998,20 @@
     </None>
     <None Include="dataset\dsInvoiceReceipt.xss">
       <DependentUpon>dsInvoiceReceipt.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsInvoiceSumary.xsc">
+      <DependentUpon>dsInvoiceSumary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsInvoiceSumary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsInvoiceSumary.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsInvoiceSumary.xss">
+      <DependentUpon>dsInvoiceSumary.xsd</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsInvoiceWithdrawal.xsc">
@@ -936,14 +1030,31 @@
     </None>
     <None Include="dataset\dsNewCost.xsc">
       <DependentUpon>dsNewCost.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsNewCost.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsNewCost.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsNewCost.xss">
       <DependentUpon>dsNewCost.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsPaymentSummary.xsc">
+      <DependentUpon>dsPaymentSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsPaymentSummary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPaymentSummary.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="dataset\dsPaymentSummary.xss">
+      <DependentUpon>dsPaymentSummary.xsd</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="dataset\dsPurchaseReport.xsc">
       <DependentUpon>dsPurchaseReport.xsd</DependentUpon>

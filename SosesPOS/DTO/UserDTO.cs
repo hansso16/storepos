@@ -16,5 +16,6 @@ namespace SosesPOS.DTO
         public int lastChangedUserCode { get; set; }
         public int roleId { get; set; }
         public RoleDTO role { get; set; }
+        public char invoiceType { get; set; }
     }
 }

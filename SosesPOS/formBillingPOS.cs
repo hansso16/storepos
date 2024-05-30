@@ -17,6 +17,11 @@ namespace SosesPOS
     {
         DbConnection dbcon = new DbConnection();
         UserDTO user = null;
+
+        public formBillingPOS()
+        {
+            InitializeComponent();
+        }
         public formBillingPOS(UserDTO user) : base(user)
         {
             //InitializeComponent();
@@ -134,8 +139,14 @@ namespace SosesPOS
         {
             formBillingSummary form = new formBillingSummary(user);
             form.LoadReport();
+            form.Dispose();
             this.Focus();
-            //form.Show();
+
+            // Customer Summary
+            formBillingCustomerSummary formBillingCustomerSummary = new formBillingCustomerSummary(user);
+            formBillingCustomerSummary.LoadReport();
+            formBillingCustomerSummary.Dispose();
+            this.Focus();
         }
 
         protected override void PrintInvoice(string refno)

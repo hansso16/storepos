@@ -1,4 +1,5 @@
 ﻿using SosesPOS.DTO;
+using SosesPOS.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,7 +36,7 @@ namespace SosesPOS
 
                 using (SqlCommand com = con.CreateCommand())
                 {
-                    com.CommandText = "SELECT u.UserCode, u.Username, r.RoleCode, r.RoleName, u.TerminationDate " +
+                    com.CommandText = "SELECT u.UserCode, u.Username, r.RoleCode, r.RoleName, u.TerminationDate, u.InvoiceType " +
                         "FROM tblUser u INNER JOIN tblRole r ON r.RoleId = u.RoleId " +
                         "WHERE r.AccessLevel <= @accesslevel AND u.Username LIKE '%'+@username+'%'";
                     com.Parameters.AddWithValue("@accesslevel", roleDTO.accessLevel);
@@ -47,8 +48,9 @@ namespace SosesPOS
                         while (reader.Read())
                         {
                             DateTime terminationDate = Convert.ToDateTime(reader["TerminationDate"]);
+                            string invoiceType = reader["InvoiceType"].ToString();
                             dgvUserList.Rows.Add(++i, reader["UserCode"], reader["Username"]
-                                , reader["RoleCode"], reader["RoleName"]
+                                , reader["RoleCode"], reader["RoleName"], invoiceType == GlobalConstant.INV_TYPE_WIN? "WALK-IN" : "DELIVERY"
                                 , terminationDate == date? "ACTIVE" : "TERMINATED");
                         }
                     }
