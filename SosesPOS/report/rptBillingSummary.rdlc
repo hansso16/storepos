@@ -847,7 +847,7 @@
                 <TablixMember>
                   <Group Name="PageBreakGroup">
                     <GroupExpressions>
-                      <GroupExpression>=Ceiling(RowNumber(Nothing)/15)</GroupExpression>
+                      <GroupExpression>=Ceiling(RowNumber(Nothing)/35)</GroupExpression>
                     </GroupExpressions>
                     <PageBreak>
                       <BreakLocation>Between</BreakLocation>
@@ -887,7 +887,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>0.97613in</Height>
+        <Height>0.90321in</Height>
         <Style />
       </Body>
       <Width>5.5in</Width>
@@ -1094,6 +1094,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox287</rd:DefaultName>
+              <Top>0in</Top>
               <Left>2.04078cm</Left>
               <Height>0.6cm</Height>
               <Width>6.45604cm</Width>

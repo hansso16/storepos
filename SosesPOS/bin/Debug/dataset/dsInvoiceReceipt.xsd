@@ -22,8 +22,9 @@
               <xs:element name="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_UserColumnName="qty" msprop:Generator_ColumnVarNameInTable="columnqty" type="xs:string" minOccurs="0" />
               <xs:element name="uom" msprop:Generator_ColumnPropNameInTable="uomColumn" msprop:Generator_ColumnPropNameInRow="uom" msprop:Generator_UserColumnName="uom" msprop:Generator_ColumnVarNameInTable="columnuom" type="xs:string" minOccurs="0" />
               <xs:element name="date" msprop:Generator_ColumnPropNameInTable="dateColumn" msprop:Generator_ColumnPropNameInRow="date" msprop:Generator_UserColumnName="date" msprop:Generator_ColumnVarNameInTable="columndate" type="xs:string" minOccurs="0" />
-              <xs:element name="pcode" msprop:Generator_UserColumnName="pcode" msprop:Generator_ColumnPropNameInTable="pcodeColumn" msprop:Generator_ColumnPropNameInRow="pcode" msprop:Generator_ColumnVarNameInTable="columnpcode" type="xs:string" minOccurs="0" />
-              <xs:element name="total" msprop:Generator_UserColumnName="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnVarNameInTable="columntotal" type="xs:string" minOccurs="0" />
+              <xs:element name="pcode" msprop:Generator_ColumnPropNameInTable="pcodeColumn" msprop:Generator_ColumnPropNameInRow="pcode" msprop:Generator_UserColumnName="pcode" msprop:Generator_ColumnVarNameInTable="columnpcode" type="xs:string" minOccurs="0" />
+              <xs:element name="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_UserColumnName="total" msprop:Generator_ColumnVarNameInTable="columntotal" type="xs:string" minOccurs="0" />
+              <xs:element name="vat" msprop:Generator_ColumnPropNameInRow="vat" msprop:Generator_ColumnPropNameInTable="vatColumn" msprop:Generator_ColumnVarNameInTable="columnvat" msprop:Generator_UserColumnName="vat" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

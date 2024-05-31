@@ -124,6 +124,7 @@ namespace SosesPOS
                         formPOS.cartGridView.Enabled = false;
                         formPOS.txtCName.ReadOnly = true;
                         formPOS.cboLocation.Enabled = false;
+                        
 
                         //btns
                         formPOS.btnSaveAndPrint.Enabled = false;
@@ -182,6 +183,7 @@ namespace SosesPOS
             formPOS.btnPrint.Enabled = false;
             formPOS.btnSearchCustomer.Enabled = false;
             formPOS.btnGenerateReport.Enabled = false;
+            formPOS.btnEndOfDayreport.Enabled = false;
         }
     }
 }

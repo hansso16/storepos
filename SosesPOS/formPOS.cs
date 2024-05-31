@@ -995,6 +995,7 @@ namespace SosesPOS
                     con.Close();
                 }
                 MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResetInvoiceForm();
             }
         }
 

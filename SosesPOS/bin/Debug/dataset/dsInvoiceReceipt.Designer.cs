@@ -297,6 +297,8 @@ namespace SosesPOS.dataset {
             
             private global::System.Data.DataColumn columntotal;
             
+            private global::System.Data.DataColumn columnvat;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public dtSoldDataTable() {
@@ -404,6 +406,14 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn vatColumn {
+                get {
+                    return this.columnvat;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,7 +449,7 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public dtSoldRow AdddtSoldRow(string id, string refno, string pdesc, string price, string qty, string uom, string date, string pcode, string total) {
+            public dtSoldRow AdddtSoldRow(string id, string refno, string pdesc, string price, string qty, string uom, string date, string pcode, string total, string vat) {
                 dtSoldRow rowdtSoldRow = ((dtSoldRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -450,7 +460,8 @@ namespace SosesPOS.dataset {
                         uom,
                         date,
                         pcode,
-                        total};
+                        total,
+                        vat};
                 rowdtSoldRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtSoldRow);
                 return rowdtSoldRow;
@@ -482,6 +493,7 @@ namespace SosesPOS.dataset {
                 this.columndate = base.Columns["date"];
                 this.columnpcode = base.Columns["pcode"];
                 this.columntotal = base.Columns["total"];
+                this.columnvat = base.Columns["vat"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -505,6 +517,8 @@ namespace SosesPOS.dataset {
                 base.Columns.Add(this.columnpcode);
                 this.columntotal = new global::System.Data.DataColumn("total", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columntotal);
+                this.columnvat = new global::System.Data.DataColumn("vat", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnvat);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -791,6 +805,22 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string vat {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtSold.vatColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'vat\' in table \'dtSold\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtSold.vatColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsidNull() {
                 return this.IsNull(this.tabledtSold.idColumn);
             }
@@ -895,6 +925,18 @@ namespace SosesPOS.dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SettotalNull() {
                 this[this.tabledtSold.totalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsvatNull() {
+                return this.IsNull(this.tabledtSold.vatColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetvatNull() {
+                this[this.tabledtSold.vatColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -53,6 +53,10 @@
           <DataField>total</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="vat">
+          <DataField>vat</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsInvoiceReceipt</rd:DataSetName>
@@ -122,6 +126,7 @@
                             <PaddingBottom>0cm</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -178,7 +183,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!pdesc.Value</Value>
+                                  <Value>=Fields!pdesc.Value &amp; "VAT: " &amp; Fields!vat.Value</Value>
                                   <Style>
                                     <FontFamily>Verdana</FontFamily>
                                   </Style>
@@ -302,6 +307,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -338,7 +344,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox95">
+                        <Textbox Name="Textbox1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -352,7 +358,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox95</rd:DefaultName>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -464,6 +470,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -620,6 +627,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -776,6 +784,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -932,6 +941,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1088,6 +1098,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1244,6 +1255,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1405,7 +1417,7 @@
                         <Value>=FormatNumber(Sum(CDec(Fields!total.Value)), 2)</Value>
                       </Variable>
                       <Variable Name="NetVAT">
-                        <Value>=FormatNumber(CDec(Variables!TotalSale.Value / 1.12), 2)</Value>
+                        <Value>=FormatNumber(Sum(IIF(Fields!vat.Value = 1, CDec(CDec(Fields!total.Value) / 1.12), CDec(Fields!total.Value))), 2)</Value>
                       </Variable>
                       <Variable Name="VAT">
                         <Value>=FormatNumber(Variables!TotalSale.Value - Variables!NetVAT.Value, 2)</Value>

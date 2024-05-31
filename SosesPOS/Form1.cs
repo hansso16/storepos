@@ -58,7 +58,6 @@ namespace SosesPOS
                 //this.btnBank.Visible = true;
                 //this.btnCategory.Visible = true;
                 //this.btnStockLocation.Visible = true;
-                this.btnReceivePayments.Visible = true;
                 this.btnStockReplenishment.Visible = true;
                 this.StockTransferPanel.Visible = true;
                 this.btnStockTransfer.Visible = true;
@@ -66,7 +65,6 @@ namespace SosesPOS
                 this.btnTransferDispatch.Visible = true;
                 this.btnTransferAccept.Visible = true;
                 this.btnLiteCheckWriter.Visible = true;
-                this.btnCustomerMemo.Visible = true;
             }
         }
 
@@ -77,6 +75,8 @@ namespace SosesPOS
                 this.button5.Visible = true; // Store Invoice
                 this.btnUser.Visible = true;
                 this.btnInvoiceList.Visible = true;
+                this.btnReceivePayments.Visible = true;
+                this.btnCustomerMemo.Visible = true;
             }
         }
 

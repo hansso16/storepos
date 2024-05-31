@@ -47,7 +47,7 @@ namespace SosesPOS
                     dsPaymentSummary ds = new dsPaymentSummary();
                     SqlDataAdapter sda = new SqlDataAdapter();
 
-                    sda.SelectCommand = new SqlCommand("SELECT c.CustomerName CustomerName, cp.Amount TotalAmount " +
+                    sda.SelectCommand = new SqlCommand("SELECT c.CustomerName CustomerName, cp.Amount TotalAmount, cp.Type " +
                         "FROM tblCustomerPayment cp " +
                         "INNER JOIN tblCustomer c ON c.CustomerId = cp.CustomerId " +
                         "WHERE cp.Amount > 0 " +

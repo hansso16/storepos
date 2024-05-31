@@ -84,7 +84,8 @@ namespace SosesPOS
                 dsInvoiceReceipt ds = new dsInvoiceReceipt();
                 sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
                     ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
-                    ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                    ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc" +
+                    ", p.VAT " +
                     "from tblInvoice i " +
                     "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
                     "inner join tblProduct p on p.pcode = id.PCode " +
@@ -122,6 +123,7 @@ namespace SosesPOS
             {
                 con.Close();
                 MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Error printing InvoiceReceipt: " + ex.Message);
             }
         }
 
@@ -174,7 +176,8 @@ namespace SosesPOS
                 {
                     sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
                         ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
-                        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc" +
+                        ", p.VAT " +
                         "from tblInvoice i " +
                         "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
                         "inner join tblProduct p on p.pcode = id.PCode " +
@@ -187,6 +190,7 @@ namespace SosesPOS
                     sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
                         ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
                         ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                        ", p.VAT" +
                         "from tblInvoice i " +
                         "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
                         "inner join tblProduct p on p.pcode = id.PCode " +
@@ -224,7 +228,7 @@ namespace SosesPOS
             {
                 con.Close();
                 MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(ex.InnerException);
+                throw new Exception("Error printing InvoiceReceipt: " + ex.Message);
             }
         }
 
@@ -296,7 +300,7 @@ namespace SosesPOS
             {
                 printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
                 m_currentPageIndex = 0;
-                MessageBox.Show("Document is ready for printing.");
+                //MessageBox.Show("Document is ready for printing.");
                 printDoc.Print();
                 //MessageBox.Show("DONE");
             }

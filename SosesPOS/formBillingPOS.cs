@@ -27,6 +27,7 @@ namespace SosesPOS
             //InitializeComponent();
             this.KeyPreview = true;
             this.btnGenerateReport.Visible = true;
+            this.btnEndOfDayreport.Visible = false;
             this.user = user;
         }
 
@@ -75,6 +76,7 @@ namespace SosesPOS
                 //    con.Close();
                 //}
                 MessageBox.Show(ex.Message, "Save Invoice", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResetInvoiceForm();
             }
         }
 
