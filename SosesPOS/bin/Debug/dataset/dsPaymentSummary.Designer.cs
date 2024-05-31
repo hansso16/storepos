@@ -283,6 +283,8 @@ namespace SosesPOS.dataset {
             
             private global::System.Data.DataColumn columnTotalAmount;
             
+            private global::System.Data.DataColumn columnType;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public dtPaymentSummaryDataTable() {
@@ -334,6 +336,14 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TypeColumn {
+                get {
+                    return this.columnType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -369,11 +379,12 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public dtPaymentSummaryRow AdddtPaymentSummaryRow(string CustomerName, decimal TotalAmount) {
+            public dtPaymentSummaryRow AdddtPaymentSummaryRow(string CustomerName, decimal TotalAmount, string Type) {
                 dtPaymentSummaryRow rowdtPaymentSummaryRow = ((dtPaymentSummaryRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CustomerName,
-                        TotalAmount};
+                        TotalAmount,
+                        Type};
                 rowdtPaymentSummaryRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowdtPaymentSummaryRow);
                 return rowdtPaymentSummaryRow;
@@ -398,6 +409,7 @@ namespace SosesPOS.dataset {
             internal void InitVars() {
                 this.columnCustomerName = base.Columns["CustomerName"];
                 this.columnTotalAmount = base.Columns["TotalAmount"];
+                this.columnType = base.Columns["Type"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -407,6 +419,8 @@ namespace SosesPOS.dataset {
                 base.Columns.Add(this.columnCustomerName);
                 this.columnTotalAmount = new global::System.Data.DataColumn("TotalAmount", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalAmount);
+                this.columnType = new global::System.Data.DataColumn("Type", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnType);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -581,6 +595,22 @@ namespace SosesPOS.dataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Type {
+                get {
+                    try {
+                        return ((string)(this[this.tabledtPaymentSummary.TypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Type\' in table \'dtPaymentSummary\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tabledtPaymentSummary.TypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsCustomerNameNull() {
                 return this.IsNull(this.tabledtPaymentSummary.CustomerNameColumn);
             }
@@ -601,6 +631,18 @@ namespace SosesPOS.dataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetTotalAmountNull() {
                 this[this.tabledtPaymentSummary.TotalAmountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTypeNull() {
+                return this.IsNull(this.tabledtPaymentSummary.TypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTypeNull() {
+                this[this.tabledtPaymentSummary.TypeColumn] = global::System.Convert.DBNull;
             }
         }
         

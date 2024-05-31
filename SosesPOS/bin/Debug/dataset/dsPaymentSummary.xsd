@@ -9,14 +9,15 @@
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="dsPaymentSummary" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="dsPaymentSummary" msprop:Generator_DataSetName="dsPaymentSummary">
+  <xs:element name="dsPaymentSummary" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="dsPaymentSummary" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsPaymentSummary">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="dtPaymentSummary" msprop:Generator_RowEvHandlerName="dtPaymentSummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="dtPaymentSummaryRowDeleted" msprop:Generator_RowDeletingName="dtPaymentSummaryRowDeleting" msprop:Generator_RowEvArgName="dtPaymentSummaryRowChangeEvent" msprop:Generator_TablePropName="dtPaymentSummary" msprop:Generator_RowChangedName="dtPaymentSummaryRowChanged" msprop:Generator_RowChangingName="dtPaymentSummaryRowChanging" msprop:Generator_TableClassName="dtPaymentSummaryDataTable" msprop:Generator_RowClassName="dtPaymentSummaryRow" msprop:Generator_TableVarName="tabledtPaymentSummary" msprop:Generator_UserTableName="dtPaymentSummary">
+        <xs:element name="dtPaymentSummary" msprop:Generator_RowClassName="dtPaymentSummaryRow" msprop:Generator_RowEvHandlerName="dtPaymentSummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="dtPaymentSummaryRowDeleted" msprop:Generator_RowDeletingName="dtPaymentSummaryRowDeleting" msprop:Generator_RowEvArgName="dtPaymentSummaryRowChangeEvent" msprop:Generator_TablePropName="dtPaymentSummary" msprop:Generator_RowChangedName="dtPaymentSummaryRowChanged" msprop:Generator_UserTableName="dtPaymentSummary" msprop:Generator_RowChangingName="dtPaymentSummaryRowChanging" msprop:Generator_TableClassName="dtPaymentSummaryDataTable" msprop:Generator_TableVarName="tabledtPaymentSummary">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="CustomerName" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" msprop:Generator_ColumnVarNameInTable="columnCustomerName" msprop:Generator_UserColumnName="CustomerName" type="xs:string" minOccurs="0" />
-              <xs:element name="TotalAmount" msprop:Generator_ColumnPropNameInRow="TotalAmount" msprop:Generator_ColumnPropNameInTable="TotalAmountColumn" msprop:Generator_ColumnVarNameInTable="columnTotalAmount" msprop:Generator_UserColumnName="TotalAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CustomerName" msprop:Generator_UserColumnName="CustomerName" msprop:Generator_ColumnPropNameInTable="CustomerNameColumn" msprop:Generator_ColumnPropNameInRow="CustomerName" msprop:Generator_ColumnVarNameInTable="columnCustomerName" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalAmount" msprop:Generator_UserColumnName="TotalAmount" msprop:Generator_ColumnPropNameInTable="TotalAmountColumn" msprop:Generator_ColumnPropNameInRow="TotalAmount" msprop:Generator_ColumnVarNameInTable="columnTotalAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Type" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_UserColumnName="Type" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

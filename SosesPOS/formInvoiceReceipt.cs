@@ -172,9 +172,35 @@ namespace SosesPOS
 
                 dsInvoiceReceipt ds = new dsInvoiceReceipt();
 
-                if (isWhole)
-                {
-                    sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
+                //if (isWhole)
+                //{
+                //    sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
+                //        ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
+                //        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc" +
+                //        ", p.VAT " +
+                //        "from tblInvoice i " +
+                //        "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
+                //        "inner join tblProduct p on p.pcode = id.PCode " +
+                //        //"inner join tblProductDetails pd on pd.pcode = id.PCode and pd.uom = id.UOM " +
+                //        "left join tblUOM u on u.id = id.UOM " +
+                //        "where i.ReferenceNo = @refno and u.code = '0' " +
+                //        "ORDER BY p.pdesc ASC ", con);
+                //} else
+                //{
+                //    sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
+                //        ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
+                //        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
+                //        ", p.VAT " +
+                //        "from tblInvoice i " +
+                //        "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
+                //        "inner join tblProduct p on p.pcode = id.PCode " +
+                //        //"inner join tblProductDetails pd on pd.pcode = id.PCode and pd.uom = id.UOM " +
+                //        "left join tblUOM u on u.id = id.UOM " +
+                //        "where i.ReferenceNo = @refno and u.code = '1' " +
+                //        "ORDER BY p.pdesc ASC ", con);
+                //}
+
+                sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
                         ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
                         ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc" +
                         ", p.VAT " +
@@ -183,25 +209,17 @@ namespace SosesPOS
                         "inner join tblProduct p on p.pcode = id.PCode " +
                         //"inner join tblProductDetails pd on pd.pcode = id.PCode and pd.uom = id.UOM " +
                         "left join tblUOM u on u.id = id.UOM " +
-                        "where i.ReferenceNo = @refno and u.code = '0'" +
+                        "where i.ReferenceNo = @refno " +
                         "ORDER BY p.pdesc ASC ", con);
-                } else
-                {
-                    sda.SelectCommand = new SqlCommand("select i.InvoiceId id, i.ReferenceNo refno, p.pcode, id.SellingPrice price, id.Qty qty" +
-                        ", u.type uom , i.EntryTimestamp date, id.TotalItemPrice total " +
-                        ", CAST(CASE WHEN id.location = '1' THEN '*'+p.pdesc ELSE p.pdesc END AS nvarchar) as pdesc " +
-                        ", p.VAT" +
-                        "from tblInvoice i " +
-                        "inner join tblInvoiceDetails id on id.InvoiceId = i.InvoiceId " +
-                        "inner join tblProduct p on p.pcode = id.PCode " +
-                        //"inner join tblProductDetails pd on pd.pcode = id.PCode and pd.uom = id.UOM " +
-                        "left join tblUOM u on u.id = id.UOM " +
-                        "where i.ReferenceNo = @refno and u.code = '1'" +
-                        "ORDER BY p.pdesc ASC ", con);
-                }
+
                 sda.SelectCommand.Parameters.AddWithValue("@refno", RefNo);
                 sda.Fill(ds.Tables["dtSold"]);
                 con.Close();
+
+                if (ds.Tables["dtSold"].Rows.Count == 0)
+                {
+                    return;
+                }
 
                 rptDataSource = new ReportDataSource("DataSet1", ds.Tables["dtSold"]);
                 reportViewer1.LocalReport.DataSources.Add(rptDataSource);

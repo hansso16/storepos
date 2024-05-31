@@ -221,6 +221,11 @@ namespace SosesPOS
                 sda.SelectCommand.Parameters.AddWithValue("@uomcode", uomCode);
                 sda.Fill(ds.Tables["dtItems"]);
 
+                if (ds.Tables["dtItems"].Rows.Count == 0)
+                {
+                    return;
+                }
+
                 DataTable table = ds.Tables["dtItems"];
                 foreach (DataRow row in table.Rows)
                 {

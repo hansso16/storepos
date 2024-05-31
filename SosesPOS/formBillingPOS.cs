@@ -154,8 +154,8 @@ namespace SosesPOS
         protected override void PrintInvoice(string refno)
         {
             formInvoiceReceipt form = new formInvoiceReceipt();
-            form.LoadBillingReport(refno, true); // whole
-            form.LoadBillingReport(refno, false); // broken
+            form.LoadBillingReport(refno, true); // whole // combine na whole and broken
+            //form.LoadBillingReport(refno, false); // broken
             form.Dispose();
             this.Focus();
         }
