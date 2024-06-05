@@ -39,7 +39,9 @@ namespace SosesPOS
                     dataSource.Add(new ComboBoxDTO() { Name = "ALL", Value = "0" });
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "select UserCode, Username from tblUser WHERE TerminationDate = '9999-12-31'";
+                        com.CommandText = "SELECT u.UserCode, u.Username " +
+                            "FROM tblUser u INNER JOIN tblRole r ON r.RoleId = u.RoleId " +
+                            "WHERE u.TerminationDate = '9999-12-31' AND r.RoleCode in ('OFR','MGR')";
                         using (SqlDataReader dr = com.ExecuteReader())
                         {
                             if (dr.HasRows)
