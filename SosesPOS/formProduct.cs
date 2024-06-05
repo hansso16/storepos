@@ -196,12 +196,13 @@ namespace SosesPOS
                         cboCategoryId = Convert.ToInt32(cboCategory.SelectedValue);
                     }
 
-                    com = new SqlCommand("INSERT INTO tblProduct (pcode, barcode, pdesc, cid, count) VALUES (@pcode, @barcode, @pdesc, @cid, @count)", con);
+                    com = new SqlCommand("INSERT INTO tblProduct (pcode, barcode, pdesc, cid, count, vat) VALUES (@pcode, @barcode, @pdesc, @cid, @count, @vat)", con);
                     com.Parameters.AddWithValue("@pcode", txtPCode.Text);
                     com.Parameters.AddWithValue("@barcode", txtBarcode.Text);
                     com.Parameters.AddWithValue("@pdesc", txtDesc.Text);
                     com.Parameters.AddWithValue("@cid", cboCategoryId);
                     com.Parameters.AddWithValue("@count", txtCount.Text);
+                    com.Parameters.AddWithValue("@vat", "1"); // 1 = vattable;
                     com.ExecuteNonQuery();
 
                     con.Close();
