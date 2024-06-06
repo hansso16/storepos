@@ -71,7 +71,7 @@ namespace SosesPOS
                     int cid = Convert.ToInt32(com.ExecuteScalar());
 
                     com = new SqlCommand("INSERT INTO tblCustomerCollection(CustomerId, CustomerCode, OpenBalance " +
-                        "VALUES (@cid, @ccode, @balance", con);
+                        "VALUES (@cid, @ccode, @balance)", con);
                     com.Parameters.AddWithValue("@ccode", txtCCode.Text);
                     com.Parameters.AddWithValue("@cid", cid);
                     com.Parameters.AddWithValue("@balance", "0");
