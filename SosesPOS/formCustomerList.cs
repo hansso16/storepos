@@ -59,6 +59,7 @@ namespace SosesPOS
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             formCustomer form = new formCustomer(this);
+            form.LoadAreaList();
             form.btnSave.Enabled = true;
             form.btnUpdate.Enabled = false;
             form.ShowDialog();

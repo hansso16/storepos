@@ -60,7 +60,7 @@ namespace SosesPOS
                     "FROM (" +
                         "SELECT 'INVOICE' as TYPE, i.ReferenceNo RefNo, i.ProcessTimestamp, i.TotalPrice as DEBIT, 0 as CREDIT, i.RunningBalance " +
                         "FROM tblOrder o INNER JOIN tblInvoice i ON o.OrderId = i.OrderId " +
-                        "WHERE o.CustomerId = @customerid AND o.OrderStatus = '15' " +
+                        "WHERE o.CustomerId = @customerid AND o.OrderStatus in ('15','16','20') " +
                         "UNION ALL " +
                         "SELECT 'PAYMENT' as TYPE, CASE WHEN 'CHECK' = cp.Type THEN CONCAT(b.BankName, ' ', cp.BankBranch, ' - ', cp.CheckNo) ELSE 'CASH' END as RefNo" +
                             ", cp.ProcessTimestamp, CASE WHEN cp.Amount < 0 THEN ABS(cp.Amount) ELSE 0 END as DEBIT" +

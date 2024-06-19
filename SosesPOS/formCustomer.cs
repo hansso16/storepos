@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using SosesPOS.util;
+
 namespace SosesPOS
 {
     public partial class formCustomer : Form
@@ -22,6 +24,41 @@ namespace SosesPOS
             InitializeComponent();
             con = new SqlConnection(dbcon.MyConnection());
             this.formCustomerList = formCustomerList;
+        }
+
+        public void LoadAreaList()
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
+                    //dataSource.Add(new ComboBoxDTO() { Name = "ALL", Value = "0" });
+                    using (SqlCommand com = con.CreateCommand())
+                    {
+                        com.CommandText = "SELECT AreaCode, AreaName from tblArea " +
+                            "WHERE EndDate = '9999-12-31'";
+                        using (SqlDataReader dr = com.ExecuteReader())
+                        {
+                            if (dr.HasRows)
+                            {
+                                while (dr.Read())
+                                {
+                                    dataSource.Add(new ComboBoxDTO() { Name = dr["AreaName"].ToString(), Value = dr["AreaCode"].ToString() });
+                                }
+                                cboAreaList.DataSource = dataSource;
+                                cboAreaList.DisplayMember = "Name";
+                                cboAreaList.ValueMember = "Value";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -46,39 +83,73 @@ namespace SosesPOS
             {
                 if (MessageBox.Show("Are you sure you want to save this customer?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    con.Open();
-
-                    com = new SqlCommand("SELECT 1 FROM tblCustomer WHERE CustomerCode = @ccode", con);
-                    com.Parameters.AddWithValue("@ccode", txtCCode.Text);
-                    dr = com.ExecuteReader();
-                    if (dr.HasRows)
+                    string ccode = null;
+                    using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                     {
-                        MessageBox.Show("Customer Code already exist. Please choose another.", "", MessageBoxButtons.OK, MessageBoxIcon.Error); // error
-                        dr.Close();
+                        con.Open();
+                        SqlTransaction transaction = con.BeginTransaction();
+                        int cid = 0;
+
+                        using (SqlCommand com = con.CreateCommand())
+                        {
+                            com.Transaction = transaction;
+                            com.CommandText = "SELECT NEXT VALUE FOR sqx_customer_code";
+                            using (SqlDataReader dr = com.ExecuteReader())
+                            {
+                                if (dr.Read())
+                                {
+                                    ccode = dr[0].ToString();
+                                }
+                            }
+                        }
+
+                        if (string.IsNullOrEmpty(ccode))
+                        {
+                            throw new Exception("Error retrieving Customer Code.");
+                        }
+
+                        while (ccode.Length < 4)
+                        {
+                            ccode = "0" + ccode;
+                        }
+                        ccode = cboAreaList.SelectedValue.ToString() + ccode;
+
+
+                        using (SqlCommand com = con.CreateCommand())
+                        {
+                            com.Transaction = transaction;
+                            com.CommandText = "INSERT INTO tblCustomer (CustomerCode, CustomerName, CustomerAddress, DateAdded, AreaCode) " +
+                                "OUTPUT inserted.CustomerId " +
+                                "VALUES (@ccode, @cname, @caddress, @dateadded, @areacode)";
+                            com.Parameters.AddWithValue("@ccode", ccode);
+                            com.Parameters.AddWithValue("@cname", txtName.Text);
+                            com.Parameters.AddWithValue("@caddress", txtAddress.Text);
+                            com.Parameters.AddWithValue("@dateadded", DateTime.Now);
+                            com.Parameters.AddWithValue("@areacode", cboAreaList.SelectedValue.ToString());
+                            cid = Convert.ToInt32(com.ExecuteScalar());
+                        }
+
+                        if (cid <= 0)
+                        {
+                            throw new Exception("Error in creating Customer profile. Unable to retrieve Customer ID.");
+                        }
+
+                        using (SqlCommand com = con.CreateCommand())
+                        {
+                            com.Transaction = transaction;
+                            com.CommandText = "INSERT INTO tblCustomerCollection (CustomerId, CustomerCode, OpenBalance) " +
+                                "VALUES (@cid, @ccode, @balance)";
+                            com.Parameters.AddWithValue("@ccode", txtCCode.Text);
+                            com.Parameters.AddWithValue("@cid", cid);
+                            com.Parameters.AddWithValue("@balance", "0");
+                            com.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
                         con.Close();
-                        return;
                     }
-                    dr.Close();
 
-
-                    com = new SqlCommand("INSERT INTO tblCustomer (CustomerCode, CustomerName, CustomerAddress, DateAdded) " +
-                        "OUTPUT inserted.CustomerId " +
-                        "VALUES (@ccode, @cname, @caddress, @dateadded)", con);
-                    com.Parameters.AddWithValue("@ccode", txtCCode.Text);
-                    com.Parameters.AddWithValue("@cname", txtName.Text);
-                    com.Parameters.AddWithValue("@caddress", txtAddress.Text);
-                    com.Parameters.AddWithValue("@dateadded", DateTime.Now);
-                    int cid = Convert.ToInt32(com.ExecuteScalar());
-
-                    com = new SqlCommand("INSERT INTO tblCustomerCollection(CustomerId, CustomerCode, OpenBalance " +
-                        "VALUES (@cid, @ccode, @balance)", con);
-                    com.Parameters.AddWithValue("@ccode", txtCCode.Text);
-                    com.Parameters.AddWithValue("@cid", cid);
-                    com.Parameters.AddWithValue("@balance", "0");
-                    com.ExecuteNonQuery();
-
-                    con.Close();
-                    MessageBox.Show("Customer record has been successfully saved");
+                    MessageBox.Show("Saved Successfully.\nNew Customer Code: " + ccode);
                     Clear();
                     formCustomerList.LoadCustomerRecords();
                 }

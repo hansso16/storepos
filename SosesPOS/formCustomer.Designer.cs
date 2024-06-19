@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
@@ -40,7 +41,8 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblCustomerId = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cboAreaList = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +57,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(515, 40);
             this.panel1.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Image = global::SosesPOS.Properties.Resources.cross__1_;
+            this.pictureBox1.Location = new System.Drawing.Point(490, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(25, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // lblTitle
             // 
@@ -105,6 +119,7 @@
             // 
             // txtCCode
             // 
+            this.txtCCode.Enabled = false;
             this.txtCCode.Location = new System.Drawing.Point(127, 57);
             this.txtCCode.Name = "txtCCode";
             this.txtCCode.Size = new System.Drawing.Size(349, 25);
@@ -125,7 +140,7 @@
             // 
             this.btnCancel.BackColor = System.Drawing.Color.Gray;
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(288, 150);
+            this.btnCancel.Location = new System.Drawing.Point(289, 182);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 32);
             this.btnCancel.TabIndex = 34;
@@ -137,7 +152,7 @@
             // 
             this.btnUpdate.BackColor = System.Drawing.Color.Black;
             this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(207, 150);
+            this.btnUpdate.Location = new System.Drawing.Point(208, 182);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 32);
             this.btnUpdate.TabIndex = 33;
@@ -149,7 +164,7 @@
             // 
             this.btnSave.BackColor = System.Drawing.Color.Black;
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(126, 150);
+            this.btnSave.Location = new System.Drawing.Point(127, 182);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 32);
             this.btnSave.TabIndex = 32;
@@ -166,24 +181,34 @@
             this.lblCustomerId.TabIndex = 35;
             this.lblCustomerId.Visible = false;
             // 
-            // pictureBox1
+            // cboAreaList
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = global::SosesPOS.Properties.Resources.cross__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(490, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(25, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.cboAreaList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAreaList.FormattingEnabled = true;
+            this.cboAreaList.Location = new System.Drawing.Point(127, 151);
+            this.cboAreaList.Name = "cboAreaList";
+            this.cboAreaList.Size = new System.Drawing.Size(349, 25);
+            this.cboAreaList.TabIndex = 36;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(22, 154);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 17);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "Area";
             // 
             // formCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 214);
+            this.ClientSize = new System.Drawing.Size(515, 240);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cboAreaList);
             this.Controls.Add(this.lblCustomerId);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnUpdate);
@@ -223,5 +248,7 @@
         public System.Windows.Forms.Button btnUpdate;
         public System.Windows.Forms.Button btnSave;
         public System.Windows.Forms.Label lblCustomerId;
+        private System.Windows.Forms.ComboBox cboAreaList;
+        private System.Windows.Forms.Label label1;
     }
 }
