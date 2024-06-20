@@ -139,7 +139,7 @@ namespace SosesPOS
                             com.Transaction = transaction;
                             com.CommandText = "INSERT INTO tblCustomerCollection (CustomerId, CustomerCode, OpenBalance) " +
                                 "VALUES (@cid, @ccode, @balance)";
-                            com.Parameters.AddWithValue("@ccode", txtCCode.Text);
+                            com.Parameters.AddWithValue("@ccode", ccode);
                             com.Parameters.AddWithValue("@cid", cid);
                             com.Parameters.AddWithValue("@balance", "0");
                             com.ExecuteNonQuery();

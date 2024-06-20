@@ -47,10 +47,10 @@
                   <Width>0.85455cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>8.09244cm</Width>
+                  <Width>6.02687cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.98572cm</Width>
+                  <Width>2.6153cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -315,7 +315,7 @@
             <Top>0.02778in</Top>
             <Left>0.365cm</Left>
             <Height>1.06771cm</Height>
-            <Width>11.93271cm</Width>
+            <Width>9.49672cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -353,8 +353,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox11</rd:DefaultName>
-            <Top>0.4898in</Top>
-            <Left>1.79042in</Left>
+            <Top>0.46203in</Top>
+            <Left>1.7062in</Left>
             <Height>0.20833in</Height>
             <Width>1in</Width>
             <ZIndex>1</ZIndex>
@@ -369,10 +369,10 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>0.69814in</Height>
+        <Height>0.67036in</Height>
         <Style />
       </Body>
-      <Width>5in</Width>
+      <Width>4in</Width>
       <Page>
         <PageHeader>
           <Height>0.6875in</Height>
@@ -442,15 +442,15 @@
                     </TextRun>
                   </TextRuns>
                   <Style>
-                    <TextAlign>Right</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox2</rd:DefaultName>
               <Top>0.11806in</Top>
-              <Left>3.15412in</Left>
+              <Left>2.85292in</Left>
               <Height>0.25in</Height>
-              <Width>1.6875in</Width>
+              <Width>1.02965in</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>

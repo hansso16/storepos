@@ -95,7 +95,7 @@
                   <Width>1.84326cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.09826cm</Width>
+                  <Width>8.51076cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.23472cm</Width>
@@ -754,9 +754,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>dtItems</DataSetName>
-            <Left>0.36724cm</Left>
+            <Top>0.01389in</Top>
+            <Left>0.29104cm</Left>
             <Height>3.88636cm</Height>
-            <Width>13.17624cm</Width>
+            <Width>11.58874cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -765,10 +766,10 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>3.88636cm</Height>
+        <Height>3.92164cm</Height>
         <Style />
       </Body>
-      <Width>5.5in</Width>
+      <Width>4.75in</Width>
       <Page>
         <PageHeader>
           <Height>0.84667cm</Height>
@@ -781,7 +782,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.47625cm</Height>
+          <Height>0.15875cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <Style>
