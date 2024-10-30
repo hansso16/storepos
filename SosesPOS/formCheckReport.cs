@@ -304,7 +304,8 @@ namespace SosesPOS
                                     {
                                         if (line.Contains(","))
                                         {
-                                            String[] split = line.Split(',');
+                                            //String[] split = line.Split(',');
+                                            String[] split = ParseCsvLine(line);
                                             int fileCheckNo = Convert.ToInt32(split[1].ToString());
                                             if (checkIssueDTO.CheckNo == fileCheckNo)
                                             {
@@ -339,6 +340,40 @@ namespace SosesPOS
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        string[] ParseCsvLine(string line)
+        {
+            bool inQuotes = false;
+            var result = new List<string>();
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                char currentChar = line[i];
+
+                if (currentChar == '\"')
+                {
+                    sb.Append(currentChar);
+                    inQuotes = !inQuotes;  // Toggle the quote mode
+                }
+                else if (currentChar == ',' && !inQuotes)
+                {
+                    // Field ends if we hit a comma and we are not inside quotes
+                    result.Add(sb.ToString());
+                    sb.Clear();
+                }
+                else
+                {
+                    // Add the current character to the current value
+                    sb.Append(currentChar);
+                }
+            }
+
+            // Add the last value
+            result.Add(sb.ToString());
+
+            return result.ToArray();
         }
 
         private void btnSelectAll_Click(object sender, EventArgs e)
