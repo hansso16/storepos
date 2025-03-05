@@ -122,6 +122,7 @@
             this.Name = "formLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SOSES POS - LOGIN";
+            this.Shown += new System.EventHandler(this.formLogin_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

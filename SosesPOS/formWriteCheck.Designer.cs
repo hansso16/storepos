@@ -50,6 +50,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.txtBankType = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -276,6 +279,36 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "Bank Type";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(106, 3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 21);
+            this.label5.TabIndex = 53;
+            this.label5.Text = "BDO: 1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(106, 24);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 21);
+            this.label6.TabIndex = 54;
+            this.label6.Text = "SuySing: 2";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(106, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(73, 21);
+            this.label7.TabIndex = 55;
+            this.label7.Text = "Others: 3";
+            // 
             // formWriteCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,6 +316,9 @@
             this.BackgroundImage = global::SosesPOS.Properties.Resources.blank_cheque1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(731, 406);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtBankType);
             this.Controls.Add(this.btnCancel);
@@ -338,5 +374,8 @@
         private System.Windows.Forms.Button btnCancel;
         public System.Windows.Forms.TextBox txtBankType;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
     }
 }

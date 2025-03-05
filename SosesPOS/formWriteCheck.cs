@@ -537,6 +537,16 @@ namespace SosesPOS
             {
                 // accept backspace
             }
+            else if (e.KeyChar == 13) // enter
+            {
+                if (string.IsNullOrEmpty(txtBankType.Text))
+                {
+                    MessageBox.Show("Invalid Bank Type");
+                    return;
+                }
+                txtAmount.Focus();
+                txtAmount.SelectAll();
+            }
             else if (e.KeyChar == 49) // number: 1
             {
                 rbBDO.Checked = true;

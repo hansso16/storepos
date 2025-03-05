@@ -58,10 +58,10 @@ namespace SosesPOS
                     }
                     userDTO.role = roleDTO;
 
-                    this.Hide();
                     Form1 form = new Form1(this, userDTO);
                     form.SetAccessLevel();
                     form.Show();
+                    this.Hide();
 
                     if ("CH".Equals(roleDTO.roleCode))
                     {
@@ -106,6 +106,14 @@ namespace SosesPOS
             {
                 btnLogin_Click(sender, e);
             }
+        }
+
+        private void formLogin_Shown(object sender, EventArgs e)
+        {
+            //this.txtUsername.Text = "123";
+            //this.txtPassword.Text = "123";
+            //btnLogin_Click(sender, e);
+            //this.Hide();
         }
     }
 }
