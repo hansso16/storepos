@@ -57,10 +57,10 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>0630768B8A2086828F09556C79B829BAC0BD8322</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>B17212722B9457D34DB943FA5FFBDC2C96A4CAC5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>SosesPOS_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>SosesPOS_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -1097,6 +1097,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="SosesPOS_1_TemporaryKey.pfx" />
+    <None Include="SosesPOS_2_TemporaryKey.pfx" />
     <None Include="SosesPOS_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

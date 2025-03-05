@@ -27,19 +27,20 @@ namespace SosesPOS
             this.user = user;
             this.KeyPreview = true;
             this.formWriteCheckList = formWriteCheckList;
-
             try
             {
                 using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                 {
                     con.Open();
                     RetrieveCheckNoByBank(con, rbBDO);
+                    this.txtBankType.Text = "1";
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Write Check: formWriteCheck(): " + ex.Message, "Write Check", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.txtBankType.Focus();
         }
 
         private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -527,6 +528,36 @@ namespace SosesPOS
             {
                 txtAmount.Focus();
                 txtAmount.SelectAll();
+            }
+        }
+
+        private void txtBankType_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 8)
+            {
+                // accept backspace
+            }
+            else if (e.KeyChar == 49) // number: 1
+            {
+                rbBDO.Checked = true;
+                txtAmount.Focus();
+                txtAmount.SelectAll();
+            }
+            else if (e.KeyChar == 50) // number: 2
+            {
+                rbSS.Checked = true;
+                txtAmount.Focus();
+                txtAmount.SelectAll();
+            }
+            else if (e.KeyChar == 51) // number: 3
+            {
+                rbOther.Checked = true;
+                txtAmount.Focus();
+                txtAmount.SelectAll();
+            }
+            else if (e.KeyChar <= 48 || e.KeyChar >= 52)
+            {
+                e.Handled = true;
             }
         }
     }

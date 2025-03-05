@@ -48,13 +48,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.txtBankType = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtPayee
             // 
             this.txtPayee.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPayee.Location = new System.Drawing.Point(190, 162);
+            this.txtPayee.Location = new System.Drawing.Point(162, 166);
             this.txtPayee.Name = "txtPayee";
             this.txtPayee.Size = new System.Drawing.Size(311, 29);
             this.txtPayee.TabIndex = 35;
@@ -66,7 +68,7 @@
             this.dtpCheckDate.CustomFormat = "MM/dd/yyyy";
             this.dtpCheckDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpCheckDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpCheckDate.Location = new System.Drawing.Point(533, 96);
+            this.dtpCheckDate.Location = new System.Drawing.Point(505, 100);
             this.dtpCheckDate.Name = "dtpCheckDate";
             this.dtpCheckDate.Size = new System.Drawing.Size(139, 29);
             this.dtpCheckDate.TabIndex = 30;
@@ -75,7 +77,7 @@
             // txtAmount
             // 
             this.txtAmount.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAmount.Location = new System.Drawing.Point(533, 162);
+            this.txtAmount.Location = new System.Drawing.Point(505, 166);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(139, 29);
             this.txtAmount.TabIndex = 40;
@@ -89,7 +91,7 @@
             this.lblWrittenInteger.BackColor = System.Drawing.Color.Transparent;
             this.lblWrittenInteger.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWrittenInteger.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.lblWrittenInteger.Location = new System.Drawing.Point(114, 204);
+            this.lblWrittenInteger.Location = new System.Drawing.Point(99, 203);
             this.lblWrittenInteger.MaximumSize = new System.Drawing.Size(550, 0);
             this.lblWrittenInteger.Name = "lblWrittenInteger";
             this.lblWrittenInteger.Size = new System.Drawing.Size(0, 21);
@@ -98,7 +100,7 @@
             // btnSubmit
             // 
             this.btnSubmit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(533, 330);
+            this.btnSubmit.Location = new System.Drawing.Point(482, 344);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(139, 39);
             this.btnSubmit.TabIndex = 50;
@@ -111,7 +113,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(208, 99);
+            this.label1.Location = new System.Drawing.Point(180, 103);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 21);
             this.label1.TabIndex = 5;
@@ -120,7 +122,7 @@
             // txtCheckNo
             // 
             this.txtCheckNo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheckNo.Location = new System.Drawing.Point(291, 96);
+            this.txtCheckNo.Location = new System.Drawing.Point(263, 100);
             this.txtCheckNo.Name = "txtCheckNo";
             this.txtCheckNo.Size = new System.Drawing.Size(133, 29);
             this.txtCheckNo.TabIndex = 25;
@@ -168,17 +170,18 @@
             this.groupBox1.Controls.Add(this.rbOther);
             this.groupBox1.Controls.Add(this.rbSS);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(98, 12);
+            this.groupBox1.Location = new System.Drawing.Point(104, 257);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(264, 56);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bank Type";
+            this.groupBox1.Visible = false;
             // 
             // hlblCheckBankID
             // 
             this.hlblCheckBankID.AutoSize = true;
-            this.hlblCheckBankID.Location = new System.Drawing.Point(73, 74);
+            this.hlblCheckBankID.Location = new System.Drawing.Point(101, 72);
             this.hlblCheckBankID.Name = "hlblCheckBankID";
             this.hlblCheckBankID.Size = new System.Drawing.Size(0, 13);
             this.hlblCheckBankID.TabIndex = 13;
@@ -206,7 +209,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(94, 339);
+            this.label2.Location = new System.Drawing.Point(43, 353);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 21);
             this.label2.TabIndex = 16;
@@ -215,7 +218,7 @@
             // txtVendorShortName
             // 
             this.txtVendorShortName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVendorShortName.Location = new System.Drawing.Point(206, 336);
+            this.txtVendorShortName.Location = new System.Drawing.Point(155, 350);
             this.txtVendorShortName.Name = "txtVendorShortName";
             this.txtVendorShortName.Size = new System.Drawing.Size(295, 29);
             this.txtVendorShortName.TabIndex = 45;
@@ -224,7 +227,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(368, 39);
+            this.label3.Location = new System.Drawing.Point(340, 40);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(73, 21);
             this.label3.TabIndex = 19;
@@ -237,7 +240,7 @@
             this.cboCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCategory.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCategory.FormattingEnabled = true;
-            this.cboCategory.Location = new System.Drawing.Point(447, 33);
+            this.cboCategory.Location = new System.Drawing.Point(419, 34);
             this.cboCategory.Name = "cboCategory";
             this.cboCategory.Size = new System.Drawing.Size(225, 29);
             this.cboCategory.TabIndex = 20;
@@ -245,7 +248,7 @@
             // btnCancel
             // 
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(678, 330);
+            this.btnCancel.Location = new System.Drawing.Point(627, 344);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(83, 39);
             this.btnCancel.TabIndex = 51;
@@ -253,13 +256,35 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // txtBankType
+            // 
+            this.txtBankType.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBankType.Location = new System.Drawing.Point(298, 37);
+            this.txtBankType.MaxLength = 1;
+            this.txtBankType.Name = "txtBankType";
+            this.txtBankType.Size = new System.Drawing.Size(36, 29);
+            this.txtBankType.TabIndex = 52;
+            this.txtBankType.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBankType_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(212, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(80, 21);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Bank Type";
+            // 
             // formWriteCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::SosesPOS.Properties.Resources.blank_cheque1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(782, 398);
+            this.ClientSize = new System.Drawing.Size(731, 406);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtBankType);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.cboCategory);
             this.Controls.Add(this.label3);
@@ -311,5 +336,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cboCategory;
         private System.Windows.Forms.Button btnCancel;
+        public System.Windows.Forms.TextBox txtBankType;
+        private System.Windows.Forms.Label label4;
     }
 }

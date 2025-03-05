@@ -32,7 +32,7 @@ namespace SosesPOS
                 amount = IntegerUtil.Normalize(amount);
                 string writtenFigures = " ";
                 string strAmount = " ";
-                payee = "**" + payee.ToUpper() + "**";
+                payee = payee.ToUpper();
                 char[] cArray = checkDate.ToCharArray();
                 checkDate = String.Join(" ", cArray);
 
@@ -43,9 +43,9 @@ namespace SosesPOS
                     writtenFigures = IntegerUtil.NumberToCurrencyText(amount, MidpointRounding.AwayFromZero);
                     if (!String.IsNullOrEmpty(writtenFigures))
                     {
-                        writtenFigures = "**" + writtenFigures + "**";
+                        //writtenFigures = writtenFigures;
                     }
-                    strAmount = "**" + checkAmount + "**";
+                    strAmount = checkAmount;
                     //strAmount = checkAmount;
                 }
                 ReportParameter pCheckAmount = new ReportParameter("pCheckAmount", strAmount);

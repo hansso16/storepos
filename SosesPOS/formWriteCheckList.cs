@@ -94,8 +94,10 @@ namespace SosesPOS
             string categoryId = dgvVendorList[6, rowIndex].Value.ToString();
             form.LoadCategory(categoryId);
             form.Show();
-            form.txtCheckNo.Focus();
-            form.txtCheckNo.SelectAll();
+            //form.txtCheckNo.Focus();
+            //form.txtCheckNo.SelectAll();
+            form.txtBankType.Focus();
+            form.txtBankType.SelectAll();
         }
 
         private void dgvVendorList_CellContentClick(object sender, DataGridViewCellEventArgs e)
