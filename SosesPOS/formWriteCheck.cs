@@ -163,7 +163,7 @@ namespace SosesPOS
                         // if other, we only need to print
                         if (rbOther.Checked)
                         {
-                            hlblCheckBankID.Text = "0";
+                            //hlblCheckBankID.Text = "0";
                             if (String.IsNullOrEmpty(cboCategory.Text) || cboCategory.SelectedIndex < 0)
                             {
                                 cboCategory.SelectedValue = "PERSONAL";
@@ -533,9 +533,9 @@ namespace SosesPOS
 
         private void txtBankType_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 8)
+            if (e.KeyChar == 8 || e.KeyChar == 49 || e.KeyChar == 50 || e.KeyChar == 51)
             {
-                // accept backspace
+                // accept backspace, 1, 2 and 3
             }
             else if (e.KeyChar == 13) // enter
             {
@@ -544,26 +544,20 @@ namespace SosesPOS
                     MessageBox.Show("Invalid Bank Type");
                     return;
                 }
-                txtAmount.Focus();
-                txtAmount.SelectAll();
-            }
-            else if (e.KeyChar == 49) // number: 1
-            {
-                rbBDO.Checked = true;
-                txtAmount.Focus();
-                txtAmount.SelectAll();
-            }
-            else if (e.KeyChar == 50) // number: 2
-            {
-                rbSS.Checked = true;
-                txtAmount.Focus();
-                txtAmount.SelectAll();
-            }
-            else if (e.KeyChar == 51) // number: 3
-            {
-                rbOther.Checked = true;
-                txtAmount.Focus();
-                txtAmount.SelectAll();
+                if (txtBankType.Text.Equals("1"))
+                {
+                    rbBDO.Checked = true;
+                } 
+                else if (txtBankType.Text.Equals("2"))
+                {
+                    rbSS.Checked = true;
+                }
+                else if (txtBankType.Text.Equals("3"))
+                {
+                    rbOther.Checked = true;
+                }
+                txtCheckNo.Focus();
+                txtCheckNo.SelectAll();
             }
             else if (e.KeyChar <= 48 || e.KeyChar >= 52)
             {
