@@ -526,8 +526,10 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txtAmount.Focus();
-                txtAmount.SelectAll();
+                txtPayee.Focus();
+                txtPayee.SelectAll();
+                //txtAmount.Focus();
+                //txtAmount.SelectAll();
             }
         }
 
