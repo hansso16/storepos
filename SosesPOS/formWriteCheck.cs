@@ -40,7 +40,7 @@ namespace SosesPOS
             {
                 MessageBox.Show("Write Check: formWriteCheck(): " + ex.Message, "Write Check", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.txtBankType.Focus();
+            this.txtAmount.Focus();
         }
 
         private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -130,9 +130,33 @@ namespace SosesPOS
             //txtAmount.SelectAll();
         }
 
+        private bool ValidateCheckDetails()
+        {
+            if ((String.IsNullOrEmpty(txtCheckNo.Text) || Convert.ToDecimal(txtAmount.Text) < 0))
+            {
+                MessageBox.Show("Invalid Check Number. Please try again", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.txtCheckNo.Focus();
+                this.txtCheckNo.SelectAll();
+                return false;
+            }
+            else if (String.IsNullOrEmpty(txtPayee.Text))
+            {
+                MessageBox.Show("Invalid Payee. Please try again", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.txtPayee.Focus();
+                this.txtPayee.SelectAll();
+                return false;
+            } else if (String.IsNullOrEmpty(dtpCheckDate.Value.ToString()))
+            {
+                MessageBox.Show("Invalid Check Date. Please try again", module, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.dtpCheckDate.Focus();
+                return false;
+            }
+            return true;
+        }
+
         private bool ValidateCheck()
         {
-            if (!ProcessAmount())
+            if (!ProcessAmount() || !ValidateCheckDetails())
             { 
                 return false;
             }
@@ -425,7 +449,20 @@ namespace SosesPOS
         {
             try
             {
-                ProcessAmount();
+                //ProcessAmount();
+                decimal amount = 0;
+                if (!String.IsNullOrEmpty(this.txtAmount.Text) && Decimal.TryParse(this.txtAmount.Text, out amount) && amount > 0)
+                {
+                    //decimal amount = Convert.ToDecimal(txtAmount.Text);
+                    amount = IntegerUtil.Normalize(amount);
+                    string strAmount = $"{amount:n}";
+                    this.txtAmount.Text = strAmount;
+                    if (!amount.Equals(decimal.Zero))
+                    {
+                        string writtenNumbers = IntegerUtil.NumberToCurrencyText(amount, MidpointRounding.AwayFromZero);
+                        this.lblWrittenInteger.Text = writtenNumbers;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -500,7 +537,9 @@ namespace SosesPOS
                     txtCheckNo.SelectAll();
                     return;
                 }
-                this.dtpCheckDate.Focus();
+                this.txtAmount.Focus();
+                this.txtAmount.SelectAll();
+                //this.dtpCheckDate.Focus();
                 //this.dtpCheckDate.SelectAll();
             }
         }
@@ -526,10 +565,10 @@ namespace SosesPOS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                txtPayee.Focus();
-                txtPayee.SelectAll();
-                //txtAmount.Focus();
-                //txtAmount.SelectAll();
+                //txtPayee.Focus();
+                //txtPayee.SelectAll();
+                txtAmount.Focus();
+                txtAmount.SelectAll();
             }
         }
 

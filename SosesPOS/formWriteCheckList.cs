@@ -96,8 +96,8 @@ namespace SosesPOS
             form.Show();
             //form.txtCheckNo.Focus();
             //form.txtCheckNo.SelectAll();
-            form.txtBankType.Focus();
-            form.txtBankType.SelectAll();
+            form.txtAmount.Focus();
+            form.txtAmount.SelectAll();
         }
 
         private void dgvVendorList_CellContentClick(object sender, DataGridViewCellEventArgs e)
