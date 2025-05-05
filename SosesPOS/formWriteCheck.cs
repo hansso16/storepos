@@ -40,7 +40,8 @@ namespace SosesPOS
             {
                 MessageBox.Show("Write Check: formWriteCheck(): " + ex.Message, "Write Check", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            this.txtAmount.Focus();
+            this.txtBankType.Focus();
+            this.txtBankType.SelectAll();
         }
 
         private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)

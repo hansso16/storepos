@@ -179,6 +179,7 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bank Type";
+            this.groupBox1.Visible = false;
             // 
             // hlblCheckBankID
             // 
