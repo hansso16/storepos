@@ -43,7 +43,7 @@ namespace SosesPOS
             List<ComboBoxDTO> dataSource = new List<ComboBoxDTO>();
             using (SqlCommand com = con.CreateCommand())
             {
-                com.CommandText = "SELECT id, category FROM tblCategory";
+                com.CommandText = "SELECT id, category FROM tblCategory ORDER BY Category ASC";
                 using (SqlDataReader reader = com.ExecuteReader())
                 {
                     while (reader.Read())

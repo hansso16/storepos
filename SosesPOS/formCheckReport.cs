@@ -71,7 +71,7 @@ namespace SosesPOS
                     using (SqlCommand com = con.CreateCommand())
                     {
                         com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId, Remarks " +
-                                "FROM tblCheckIssue WHERE (IsPrinted = '0' OR IsPrinted IS NULL) AND CheckBankID = @checkbankid";
+                                "FROM tblCheckIssue WHERE (IsPrinted = '0' OR IsPrinted IS NULL) AND CheckBankID = @checkbankid ORDER BY CheckNo ASC";
                         com.Parameters.AddWithValue("@checkbankid", bankId);
                         using (SqlDataReader reader = com.ExecuteReader())
                         {
