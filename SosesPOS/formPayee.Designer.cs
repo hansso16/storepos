@@ -45,6 +45,7 @@
             this.cboCategory = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPayeeCode = new System.Windows.Forms.TextBox();
+            this.lblOPayeeCode = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -218,9 +219,18 @@
             // 
             this.txtPayeeCode.Location = new System.Drawing.Point(135, 66);
             this.txtPayeeCode.Name = "txtPayeeCode";
-            this.txtPayeeCode.ReadOnly = true;
             this.txtPayeeCode.Size = new System.Drawing.Size(156, 29);
             this.txtPayeeCode.TabIndex = 90;
+            // 
+            // lblOPayeeCode
+            // 
+            this.lblOPayeeCode.AutoSize = true;
+            this.lblOPayeeCode.Location = new System.Drawing.Point(298, 66);
+            this.lblOPayeeCode.Name = "lblOPayeeCode";
+            this.lblOPayeeCode.Size = new System.Drawing.Size(52, 21);
+            this.lblOPayeeCode.TabIndex = 91;
+            this.lblOPayeeCode.Text = "label3";
+            this.lblOPayeeCode.Visible = false;
             // 
             // formPayee
             // 
@@ -228,6 +238,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 322);
             this.ControlBox = false;
+            this.Controls.Add(this.lblOPayeeCode);
             this.Controls.Add(this.txtPayeeCode);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboCategory);
@@ -275,5 +286,6 @@
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox txtPayeeCode;
         public System.Windows.Forms.ComboBox cboCategory;
+        public System.Windows.Forms.Label lblOPayeeCode;
     }
 }

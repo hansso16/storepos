@@ -46,14 +46,17 @@ namespace SosesPOS
                                 "FROM tblPayee " +
                                 "WHERE PayeeShortName LIKE '%'+@search+'%' " +
                                 "OR PayeeName LIKE '%'+@search+'%' " +
-                                "OR PayeeCode = @search ORDER BY PayeeCode, PayeeShortName, PayeeName";
+                                "OR PayeeCode = @search " +
+                                "ORDER BY CASE WHEN LTRIM(RTRIM(PayeeShortName)) = '' OR PayeeShortName IS NULL THEN 1 ELSE 0 END, " +
+                                "PayeeShortName, PayeeName, PayeeCode";
                         } else
                         {
                             com.CommandText = "SELECT PayeeCode, PayeeShortName, PayeeName, Term, CategoryID " +
                                 "FROM tblPayee " +
                                 "WHERE PayeeShortName LIKE '%'+@search+'%' " +
                                 "OR PayeeName LIKE '%'+@search+'%' " +
-                                "ORDER BY PayeeCode, PayeeShortName, PayeeName";
+                                "ORDER BY CASE WHEN LTRIM(RTRIM(PayeeShortName)) = '' OR PayeeShortName IS NULL THEN 1 ELSE 0 END, " +
+                                "PayeeShortName, PayeeName, PayeeCode";
                         }
                         com.Parameters.AddWithValue("@search", this.txtSearch.Text);
                         Console.Write(com.CommandText);
@@ -114,6 +117,7 @@ namespace SosesPOS
                     formPayee form = new formPayee(user, this);
                     form.btnSave.Enabled = false;
 
+                    form.lblOPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
                     form.txtPayeeCode.Text = dgvVendorList[2, e.RowIndex].Value.ToString();
                     form.txtVendorName.Text = dgvVendorList[3, e.RowIndex].Value.ToString();
                     form.txtPayeeName.Text = dgvVendorList[4, e.RowIndex].Value.ToString();
@@ -158,7 +162,8 @@ namespace SosesPOS
         {
             formPayee form = new formPayee(user, this);
             form.btnUpdate.Enabled = false;
-            form.ShowDialog();
+            form.Show();
+            form.txtPayeeCode.Focus();
         }
 
         private void btnBlankCheck_Click(object sender, EventArgs e)

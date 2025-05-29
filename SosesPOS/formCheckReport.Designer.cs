@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cboBank = new System.Windows.Forms.ComboBox();
             this.btnUnselectAll = new System.Windows.Forms.Button();
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.btnBlankCheck = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Retain = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CheckId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cboBank = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCheckList)).BeginInit();
@@ -64,14 +64,24 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(799, 49);
+            this.panel1.Size = new System.Drawing.Size(1072, 49);
             this.panel1.TabIndex = 3;
+            // 
+            // cboBank
+            // 
+            this.cboBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBank.FormattingEnabled = true;
+            this.cboBank.Location = new System.Drawing.Point(690, 13);
+            this.cboBank.Name = "cboBank";
+            this.cboBank.Size = new System.Drawing.Size(140, 29);
+            this.cboBank.TabIndex = 14;
+            this.cboBank.SelectedIndexChanged += new System.EventHandler(this.cboBank_SelectedIndexChanged);
             // 
             // btnUnselectAll
             // 
             this.btnUnselectAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
             this.btnUnselectAll.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnUnselectAll.Location = new System.Drawing.Point(298, 7);
+            this.btnUnselectAll.Location = new System.Drawing.Point(571, 8);
             this.btnUnselectAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnUnselectAll.Name = "btnUnselectAll";
             this.btnUnselectAll.Size = new System.Drawing.Size(112, 35);
@@ -84,7 +94,7 @@
             // 
             this.btnSelectAll.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
             this.btnSelectAll.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnSelectAll.Location = new System.Drawing.Point(185, 7);
+            this.btnSelectAll.Location = new System.Drawing.Point(458, 8);
             this.btnSelectAll.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(105, 35);
@@ -97,7 +107,7 @@
             // 
             this.btnBlankCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
             this.btnBlankCheck.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnBlankCheck.Location = new System.Drawing.Point(564, 6);
+            this.btnBlankCheck.Location = new System.Drawing.Point(837, 7);
             this.btnBlankCheck.Margin = new System.Windows.Forms.Padding(4);
             this.btnBlankCheck.Name = "btnBlankCheck";
             this.btnBlankCheck.Size = new System.Drawing.Size(195, 35);
@@ -110,7 +120,7 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.pictureBox1.Image = global::SosesPOS.Properties.Resources.cross__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(767, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(1040, 0);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 49);
@@ -135,14 +145,14 @@
             this.dgvCheckList.AllowUserToAddRows = false;
             this.dgvCheckList.BackgroundColor = System.Drawing.Color.White;
             this.dgvCheckList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCheckList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(37)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCheckList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCheckList.ColumnHeadersHeight = 30;
             this.dgvCheckList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvCheckList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -154,14 +164,14 @@
             this.Amount,
             this.Retain,
             this.CheckId});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LemonChiffon;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCheckList.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.LemonChiffon;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCheckList.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCheckList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCheckList.EnableHeadersVisualStyles = false;
             this.dgvCheckList.Location = new System.Drawing.Point(0, 49);
@@ -169,7 +179,7 @@
             this.dgvCheckList.Name = "dgvCheckList";
             this.dgvCheckList.RowHeadersVisible = false;
             this.dgvCheckList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCheckList.Size = new System.Drawing.Size(799, 429);
+            this.dgvCheckList.Size = new System.Drawing.Size(1072, 495);
             this.dgvCheckList.TabIndex = 4;
             this.dgvCheckList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCheckList_CellContentClick);
             this.dgvCheckList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvCheckList_KeyDown);
@@ -228,21 +238,11 @@
             this.CheckId.ReadOnly = true;
             this.CheckId.Visible = false;
             // 
-            // cboBank
-            // 
-            this.cboBank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboBank.FormattingEnabled = true;
-            this.cboBank.Location = new System.Drawing.Point(417, 12);
-            this.cboBank.Name = "cboBank";
-            this.cboBank.Size = new System.Drawing.Size(140, 29);
-            this.cboBank.TabIndex = 14;
-            this.cboBank.SelectedIndexChanged += new System.EventHandler(this.cboBank_SelectedIndexChanged);
-            // 
             // formCheckReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 478);
+            this.ClientSize = new System.Drawing.Size(1072, 544);
             this.ControlBox = false;
             this.Controls.Add(this.dgvCheckList);
             this.Controls.Add(this.panel1);
@@ -268,6 +268,7 @@
         private System.Windows.Forms.Button btnBlankCheck;
         private System.Windows.Forms.Button btnUnselectAll;
         private System.Windows.Forms.Button btnSelectAll;
+        private System.Windows.Forms.ComboBox cboBank;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SELECT;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckDate;
@@ -276,6 +277,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         private System.Windows.Forms.DataGridViewButtonColumn Retain;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckId;
-        private System.Windows.Forms.ComboBox cboBank;
     }
 }
