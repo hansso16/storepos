@@ -184,7 +184,7 @@ namespace SosesPOS
             if (e.KeyCode == Keys.Enter)
             {
                 int noOfRows = dgvVendorList.RowCount;
-                MessageBox.Show(noOfRows.ToString());
+                string code = txtSearch.Text;
                 if (noOfRows == 1)
                 {
                     noOfRows -= 1;
@@ -192,6 +192,15 @@ namespace SosesPOS
                 }
                 else
                 {
+                    foreach (DataGridViewRow row in dgvVendorList.Rows)
+                    {
+                        string dgvCode = row.Cells["vendorCode"].Value?.ToString();
+                        if (code.Equals(dgvCode))
+                        {
+                            SelectPayee(row.Index);
+                            return;
+                        }
+                    }
                     dgvVendorList.Focus();
                 }
             }
