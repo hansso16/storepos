@@ -112,7 +112,7 @@ namespace SosesPOS
         {
             //this.txtUsername.Text = "123";
             //this.txtPassword.Text = "123";
-            //btnLogin_Click(sender, e);
+            btnLogin_Click(sender, e);
         }
     }
 }

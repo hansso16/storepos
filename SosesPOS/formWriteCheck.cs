@@ -305,7 +305,7 @@ namespace SosesPOS
                             // PRINT
                             if (!rbSS.Checked)
                             {
-                                PrintCheck(dtpCheckDate.Value.ToString("MM-dd-yyyy"), txtAmount.Text, txtPayee.Text);
+                                PrintCheck(Convert.ToDateTime(dtpCheckDate.Value), txtAmount.Text, txtPayee.Text);
                             }
 
                             //MessageBox.Show("The data has been successfully saved.", "Check Writer"
@@ -520,7 +520,7 @@ namespace SosesPOS
             }
         }
 
-        private void PrintCheck(string checkDate, string checkAmount, string payee)
+        private void PrintCheck(DateTime checkDate, string checkAmount, string payee)
         {
             formCheckPrint form = new formCheckPrint();
             form.PrintCheck(checkDate, checkAmount, payee);

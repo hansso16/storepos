@@ -21,7 +21,13 @@ namespace SosesPOS
             InitializeComponent();
         }
 
-        public void PrintCheck(string checkDate, string checkAmount, string payee)
+        private string formatWithDateWithSpace(string value)
+        {
+            return string.Join("   ", value.ToCharArray());
+
+        }
+
+        public void PrintCheck(DateTime checkDate, string checkAmount, string payee)
         {
             try
             {
@@ -33,10 +39,28 @@ namespace SosesPOS
                 string writtenFigures = " ";
                 string strAmount = " ";
                 payee = payee.ToUpper();
-                char[] cArray = checkDate.ToCharArray();
-                checkDate = String.Join(" ", cArray);
+                //char[] cArray = checkDate.ToCharArray();
+                //checkDate = String.Join("  ", cArray);
 
-                ReportParameter pCheckDate = new ReportParameter("pCheckDate", checkDate);
+                //DateTime parsedDate = Convert.ToDateTime(checkDate);
+                string month = checkDate.ToString("MM");
+                string day = checkDate.ToString("dd");
+                string year = checkDate.ToString("yyyy");
+
+                month = formatWithDateWithSpace(month);
+                day = formatWithDateWithSpace(day);
+                year = formatWithDateWithSpace(year);
+
+                //MessageBox.Show("Month: " + month);
+                //MessageBox.Show("Day: " + day);
+                //MessageBox.Show("Year: " + year);
+                //return;
+
+
+                ReportParameter pCheckMonth = new ReportParameter("pCheckMonth", month);
+                ReportParameter pCheckDay = new ReportParameter("pCheckDay", day);
+                ReportParameter pCheckYear = new ReportParameter("pCheckYear", year);
+                ReportParameter pCheckDate = new ReportParameter("pCheckDate", checkDate.ToString());
                 ReportParameter pPayee = new ReportParameter("pPayee", payee);
                 if (!amount.Equals(decimal.Zero))
                 {
@@ -51,6 +75,9 @@ namespace SosesPOS
                 ReportParameter pCheckAmount = new ReportParameter("pCheckAmount", strAmount);
                 ReportParameter pWrittenFigures = new ReportParameter("pWrittenFigures", writtenFigures);
 
+                reportViewer1.LocalReport.SetParameters(pCheckMonth);
+                reportViewer1.LocalReport.SetParameters(pCheckDay);
+                reportViewer1.LocalReport.SetParameters(pCheckYear);
                 reportViewer1.LocalReport.SetParameters(pCheckDate);
                 reportViewer1.LocalReport.SetParameters(pCheckAmount);
                 reportViewer1.LocalReport.SetParameters(pPayee);
