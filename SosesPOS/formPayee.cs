@@ -153,9 +153,17 @@ namespace SosesPOS
                 using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
                 {
                     con.Open();
-                    if (!ValidateForm() || !ValidatePayeeCode(txtPayeeCode.Text, con) || string.IsNullOrEmpty(lblOPayeeCode.Text))
+                    if (!ValidateForm() || string.IsNullOrEmpty(lblOPayeeCode.Text))
                     {
                         return;
+                    }
+
+                    if (!txtPayeeCode.Text.Equals(lblOPayeeCode.Text))
+                    {
+                        if (!ValidatePayeeCode(txtPayeeCode.Text, con))
+                        {
+                            return;
+                        }
                     }
 
                     using (SqlCommand com = con.CreateCommand())

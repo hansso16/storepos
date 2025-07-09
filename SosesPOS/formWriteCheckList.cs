@@ -184,6 +184,7 @@ namespace SosesPOS
             if (e.KeyCode == Keys.Enter)
             {
                 int noOfRows = dgvVendorList.RowCount;
+                MessageBox.Show(noOfRows.ToString());
                 if (noOfRows == 1)
                 {
                     noOfRows -= 1;
