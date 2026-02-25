@@ -70,7 +70,7 @@ namespace SosesPOS
                     con.Open();
                     using (SqlCommand com = con.CreateCommand())
                     {
-                        com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId, Remarks " +
+                        com.CommandText = "SELECT CheckDate, CheckNo, PayeeName, CheckAmount, EntryTimestamp, CheckId, isExported, Remarks " +
                                 "FROM tblCheckIssue WHERE (IsPrinted = '0' OR IsPrinted IS NULL) AND CheckBankID = @checkbankid ORDER BY CheckNo ASC";
                         com.Parameters.AddWithValue("@checkbankid", bankId);
                         using (SqlDataReader reader = com.ExecuteReader())
@@ -82,7 +82,7 @@ namespace SosesPOS
                                 string formattedAmount = amount.ToString("C", System.Globalization.CultureInfo.CurrentCulture).Substring(1);
                                 dgvCheckList.Rows.Add(i++, 0, Convert.ToDateTime(reader["CheckDate"]).ToString("MM/dd/yyyy")
                                     , reader["CheckNo"].ToString(), reader["Remarks"].ToString().Trim()
-                                    , formattedAmount, "CANCEL", reader["CheckId"].ToString());
+                                    , formattedAmount, reader["isExported"].ToString(), "CANCEL", reader["CheckId"].ToString());
                             }
                         }
                     }
@@ -236,8 +236,16 @@ namespace SosesPOS
 
             var senderGrid = (DataGridView)sender;
             string fileName = null;
+            // EDIT
+            //if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+            //    e.RowIndex >= 0 && senderGrid.Columns[e.ColumnIndex].Name.Equals("colEdit"))
+            //{
+            //    MessageBox.Show("asdf");
+            //}
+
+            // CANCEL
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.RowIndex >= 0)
+            e.RowIndex >= 0 && senderGrid.Columns[e.ColumnIndex].Name.Equals("colCancel"))
             {
                 //TODO - Button Clicked - Execute Code Here
                 string checkId = dgvCheckList.Rows[e.RowIndex].Cells["CheckId"].Value.ToString();
@@ -408,6 +416,216 @@ namespace SosesPOS
             ComboBoxDTO dto = (ComboBoxDTO) cb.SelectedItem;
             bankid = dto.Value;
             LoadCheckList(bankid);
+        }
+
+        private void dgvCheckList_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ignore the header row
+            if (e.RowIndex < 0 || isReverting) return;
+
+            DataGridViewRow row = dgvCheckList.Rows[e.RowIndex];
+            string columnName = dgvCheckList.Columns[e.ColumnIndex].Name;
+
+            // We only want to update the DB if they edit specific columns
+            if (columnName == "CheckNo")
+            {
+                string checkIssueID = row.Cells["CheckId"].Value.ToString();
+                string newValue = row.Cells[e.ColumnIndex].Value.ToString();
+
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    string query = "";
+                    SqlCommand com = con.CreateCommand();
+
+                    if (columnName == "CheckNo")
+                    {
+                        query = "UPDATE tblCheckIssue SET CheckNo = @checkno WHERE CheckId = @id";
+                    }
+
+                    if (!string.IsNullOrEmpty(query))
+                    {
+                        com.CommandText = query;
+                        com.Parameters.AddWithValue("checkno", newValue);
+                        com.Parameters.AddWithValue("@id", checkIssueID);
+
+                        try
+                        {
+                            con.Open();
+                            com.ExecuteNonQuery();
+                        } catch (Exception ex)
+                        {
+                            MessageBox.Show("Error updating record: " + ex.Message, "Edit Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            RevertCell(row, e.ColumnIndex);
+                        }
+                    }
+                }
+
+            }
+            
+        }
+
+        private string previousCellValue = "";
+        private bool isReverting = false;
+        private void dgvCheckList_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // 1. Check the hidden IsExported column for this specific row
+            bool isExported = false;
+
+            // Safely check the value, treating 1, "True", or true as exported
+            var exportedValue = dgvCheckList.Rows[e.RowIndex].Cells["colIsExported"].Value;
+            if (exportedValue != null && (exportedValue.ToString() == "1" || exportedValue.ToString().ToLower() == "true"))
+            {
+                isExported = true;
+            }
+
+            // 2. If it is already exported, block the edit
+            if (isExported)
+            {
+                e.Cancel = true; // This forces the cell to remain read-only
+                MessageBox.Show("This check has already been exported to the file and cannot be edited.", "Edit Locked", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            // Safely grab the current value
+            previousCellValue = dgvCheckList.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "";
+        }
+
+        // A helper method to handle the revert process safely
+        private void RevertCell(DataGridViewRow row, int columnIndex)
+        {
+            isReverting = true; // Turn ON the flag
+            row.Cells[columnIndex].Value = previousCellValue; // Put the old value back
+            isReverting = false; // Turn OFF the flag
+        }
+
+        private void btnExportToCSV_Click(object sender, EventArgs e)
+        {
+            // Confirm with the user before generating
+            if (MessageBox.Show("Are you sure you want to export all pending checks to the bank file?", "Confirm Export", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(dbcon.MyConnection()))
+                {
+                    con.Open();
+                    string fileName = "";
+
+                    // 1. Fetch the CSV File Path from Parameters
+                    using (SqlCommand com = new SqlCommand("SELECT ParameterValue FROM tblParameter WHERE ParameterID = @parameterid", con))
+                    {
+                        com.Parameters.AddWithValue("@parameterid", GlobalConstant.CHECK_CSV_FILE_PARAMETER_ID);
+                        using (SqlDataReader reader = com.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                fileName = reader["ParameterValue"].ToString();
+                            }
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(fileName))
+                    {
+                        MessageBox.Show("Export file path is missing in the database parameters.", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // 2. Fetch all Unexported Checks 
+                    // We use a JOIN to get the Bank Short Name, assuming you have a tblCheckBank table
+                    string selectQuery = @"
+                                        SELECT 
+                                            i.CheckID, 
+                                            b.BankShortName, 
+                                            i.CheckNo, 
+                                            i.CheckDate, 
+                                            i.CheckAmount, 
+                                            i.PayeeCode, 
+                                            i.Remarks AS VendorShortName, 
+                                            i.PayeeName,
+                                            i.Computer,
+                                            i.Retain,
+                                            i.Category
+                                        FROM tblCheckIssue i
+                                        LEFT JOIN tblCheckBank b ON i.CheckBankID = b.CheckBankID
+                                        WHERE i.IsExported = 0 AND b.CheckBankId != '3'";
+
+                    DataTable dtUnexported = new DataTable();
+                    using (SqlCommand com = new SqlCommand(selectQuery, con))
+                    {
+                        using (SqlDataAdapter da = new SqlDataAdapter(com))
+                        {
+                            da.Fill(dtUnexported);
+                        }
+                    }
+
+                    if (dtUnexported.Rows.Count == 0)
+                    {
+                        MessageBox.Show("There are no new checks waiting to be exported.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    // 3. Write data to the CSV File
+                    // 'true' in StreamWriter means it will APPEND to the file. Change to 'false' if you want it to overwrite and create a fresh file every time.
+                    using (StreamWriter sw = new StreamWriter(fileName, true))
+                    {
+                        foreach (DataRow row in dtUnexported.Rows)
+                        {
+                            // Clean up fields to prevent commas in names from breaking the CSV layout
+                            string bank = row["BankShortName"].ToString();
+                            string checkNo = row["CheckNo"].ToString();
+                            string checkDate = Convert.ToDateTime(row["CheckDate"]).ToString("MM/dd/yyyy");
+                            string amount = row["CheckAmount"].ToString();
+                            string vendorCode = row["PayeeCode"].ToString();
+                            string vendorShortName = row["VendorShortName"].ToString();
+                            string vendorFullName = row["PayeeName"].ToString();
+                            string computer = row["Computer"].ToString();
+                            string retain = row["Retain"].ToString();
+                            string category = row["Category"].ToString();
+
+
+                            // Note: In your original code you also had 'Category', but I noticed it wasn't saved in the tblCheckIssue INSERT statement. 
+                            // If your bank requires it, you can append a default value here, or add Category to your table.
+
+                            // Build the comma-separated line (adjust the order if your bank expects it differently)
+                            String[] newLine = {
+                                bank,
+                                checkNo,
+                                checkDate,
+                                amount,
+                                vendorCode,
+                                "\"" + vendorShortName + "\"",
+                                "\"" + vendorFullName + "\"",
+                                category,
+                                computer,
+                                retain
+                            };
+
+                            sw.WriteLine(string.Join(GlobalConstant.COMMA_SEPARATOR, newLine));
+                        }
+                    }
+
+                    // 4. Mark these specific checks as Exported in the database
+                    using (SqlCommand com = new SqlCommand("UPDATE tblCheckIssue SET IsExported = 1 WHERE IsExported = 0", con))
+                    {
+                        com.ExecuteNonQuery();
+                    }
+
+                    // 5. Success
+                    MessageBox.Show($"Successfully exported {dtUnexported.Rows.Count} check(s) to the file.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Optional: Refresh your DataGridView here so the user sees the updated status
+                    LoadCheckList(bankid);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error during export: " + ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

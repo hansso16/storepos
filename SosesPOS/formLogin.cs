@@ -110,9 +110,9 @@ namespace SosesPOS
 
         private void formLogin_Shown(object sender, EventArgs e)
         {
-            //this.txtUsername.Text = "123";
-            //this.txtPassword.Text = "123";
-            //btnLogin_Click(sender, e);
+            this.txtUsername.Text = "123";
+            this.txtPassword.Text = "123";
+            btnLogin_Click(sender, e);
         }
     }
 }

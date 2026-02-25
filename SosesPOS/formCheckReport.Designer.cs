@@ -38,13 +38,15 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvCheckList = new System.Windows.Forms.DataGridView();
+            this.btnExportToCSV = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SELECT = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CheckDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CheckNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Payee = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Retain = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colIsExported = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colCancel = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CheckId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -54,6 +56,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnExportToCSV);
             this.panel1.Controls.Add(this.cboBank);
             this.panel1.Controls.Add(this.btnUnselectAll);
             this.panel1.Controls.Add(this.btnSelectAll);
@@ -162,7 +165,8 @@
             this.CheckNo,
             this.Payee,
             this.Amount,
-            this.Retain,
+            this.colIsExported,
+            this.colCancel,
             this.CheckId});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
@@ -181,9 +185,24 @@
             this.dgvCheckList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCheckList.Size = new System.Drawing.Size(1072, 495);
             this.dgvCheckList.TabIndex = 4;
+            this.dgvCheckList.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvCheckList_CellBeginEdit);
             this.dgvCheckList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCheckList_CellContentClick);
+            this.dgvCheckList.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCheckList_CellValueChanged);
             this.dgvCheckList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvCheckList_KeyDown);
             this.dgvCheckList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dgvCheckList_KeyUp);
+            // 
+            // btnExportToCSV
+            // 
+            this.btnExportToCSV.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(158)))), ((int)(((byte)(132)))));
+            this.btnExportToCSV.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnExportToCSV.Location = new System.Drawing.Point(185, 7);
+            this.btnExportToCSV.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExportToCSV.Name = "btnExportToCSV";
+            this.btnExportToCSV.Size = new System.Drawing.Size(129, 35);
+            this.btnExportToCSV.TabIndex = 15;
+            this.btnExportToCSV.Text = "Export to CSV";
+            this.btnExportToCSV.UseVisualStyleBackColor = false;
+            this.btnExportToCSV.Click += new System.EventHandler(this.btnExportToCSV_Click);
             // 
             // Column1
             // 
@@ -203,6 +222,7 @@
             this.CheckDate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.CheckDate.HeaderText = "Check Date";
             this.CheckDate.Name = "CheckDate";
+            this.CheckDate.ReadOnly = true;
             this.CheckDate.Width = 111;
             // 
             // CheckNo
@@ -216,6 +236,7 @@
             this.Payee.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Payee.HeaderText = "Payee";
             this.Payee.Name = "Payee";
+            this.Payee.ReadOnly = true;
             // 
             // Amount
             // 
@@ -225,11 +246,18 @@
             this.Amount.ReadOnly = true;
             this.Amount.Width = 89;
             // 
-            // Retain
+            // colIsExported
             // 
-            this.Retain.HeaderText = "CANCEL";
-            this.Retain.Name = "Retain";
-            this.Retain.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colIsExported.HeaderText = "EXP";
+            this.colIsExported.Name = "colIsExported";
+            this.colIsExported.ReadOnly = true;
+            this.colIsExported.Visible = false;
+            // 
+            // colCancel
+            // 
+            this.colCancel.HeaderText = "CANCEL";
+            this.colCancel.Name = "colCancel";
+            this.colCancel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // CheckId
             // 
@@ -269,13 +297,15 @@
         private System.Windows.Forms.Button btnUnselectAll;
         private System.Windows.Forms.Button btnSelectAll;
         private System.Windows.Forms.ComboBox cboBank;
+        private System.Windows.Forms.Button btnExportToCSV;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SELECT;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Payee;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewButtonColumn Retain;
+        private System.Windows.Forms.DataGridViewButtonColumn colIsExported;
+        private System.Windows.Forms.DataGridViewButtonColumn colCancel;
         private System.Windows.Forms.DataGridViewTextBoxColumn CheckId;
     }
 }
